@@ -29,7 +29,11 @@ function global:Execute-Example
     [CmdletBinding(PositionalBinding = $false)]
 	Param (
         [Parameter(Mandatory = $true)]
-        [ValidateSet('00.Example', '01.AsyncMain')]
+        [ValidateSet('00.Example', '01.AsyncMain', '02.DefaultKeyword', '03.InferredTupleElementNames', '04.SafeEfficientCodeEnhancements', 
+            '05.NonTrailingNamedArguments', '06.LeadingUnderscoresInNumericLiterals', '07.PrivateProtectedAccessModifier',
+            '08.ConditionalRefExpressions',  '09.EnablingMoreEfficientSafeCode', '10.MakeExistingFeaturesBetter', 
+            '11.NullableReferenceTpes', '12.AsyncStreams', '13.RangesAndIndices', '14.DefaultInterfaceMembers', 
+            '15.RecursivePatterns', '16.SwitchExpressions', '17.TargetTypedNewExpressions', '18.ExtensionEverything')]
         [ValidateNotNullOrEmpty()]
         [string]$ProjectName
     ,
@@ -57,8 +61,58 @@ function global:Execute-Example
                 $defineValidateSet = @('_01_CSharp70_NON_ASYNC', '_02_CSharp70_TASK', '_03_CSharp70_ASYNC', 
                     '_04_CSharp70_ASYNC_AWAIT', '_05_CSharp71_ASYNC', '_06_CSharp71_ASYNC_AWAIT1', '_07_CSharp71_ASYNC_AWAIT2')
             }
-            '02.AsyncMain' { 
-                $defineValidateSet = @('CSharp70', 'CSharp71')
+            '02.DefaultKeyword' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '03.InferredTupleElementNames' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '04.SafeEfficientCodeEnhancements' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '05.NonTrailingNamedArguments' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '06.LeadingUnderscoresInNumericLiterals' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '07.PrivateProtectedAccessModifier' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '08.ConditionalRefExpressions' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '09.EnablingMoreEfficientSafeCode' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '10.MakeExistingFeaturesBetter' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '11.NullableReferenceTpes' {
+	            $defineValidateSet = @('_01_CSharp73_ON_NULL_EXCEPTION', '_02_CSharp80_DISABLE_NULLABLE',
+                    '_03_CSharp80_ENABLE_NULLABLE', '_04_CSharp80_ENABLE_SAFEONLY', '_05_CSharp80_RESTORE',
+                    '_06_CSharp80_CHECK_NULL', '_07_CSharp80_CHECK_IS_NULL')
+            }
+            '12.AsyncStreams' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '13.RangesAndIndices' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '14.DefaultInterfaceMembers' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '15.RecursivePatterns' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '16.SwitchExpressions' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '17.TargetTypedNewExpressions' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            '18.ExtensionEverything' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
             }
         }
         [System.Management.Automation.ValidateSetAttribute]$defineValidateSetParamAttr = `
@@ -106,17 +160,52 @@ function global:Execute-Example
         Write-Host -ForegroundColor Green `
             $("`nProject name: {0}`nLanguage version: C#{1}`nCode executed: {2}`n`nResults:`n`n" `
                 -f $ProjectName, $LangVersion, $DefineSection)
-	    dotnet build "$projectFullPath" | Out-Null
-        
-        [Diagnostics.Stopwatch]$sw = [Diagnostics.Stopwatch]::StartNew()
-	    dotnet run --project "$projectFullPath"
+
+	    [string[]]$output = dotnet build "$projectFullPath" --verbosity quiet
+
+        [string[]]$outputErrors = $output | ? { $_.Contains('error') }
+        [int]$outputErrorstLineCount = $outputErrors.Length / 2    
+
+        if ($outputErrorstLineCount -gt 0)
+        {
+            for ($i = 0; $i -lt $outputErrorstLineCount; $i += 1)
+            {
+                [string]$outputLine = $outputErrors[$i]
+                [int]$beginIdx = $outputLine.IndexOf(':') + 2
+                [int]$endIdx = $outputLine.LastIndexOf('[')
+                Write-Host -ForegroundColor Red $outputLine.Substring(
+                    $beginIdx, $endIdx - $beginIdx)
+            }
+        }
+        else
+        {
+            [string[]]$outputWarnings = $output | ? { $_.Contains('warning') }
+            [int]$outputWarningstLineCount = $outputWarnings.Length / 2
+
+            for ($i = 0; $i -lt $outputWarningstLineCount; $i += 1)
+            {
+                [string]$outputLine = $outputWarnings[$i]
+                [int]$beginIdx = $outputLine.IndexOf(':') + 2
+                [int]$endIdx = $outputLine.LastIndexOf('[')
+                Write-Host -ForegroundColor Yellow $outputLine.Substring(
+                    $beginIdx, $endIdx - $beginIdx)
+            }
+
+            Write-Host "`n`n"
+
+            [Diagnostics.Stopwatch]$sw = [Diagnostics.Stopwatch]::StartNew()
+	        dotnet run --project "$projectFullPath"
+        }
     }
 
     end
     {
-        $sw.Stop()
-        Write-Host -ForegroundColor Green `
-            $("`nElapsed time: {0:f}s" -f $($sw.Elapsed.Seconds + $sw.Elapsed.Milliseconds / 1000))
+        if ($sw) 
+        {
+            $sw.Stop()
+            Write-Host -ForegroundColor Green `
+                $("`nElapsed time: {0:f}s" -f $($sw.Elapsed.Seconds + $sw.Elapsed.Milliseconds / 1000))
+        }
         
     }
 }

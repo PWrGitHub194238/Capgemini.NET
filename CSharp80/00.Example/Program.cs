@@ -69,4 +69,3 @@ namespace _00.Example
 
     #endregion C#7.0 Example
 }
-

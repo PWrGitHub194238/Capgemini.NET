@@ -4,6 +4,12 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>_11.NullableReferenceTpes</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+    <NullableReferenceTypes>enable</NullableReferenceTypes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Colorful.Console" Version="1.2.9" />
+  </ItemGroup>
 
 </Project>
