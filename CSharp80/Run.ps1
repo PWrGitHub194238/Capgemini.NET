@@ -38,7 +38,7 @@ function global:Execute-Example
         [string]$ProjectName
     ,
         [Parameter(Mandatory = $false)]
-        [ValidateSet('7.0', '7.1', '7.2', '8.0')]
+        [ValidateSet('7.0', '7.1', '7.2', '7.3', '8.0')]
         [string]$LangVersion = '7.0'
     )
 
@@ -100,7 +100,10 @@ function global:Execute-Example
 	            $defineValidateSet = @('CSharp70', 'CSharp80')
             }
             '14.DefaultInterfaceMembers' {
-	            $defineValidateSet = @('CSharp70', 'CSharp80')
+                $defineValidateSet = @('_01a_CSharp73_OLD_COMMON_INTERFACE', '_01b_CSharp73_NEW_COMMON_INTERFACE', '_01c_CSharp73_FIXED_COMMON_INTERFACE', 
+                    '_02a_CSharp73_OLD_ABSTRACT_CLASSES', '_02b_CSharp73_NEW_ABSTRACT_CLASSES', '_02c_CSharp73_FIXED_ABSTRACT_CLASSES', 
+                    '_03a_CSharp73_OLD_NAMESPACE_CHANGE', '_03b_CSharp73_NEW_NAMESPACE_CHANGE', '_03c_CSharp73_NEWER_NAMESPACE_CHANGE', 
+                    '_04a_CSharp80_OLD_DEFAULT_MEMBERS', '_04b_CSharp80_NEW_DEFAULT_MEMBERS')
             }
             '15.RecursivePatterns' {
 	            $defineValidateSet = @('CSharp70', 'CSharp80')
@@ -134,25 +137,31 @@ function global:Execute-Example
     {
         [string]$DefineSection = $PSBoundParameters['DefineSection']
 
-        [string]$projectFullPath = [System.IO.Path]::Combine($PSScriptRoot, $ProjectName, "$ProjectName.csproj")
-        [string]$programFullPath = [System.IO.Path]::Combine($PSScriptRoot, $ProjectName, 'Program.cs')
+        [string]$projectBasePath = [System.IO.Path]::Combine($PSScriptRoot, $ProjectName)
+        [string]$projectFullPath = [System.IO.Path]::Combine($projectBasePath, "$ProjectName.csproj")
+        
+        foreach ($subProjectDir in [System.IO.Directory]::EnumerateDirectories($PSScriptRoot, "$ProjectName*", [IO.SearchOption]::TopDirectoryOnly))
+        {
+            foreach ($csFile in [System.IO.Directory]::EnumerateFiles($subProjectDir, "*.cs", [IO.SearchOption]::AllDirectories))
+            {
+                # Replace language version in a *.csproj file
+                Replace-InFile `
+                    -Path $csFile `
+                    -Pattern '<LangVersion>\d.\d' `
+                    -Replacement "<LangVersion>$LangVersion"
 
-        # Replace language version in a *.csproj file
-        Replace-InFile `
-            -Path $projectFullPath `
-            -Pattern '<LangVersion>\d.\d' `
-            -Replacement "<LangVersion>$LangVersion"
-
-        # Comment out every other (not $DefineSection) #define
-        Replace-InFile `
-            -Path $programFullPath `
-            -Pattern $('^(\s*\/{2})?\s*#define (?!' + $DefineSection + ')') `
-            -Replacement "// #define "
-        # Uncomment every #define $DefineSection
-        Replace-InFile `
-            -Path $programFullPath `
-            -Pattern $('^(\s*\/{2})?\s*#define ' + $DefineSection) `
-            -Replacement "#define $DefineSection"
+                # Comment out every other (not $DefineSection) #define
+                Replace-InFile `
+                    -Path $csFile `
+                    -Pattern $('^(\s*\/{2})?\s*#define (?!' + $DefineSection + ')') `
+                    -Replacement "// #define "
+                # Uncomment every #define $DefineSection
+                Replace-InFile `
+                    -Path $csFile `
+                    -Pattern $('^(\s*\/{2})?\s*#define ' + $DefineSection) `
+                    -Replacement "#define $DefineSection"
+            }
+        }
     }
 
     process
@@ -161,9 +170,10 @@ function global:Execute-Example
             $("`nProject name: {0}`nLanguage version: C#{1}`nCode executed: {2}`n`nResults:`n`n" `
                 -f $ProjectName, $LangVersion, $DefineSection)
 
+        dotnet restore "$projectFullPath" --verbosity quiet | Out-Null
 	    [string[]]$output = dotnet build "$projectFullPath" --verbosity quiet
 
-        [string[]]$outputErrors = $output | ? { $_.Contains('error') }
+        [string[]]$outputErrors = $output | Where-Object { $_.Contains('error') }
         [int]$outputErrorstLineCount = $outputErrors.Length / 2    
 
         if ($outputErrorstLineCount -gt 0)
@@ -179,7 +189,7 @@ function global:Execute-Example
         }
         else
         {
-            [string[]]$outputWarnings = $output | ? { $_.Contains('warning') }
+            [string[]]$outputWarnings = $output | Where-Object { $_.Contains('warning') }
             [int]$outputWarningstLineCount = $outputWarnings.Length / 2
 
             for ($i = 0; $i -lt $outputWarningstLineCount; $i += 1)
@@ -191,7 +201,10 @@ function global:Execute-Example
                     $beginIdx, $endIdx - $beginIdx)
             }
 
-            Write-Host "`n`n"
+            if ($outputWarningstLineCount -gt 0)
+            {
+                Write-Host "`n`n"
+            }
 
             [Diagnostics.Stopwatch]$sw = [Diagnostics.Stopwatch]::StartNew()
 	        dotnet run --project "$projectFullPath"

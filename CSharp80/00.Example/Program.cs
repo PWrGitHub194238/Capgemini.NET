@@ -26,7 +26,7 @@ namespace _00.Example
 
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Console.WriteLine("Hello Word from C# 7.0!");
         }
@@ -53,7 +53,7 @@ namespace _00.Example
 
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Console.WriteLine("Hello Word from C# 7.1!");
         }

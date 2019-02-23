@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>_14.DefaultInterfaceMembers.Library</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\14.DefaultInterfaceMembers.Interfaces\14.DefaultInterfaceMembers.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
