@@ -9,7 +9,7 @@
 #region C#7.3 Abstract classes (that's not my fault)
 // #define _02a_CSharp73_OLD_ABSTRACT_CLASSES
 // #define _02b_CSharp73_NEW_ABSTRACT_CLASSES
-#define _02c_CSharp73_NEWER_ABSTRACT_CLASSES
+// #define _02c_CSharp73_NEWER_ABSTRACT_CLASSES
 #endregion C#7.3 Common interface (that's not my fault)
 
 #region C#7.3 Interface namespaces
@@ -22,6 +22,7 @@
 #region C#8.0 Default members
 // #define _04a_CSharp80_OLD_DEFAULT_MEMBERS
 // #define _04b_CSharp80_NEW_DEFAULT_MEMBERS
+#define _04c_CSharp80_NEWER_DEFAULT_MEMBERS
 #endregion C#8.0 Default members
 
 #endregion Define
@@ -196,4 +197,58 @@ namespace _14.DefaultInterfaceMembers.Interfaces
 #endif
 
     #endregion C#7.3 Interface namespaces
+
+    /* Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 8.0 -DefineSection _04a_CSharp80_OLD_DEFAULT_MEMBERS
+     *
+     * Defines an interface IAmDoingItWrong with one member:
+     * - DoingSomething: () -> string
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 8.0 -DefineSection _04b_CSharp80_NEW_DEFAULT_MEMBERS
+     * 
+     * Interface IAmDoingItWrong with one old member and one additional:
+     * - DoingSomething: () -> string
+     * - DoingSomething: (string) -> string (default implementation)
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 8.0 -DefineSection _04c_CSharp80_NEWER_DEFAULT_MEMBERS
+     * 
+     * Interface IAmDoingItWrong with one old member and one additional:
+     * - DoingSomething: () -> string
+     * - DoingSomething: (string) -> string
+     */
+
+    #region C#8.0 Default members
+
+#if _04a_CSharp80_OLD_DEFAULT_MEMBERS
+
+    public interface IAmDoingItWrong
+    {
+        string DoingSomething();
+    }
+
+#endif
+
+#if _04b_CSharp80_NEW_DEFAULT_MEMBERS
+
+    public interface IAmDoingItWrong
+    {
+        string DoingSomething();
+
+        string DoingSomething(string message) => $"Output from a DoingSomething method (with param: '{message}') " +
+                $"of the IAmDoingItWrongImpl class (new interface).";
+    }
+
+#endif
+
+#if _04c_CSharp80_NEWER_DEFAULT_MEMBERS
+
+    public interface IAmDoingItWrong
+    {
+        string DoingSomething();
+
+        string DoingSomething(string message);
+    }
+
+#endif
+
+    #endregion C#8.0 Default members
 }

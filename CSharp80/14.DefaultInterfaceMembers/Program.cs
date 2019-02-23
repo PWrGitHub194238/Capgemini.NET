@@ -9,7 +9,7 @@
 #region C#7.3 Abstract classes (that's not my fault)
 // #define _02a_CSharp73_OLD_ABSTRACT_CLASSES
 // #define _02b_CSharp73_NEW_ABSTRACT_CLASSES
-#define _02c_CSharp73_NEWER_ABSTRACT_CLASSES
+// #define _02c_CSharp73_NEWER_ABSTRACT_CLASSES
 #endregion C#7.3 Common interface (that's not my fault)
 
 #region C#7.3 Interface namespaces
@@ -22,6 +22,7 @@
 #region C#8.0 Default members
 // #define _04a_CSharp80_OLD_DEFAULT_MEMBERS
 // #define _04b_CSharp80_NEW_DEFAULT_MEMBERS
+#define _04c_CSharp80_NEWER_DEFAULT_MEMBERS
 #endregion C#8.0 Default members
 
 #endregion Define
@@ -374,7 +375,7 @@ namespace _14.DefaultInterfaceMembers
     internal class Program
     {
 
-        #region C#7.3 Interface namespaces impl
+    #region C#7.3 Interface namespaces impl
 
         private static readonly IKernel ninject = new StandardKernel(new INinjectModule[] {
             new IAmDoingItWrongModule()
@@ -387,7 +388,7 @@ namespace _14.DefaultInterfaceMembers
             public string DoingSomething() => "Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).";
         }
 
-        #endregion C#7.3 Interface namespaces impl
+    #endregion C#7.3 Interface namespaces impl
 
         private static void Main()
         {
@@ -441,4 +442,126 @@ namespace _14.DefaultInterfaceMembers
 #endif
 
     #endregion C#7.3 Interface namespaces
+
+    /* Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 8.0 -DefineSection _04a_CSharp80_OLD_DEFAULT_MEMBERS
+     *
+     * Prints 'Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).'.
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 8.0 -DefineSection _04b_CSharp80_NEW_DEFAULT_MEMBERS
+     * 
+     * Prints 'Output from a DoingSomething method (with param: 'stuff') of the IAmDoingItWrongImpl class (new interface).'.
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 8.0 -DefineSection _04c_CSharp80_NEWER_DEFAULT_MEMBERS
+     * 
+     * Prints 'Output from a DoingSomething method (with param: 'stuff') of the IAmDoingItWrongImpl class (new interface).'.
+     */
+
+    #region C#8.0 Default members
+
+#if _04a_CSharp80_OLD_DEFAULT_MEMBERS
+
+    internal class Program
+    {
+
+        #region C#8.0 Default members impl
+
+        private static readonly IKernel ninject = new StandardKernel(new INinjectModule[] {
+            new IAmDoingItWrongModule()
+        });
+
+        private static readonly IWhatever impl = ninject.Get<IWhatever>();
+
+        public class IAmDoingItWrongImpl : IAmDoingItWrong
+        {
+            public string DoingSomething() => "Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).";
+        }
+
+        #endregion C#8.0 Default members impl
+
+        private static void Main()
+        {
+            Console.WriteLine(impl.DoStuff());
+        }
+
+        /* Expected output:
+         *
+         * Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).
+         *
+         */
+    }
+
+#endif
+
+#if _04b_CSharp80_NEW_DEFAULT_MEMBERS
+
+    internal class Program
+    {
+
+    #region C#8.0 Default members impl
+
+        private static readonly IKernel ninject = new StandardKernel(new INinjectModule[] {
+            new IAmDoingItWrongModule()
+        });
+
+        private static readonly IWhatever impl = ninject.Get<IWhatever>();
+
+        public class IAmDoingItWrongImpl : IAmDoingItWrong
+        {
+            public string DoingSomething() => "Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).";
+        }
+
+    #endregion C#8.0 Default members impl
+
+        private static void Main()
+        {
+            Console.WriteLine(impl.DoStuff());
+        }
+
+        /* Expected output:
+         *
+         * Output from a DoingSomething method (with param: 'stuff') of the IAmDoingItWrongImpl class (new interface).
+         *
+         */
+    }
+
+#endif
+
+#if _04c_CSharp80_NEWER_DEFAULT_MEMBERS
+
+    internal class Program
+    {
+
+    #region C#8.0 Default members impl
+
+        private static readonly IKernel ninject = new StandardKernel(new INinjectModule[] {
+            new IAmDoingItWrongModule()
+        });
+
+        private static readonly IWhatever impl = ninject.Get<IWhatever>();
+
+        public class IAmDoingItWrongImpl : IAmDoingItWrong
+        {
+            public string DoingSomething() => "Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).";
+
+            public string DoingSomething(string message) => $"Output from a DoingSomething method (with param: '{message}') " +
+                $"of the IAmDoingItWrongImpl class (new interface).";
+        }
+
+    #endregion C#8.0 Default members impl
+
+        private static void Main()
+        {
+            Console.WriteLine(impl.DoStuff());
+        }
+
+        /* Expected output:
+         *
+         * Output from a DoingSomething method (with param: 'stuff') of the IAmDoingItWrongImpl class (new interface).
+         *
+         */
+    }
+
+#endif
+
+    #endregion C#8.0 Default members
 }

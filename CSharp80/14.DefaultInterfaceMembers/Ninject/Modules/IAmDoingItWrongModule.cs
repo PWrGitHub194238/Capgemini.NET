@@ -9,7 +9,7 @@
 #region C#7.3 Abstract classes (that's not my fault)
 // #define _02a_CSharp73_OLD_ABSTRACT_CLASSES
 // #define _02b_CSharp73_NEW_ABSTRACT_CLASSES
-#define _02c_CSharp73_NEWER_ABSTRACT_CLASSES
+// #define _02c_CSharp73_NEWER_ABSTRACT_CLASSES
 #endregion C#7.3 Common interface (that's not my fault)
 
 #region C#7.3 Interface namespaces
@@ -22,6 +22,7 @@
 #region C#8.0 Default members
 // #define _04a_CSharp80_OLD_DEFAULT_MEMBERS
 // #define _04b_CSharp80_NEW_DEFAULT_MEMBERS
+#define _04c_CSharp80_NEWER_DEFAULT_MEMBERS
 #endregion C#8.0 Default members
 
 #endregion Define
@@ -220,4 +221,66 @@ namespace _14.DefaultInterfaceMembers.Ninject.Modules
 #endif
 
     #endregion C#7.3 Interface namespaces
+
+    /* Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 8.0 -DefineSection _04a_CSharp80_OLD_DEFAULT_MEMBERS
+     *
+     * Ninject will map the following interfaces to given types:
+     * - IAmDoingItWrong -> Program.IAmDoingItWrongImpl
+     * - IWhatever -> IWhateverImpl
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 8.0 -DefineSection _04b_CSharp80_NEW_DEFAULT_MEMBERS
+     * 
+     * Ninject will map the following interfaces to given types:
+     * - IAmDoingItWrong -> Program.IAmDoingItWrongImpl
+     * - IWhatever -> IWhateverImpl
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 8.0 -DefineSection _04c_CSharp80_NEWER_DEFAULT_MEMBERS
+     * 
+     * Ninject will map the following interfaces to given types:
+     * - IAmDoingItWrong -> Program.IAmDoingItWrongImpl
+     * - IWhatever -> IWhateverImpl
+     */
+
+    #region C#8.0 Default members
+
+#if _04a_CSharp80_OLD_DEFAULT_MEMBERS
+
+    internal class IAmDoingItWrongModule : NinjectModule
+    {
+        public override void Load()
+        {
+            Bind<IAmDoingItWrong>().To<Program.IAmDoingItWrongImpl>();
+            Bind<IWhatever>().To<IWhateverImpl>();
+        }
+    }
+
+#endif
+
+#if _04b_CSharp80_NEW_DEFAULT_MEMBERS
+
+    internal class IAmDoingItWrongModule : NinjectModule
+    {
+        public override void Load()
+        {
+            Bind<IAmDoingItWrong>().To<Program.IAmDoingItWrongImpl>();
+            Bind<IWhatever>().To<IWhateverImpl>();
+        }
+    }
+
+#endif
+
+#if _04c_CSharp80_NEWER_DEFAULT_MEMBERS
+
+    internal class IAmDoingItWrongModule : NinjectModule
+    {
+        public override void Load()
+        {
+            Bind<IAmDoingItWrong>().To<Program.IAmDoingItWrongImpl>();
+            Bind<IWhatever>().To<IWhateverImpl>();
+        }
+    }
+
+#endif
+
+    #endregion C#8.0 Default members
 }
