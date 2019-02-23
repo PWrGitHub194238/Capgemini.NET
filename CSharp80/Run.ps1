@@ -101,7 +101,7 @@ function global:Execute-Example
             }
             '14.DefaultInterfaceMembers' {
                 $defineValidateSet = @('_01a_CSharp73_OLD_COMMON_INTERFACE', '_01b_CSharp73_NEW_COMMON_INTERFACE', '_01c_CSharp73_FIXED_COMMON_INTERFACE', 
-                    '_02a_CSharp73_OLD_ABSTRACT_CLASSES', '_02b_CSharp73_NEW_ABSTRACT_CLASSES', '_02c_CSharp73_FIXED_ABSTRACT_CLASSES', 
+                    '_02a_CSharp73_OLD_ABSTRACT_CLASSES', '_02b_CSharp73_NEW_ABSTRACT_CLASSES', '_02c_CSharp73_NEWER_ABSTRACT_CLASSES', 
                     '_03a_CSharp73_OLD_NAMESPACE_CHANGE', '_03b_CSharp73_NEW_NAMESPACE_CHANGE', '_03c_CSharp73_NEWER_NAMESPACE_CHANGE', 
                     '_04a_CSharp80_OLD_DEFAULT_MEMBERS', '_04b_CSharp80_NEW_DEFAULT_MEMBERS')
             }

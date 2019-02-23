@@ -3,13 +3,13 @@
 #region C#7.3 Common interface (who cares)
 // #define _01a_CSharp73_OLD_COMMON_INTERFACE
 // #define _01b_CSharp73_NEW_COMMON_INTERFACE
-#define _01c_CSharp73_FIXED_COMMON_INTERFACE
+// #define _01c_CSharp73_FIXED_COMMON_INTERFACE
 #endregion C#7.3 Common interface (who cares)
 
 #region C#7.3 Abstract classes (that's not my fault)
 // #define _02a_CSharp73_OLD_ABSTRACT_CLASSES
 // #define _02b_CSharp73_NEW_ABSTRACT_CLASSES
-// #define _02c_CSharp73_FIXED_ABSTRACT_CLASSES
+#define _02c_CSharp73_NEWER_ABSTRACT_CLASSES
 #endregion C#7.3 Common interface (that's not my fault)
 
 #region C#7.3 Namespace change
@@ -88,7 +88,7 @@ namespace _14.DefaultInterfaceMembers
     internal class Program
     {
 
-        #region C#7.3 Common interface impl (who cares)
+    #region C#7.3 Common interface impl (who cares)
 
         private static readonly IKernel ninject = new StandardKernel(new INinjectModule[] {
             new IAmDoingItWrongModule()
@@ -101,7 +101,7 @@ namespace _14.DefaultInterfaceMembers
             public string DoingSomething() => "Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).";
         }
 
-        #endregion C#7.3 Common interface impl (who cares)
+    #endregion C#7.3 Common interface impl (who cares)
 
         private static void Main()
         {
@@ -156,30 +156,126 @@ namespace _14.DefaultInterfaceMembers
 
     #endregion C#7.3 Common interface (who cares)
 
-    /* Execute-Example -ProjectName 00.Example -LangVersion 7.1 -DefineSection _02_CSharp71_EXAMPLE
+    /* Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 7.3 -DefineSection _02a_CSharp73_OLD_ABSTRACT_CLASSES
      *
-     * Prints 'Hello Word from C# 7.1!'.
+     * Prints 'Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).'.
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 7.3 -DefineSection _02b_CSharp73_NEW_ABSTRACT_CLASSES
+     * 
+     * Prints 'Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).'.
+     * Example neither fails to compile nor prints the expected result.
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 7.3 -DefineSection _02b_CSharp73_NEW_ABSTRACT_CLASSES
+     * 
+     * Prints 'Output from a DoingSomething method (with param: 'stuff') of the IAmDoingItWrongImpl class (new interface).'.
      */
 
-    #region C#7.1 Example
+    #region Abstract classes (that's not my fault)
 
-#if _02_CSharp71_EXAMPLE
+#if _02a_CSharp73_OLD_ABSTRACT_CLASSES
 
     internal class Program
     {
-        private static void Main(string[] args)
+
+    #region C#7.3 Common interface impl (who cares)
+
+        private static readonly IKernel ninject = new StandardKernel(new INinjectModule[] {
+            new IAmDoingItWrongModule()
+        });
+
+        private static readonly IWhatever impl = ninject.Get<IWhatever>();
+
+        public class IAmDoingItWrongImpl : Library.IAmDoingItWrongImpl
         {
-            Console.WriteLine("Hello Word from C# 7.1!");
+            public override string DoingSomething() => "Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).";
+        }
+
+    #endregion C#7.3 Common interface impl (who cares)
+
+        private static void Main()
+        {
+            Console.WriteLine(impl.DoStuff());
         }
 
         /* Expected output:
          *
-         * Hello Word from C# 7.1!
+         * Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).
          *
          */
     }
 
 #endif
 
-    #endregion C#7.0 Example
+#if _02b_CSharp73_NEW_ABSTRACT_CLASSES
+
+    internal class Program
+    {
+
+    #region C#7.3 Abstract classes impl (that's not my fault)
+
+        private static readonly IKernel ninject = new StandardKernel(new INinjectModule[] {
+            new IAmDoingItWrongModule()
+        });
+
+        private static readonly IWhatever impl = ninject.Get<IWhatever>();
+
+        public class IAmDoingItWrongImpl : Library.IAmDoingItWrongImpl
+        {
+            public override string DoingSomething() => "Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).";
+        }
+
+    #endregion C#7.3 Abstract classes impl (that's not my fault)
+
+        private static void Main()
+        {
+            Console.WriteLine(impl.DoStuff());
+        }
+
+        /* Expected output:
+         *
+         * Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).
+         *
+         */
+    }
+
+#endif
+
+#if _02c_CSharp73_NEWER_ABSTRACT_CLASSES
+
+    internal class Program
+    {
+
+        #region C#7.3 Abstract classes impl (that's not my fault)
+
+        private static readonly IKernel ninject = new StandardKernel(new INinjectModule[] {
+            new IAmDoingItWrongModule()
+        });
+
+        private static readonly IWhatever impl = ninject.Get<IWhatever>();
+
+        public class IAmDoingItWrongImpl : Library.IAmDoingItWrongImpl
+        {
+            public override string DoingSomething() => "Output from a DoingSomething method of the IAmDoingItWrongImpl class (old interface).";
+
+            public override string DoingSomething(string message) => $"Output from a DoingSomething method (with param: '{message}') " +
+                $"of the IAmDoingItWrongImpl class (new interface).";
+        }
+
+        #endregion C#7.3 Abstract classes impl (that's not my fault)
+
+        private static void Main()
+        {
+            Console.WriteLine(impl.DoStuff());
+        }
+
+        /* Expected output:
+         *
+         * Output from a DoingSomething method (with param: 'stuff') of the IAmDoingItWrongImpl class (new interface).
+         *
+         */
+    }
+
+#endif
+
+    #endregion Abstract classes (that's not my fault)
 }
