@@ -12,11 +12,12 @@
 #define _02c_CSharp73_NEWER_ABSTRACT_CLASSES
 #endregion C#7.3 Common interface (that's not my fault)
 
-#region C#7.3 Namespace change
-// #define _03a_CSharp73_OLD_NAMESPACE_CHANGE
-// #define _03b_CSharp73_NEW_NAMESPACE_CHANGE
-// #define _03c_CSharp73_NEWER_NAMESPACE_CHANGE
-#endregion C#7.3 Namespace change
+#region C#7.3 Interface namespaces
+// #define _03a_CSharp73_OLD_INTERFACE_NAMESPACES
+// #define _03b_CSharp73_NEW_INTERFACE_NAMESPACES
+// #define _03c_CSharp73_FIXED_INTERFACE_NAMESPACES
+// #define _03d_CSharp73_NEWER_INTERFACE_NAMESPACES
+#endregion C#7.3 Interface namespaces
 
 #region C#8.0 Default members
 // #define _04a_CSharp80_OLD_DEFAULT_MEMBERS
@@ -159,4 +160,67 @@ namespace _14.DefaultInterfaceMembers.Library
 #endif
 
     #endregion C#7.3 Abstract classes (that's not my fault)
+
+    /* Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 7.3 -DefineSection _03a_CSharp73_OLD_INTERFACE_NAMESPACES
+     *
+     * Library class implementing IWhatever interface with one member:
+     * - DoStuff: () -> string
+     * which is using the IAmDoingItWrong interface with one member:
+     * - DoingSomething: void -> ()
+     * Implementation of IWhatever is using the old member of the interface.
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 7.3 -DefineSection _03b_CSharp73_NEW_INTERFACE_NAMESPACES
+     * 
+     * Library class implementing IWhatever interface with one member:
+     * - DoStuff: () -> string
+     * which is using the IAmDoingItWrong interface with one member:
+     * - DoingSomething: void -> ()
+     * Implementation of IWhatever is using the old member of the interface.
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 7.3 -DefineSection _03c_CSharp73_FIXED_INTERFACE_NAMESPACES
+     * 
+     * Library class implementing IWhatever interface with one member:
+     * - DoStuff: () -> string
+     * which is using the IAmDoingItWrong interface with one member:
+     * - DoingSomething: void -> ()
+     * Implementation of IWhatever is using the old member of the interface.
+     * 
+     * Execute-Example -ProjectName 14.DefaultInterfaceMembers -LangVersion 7.3 -DefineSection _03d_CSharp73_NEWER_INTERFACE_NAMESPACES
+     * 
+     * Library class implementing IWhatever interface with one member:
+     * - DoStuff: () -> string
+     * which is using the IAmDoingItWrong interface with one member:
+     * - DoingSomething: void -> ()
+     * Implementation of IWhatever is using the old member of the interface.
+     */
+
+    #region C#7.3 Interface namespaces
+
+#if _03a_CSharp73_OLD_INTERFACE_NAMESPACES
+
+    public class IWhateverImpl : IWhatever
+    {
+        readonly IAmDoingItWrong stuff;
+
+        public IWhateverImpl(IAmDoingItWrong stuff) => this.stuff = stuff;
+
+        public string DoStuff() => stuff.DoingSomething();
+    }
+
+#endif
+
+#if _03b_CSharp73_NEW_INTERFACE_NAMESPACES || _03c_CSharp73_FIXED_INTERFACE_NAMESPACES || _03d_CSharp73_NEWER_INTERFACE_NAMESPACES
+
+    public class IWhateverImpl : IWhatever
+    {
+        readonly IAmDoingItWrong stuff;
+
+        public IWhateverImpl(IAmDoingItWrong stuff) => this.stuff = stuff;
+
+        public string DoStuff() => stuff.DoingSomething("stuff");
+    }
+
+#endif
+
+    #endregion C#7.3 Interface namespaces
 }
