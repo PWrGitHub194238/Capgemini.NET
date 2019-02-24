@@ -1,0 +1,22 @@
+namespace _15.RecursivePatterns
+{
+    internal enum IconEnum : int
+    {
+        BLACK_SPADE_SUIT = 0x2660,
+        BLACK_CLUB_SUIT = 0x2663,
+        BLACK_HEART_SUIT = 0x2665,
+        BLACK_DIAMOND_SUIT = 0x2666,
+        EIGHTH_NOTE = 0x266A,
+        BEAMED_EIGHTH_NOTES = 0x266B,
+        DINGBAT_NEGATIVE_CIRCLED_DIGIT_ONE = 0x2776,
+        DINGBAT_NEGATIVE_CIRCLED_DIGIT_TWO = 0x2777,
+        DINGBAT_NEGATIVE_CIRCLED_DIGIT_THREE = 0x2778,
+        WHITE_SUN_WITH_RAYS = 0x263C,
+        LOZENGE = 0x25CA,
+        WHITE_CIRCLE = 0x25CB,
+        CIRCLED_DIGIT_ONE = 0x2460,
+        CIRCLED_DIGIT_TWO = 0x2461,
+        CIRCLED_DIGIT_THREE = 0x2462,
+        SIX_POINTED_BLACK_STAR = 0x2736,
+    }
+}

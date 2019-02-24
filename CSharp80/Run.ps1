@@ -33,7 +33,8 @@ function global:Execute-Example
             '05.NonTrailingNamedArguments', '06.LeadingUnderscoresInNumericLiterals', '07.PrivateProtectedAccessModifier',
             '08.ConditionalRefExpressions',  '09.EnablingMoreEfficientSafeCode', '10.MakeExistingFeaturesBetter', 
             '11.NullableReferenceTpes', '12.AsyncStreams', '13.RangesAndIndices', '14.DefaultInterfaceMembers', 
-            '15.RecursivePatterns', '16.SwitchExpressions', '17.TargetTypedNewExpressions', '18.ExtensionEverything')]
+            '15.RecursivePatterns', '16.SwitchExpressions', '17.TargetTypedNewExpressions', '18.ExtensionEverything',
+            '19.UsingDeclarations')]
         [ValidateNotNullOrEmpty()]
         [string]$ProjectName
     ,
@@ -107,7 +108,8 @@ function global:Execute-Example
                     '_04a_CSharp80_OLD_DEFAULT_MEMBERS', '_04b_CSharp80_NEW_DEFAULT_MEMBERS', '_04c_CSharp80_NEWER_DEFAULT_MEMBERS')
             }
             '15.RecursivePatterns' {
-	            $defineValidateSet = @('CSharp70', 'CSharp80')
+                $defineValidateSet = @('_01_CSharp70_PATTERN_MATCHING_TYPEOF', '_02_CSharp73_PATTERN_MATCHING_IS', '_03_CSharp73_RECURSIVE_PATTERNS',
+                '_04a_CSharp80_RECURSIVE_PATTERNS', '_04b_CSharp80_RECURSIVE_PATTERNS', '_04c_CSharp80_RECURSIVE_PATTERNS')
             }
             '16.SwitchExpressions' {
 	            $defineValidateSet = @('CSharp70', 'CSharp80')
@@ -118,6 +120,10 @@ function global:Execute-Example
             '18.ExtensionEverything' {
 	            $defineValidateSet = @('CSharp70', 'CSharp80')
             }
+            '19.UsingDeclarations' {
+	            $defineValidateSet = @('CSharp70', 'CSharp80')
+            }
+            
         }
         [System.Management.Automation.ValidateSetAttribute]$defineValidateSetParamAttr = `
             [System.Management.Automation.ValidateSetAttribute]::new($defineValidateSet)
@@ -141,16 +147,16 @@ function global:Execute-Example
         [string]$projectBasePath = [System.IO.Path]::Combine($PSScriptRoot, $ProjectName)
         [string]$projectFullPath = [System.IO.Path]::Combine($projectBasePath, "$ProjectName.csproj")
         
+        # Replace language version in a *.csproj file
+        Replace-InFile `
+            -Path $projectFullPath `
+            -Pattern '<LangVersion>\d.\d' `
+            -Replacement "<LangVersion>$LangVersion"
+            
         foreach ($subProjectDir in [System.IO.Directory]::EnumerateDirectories($PSScriptRoot, "$ProjectName*", [IO.SearchOption]::TopDirectoryOnly))
         {
             foreach ($csFile in [System.IO.Directory]::EnumerateFiles($subProjectDir, "*.cs", [IO.SearchOption]::AllDirectories))
             {
-                # Replace language version in a *.csproj file
-                Replace-InFile `
-                    -Path $csFile `
-                    -Pattern '<LangVersion>\d.\d' `
-                    -Replacement "<LangVersion>$LangVersion"
-
                 # Comment out every other (not $DefineSection) #define
                 Replace-InFile `
                     -Path $csFile `

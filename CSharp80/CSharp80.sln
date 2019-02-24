@@ -45,7 +45,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "18.ExtensionEverything", "1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "14.DefaultInterfaceMembers.Interfaces", "14.DefaultInterfaceMembers.Interfaces\14.DefaultInterfaceMembers.Interfaces.csproj", "{51BBA7BF-B8B5-42E6-A20A-2E3CAEDD2392}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14.DefaultInterfaceMembers.Library", "14.DefaultInterfaceMembers.Library\14.DefaultInterfaceMembers.Library.csproj", "{9FCFF054-68E8-4F2E-90BB-03008F789F92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "14.DefaultInterfaceMembers.Library", "14.DefaultInterfaceMembers.Library\14.DefaultInterfaceMembers.Library.csproj", "{9FCFF054-68E8-4F2E-90BB-03008F789F92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19.UsingDeclarations", "19.UsingDeclarations\19.UsingDeclarations.csproj", "{8362EDE7-75AD-4DFC-974E-F0A7B53DEF5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,6 +143,10 @@ Global
 		{9FCFF054-68E8-4F2E-90BB-03008F789F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FCFF054-68E8-4F2E-90BB-03008F789F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FCFF054-68E8-4F2E-90BB-03008F789F92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8362EDE7-75AD-4DFC-974E-F0A7B53DEF5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8362EDE7-75AD-4DFC-974E-F0A7B53DEF5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8362EDE7-75AD-4DFC-974E-F0A7B53DEF5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8362EDE7-75AD-4DFC-974E-F0A7B53DEF5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
