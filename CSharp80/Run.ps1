@@ -109,10 +109,11 @@ function global:Execute-Example
             }
             '15.RecursivePatterns' {
                 $defineValidateSet = @('_01_CSharp70_PATTERN_MATCHING_TYPEOF', '_02_CSharp73_PATTERN_MATCHING_IS', '_03_CSharp73_RECURSIVE_PATTERNS',
-                '_04a_CSharp80_RECURSIVE_PATTERNS', '_04b_CSharp80_RECURSIVE_PATTERNS', '_04c_CSharp80_RECURSIVE_PATTERNS')
+                    '_04a_CSharp80_RECURSIVE_PATTERNS', '_04b_CSharp80_RECURSIVE_PATTERNS', '_04c_CSharp80_RECURSIVE_PATTERNS')
             }
             '16.SwitchExpressions' {
-	            $defineValidateSet = @('CSharp70', 'CSharp80')
+                $defineValidateSet = @('_01_CSharp70_PATTERN_MATCHING_IFTYPEOF', '_02_CSharp70_PATTERN_MATCHING_IFISTYPE', '_03_CSharp70_PATTERN_MATCHING_SWITCH',
+                    '_04_CSharp70_PATTERN_MATCHING_CASEIF', '_05_CSharp70_PATTERN_MATCHING_CASEIF', '_06_CSharp70_PATTERN_MATCHING_CASEWHEN')
             }
             '17.TargetTypedNewExpressions' {
 	            $defineValidateSet = @('CSharp70', 'CSharp80')
