@@ -36,10 +36,12 @@ namespace _16.SwitchExpressions.CompositePattern
             AddIdent();
             while (boxes.TryPop(out IBox box))
             {
-                box.GetInside();
+                GetInsideBox(box);
             }
             RemoveIdent();
         }
+
+        protected virtual void GetInsideBox(IBox box) => box?.GetInside();
 
         protected void PrintIcon(IconEnum icon)
         {
@@ -53,6 +55,8 @@ namespace _16.SwitchExpressions.CompositePattern
         protected static void RemoveIdent() => ident -= 1;
 
         public abstract void PrintLabel();
+
+        public void PrintLabel(string label) => Console.WriteLine($"{Ident}{label}");
 
         public virtual IBox Pop() => boxes?.Pop();
     }

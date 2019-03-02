@@ -8,6 +8,8 @@ namespace _16.SwitchExpressions.CompositePattern
 
         void PrintLabel();
 
+        void PrintLabel(string label);
+
         IBox Pop();
     }
 }

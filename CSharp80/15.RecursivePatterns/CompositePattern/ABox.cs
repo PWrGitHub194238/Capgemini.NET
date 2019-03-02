@@ -36,7 +36,7 @@ namespace _15.RecursivePatterns.CompositePattern
             AddIdent();
             while (boxes.TryPop(out IBox box))
             {
-                box.GetInside();
+                box?.GetInside();
             }
             RemoveIdent();
         }

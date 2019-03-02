@@ -1,7 +1,4 @@
 using _15.RecursivePatterns.CompositePattern;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace _15.RecursivePatterns
 {
@@ -23,6 +20,7 @@ namespace _15.RecursivePatterns
             box.Push(GetGHIBox());
             box.Push(GetDEFBox());
             box.Push(GetABCBox());
+            box.Push(null);
 
             return box;
         }

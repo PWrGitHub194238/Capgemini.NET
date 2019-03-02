@@ -39,7 +39,7 @@ function global:Execute-Example
         [string]$ProjectName
     ,
         [Parameter(Mandatory = $false)]
-        [ValidateSet('7.0', '7.1', '7.2', '7.3', '8.0')]
+        [ValidateSet('6.0', '7.0', '7.1', '7.2', '7.3', '8.0')]
         [string]$LangVersion = '7.0'
     )
 
@@ -108,12 +108,20 @@ function global:Execute-Example
                     '_04a_CSharp80_OLD_DEFAULT_MEMBERS', '_04b_CSharp80_NEW_DEFAULT_MEMBERS', '_04c_CSharp80_NEWER_DEFAULT_MEMBERS')
             }
             '15.RecursivePatterns' {
-                $defineValidateSet = @('_01_CSharp70_PATTERN_MATCHING_TYPEOF', '_02_CSharp73_PATTERN_MATCHING_IS', '_03_CSharp73_RECURSIVE_PATTERNS',
-                    '_04a_CSharp80_RECURSIVE_PATTERNS', '_04b_CSharp80_RECURSIVE_PATTERNS', '_04c_CSharp80_RECURSIVE_PATTERNS')
+                $defineValidateSet = @('_01_CSharp70_PATTERN_MATCHING_TYPEOF', '_02_CSharp70_PATTERN_MATCHING_IS', '_03a_CSharp70_RECURSIVE_PATTERNS',
+                    '_03b_CSharp70_RECURSIVE_PATTERNS', '_04a_CSharp80_RECURSIVE_PATTERNS', '_04b_CSharp80_RECURSIVE_PATTERNS', 
+                    '_04c_CSharp80_RECURSIVE_PATTERNS', '_04d_CSharp80_RECURSIVE_PATTERNS')
             }
             '16.SwitchExpressions' {
-                $defineValidateSet = @('_01_CSharp70_PATTERN_MATCHING_IFTYPEOF', '_02_CSharp70_PATTERN_MATCHING_IFISTYPE', '_03_CSharp70_PATTERN_MATCHING_SWITCH',
-                    '_04_CSharp70_PATTERN_MATCHING_CASEIF', '_05_CSharp70_PATTERN_MATCHING_CASEIF', '_06_CSharp70_PATTERN_MATCHING_CASEWHEN')
+                $defineValidateSet = @('_01_CSharp70_PATTERN_MATCHING_IF_TYPEOF', '_02_CSharp70_PATTERN_MATCHING_IF_ISTYPE', '_03_CSharp70_PATTERN_MATCHING_SWITCH',
+                    '_04_CSharp70_PATTERN_MATCHING_IF', '_05_CSharp70_PATTERN_MATCHING_SWITCH_CASEIF', '_06_CSharp70_PATTERN_MATCHING_SWITCH_CASEWHEN',
+                    '_07_CSharp70_PATTERN_MATCHING_IF_NULLDEFAULT', '_08_CSharp70_PATTERN_MATCHING_SWITCH_NULLDEFAULT',
+                    '_09_CSharp70_PATTERN_MATCHING_IF_OBJECT', '_10a_CSharp70_PATTERN_MATCHING_SWITCH_VAR', '_10b_CSharp70_PATTERN_MATCHING_SWITCH_VAR',
+                    '_10c_CSharp70_PATTERN_MATCHING_SWITCH_VAR', '_11_CSharp70_SWITCH_EXPRESSIONS_IF', '_12a_CSharp70_SWITCH_STATEMENT',
+                    '_12b_CSharp80_SWITCH_EXPRESSION', '_12c_CSharp80_SWITCH_STATEMENT_PROPERTY_PATTERN',
+                    '_12d_CSharp80_SWITCH_EXPRESSION_PROPERTY_PATTERN', '_12e_CSharp80_SWITCH_STATEMENT_PROPERTY_REC_PATTERN', 
+                    '_12f_CSharp80_SWITCH_EXPRESSION_PROPERTY_REC_PATTERN', '_12g_CSharp80_SWITCH_EXPRESSION_POSITIONAL_PATTERN',
+                    '_13a_CSharp71_SWITCH_EXPRESSION_TUPLE_PATTERN', '_13b_CSharp80_SWITCH_EXPRESSION_TUPLE_PATTERN')
             }
             '17.TargetTypedNewExpressions' {
 	            $defineValidateSet = @('CSharp70', 'CSharp80')

@@ -18,5 +18,6 @@ namespace _15.RecursivePatterns
         CIRCLED_DIGIT_TWO = 0x2461,
         CIRCLED_DIGIT_THREE = 0x2462,
         SIX_POINTED_BLACK_STAR = 0x2736,
+        X = 0x274C
     }
 }

@@ -1,7 +1,4 @@
 using _16.SwitchExpressions.CompositePattern;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace _16.SwitchExpressions
 {
@@ -23,6 +20,7 @@ namespace _16.SwitchExpressions
             box.Push(GetGHIBox());
             box.Push(GetDEFBox());
             box.Push(GetABCBox());
+            box.Push(null);
 
             return box;
         }
