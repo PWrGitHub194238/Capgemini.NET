@@ -1,4 +1,4 @@
-﻿using _11.NullableReferenceTpes.System.Collections.Generic;
+using _11.NullableReferenceTpes.System.Collections.Generic;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,6 +8,17 @@ namespace _11.NullableReferenceTpes.Utils
 {
     public class ConsolColours
     {
+        internal static void WrapPowerShellColors()
+        {
+            Color powershellBackgroundColor = Color.FromArgb(0, 1, 33, 84);
+            Color powershellForegroundColor = Color.FromArgb(0, 204, 204, 204);
+
+            Colorful.Console.Write(" ", powershellBackgroundColor);
+            Colorful.Console.Write(" ", powershellForegroundColor);
+
+            Console.Write('\r');
+        }
+
         private static Queue<Color> GetAsciiFontColours(int numberOfLines = 3)
         {
             Queue<Color> fontColourQueue = new Queue<Color>();
@@ -36,10 +47,11 @@ namespace _11.NullableReferenceTpes.Utils
 
         public static void PrintFancyText(string[] lines, int colourSpeed = 1, int delay = 200)
         {
+            WrapPowerShellColors();
+
             (int cl, int ct) = (Console.CursorLeft, Console.CursorTop);
             Queue<Color> fontColourQueue = GetAsciiFontColours(numberOfLines: lines.Length);
 
-            Console.ResetColor();
             while (true)
             {
                 foreach (string line in lines)

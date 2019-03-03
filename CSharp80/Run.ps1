@@ -41,6 +41,8 @@ function global:Execute-Example
         [Parameter(Mandatory = $false)]
         [ValidateSet('6.0', '7.0', '7.1', '7.2', '7.3', '8.0')]
         [string]$LangVersion = '7.0'
+    ,
+        [switch]$NoRestore
     )
 
     DynamicParam {
@@ -98,7 +100,9 @@ function global:Execute-Example
 	            $defineValidateSet = @('CSharp70', 'CSharp80')
             }
             '13.RangesAndIndices' {
-	            $defineValidateSet = @('CSharp70', 'CSharp80')
+                $defineValidateSet = @('_01_CSharp70_INTEGER_INDEX', '_02_CSharp80_INDEX_START', '_03_CSharp70_INTEGER_INDEX_END',
+                    '_04_CSharp80_INDEX_END', '_05_CSharp70_SUBSTRING_START', '_06_CSharp80_RANGE_START', '_07_CSharp70_SUBSTRING_END',
+                    '_08_CSharp80_RANGE_END', '_09_CSharp80_RANGE')
             }
             '14.DefaultInterfaceMembers' {
                 $defineValidateSet = @('_01a_CSharp73_OLD_COMMON_INTERFACE', '_01b_CSharp73_NEW_COMMON_INTERFACE', '_01c_CSharp73_FIXED_COMMON_INTERFACE', 
@@ -156,26 +160,29 @@ function global:Execute-Example
         [string]$projectBasePath = [System.IO.Path]::Combine($PSScriptRoot, $ProjectName)
         [string]$projectFullPath = [System.IO.Path]::Combine($projectBasePath, "$ProjectName.csproj")
         
-        # Replace language version in a *.csproj file
-        Replace-InFile `
-            -Path $projectFullPath `
-            -Pattern '<LangVersion>\d.\d' `
-            -Replacement "<LangVersion>$LangVersion"
-            
-        foreach ($subProjectDir in [System.IO.Directory]::EnumerateDirectories($PSScriptRoot, "$ProjectName*", [IO.SearchOption]::TopDirectoryOnly))
+        if (-not $NoRestore) 
         {
-            foreach ($csFile in [System.IO.Directory]::EnumerateFiles($subProjectDir, "*.cs", [IO.SearchOption]::AllDirectories))
+            # Replace language version in a *.csproj file
+            Replace-InFile `
+                -Path $projectFullPath `
+                -Pattern '<LangVersion>\d.\d' `
+                -Replacement "<LangVersion>$LangVersion"
+                
+            foreach ($subProjectDir in [System.IO.Directory]::EnumerateDirectories($PSScriptRoot, "$ProjectName*", [IO.SearchOption]::TopDirectoryOnly))
             {
-                # Comment out every other (not $DefineSection) #define
-                Replace-InFile `
-                    -Path $csFile `
-                    -Pattern $('^(\s*\/{2})?\s*#define (?!' + $DefineSection + ')') `
-                    -Replacement "// #define "
-                # Uncomment every #define $DefineSection
-                Replace-InFile `
-                    -Path $csFile `
-                    -Pattern $('^(\s*\/{2})?\s*#define ' + $DefineSection) `
-                    -Replacement "#define $DefineSection"
+                foreach ($csFile in [System.IO.Directory]::EnumerateFiles($subProjectDir, "*.cs", [IO.SearchOption]::AllDirectories))
+                {
+                    # Comment out every other (not $DefineSection) #define
+                    Replace-InFile `
+                        -Path $csFile `
+                        -Pattern $('^(\s*\/{2})?\s*#define (?!' + $DefineSection + ')') `
+                        -Replacement "// #define "
+                    # Uncomment every #define $DefineSection
+                    Replace-InFile `
+                        -Path $csFile `
+                        -Pattern $('^(\s*\/{2})?\s*#define ' + $DefineSection) `
+                        -Replacement "#define $DefineSection"
+                }
             }
         }
     }
