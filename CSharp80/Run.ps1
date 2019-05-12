@@ -128,7 +128,7 @@ function global:Execute-Example
                     '_13a_CSharp71_SWITCH_EXPRESSION_TUPLE_PATTERN', '_13b_CSharp80_SWITCH_EXPRESSION_TUPLE_PATTERN')
             }
             '17.TargetTypedNewExpressions' {
-	            $defineValidateSet = @('CSharp70', 'CSharp80')
+	            $defineValidateSet = @('_01_CSharp70_OLD_MATRIX_CHAR', '_02_CSharp80_NEW_MATRIX_CHAR')
             }
             '18.ExtensionEverything' {
 	            $defineValidateSet = @('CSharp70', 'CSharp80')

@@ -17,7 +17,7 @@
 #endregion C#8.0 warning on null (#nullable safeonly)
 
 #region C#8.0 warning on null (#nullable enabled restore)
-// #define _05_CSharp80_RESTORE
+#define _05_CSharp80_RESTORE
 #endregion C#8.0 warning on null (#nullable enabled restore)
 
 #region C#8.0 != null (#nullable enabled)
@@ -25,7 +25,7 @@
 #endregion C#8.0 != null (#nullable enabled)
 
 #region C#8.0 IsNull(value) (#nullable enabled)
-#define _07_CSharp80_CHECK_IS_NULL
+// #define _07_CSharp80_CHECK_IS_NULL
 #endregion C#8.0 IsNull(value) (#nullable enabled)
 
 #endregion Define
@@ -331,9 +331,7 @@ namespace _11.NullableReferenceTpes
             }
             else
             {
-                Console.WriteLine("I have exit, because You left a 'null' " +
-                    "value assigned to some reference type, you moron!");
-                Console.ReadKey();
+                Console.WriteLine("I will use my own default string because You provided me a null value.");
                 ConsolColours.PrintFancyText(lines: new string[] {
                     "Capgemini",
                     ".NET",

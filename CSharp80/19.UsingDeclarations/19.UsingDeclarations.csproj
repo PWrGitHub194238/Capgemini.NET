@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>_19.UsingDeclarations</RootNamespace>
+    <LangVersion>7.0</LangVersion>
   </PropertyGroup>
 
 </Project>

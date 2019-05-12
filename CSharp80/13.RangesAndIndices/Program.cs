@@ -1,7 +1,7 @@
 #region Define
 
 #region C#7.0 Integer index (start)
-// #define _01_CSharp70_INTEGER_INDEX_START
+//#define _01_CSharp70_INTEGER_INDEX_START
 #endregion C#7.0 Integer index (start)
 
 #region C#8.0 Index (start)
@@ -13,7 +13,7 @@
 #endregion C#7.0 Integer index (end)
 
 #region C#8.0 Index (end)
-// #define _04_CSharp80_INDEX_END
+//#define _04_CSharp80_INDEX_END
 #endregion C#8.0 Index (end)
 
 #region C#7.0 Substring (start)
@@ -91,19 +91,19 @@ namespace _13.RangesAndIndices
 
         private static void PrintTestOutput(string[] input, int indices, string actualOutput)
         {
-            ConsolColours.WrapPowerShellColors();
+            PowerShellColors.WrapPowerShellColors();
 
             Colorful.Console.WriteLineFormatted(format: "Input array: '[{0}]',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: string.Join(", ", input));
             Colorful.Console.WriteLineFormatted(format: "input index: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: indices);
             Colorful.Console.WriteLineFormatted(format: "output: '{0}'.",
-                styledColor: Color.LightGreen,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[9],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: actualOutput);
         }
 
@@ -217,19 +217,17 @@ namespace _13.RangesAndIndices
 
         private static void PrintTestOutput(string[] input, Index indices, string actualOutput)
         {
-            ConsolColours.WrapPowerShellColors();
-
             Colorful.Console.WriteLineFormatted(format: "Input array: '[{0}]',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: string.Join(", ", input));
             Colorful.Console.WriteLineFormatted(format: "input index: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: indices);
             Colorful.Console.WriteLineFormatted(format: "output: '{0}'.",
-                styledColor: Color.LightGreen,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[9],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: actualOutput);
         }
 
@@ -317,19 +315,17 @@ namespace _13.RangesAndIndices
 
         private static void PrintTestOutput(string[] input, int indices, string actualOutput)
         {
-            ConsolColours.WrapPowerShellColors();
-
             Colorful.Console.WriteLineFormatted(format: "Input array: '[{0}]',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: string.Join(", ", input));
             Colorful.Console.WriteLineFormatted(format: "input index: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: indices);
             Colorful.Console.WriteLineFormatted(format: "output: '{0}'.",
-                styledColor: Color.LightGreen,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[9],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: actualOutput);
         }
 
@@ -445,19 +441,19 @@ namespace _13.RangesAndIndices
 
         private static void PrintTestOutput(string[] input, Index indices, string actualOutput)
         {
-            ConsolColours.WrapPowerShellColors();
+            PowerShellColors.WrapPowerShellColors();
 
             Colorful.Console.WriteLineFormatted(format: "Input array: '[{0}]',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: string.Join(", ", input));
             Colorful.Console.WriteLineFormatted(format: "input index: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: indices);
             Colorful.Console.WriteLineFormatted(format: "output: '{0}'.",
-                styledColor: Color.LightGreen,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[9],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: actualOutput);
         }
 
@@ -544,19 +540,19 @@ namespace _13.RangesAndIndices
 
         private static void PrintTestOutput(string input, int range, string actualOutput)
         {
-            ConsolColours.WrapPowerShellColors();
+            PowerShellColors.WrapPowerShellColors();
 
             Colorful.Console.WriteLineFormatted(format: "Input string: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: input);
             Colorful.Console.WriteLineFormatted(format: "input range: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: range);
             Colorful.Console.WriteLineFormatted(format: "output: '{0}'.",
-                styledColor: Color.LightGreen,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[9],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: actualOutput);
         }
 
@@ -668,19 +664,19 @@ namespace _13.RangesAndIndices
 
         private static void PrintTestOutput(string input, Range range, string actualOutput)
         {
-            ConsolColours.WrapPowerShellColors();
+            PowerShellColors.WrapPowerShellColors();
 
             Colorful.Console.WriteLineFormatted(format: "Input string: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: input);
             Colorful.Console.WriteLineFormatted(format: "input range: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: range);
             Colorful.Console.WriteLineFormatted(format: "output: '{0}'.",
-                styledColor: Color.LightGreen,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[9],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: actualOutput);
         }
 
@@ -767,19 +763,19 @@ namespace _13.RangesAndIndices
 
         private static void PrintTestOutput(string input, int range, string actualOutput)
         {
-            ConsolColours.WrapPowerShellColors();
+            PowerShellColors.WrapPowerShellColors();
 
             Colorful.Console.WriteLineFormatted(format: "Input string: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: input);
             Colorful.Console.WriteLineFormatted(format: "input range: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: range);
             Colorful.Console.WriteLineFormatted(format: "output: '{0}'.",
-                styledColor: Color.LightGreen,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[9],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: actualOutput);
         }
 
@@ -891,19 +887,19 @@ namespace _13.RangesAndIndices
 
         private static void PrintTestOutput(string input, Range range, string actualOutput)
         {
-            ConsolColours.WrapPowerShellColors();
+            PowerShellColors.WrapPowerShellColors();
 
             Colorful.Console.WriteLineFormatted(format: "Input string: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: input);
             Colorful.Console.WriteLineFormatted(format: "input range: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: range);
             Colorful.Console.WriteLineFormatted(format: "output: '{0}'.",
-                styledColor: Color.LightGreen,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[9],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: actualOutput);
         }
 
@@ -1044,23 +1040,21 @@ namespace _13.RangesAndIndices
 
         private static void PrintTestOutput(string input, Range range, string expectedOutput, string actualOutput)
         {
-            ConsolColours.WrapPowerShellColors();
-
             Colorful.Console.WriteLineFormatted(format: "Input string: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: input);
             Colorful.Console.WriteLineFormatted(format: "input range: '{0}',",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: range);
             Colorful.Console.WriteLineFormatted(format: "expected output: '{0}'.",
-                styledColor: Color.LightGray,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[14],
                 arg0: expectedOutput);
             Colorful.Console.WriteLineFormatted(format: "actual output: '{0}'.",
-                styledColor: Color.LightGreen,
-                defaultColor: Color.White,
+                styledColor: PowerShellColors.Colors[6],
+                defaultColor: PowerShellColors.Colors[9],
                 arg0: actualOutput);
             Console.WriteLine();
         }
