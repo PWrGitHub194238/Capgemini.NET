@@ -1,0 +1,1 @@
+PowerShell -command "& '.\Scripts\Replace-Port.ps1'"
