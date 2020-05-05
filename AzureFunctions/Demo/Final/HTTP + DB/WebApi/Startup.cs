@@ -18,6 +18,7 @@ namespace WebApi
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            // Adds a in-memory database of name 'in-memory' to be used with MyDbContext
             EfCoreServices.AddDbContext(services);
         }
 

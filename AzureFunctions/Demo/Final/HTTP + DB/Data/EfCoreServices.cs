@@ -1,8 +1,8 @@
-﻿namespace Data
-{
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
+namespace Data
+{
     public static class EfCoreServices
     {
         public static void AddDbContext(IServiceCollection services)

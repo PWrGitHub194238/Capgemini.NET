@@ -1,9 +1,9 @@
+using Newtonsoft.Json;
+using System;
+using System.Linq;
+
 namespace WebApi
 {
-    using Newtonsoft.Json;
-    using System;
-    using System.Linq;
-
     public class WeatherForecast
     {
         public static readonly string[] Summaries = new[]
@@ -11,6 +11,8 @@ namespace WebApi
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        // Defines a mapping for the defined partition key inside the Cosmos DB database and collection of WeatherForecasts.
+        // This attribute allows the results returned from the database to be mapped into the WeatherForecast objects.
         [JsonProperty(PropertyName = "id")]
         public string Date { get; set; }
 

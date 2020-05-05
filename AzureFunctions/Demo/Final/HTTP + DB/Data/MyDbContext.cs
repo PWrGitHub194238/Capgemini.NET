@@ -1,13 +1,12 @@
-﻿namespace Data
-{
-    using Microsoft.EntityFrameworkCore;
-    using WebApi;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApi;
 
+namespace Data
+{
     public class MyDbContext : DbContext
     {
         public MyDbContext(DbContextOptions<MyDbContext> dbContextOptions) : base(options: dbContextOptions)
         {
-
         }
 
         public DbSet<WeatherForecast> WeatherForecasts { get; set; }
