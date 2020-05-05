@@ -1,5 +1,5 @@
 $appSettingsJsonPath = ".\InitData\appsettings.json"
-$localSettingsJsonPath = ".\HttpProcess\appsettings.json"
+$localSettingsJsonPath = ".\HttpProcess\local.settings.json"
 
 az login
 
@@ -40,16 +40,12 @@ if ($resGroupExists -eq $True)
 
 
     $appSettingsJson = @{
-        IsEncrypted = @{
+        StorageAccount = @{
             BlobContainerName = "invoices";
         }
-        Values = @{
-            FUNCTIONS_WORKER_RUNTIME = "dotnet"
-            AzureWebJobsStorage = $storageAccountConnectionString;
-            CosmosDBConnectionString = $cosmosDbConnectionString;
-            SendGrioidApiKey = "";
-            TwilioAccountSid =  "";
-            TwilioAuthToken = "";
+        ConnectionStrings = @{
+            StorageAccount = $storageAccountConnectionString;
+            CosmosDB = $cosmosDbConnectionString;
         }
     } | ConvertTo-Json
 
@@ -67,12 +63,14 @@ if ($resGroupExists -eq $True)
 
 
     $localSettingsJson = @{
-        StorageAccount = @{
-            BlobContainerName = "invoices";
-        }
-        ConnectionStrings = @{
-            StorageAccount = $storageAccountConnectionString;
-            CosmosDB = $cosmosDbConnectionString;
+        IsEncrypted = $False;
+        Values = @{
+            FUNCTIONS_WORKER_RUNTIME = "dotnet"
+            AzureWebJobsStorage = $storageAccountConnectionString;
+            CosmosDBConnectionString = $cosmosDbConnectionString;
+            SendGridApiKey = "SEND_GRID_API_KEY";
+            TwilioAccountSid =  "TWILIO_ACCOUNT_SID";
+            TwilioAuthToken = "TWILIO_AUTH_TOKEN";
         }
     } | ConvertTo-Json
 

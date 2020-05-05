@@ -1,0 +1,670 @@
+{
+	"info": {
+		"_postman_id": "39c546b4-5fbf-449a-8497-ed6dabcb3e28",
+		"name": "Capgemini.Net AzureFunctions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HTTP Trigger",
+			"item": [
+				{
+					"name": "HTTP Trigger [12]",
+					"item": [
+						{
+							"name": "Path",
+							"item": [
+								{
+									"name": "Before",
+									"item": [
+										{
+											"name": "ASP.NET Core API",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{dotnet-port}}/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{dotnet-port}}",
+													"path": [
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Azure Function Function1",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{azure-func-port}}/api/Function1",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{azure-func-port}}",
+													"path": [
+														"api",
+														"Function1"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "After",
+									"item": [
+										{
+											"name": "ASP.NET Core API",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{dotnet-port}}/api/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{dotnet-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Azure Function WeatherForecast",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{azure-func-port}}/api/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{azure-func-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Methods",
+							"item": [
+								{
+									"name": "Before",
+									"item": [
+										{
+											"name": "ASP.NET Core API",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{dotnet-port}}/api/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{dotnet-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ASP.NET Core API",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{dotnet-port}}/api/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{dotnet-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Azure Function",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{azure-func-port}}/api/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{azure-func-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Azure Function",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{azure-func-port}}/api/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{azure-func-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "After",
+									"item": [
+										{
+											"name": "ASP.NET Core API",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{dotnet-port}}/api/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{dotnet-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Azure Function",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{azure-func-port}}/api/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{azure-func-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "dd8c2a2b-591d-42f7-87e4-04a7c8a53d70",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "30f1019a-6370-4913-9703-48025fabe488",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Query",
+							"item": [
+								{
+									"name": "Before",
+									"item": [
+										{
+											"name": "Azure Function",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{azure-func-port}}/api/WeatherForecast?name=Tomasz",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{azure-func-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													],
+													"query": [
+														{
+															"key": "name",
+															"value": "Tomasz"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "After",
+									"item": [
+										{
+											"name": "Azure Function",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:{{azure-func-port}}/api/WeatherForecast",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "{{azure-func-port}}",
+													"path": [
+														"api",
+														"WeatherForecast"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "787a3303-8ec0-4d41-be5c-5e1cf92d418d",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "4682baf3-5002-4381-b2fc-2a9b449d9af1",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "03ec7306-1085-47dd-a846-52f75295dcf6",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a169aa04-9008-46f5-ab91-d35630a73dac",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "HTTP + DB [13]",
+					"item": [
+						{
+							"name": "ASP.NET Core API",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{dotnet-port}}/api/WeatherForecast",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{dotnet-port}}",
+									"path": [
+										"api",
+										"WeatherForecast"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ASP.NET Core API",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{dotnet-port}}/api/WeatherForecast?howMany=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{dotnet-port}}",
+									"path": [
+										"api",
+										"WeatherForecast"
+									],
+									"query": [
+										{
+											"key": "howMany",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Azure Function",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{azure-func-port}}/api/WeatherForecast",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{azure-func-port}}",
+									"path": [
+										"api",
+										"WeatherForecast"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Azure Function",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{azure-func-port}}/api/WeatherForecast?howMany=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{azure-func-port}}",
+									"path": [
+										"api",
+										"WeatherForecast"
+									],
+									"query": [
+										{
+											"key": "howMany",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Demo",
+					"item": [
+						{
+							"name": "ASP.NET Core API (dotnet)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/WeatherForecast",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"WeatherForecast"
+									]
+								},
+								"description": "Simple call to the example API project .\\HTTP Trigger\\Projects\\WebApi generated by dotnet.\nRun with .\\HTTP Trigger\\WebApi.bat"
+							},
+							"response": []
+						},
+						{
+							"name": "Azure Function Local (dotnet)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5001/api/WeatherForecast",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"WeatherForecast"
+									]
+								},
+								"description": "Simple call to the example Http triggered Azure Function project .\\HTTP Trigger\\Projects\\Http generated by dotnet.\nRun with .\\HTTP Trigger\\Http.bat"
+							},
+							"response": []
+						},
+						{
+							"name": "Azure Function Local (func)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5002/api/WeatherForecast",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"WeatherForecast"
+									]
+								},
+								"description": "Simple call to the example Http triggered Azure Function project .\\HTTP Trigger\\Projects\\Http generated by func.\nRun with .\\HTTP Trigger\\HttpFunc.bat"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Process",
+			"item": [
+				{
+					"name": "Send A0925198152",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{azure-func-port}}/api/Send/A0925198152",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{azure-func-port}}",
+							"path": [
+								"api",
+								"Send",
+								"A0925198152"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send A1129193079",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{azure-func-port}}/api/Send/A1129193079",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{azure-func-port}}",
+							"path": [
+								"api",
+								"Send",
+								"A1129193079"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send A1129193095",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{azure-func-port}}/api/Send/A1129193095",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{azure-func-port}}",
+							"path": [
+								"api",
+								"Send",
+								"A1129193095"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a773c3dd-58b7-4e8b-a258-1d15b7351a28",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "63de10ee-1945-48b6-a849-b49f2975f3be",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "98812e40-c75d-412b-8881-b8e401b20653",
+			"key": "dotnet-port",
+			"value": "7070",
+			"type": "string"
+		},
+		{
+			"id": "81848e94-015f-4cde-8ac9-6aacec7898cb",
+			"key": "azure-func-port",
+			"value": "7071",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -38,6 +38,12 @@ az storage container create `
 	--account-name $functionAppStorageName `
 	--public-access off
 
+$functionAppQueueName = "invoices-queue"
+
+az storage queue create `
+	--name $functionAppQueueName `
+	--account-name $functionAppStorageName `
+
 $functionAppName = "capgemini-azure-shorts-func-http-process"
 
 az functionapp create `

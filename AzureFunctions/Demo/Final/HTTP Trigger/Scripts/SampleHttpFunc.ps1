@@ -1,4 +1,4 @@
-$projectDir = '.\Projects\HttpFunc'
+$projectDir = '.\Samples\HttpFunc'
 
 if (Test-Path -Path "${projectDir}") {
     Write-Host 'Re-creating HttpTrigger project'
@@ -37,7 +37,7 @@ Set-Location `
 	
 Copy-Item `
 	-Path '.\Files\WeatherForecast.cs' `
-	-Destination '.\Projects\HttpFunc\Functions\' `
+	-Destination "${projectDir}\Functions\" `
     > $null
 	
 Set-Location `

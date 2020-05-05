@@ -30,7 +30,7 @@ namespace HttpProcess
                 FileAccess.Read,
                 Connection = "AzureWebJobsStorage")] Stream invoiceStream,
             [SendGrid(
-                ApiKey = "SendGrioidApiKey")] IAsyncCollector<SendGridMessage> mailCollector,
+                ApiKey = "SendGridApiKey")] IAsyncCollector<SendGridMessage> mailCollector,
             [TwilioSms(
                 AccountSidSetting = "TwilioAccountSid",
                 AuthTokenSetting = "TwilioAuthToken",
@@ -50,7 +50,8 @@ namespace HttpProcess
             await textMessageCollector.AddAsync(CreateTextMessage(invoice));
 
             log.LogInformation($"Text notification for invoice: {guid} has been sent.");
-            return new OkResult();
+
+            return new JsonResult(invoice);
         }
 
         private async static Task<SendGridMessage> CreateMailAsync(

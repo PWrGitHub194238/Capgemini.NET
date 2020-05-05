@@ -1,4 +1,4 @@
-$projectDir = '.\Projects\FunctionApp1'
+$projectDir = '.\HttpProcess'
 
 Set-Location `
 	-Path ${projectDir} `
