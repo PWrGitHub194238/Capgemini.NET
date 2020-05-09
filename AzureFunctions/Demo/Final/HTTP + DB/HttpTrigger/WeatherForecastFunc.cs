@@ -91,7 +91,7 @@ namespace HttpTrigger
 
             // On a HTTP POST request verify that the request defines a 'howMany' query parameter and if it does,
             // for that many times generate a random WeatherForecast and add its entry to the 'weather-forecast' collection of documents.
-            if (IsPost(req) && isHowManyDefined(req, out int howMany))
+            if (IsPost(req) && IsHowManyDefined(req, out int howMany))
             {
                 foreach (WeatherForecast weatherForecast in WeatherForecast.GenerateData(howMany))
                 {
@@ -110,7 +110,7 @@ namespace HttpTrigger
 
         private static bool IsHttp(HttpRequest req, string httpMethod) => req.Method.ToUpperInvariant().Equals(httpMethod.ToUpperInvariant());
 
-        private static bool isHowManyDefined(HttpRequest req, out int howMany)
+        private static bool IsHowManyDefined(HttpRequest req, out int howMany)
         {
             howMany = 0;
             return req.Query.ContainsKey("howMany") && int.TryParse(req.Query["howMany"], out howMany);
