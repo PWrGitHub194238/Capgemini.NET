@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Components;
+@using Microsoft.Extensions.Logging;
+
+@inject ILogger<Rate> Logger
+
+@if (Product is null)
+{
+    @:Loading...
+}
+else
+{
+    @: @(AvgRate?.Invoke(Product)) / @(Product.MaxRate) ( @(CurrentRate?.Invoke(Product)) )
+
+    <CascadingValue Value="this">
+        @ChildContent(Product)
+    </CascadingValue>
+}
+
+@code {
+    [Parameter]
+    public IRateableProduct Product {
+        get => product;
+        set
+        {
+            product = value;
+            TempRate = product?.CurrentRate ?? 0;
+        }
+    }
+
+    [Parameter]
+    public EventCallback<int> ProductRated { get; set; }
+
+    @*[Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;*@
+
+    [Parameter]
+    public RenderFragment<IRateableProduct> ChildContent { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment<IRateableProduct> CurrentRate { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment<IRateableProduct> AvgRate { get; set; } = default!;
+
+    private IRateableProduct product = default!;
+
+    public int TempRate { get; set; }
+
+    public void ChangeProductRate(RateIcon.RateIcon rateIcon)
+    {
+        ProductRated.InvokeAsync(rateIcon.Rate);
+    }
+
+    public void ProductRateFocused(RateIcon.RateIcon rateIcon)
+    {
+        if (TempRate != rateIcon.Rate)
+        {
+            TempRate = rateIcon.Rate;
+            StateHasChanged();
+        }
+    }
+
+    public void ProductRateBlured(RateIcon.RateIcon rateIcon)
+    {
+        int currentRate = Product?.CurrentRate ?? 0;
+        if (TempRate != currentRate)
+        {
+            TempRate = currentRate;
+            StateHasChanged();
+        }
+    }
+}

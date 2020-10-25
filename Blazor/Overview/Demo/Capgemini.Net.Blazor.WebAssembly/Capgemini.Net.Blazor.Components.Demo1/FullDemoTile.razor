@@ -1,0 +1,25 @@
+﻿@if (Context is not null)
+{
+    <FullTileContainer ChecklistContext="@Context">
+        <DemoEndPoint>
+            1
+            <Capgemini.Net.Blazor.Components.Demo1.End.RateComponent />
+        </DemoEndPoint>
+        <DemoStartPoint>
+            2
+            <Capgemini.Net.Blazor.Components.Demo1.Start.RateComponent />
+        </DemoStartPoint>
+    </FullTileContainer>
+}
+
+@code {
+    internal static readonly RenderFragment PointContext1 = __builder =>
+    {
+        <b>Label 1</b>
+    };
+
+    internal static readonly RenderFragment PointContext2 = __builder =>
+    {
+        <i>Label 2</i>
+    };
+}

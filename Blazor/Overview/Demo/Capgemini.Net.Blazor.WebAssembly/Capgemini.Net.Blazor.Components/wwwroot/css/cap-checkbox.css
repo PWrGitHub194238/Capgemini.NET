@@ -1,0 +1,84 @@
+﻿.checkbox__container_wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px; }
+  .checkbox__container_wrapper .checkbox__container_element {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; }
+    .checkbox__container_wrapper .checkbox__container_element .checkbox-read-more {
+      padding-top: 8px; }
+      .checkbox__container_wrapper .checkbox__container_element .checkbox-read-more.checkbox-read-more-opened svg {
+        transform: rotate(180deg);
+        transition: all 0.5s ease; }
+      .checkbox__container_wrapper .checkbox__container_element .checkbox-read-more.checkbox-read-more-closed svg {
+        transform: rotate(0deg);
+        transition: all 0.5s ease; }
+
+/* The container */
+.checkbox__container {
+  font-family: "Ubuntu";
+  font-weight: bold;
+  display: block;
+  position: relative;
+  padding-left: 37px;
+  cursor: pointer;
+  font-size: 13px;
+  user-select: none; }
+
+.checkbox__container:not(:hover)
+input:checked + .checkbox-checkmark + .checkbox-label {
+  text-decoration: line-through; }
+
+.checkbox__container .checkbox-label {
+  position: relative;
+  top: 8px; }
+
+/* Hide the browser's default checkbox */
+.checkbox__container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0; }
+
+/* Create a custom checkbox */
+.checkbox-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #2b0a3d;
+  border: 1px solid grey;
+  box-shadow: 5px 5px #7d38ba; }
+
+/* On mouse-over, add a grey background color */
+.checkbox__container:hover input ~ .checkbox-checkmark {
+  border: 1px solid #95e616; }
+
+/* When the checkbox is checked, add a blue background */
+.checkbox__container:hover input:checked ~ .checkbox-checkmark {
+  border: 1px solid #95e616; }
+
+.checkbox__container input:checked ~ .checkbox-checkmark {
+  background-color: #2b0a3d;
+  border: 1px solid #95e616; }
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none; }
+
+/* Show the checkmark when checked */
+.checkbox__container input:checked ~ .checkbox-checkmark:after {
+  display: block; }
+
+/* Style the checkmark/indicator */
+.checkbox__container .checkbox-checkmark:after {
+  left: 5px;
+  top: 5px;
+  right: 5px;
+  bottom: 5px;
+  background-color: #95e616; }

@@ -1,0 +1,28 @@
+﻿@page "/rate1"
+
+@for (int i = 0; i < 5; i += 1)
+{
+    var index = i;
+    <i class="@(IsActive(index) ? ACTIVE_STYLE : INACTIVE_STYLE) fa-star cursor-pointer"
+       @onclick="SetRate"
+       @onmouseover="@(() => ShowRate(index))"
+       @onmouseout=RevertRate></i>
+}
+
+@code {
+    private static string ACTIVE_STYLE = "fas";
+
+    private static string INACTIVE_STYLE = "far";
+
+    private int rate = 0;
+
+    private int tempRate = 0;
+
+    private bool IsActive(int index) => index <= tempRate;
+
+    private void SetRate() => rate = tempRate;
+
+    private void ShowRate(int index) => tempRate = index;
+
+    private void RevertRate(MouseEventArgs e) =>  tempRate = rate;
+}

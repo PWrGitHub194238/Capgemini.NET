@@ -1,0 +1,19 @@
+﻿<span class="checkbox__container_wrapper">
+    @if (Context is not null)
+    {
+        @foreach (var checklistPoint in Context.Points)
+        {
+            <ChecklistSidenavPoint
+                Context="@checklistPoint"
+                PointSelected="@OnPointSelected"
+                PointDeSelected="@(() => PointDeSelected.InvokeAsync())"
+                PointStateChanged ="@OnPointStateChanged"/>
+        }
+    }
+</span>
+
+<ArrowToLeftIcon
+    Theme="@IconTheme.DARK"
+    Height="24px"
+    Width="24px"
+    OnClick="@(() => OnClose.InvokeAsync())" />

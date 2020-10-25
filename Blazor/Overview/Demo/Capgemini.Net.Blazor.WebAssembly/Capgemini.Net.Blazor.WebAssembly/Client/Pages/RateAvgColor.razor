@@ -1,0 +1,50 @@
+﻿<div style="color: @GetHslColor(Percentage, minColor, maxColor)">@avgRate</div>
+
+@code {
+    private int minRate;
+    private int avgRate;
+    private int maxRate;
+    private Colors minColor;
+    private Colors maxColor;
+
+    [Parameter]
+    public RateAvgColorContext RateAvgColorContext { get; set; } = new RateAvgColorContext()
+    {
+        MinRate = 1,
+        AvgRate = 0,
+        MaxRate = 5,
+        MinColor = Colors.RED,
+        MaxColor = Colors.GREEN
+    };
+
+    [Parameter]
+    public int MinRate { get; set; }
+
+    [Parameter]
+    public int AvgRate { get; set; }
+
+    [Parameter]
+    public int MaxRate { get; set; }
+
+    [Parameter]
+    public Colors MinColor { get; set; }
+
+    [Parameter]
+    public Colors MaxColor { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        minRate = MinRate == default(int) ? RateAvgColorContext.MinRate : MinRate;
+        avgRate = AvgRate == default(int) ? RateAvgColorContext.AvgRate : AvgRate;
+        maxRate = MaxRate == default(int) ? RateAvgColorContext.MaxRate : MaxRate;
+        minColor = MinColor == default(int) ? RateAvgColorContext.MinColor : MinColor;
+        maxColor = MaxColor == default(int) ? RateAvgColorContext.MaxColor : MaxColor;
+    }
+
+
+    public double Percentage => (avgRate - minRate) / (double)(maxRate - minRate);
+
+    private string GetHslColor(double percent, Colors start, Colors end) => $"hsl({(int)Math.Floor((int)start + ((int)end - (int)start) * percent)}, 100%, 50%)";
+}
+
+

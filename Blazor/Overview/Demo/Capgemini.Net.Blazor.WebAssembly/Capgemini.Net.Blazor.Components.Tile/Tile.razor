@@ -1,0 +1,29 @@
+﻿<div class="cap-tile cap-tile-@OpenClosedCssState cap-tile__border" style="z-index: 800;"
+     @onclick="@(() => ExpandTitle())" @onclick:stopPropagation>
+    <div class="cap-tile__size">
+        <div class="cap-tile__content cap-tile__content_size">
+            <div class="cap-tile__icon">
+                <img class="w-100" src="@TileIconPath" />
+            </div>
+            <div>
+                <div class="cap-tile__title">@Title</div>
+                <div class="cap-tile__paragraph">@Description</div>
+            </div>
+            <div class="cap-tile__read-more" @onclick="@(() => ToggleTitle())" @onclick:stopPropagation>
+                <ArrowToRightIcon Theme="@IconTheme.DARK" />
+            </div>
+            <div class="cap-tile__image-background">
+                <img class="w-100" src="@TileIconPath" />
+            </div>
+            @if (ShowContent)
+            {
+                @ChildContent
+            }
+        </div>
+    </div>
+</div>
+
+@if (ShowContent)
+{
+    <ClickOutsideOverlay Index="500" OnOutsideClick="@CollapseTitle" />
+}

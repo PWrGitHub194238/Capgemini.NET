@@ -1,0 +1,26 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/styles.css",
+    "inputFile": "wwwroot/css/styles.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/background.css",
+    "inputFile": "wwwroot/css/background.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/cap-checkbox.css",
+    "inputFile": "wwwroot/css/cap-checkbox.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/cap-style.css",
+    "inputFile": "wwwroot/css/cap-style.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/cap-svg-button.css",
+    "inputFile": "wwwroot/css/cap-svg-button.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/fonts.css",
+    "inputFile": "wwwroot/css/fonts.scss"
+  }
+]

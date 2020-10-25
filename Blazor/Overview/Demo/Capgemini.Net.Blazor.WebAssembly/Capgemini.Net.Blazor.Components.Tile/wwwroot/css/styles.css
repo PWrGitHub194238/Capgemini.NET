@@ -1,0 +1,165 @@
+﻿.cap-tile {
+  color: #2b0a3d;
+  background-color: white;
+  margin: 10px;
+  font-family: Ubuntu;
+  transition: background-color 0.5s ease; }
+  .cap-tile:hover.cap-tile-closed {
+    color: #ffffff;
+    /* white text on hover */
+    background-color: #2b0a3d;
+    /* dark blue background on hover */
+    box-shadow: 10px 10px rgba(125, 56, 186, 0.5);
+    transition: box-shadow 0.3s ease; }
+    .cap-tile:hover.cap-tile-closed .cap-tile__border {
+      border: 1px solid #666666;
+      /* gray border on hovered and closed tile */ }
+    .cap-tile:hover.cap-tile-closed .cap-tile__content .cap-tile__title {
+      display: none;
+      /* do not show the title if the tile is hovered */ }
+    .cap-tile:hover.cap-tile-closed .cap-tile__content .cap-tile__paragraph {
+      display: block;
+      /* description if the tile is visible instead of the title on hover */
+      margin-bottom: 12px;
+      font-size: 8pt;
+      font-weight: lighter; }
+    .cap-tile:hover.cap-tile-closed .cap-tile__content .cap-tile__read-more {
+      position: absolute;
+      bottom: 12px;
+      display: block; }
+      .cap-tile:hover.cap-tile-closed .cap-tile__content .cap-tile__read-more svg {
+        width: 24px;
+        height: 24px;
+        transition: all 0.5s ease; }
+    .cap-tile:hover.cap-tile-closed .cap-tile__content .cap-tile__image-background {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      width: 50%;
+      height: 50%;
+      opacity: 0.15;
+      display: block; }
+  .cap-tile.cap-tile__border {
+    border: 1px solid #7d38ba; }
+  .cap-tile .cap-tile__size {
+    overflow: hidden;
+    position: relative;
+    /* make a outside container for .cap-tile__content_size which has absolute positioning */ }
+  .cap-tile .cap-tile__content {
+    padding: 16px; }
+    .cap-tile .cap-tile__content.cap-tile__content_size {
+      height: 100%; }
+  .cap-tile.cap-tile-closed:hover {
+    cursor: pointer; }
+  .cap-tile.cap-tile-closed .cap-tile__size {
+    width: 12vw;
+    height: 12vw;
+    transition: all 0.5s ease; }
+  .cap-tile.cap-tile-closed .cap-tile__content .cap-tile__icon {
+    margin-bottom: 10px;
+    width: 3vw;
+    display: block;
+    transition: all 0.5s ease; }
+  .cap-tile.cap-tile-closed .cap-tile__content .cap-tile__title {
+    margin-bottom: 8px;
+    font-size: 12pt;
+    font-weight: bold;
+    letter-spacing: -0.5pt;
+    display: block;
+    color: #2b0a3d;
+    text-decoration: none;
+    transition: all 0.5s ease; }
+  .cap-tile.cap-tile-closed .cap-tile__content .cap-tile__paragraph {
+    display: none; }
+  .cap-tile.cap-tile-closed .cap-tile__content .cap-tile__read-more {
+    display: none; }
+  .cap-tile.cap-tile-closed .cap-tile__content .cap-tile__image-background {
+    display: none; }
+  .cap-tile.cap-tile-opened {
+    color: #ffffff;
+    /* white text on opened, same as for closed and hovered */
+    background-color: #2b0a3d;
+    /* dark blue background on opened, same as for closed and hovered */
+    box-shadow: 10px 10px rgba(125, 56, 186, 0.5);
+    transition: box-shadow 0.3s ease; }
+    .cap-tile.cap-tile-opened .cap-tile__size {
+      width: 80vw;
+      height: 80vh;
+      transition: all 0.5s ease; }
+    .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__icon {
+      margin-bottom: 10px;
+      width: 3vw;
+      display: block;
+      transition: all 0.5s ease; }
+    .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__title {
+      margin-bottom: 8px;
+      font-size: 12pt;
+      font-weight: bold;
+      letter-spacing: -0.5pt;
+      display: block;
+      color: white;
+      text-decoration: none;
+      position: absolute;
+      /* position relative to cap-tile__content_size */
+      top: 3vh;
+      left: 5vw;
+      transition: all 0.5s ease; }
+    .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__paragraph {
+      margin-bottom: 12px;
+      font-size: 8pt;
+      font-weight: lighter;
+      display: block;
+      position: absolute;
+      /* position relative to cap-tile__content_size */
+      top: calc(3vh + 28px);
+      /* top position of the .cap-tile__title in opened tile + extra space */
+      left: 5vw;
+      width: 90%;
+      /* force a line on :after to have the width nearly of the opened tile width */ }
+      .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__paragraph:after {
+        content: " ";
+        display: block;
+        border-bottom: 2px solid white;
+        transition: all 0.5s ease;
+        position: relative;
+        top: 2px; }
+    .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__read-more {
+      position: absolute;
+      bottom: 12px;
+      display: block; }
+      .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__read-more svg {
+        width: 36px;
+        /* scale the icon up by 12px */
+        height: 36px;
+        /* scale the icon up by 12px */
+        transform: rotate(-180deg);
+        /* rotate arrow to make it point to the left */
+        transition: all 0.5s ease; }
+    .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__image-background {
+      display: none; }
+    .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__content_full {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin-top: calc(3vh + 64px);
+      margin-left: 64px;
+      margin-right: 64px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__content_full .cap-tile__content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 16px; }
+        .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__content_full .cap-tile__content .demo__container {
+          display: flex;
+          height: 100%;
+          align-self: center;
+          align-items: center; }
+    .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__content_full_checkbox-icon {
+      position: absolute;
+      bottom: 64px; }

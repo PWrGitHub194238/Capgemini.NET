@@ -1,0 +1,4 @@
+﻿<span class="checkbox__container_element">
+    <CapCheckbox State="@Context.IsDone" Label="@Context.Label" StateChanged="@OnStateChanged" />
+    <ChecklistSidenavPointMore Disabled="@Context.IsDone" Selected="@IsPointSelected" OnClick="@(() => OnPointSelected())" />
+</span>

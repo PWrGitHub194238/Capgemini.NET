@@ -1,0 +1,11 @@
+﻿@if (@Context is not null)
+{
+    <div>
+        @Context.Content
+    </div>
+    <ArrowToLeftIcon
+        Theme="@IconTheme.LIGHT"
+        Height="18px"
+        Width="18px"
+        OnClick="@(() => OnClose.InvokeAsync())" />
+}

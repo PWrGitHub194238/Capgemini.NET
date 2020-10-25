@@ -1,0 +1,18 @@
+﻿@page "/component11/{id:int}"
+
+@using Capgemini.Net.Blazor.Components.Rate11
+@using Capgemini.Net.Blazor.Components.Rate11.ColoredAvg
+@using Capgemini.Net.Blazor.Components.Rate11.ColoredCurrentRate
+
+<Rate Product="@Product" ProductRated="ChangeProductRate">
+    <CurrentRate>
+        <ColoredCurrentRate Product="@context"></ColoredCurrentRate>
+    </CurrentRate>
+    <AvgRate>
+        <ColoredAvg Product="@context"></ColoredAvg>
+    </AvgRate>
+</Rate>
+
+<NavLink Match="NavLinkMatch.All" href="1">Product #1</NavLink>
+<NavLink Match="NavLinkMatch.All" href="2">Product #2</NavLink>
+<NavLink Match="NavLinkMatch.All" href="3">Product #3</NavLink>

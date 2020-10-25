@@ -1,0 +1,28 @@
+﻿<div class="cap-tile__content_full">
+    <LeftRightSplitter
+        LeftPercentWidthDefault="@leftPercentWidthDefault"
+        RightPercentWidthDefault="@rightPercentWidthDefault"
+        SplitterPositionChanged="@OnSplitterPositionChanged">
+        <Left>
+            <div class="cap-tile__content demo-end">
+                <div class="demo__container">
+                    @DemoEndPoint
+                </div>
+            </div>
+        </Left>
+        <Right>
+            <div class="cap-tile__content demo-start">
+                <div class="demo__container">
+                    @DemoStartPoint
+                </div>
+            </div>
+        </Right>
+    </LeftRightSplitter>
+</div>
+
+<div class="cap-tile__content_full_checkbox-icon">
+    @if (ChecklistContext is not null)
+    {
+        <CheckboxIcon Theme="@IconTheme.DARK" OnClick="@(() => CheckboxSideNavService.OpenSideNav(ChecklistContext))" />
+    }
+</div>

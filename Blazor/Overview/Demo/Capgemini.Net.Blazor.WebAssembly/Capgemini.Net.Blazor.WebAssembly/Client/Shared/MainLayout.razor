@@ -1,0 +1,45 @@
+﻿@inherits LayoutComponentBase
+
+
+<CascadingValue Value="@pointContext">
+    <span class="main-container left-sidenav-@OpenClosedSideNavCssState" id="left-sidenav">
+        <span id="left-sidenav__container">
+            @if (demoChecklist is not null)
+            {
+                <ChecklistSidenav Context="@demoChecklist" PointSelected="@OnPointSelected" PointDeSelected="@OnPointDeSelected" OnClose="@OnSideNavClosed" />
+            }
+        </span>
+    </span>
+    @if (demoChecklist is not null && pointContext is null)
+    {
+        <ClickOutsideOverlay Index="700" OnOutsideClick="@OnSideNavClosed" />
+    }
+    <span class="main-container left-sub-sidenav-@OpenClosedSubSideNavCssState" id="left-sub-sidenav">
+        <span id="left-sub-sidenav__container">
+            @if (pointContext is not null)
+            {
+                <ChecklistDescriptionSubSidenav Context="@pointContext" OnClose="@OnSubSideNavClosed" />
+            }
+        </span>
+    </span>
+    @if (pointContext is not null)
+    {
+        <ClickOutsideOverlay Index="600" OnOutsideClick="@OnSubSideNavClosed" />
+    }
+</CascadingValue>
+<div class="main-container left-sidenav-@OpenClosedSideNavCssState" id="right-sidenav">
+    <div class="header">
+        <Header />
+    </div>
+    <div class="content">
+        <div class="cap-tile-container">
+            <CascadingValue Name="NavigationChildContent" Value="@Body">
+                <Capgemini.Net.Blazor.Components.Demo1.DemoTile />
+            </CascadingValue>
+        </div>
+    </div>
+    <div class="footer">
+        <Footer />
+    </div>
+</div>
+<CapBackground />

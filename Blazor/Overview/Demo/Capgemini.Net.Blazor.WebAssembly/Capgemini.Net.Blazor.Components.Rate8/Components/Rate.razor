@@ -1,0 +1,55 @@
+﻿@using Capgemini.Net.Blazor.Components.Rate9.Properties;
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.Extensions.Logging;
+@using System.Threading.Tasks;
+
+@inherits RateBase
+@inject ILogger<Rate> Logger
+
+@if (Product is null)
+{
+    @:Loading...
+}
+else
+{
+    @: @(AvgRate?.Invoke(Product)) / @(Product.MaxRate) ( @(CurrentRate?.Invoke(Product)) )
+
+    @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+    {
+        <i class="@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @(Icon) cursor-pointer"
+           @onclick="SetRate"
+           @onmouseover="@(() => ShowRate(i))"
+           @onmouseout="RevertRate"></i>
+    }
+}
+
+@code {
+    [Parameter]
+    public IRateableProduct? Product { get; set; } = null;
+
+    [Parameter]
+    public string Icon { get; set; } = "fa-star";
+
+    [Parameter]
+    public RenderFragment<IRateableProduct> CurrentRate { get; set; } = (IRateableProduct product) =>@:@{ <span>@(product.CurrentRate)</span> }
+    ;
+
+    [Parameter]
+    public RenderFragment<IRateableProduct> AvgRate { get; set; } = (IRateableProduct product) => @:@{ <span>@(product.AverageRate)</span> }
+    ;
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        if (parameters.GetValueOrDefault<RenderFragment<IRateableProduct>>(nameof(CurrentRate)) is null)
+        {
+            Logger.LogInformation(Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(CurrentRate));
+        }
+
+        if (parameters.GetValueOrDefault<RenderFragment<IRateableProduct>>(nameof(AvgRate)) is null)
+        {
+            Logger.LogInformation(Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(AvgRate));
+        }
+    }
+}

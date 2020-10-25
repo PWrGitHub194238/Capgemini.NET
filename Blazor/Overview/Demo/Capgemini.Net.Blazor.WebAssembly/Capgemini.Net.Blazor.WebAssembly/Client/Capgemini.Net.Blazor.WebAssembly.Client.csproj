@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <TypeScriptToolsVersion>latest</TypeScriptToolsVersion>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\js\main.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorWebAssemblyLazyLoad Include="Capgemini.Net.Blazor.Components.Demo1.End.dll" />
+    <BlazorWebAssemblyLazyLoad Include="Capgemini.Net.Blazor.Components.Demo1.Start.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0-rc.2.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0-rc.2.*" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0-rc.2.*" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Api.ViewModels\Capgemini.Net.Blazor.Api.ViewModels.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.ClickOutsideOverlay\Capgemini.Net.Blazor.Components.ClickOutsideOverlay.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo1\Capgemini.Net.Blazor.Components.Demo1.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate10\Capgemini.Net.Blazor.Components.Rate10.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate11\Capgemini.Net.Blazor.Components.Rate11.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate12\Capgemini.Net.Blazor.Components.Rate12.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate8\Capgemini.Net.Blazor.Components.Rate9.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Splitter\Capgemini.Net.Blazor.Components.Splitter.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Tile\Capgemini.Net.Blazor.Components.Tile.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components\Capgemini.Net.Blazor.Components.csproj" />
+  </ItemGroup>
+
+</Project>
