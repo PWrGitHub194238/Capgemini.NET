@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
 
 
-<CascadingValue Value="@pointContext">
+<CascadingValue Value="@pointContext" IsFixed="false">
     <span class="main-container left-sidenav-@OpenClosedSideNavCssState" id="left-sidenav">
         <span id="left-sidenav__container">
             @if (demoChecklist is not null)
@@ -33,8 +33,19 @@
     </div>
     <div class="content">
         <div class="cap-tile-container">
-            <CascadingValue Name="NavigationChildContent" Value="@Body">
+            <CascadingValue Name="NavigationChildContent" Value="@Body" IsFixed="true">
                 <Capgemini.Net.Blazor.Components.Demo1.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo2.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo3.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo4.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo5.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo6.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo7.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo8.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo9.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo10.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo11.DemoTile />
+                <Capgemini.Net.Blazor.Components.Demo12.DemoTile />
             </CascadingValue>
         </div>
     </div>

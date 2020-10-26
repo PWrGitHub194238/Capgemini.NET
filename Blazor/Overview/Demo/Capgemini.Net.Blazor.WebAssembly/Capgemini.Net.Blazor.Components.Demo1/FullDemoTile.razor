@@ -1,12 +1,13 @@
-﻿@if (Context is not null)
+﻿<Title Value=".NET Community Blazor Introduction | Demo 1"></Title>
+<Link href="_content/Capgemini.Net.Blazor.Components.Demo1/css/styles.css" rel="stylesheet" />
+
+@if (Context is not null)
 {
     <FullTileContainer ChecklistContext="@Context">
         <DemoEndPoint>
-            1
             <Capgemini.Net.Blazor.Components.Demo1.End.RateComponent />
         </DemoEndPoint>
         <DemoStartPoint>
-            2
             <Capgemini.Net.Blazor.Components.Demo1.Start.RateComponent />
         </DemoStartPoint>
     </FullTileContainer>
@@ -15,11 +16,29 @@
 @code {
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
-        <b>Label 1</b>
+    <b>Label 1</b>
+    <span style="display:block" class="note">It **works!**</span>
     };
 
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
-        <i>Label 2</i>
+    <i>Label 2</i>
+
+    <mark-down>
+        ## h2
+
+        * test
+        * test2
+
+        ```javascript
+        let x = 'asdf'
+
+        class Text {
+        constructor() {
+
+        }
+        }
+        ```
+    </mark-down>
     };
 }

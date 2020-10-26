@@ -6,7 +6,6 @@
     </Found>
     <NotFound>
         <LayoutView Layout="@typeof(MainLayout)">
-            <p>Sorry, there's nothing at this address.</p>
         </LayoutView>
     </NotFound>
 </Router>
@@ -14,6 +13,17 @@
 @code {
     private List<Assembly> lazyLoadedAssemblies = new List<Assembly>()
     {
-        typeof(Capgemini.Net.Blazor.Components.Demo1._Imports).Assembly
+        typeof(Capgemini.Net.Blazor.Components.Demo1._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo2._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo3._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo4._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo5._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo6._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo7._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo8._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo9._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo10._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo11._Imports).Assembly,
+        typeof(Capgemini.Net.Blazor.Components.Demo12._Imports).Assembly,
     };
 }

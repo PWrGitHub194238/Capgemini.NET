@@ -2,6 +2,17 @@
 {
     public enum TileIcon
     {
-        PAINT_BRUSH
+        HOME,
+        CHAIN,
+        NETWORKING,
+        DIAGRAM,
+        RECYCLE,
+        PAINT_BRUSH,
+        STORAGE,
+        SERVER,
+        TEAM,
+        EXCLAMATION,
+        VISION,
+        FLAG
     }
 }

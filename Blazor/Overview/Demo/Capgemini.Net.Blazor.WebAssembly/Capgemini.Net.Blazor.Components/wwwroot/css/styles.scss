@@ -71,13 +71,20 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between; /* show checklist on top and back button on bottom */
-        padding: 15px;
         height: 100%;
         position: fixed;
         left: -20vw; /* content's margin-left */
         width: 20vw;
         transition-duration: 400ms;
         transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+
+        .checkbox__container_wrapper {
+            padding: 15px;
+        }
+
+        svg {
+            padding: 15px;
+        }
     }
     // class will be added by JS XXXXXXXXXXXXXXX, triggering a sidenav to show up
     &.left-sidenav-opened {

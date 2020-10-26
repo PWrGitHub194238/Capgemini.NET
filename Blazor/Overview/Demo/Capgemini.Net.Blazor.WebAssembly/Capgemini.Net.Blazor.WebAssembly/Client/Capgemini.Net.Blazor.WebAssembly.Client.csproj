@@ -12,12 +12,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\js\main.ts" />
+    <TypeScriptCompile Remove="wwwroot\js\main.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <BlazorWebAssemblyLazyLoad Include="Capgemini.Net.Blazor.Components.Demo1.End.dll" />
     <BlazorWebAssemblyLazyLoad Include="Capgemini.Net.Blazor.Components.Demo1.Start.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\js\main.ts">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +44,18 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Api.ViewModels\Capgemini.Net.Blazor.Api.ViewModels.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.ClickOutsideOverlay\Capgemini.Net.Blazor.Components.ClickOutsideOverlay.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo10\Capgemini.Net.Blazor.Components.Demo10.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo11\Capgemini.Net.Blazor.Components.Demo11.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo12\Capgemini.Net.Blazor.Components.Demo12.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo1\Capgemini.Net.Blazor.Components.Demo1.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo2\Capgemini.Net.Blazor.Components.Demo2.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo3\Capgemini.Net.Blazor.Components.Demo3.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo4\Capgemini.Net.Blazor.Components.Demo4.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo5\Capgemini.Net.Blazor.Components.Demo5.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo6\Capgemini.Net.Blazor.Components.Demo6.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo7\Capgemini.Net.Blazor.Components.Demo7.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo8\Capgemini.Net.Blazor.Components.Demo8.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo9\Capgemini.Net.Blazor.Components.Demo9.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate10\Capgemini.Net.Blazor.Components.Rate10.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate11\Capgemini.Net.Blazor.Components.Rate11.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate12\Capgemini.Net.Blazor.Components.Rate12.csproj" />

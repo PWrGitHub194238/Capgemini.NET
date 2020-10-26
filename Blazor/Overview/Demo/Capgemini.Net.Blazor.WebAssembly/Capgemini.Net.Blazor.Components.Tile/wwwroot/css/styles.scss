@@ -133,7 +133,7 @@
             // top icon of the tile
             .cap-tile__icon {
                 margin-bottom: 10px;
-                width: 3vw;
+                width: 64px;
                 display: block;
                 transition: all 0.5s ease;
             }
@@ -147,19 +147,19 @@
                 color: white;
                 text-decoration: none;
                 position: absolute; /* position relative to cap-tile__content_size */
-                top: 3vh;
-                left: 5vw;
+                top: 24px;
+                left: 96px;
                 transition: all 0.5s ease;
             }
 
             .cap-tile__paragraph {
                 margin-bottom: 12px;
-                font-size: 8pt;
+                font-size: 10pt;
                 font-weight: lighter;
                 display: block;
                 position: absolute; /* position relative to cap-tile__content_size */
-                top: calc(3vh + 28px); /* top position of the .cap-tile__title in opened tile + extra space */
-                left: 5vw;
+                top: 48px; /* top position of the .cap-tile__title in opened tile + extra space */
+                left: 96px;
                 width: 90%; /* force a line on :after to have the width nearly of the opened tile width */
                 // show a separator line under the description
                 &:after {
@@ -206,8 +206,26 @@
                 .cap-tile__content {
                     display: flex;
                     flex-direction: column;
+                    align-items: center;
                     height: 100%;
                     padding: 16px;
+
+                    .demo__caption {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        font-family: 'Ubuntu';
+                        font-weight: bold;
+                        text-transform: uppercase;
+
+                        div:first-child {
+                            font-size: x-large;
+                        }
+
+                        div:last-child {
+                            font-size: larger;
+                        }
+                    }
 
                     .demo__container {
                         display: flex;

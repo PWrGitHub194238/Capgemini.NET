@@ -15,3 +15,17 @@
     bottom: 0;
     z-index: -1; /* Specify a stack order in case you're using a different order for other elements */
 }
+
+// Active Font Awesome default style
+.fas {
+    font-size: 80px !important;
+    color: #95e616;
+    padding: 10px;
+}
+
+// Inactive Font Awesome default style
+.far {
+    font-size: 70px !important;
+    color: #95e616;
+    padding: 16px;
+}
