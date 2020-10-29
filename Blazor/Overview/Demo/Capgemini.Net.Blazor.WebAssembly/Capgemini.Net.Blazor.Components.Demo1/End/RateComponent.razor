@@ -1,5 +1,25 @@
 ﻿<h3>RateComponent</h3>
 
-@code {
+@for (int i = 0; i < 5; i += 1)
+{
+    <i class="rate-icon far fa-star cursor-pointer"
+       onclick="CapgeminiNetBlazorComponents.setRate()"
+       onmouseover="@("CapgeminiNetBlazorComponents.showRate(" + i + ")")"
+       onmouseout="CapgeminiNetBlazorComponents.revertRate()"></i>
+}
 
+@code {
+    private static string ACTIVE_STYLE = "fas";
+    private static string INACTIVE_STYLE = "far";
+
+    public int rate = 0;
+    public int tempRate = 0;
+
+    public void setRate() => rate = tempRate;
+
+    public void showRate(int index) => tempRate = index;
+    
+    public void revertRate() => tempRate = rate;
+
+    private bool isActive(int index) => index <= tempRate;
 }

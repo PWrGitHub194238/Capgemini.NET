@@ -22,5 +22,9 @@
   {
     "outputFile": "wwwroot/css/fonts.css",
     "inputFile": "wwwroot/css/fonts.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/description-point.css",
+    "inputFile": "wwwroot/css/description-point.scss"
   }
 ]

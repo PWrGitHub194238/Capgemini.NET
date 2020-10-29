@@ -1,0 +1,15 @@
+﻿.description-point {
+  font-family: monospace,monospace;
+  overflow-y: auto; }
+  .description-point mark {
+    color: #6b25c7;
+    background-color: #f5f2f9;
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 1em; }
+  .description-point p {
+    font-weight: normal;
+    font-size: 12pt;
+    line-height: 0px; }
+  .description-point ul {
+    list-style-image: url("/_content/Capgemini.Net.Blazor.Components.Tile/img/ul.png"); }

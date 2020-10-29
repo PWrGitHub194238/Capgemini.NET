@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Capgemini.Net.Blazor.Components.Tile.Base;
+using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
 namespace Capgemini.Net.Blazor.Components.Tile
 {
-    public partial class Tile
+    public partial class Tile : TileBase
     {
         [Inject]
         public NavigationManager NavigationManager { get; set; } = default!;
@@ -23,6 +24,20 @@ namespace Capgemini.Net.Blazor.Components.Tile
         [CascadingParameter(Name = "NavigationChildContent")]
         public RenderFragment ChildContent { get; set; } = default!;
 
+
+        protected override async Task OnInitializedAsync()
+        {
+            if (ShowContent)
+            {
+                await TileOpened.InvokeAsync();
+            }
+            else
+            {
+                await TileClosed.InvokeAsync();
+            }
+            await  base.OnInitializedAsync();
+        }
+
         internal bool IsExpanded { get; set; }
 
         internal bool IsCollapsed { get; set; }
@@ -33,6 +48,8 @@ namespace Capgemini.Net.Blazor.Components.Tile
         internal bool ShowContent => !IsCollapsed && IsCurrentlyNavigated || IsExpanded;
 
         internal string OpenClosedCssState => ShowContent ? "opened" : "closed";
+
+        internal string OpenClosedCssStyle => IsCurrentlyNavigated || IsExpanded ? "z-index: 850;" : string.Empty;
 
         internal string TileIconPath => $"_content/Capgemini.Net.Blazor.Components.Tile/img/cap-tile-icons/{Icon.ToString().ToLowerInvariant().Replace("_", "-")}.png";
 
@@ -48,6 +65,7 @@ namespace Capgemini.Net.Blazor.Components.Tile
         internal async void ExpandTitle() {
             IsExpanded = true;
             IsCollapsed = false;
+            await TileOpened.InvokeAsync();
             await Task.Delay(500);
             NavigationManager.NavigateTo(Href);
         }
@@ -56,6 +74,7 @@ namespace Capgemini.Net.Blazor.Components.Tile
         {
             IsExpanded = false;
             IsCollapsed = true;
+            await TileClosed.InvokeAsync();
             await Task.Delay(500);
             NavigationManager.NavigateTo("/");
         }

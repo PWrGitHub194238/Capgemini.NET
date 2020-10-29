@@ -1,6 +1,8 @@
-﻿namespace Capgemini.Net.Blazor.Components.Demo11
+﻿using Capgemini.Net.Blazor.Components.Tile.Base;
+
+namespace Capgemini.Net.Blazor.Components.Demo11
 {
-    public partial class DemoTile
+    public partial class DemoTile : TileBase
     {
         public const string Href = "demo11";
 

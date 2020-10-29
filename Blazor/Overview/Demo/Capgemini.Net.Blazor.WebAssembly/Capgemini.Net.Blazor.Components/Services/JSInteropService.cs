@@ -1,5 +1,6 @@
 ﻿using Capgemini.Net.Blazor.Components.Services.Interfaces;
 using Capgemini.Net.Blazor.Shared.Interfaces.Context;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -34,5 +35,8 @@ namespace Capgemini.Net.Blazor.Components.Services
 
         public string GetContextPointKeyName(DemoChecklistContext context, DemoChecklistPointContext contextPoint)
             => $"{context.Name}_{contextPoint.Name}";
+
+        public async ValueTask HighlightAllUnderWithPrism(ElementReference elementReference)
+            => await jSRuntime.InvokeVoidAsync("Prism.highlightAllUnder", elementReference);
     }
 }

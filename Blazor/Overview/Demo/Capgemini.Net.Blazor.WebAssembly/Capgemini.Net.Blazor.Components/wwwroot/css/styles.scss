@@ -132,9 +132,8 @@
     ~ #left-sub-sidenav.left-sub-sidenav-opened {
         position: fixed; /* it doesn't affect any other elements' position */
         top: 0;
-        left: 0;
+        left: 20vw;
         bottom: 0;
-        padding-left: 20vw; /* 20vw of #left-sidenav */
         width: 50vw; /*  slide it from left up to 20vw of #left-sidenav + left-sub-sidenav width  */
         overflow: hidden; /* make content not appear beyond setting width */
         transition-duration: 400ms;

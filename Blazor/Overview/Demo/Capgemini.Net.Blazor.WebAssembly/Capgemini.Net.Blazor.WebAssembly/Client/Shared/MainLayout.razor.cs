@@ -7,6 +7,7 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Shared
 {
     public partial class MainLayout : LayoutComponentBase
     {
+
         [Inject]
         public IJSInteropService JSInteropService { get; set; } = default!;
 
@@ -20,6 +21,8 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Shared
         internal DemoChecklistContext? demoChecklist;
 
         internal DemoChecklistPointContext? pointContext;
+
+        internal static bool[] isExpanded = new bool[12];
 
         public void OpenSideNav(DemoChecklistContext context) => InvokeAsync(() =>
         {
@@ -58,5 +61,19 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Shared
         }
 
         internal void OnSubSideNavClosed() => pointContext = null;
+
+        internal static string GetTileCssClass(int tileIndex) {
+            return isExpanded[tileIndex - 1] ? "demo-tile demo-tile-opened" : $"demo-tile demo-tile-{tileIndex}-closed";
+        }
+
+        internal static void OnTileOpened(int tileIndex)
+        {
+            isExpanded[tileIndex - 1] = true;
+        }
+
+        internal static void OnTileClosed(int tileIndex)
+        {
+            isExpanded[tileIndex - 1] = false;
+        }
     }
 }

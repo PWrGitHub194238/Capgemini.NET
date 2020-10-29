@@ -1,7 +1,6 @@
 ﻿
-namespace Capgemini.Net.Blazor {
-
-    class Rate {
+namespace Capgemini.Net.Blazor.Components {
+    class Demo1 {
         private static ACTIVE_STYLE: string = "fas";
         private static INACTIVE_STYLE: string = "far";
 
@@ -19,11 +18,11 @@ namespace Capgemini.Net.Blazor {
                 const rateIcon = rateIcons.item(i);
 
                 if (this.isActive(i)) {
-                    rateIcon.classList.add(Rate.ACTIVE_STYLE);
-                    rateIcon.classList.remove(Rate.INACTIVE_STYLE);
+                    rateIcon.classList.add(Demo1.ACTIVE_STYLE);
+                    rateIcon.classList.remove(Demo1.INACTIVE_STYLE);
                 } else {
-                    rateIcon.classList.remove(Rate.ACTIVE_STYLE);
-                    rateIcon.classList.add(Rate.INACTIVE_STYLE);
+                    rateIcon.classList.remove(Demo1.ACTIVE_STYLE);
+                    rateIcon.classList.add(Demo1.INACTIVE_STYLE);
                 }
             }
         }
@@ -49,8 +48,8 @@ namespace Capgemini.Net.Blazor {
     }
 
     export function load() {
-        window['rate'] = new Rate();
+        window['CapgeminiNetBlazorComponents'] = new Demo1();
     }
 }
 
-Capgemini.Net.Blazor.load();
+Capgemini.Net.Blazor.Components.load();

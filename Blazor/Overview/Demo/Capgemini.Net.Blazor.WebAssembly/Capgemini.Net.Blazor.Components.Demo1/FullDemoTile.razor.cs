@@ -14,7 +14,7 @@ namespace Capgemini.Net.Blazor.Components.Demo1
             {
                 new DemoChecklistPointContext
                 {
-                    Name = "1",
+                    Name = "Install Ty",
                     Order = 1,
                     IsDone = false,
                     Label = "Label 1",

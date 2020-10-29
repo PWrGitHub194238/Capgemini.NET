@@ -1,9 +1,0 @@
-﻿@page "/rate0"
-
-@for (int i = 0; i < 5; i += 1)
-{
-    <i class="rate-icon far fa-star cursor-pointer"
-       onclick="rate.setRate()"
-       onmouseover="@("rate.showRate(" + i + ")")"
-       onmouseout="rate.revertRate()"></i>
-}

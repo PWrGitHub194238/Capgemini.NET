@@ -1,4 +1,6 @@
-﻿<div class="cap-tile cap-tile-@OpenClosedCssState cap-tile__border" style="z-index: 800;"
+﻿@inherits TileBase
+
+<div class="cap-tile cap-tile-@OpenClosedCssState cap-tile__border" style="@OpenClosedCssStyle"
      @onclick="@(() => ExpandTitle())" @onclick:stopPropagation>
     <div class="cap-tile__size">
         <div class="cap-tile__content cap-tile__content_size">
@@ -17,7 +19,19 @@
             </div>
             @if (ShowContent)
             {
-                @ChildContent
+                if (IsCurrentlyNavigated)
+                {
+                    @ChildContent
+                }
+                else
+                {
+                    <div class="content_loading">
+                        <p>LOADING</p>
+                    </div>
+                    <div class="content_loading">
+                        <img src="../img/cap-animation.gif" />
+                    </div>
+                }
             }
         </div>
     </div>

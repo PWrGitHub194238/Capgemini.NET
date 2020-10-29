@@ -1,6 +1,9 @@
-﻿<Tile
-      Icon="@Icon"
+﻿@inherits TileBase
+
+<Tile Icon="@Icon"
       Title="@Title"
       Description="@Description"
-      Href="@DemoTile.Href">
+      Href="@DemoTile.Href"
+      TileOpened="@(() => TileOpened.InvokeAsync())"
+      TileClosed="@(() => TileClosed.InvokeAsync())">
 </Tile>

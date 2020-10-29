@@ -1,8 +1,20 @@
 ﻿@if (@Context is not null)
 {
-    <div>
+<div class="description-point" @ref="DescriptionDevElementRef">
+    @if (@Context.Content is not null)
+    {
         @Context.Content
-    </div>
+    }
+    else
+    {
+        <div class="content_loading">
+            <p>LOADING</p>
+        </div>
+        <div class="content_loading">
+            <img src="../img/cap-animation.gif" />
+        </div>
+    }
+</div>
     <ArrowToLeftIcon
         Theme="@IconTheme.LIGHT"
         Height="18px"

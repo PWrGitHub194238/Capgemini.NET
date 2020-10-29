@@ -34,18 +34,42 @@
     <div class="content">
         <div class="cap-tile-container">
             <CascadingValue Name="NavigationChildContent" Value="@Body" IsFixed="true">
-                <Capgemini.Net.Blazor.Components.Demo1.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo2.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo3.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo4.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo5.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo6.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo7.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo8.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo9.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo10.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo11.DemoTile />
-                <Capgemini.Net.Blazor.Components.Demo12.DemoTile />
+                <div class="@GetTileCssClass(1)">
+                    <Capgemini.Net.Blazor.Components.Demo1.DemoTile TileOpened="@(() => OnTileOpened(1))" TileClosed="@(() => OnTileClosed(1))" />
+                </div>
+                <div class="@GetTileCssClass(2)">
+                    <Capgemini.Net.Blazor.Components.Demo2.DemoTile TileOpened="@(() => OnTileOpened(2))" TileClosed="@(() => OnTileClosed(2))" />
+                </div>
+                <div class="@GetTileCssClass(3)">
+                    <Capgemini.Net.Blazor.Components.Demo3.DemoTile TileOpened="@(() => OnTileOpened(3))" TileClosed="@(() => OnTileClosed(3))" />
+                </div>
+                <div class="@GetTileCssClass(4)">
+                    <Capgemini.Net.Blazor.Components.Demo4.DemoTile TileOpened="@(() => OnTileOpened(4))" TileClosed="@(() => OnTileClosed(4))" />
+                </div>
+                <div class="@GetTileCssClass(5)">
+                    <Capgemini.Net.Blazor.Components.Demo5.DemoTile TileOpened="@(() => OnTileOpened(5))" TileClosed="@(() => OnTileClosed(5))" />
+                </div>
+                <div class="@GetTileCssClass(6)">
+                    <Capgemini.Net.Blazor.Components.Demo6.DemoTile TileOpened="@(() => OnTileOpened(6))" TileClosed="@(() => OnTileClosed(6))" />
+                </div>
+                <div class="@GetTileCssClass(7)">
+                    <Capgemini.Net.Blazor.Components.Demo7.DemoTile TileOpened="@(() => OnTileOpened(7))" TileClosed="@(() => OnTileClosed(7))" />
+                </div>
+                <div class="@GetTileCssClass(8)">
+                    <Capgemini.Net.Blazor.Components.Demo8.DemoTile TileOpened="@(() => OnTileOpened(8))" TileClosed="@(() => OnTileClosed(8))" />
+                </div>
+                <div class="@GetTileCssClass(9)">
+                    <Capgemini.Net.Blazor.Components.Demo9.DemoTile TileOpened="@(() => OnTileOpened(9))" TileClosed="@(() => OnTileClosed(9))" />
+                </div>
+                <div class="@GetTileCssClass(10)">
+                    <Capgemini.Net.Blazor.Components.Demo10.DemoTile TileOpened="@(() => OnTileOpened(10))" TileClosed="@(() => OnTileClosed(10))" />
+                </div>
+                <div class="@GetTileCssClass(11)">
+                    <Capgemini.Net.Blazor.Components.Demo11.DemoTile TileOpened="@(() => OnTileOpened(11))" TileClosed="@(() => OnTileClosed(11))" />
+                </div>
+                <div class="@GetTileCssClass(12)">
+                    <Capgemini.Net.Blazor.Components.Demo12.DemoTile TileOpened="@(() => OnTileOpened(12))" TileClosed="@(() => OnTileClosed(12))" />
+                </div>
             </CascadingValue>
         </div>
     </div>

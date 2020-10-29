@@ -70,7 +70,7 @@
             height: 100%;
         }
     }
-    // if the tile is marked as closed (JS XXXXXXXX toggles the .cap-tile-closed/.cap-tile-opened)...
+    // if the tile was clicked then it toggles from  .cap-tile-closed to .cap-tile-opened
     &.cap-tile-closed {
         // show poniter cursor on hover
         &:hover {
@@ -116,7 +116,7 @@
             }
         }
     }
-    // if the tile is marked as opened (JS XXXXXXXX toggles the .cap-tile-closed/.cap-tile-opened)...
+    // if the tile is opened, toggle to .cap-tile-closed from .cap-tile-opened if user clicks outside
     &.cap-tile-opened {
         color: #ffffff; /* white text on opened, same as for closed and hovered */
         background-color: #2b0a3d; /* dark blue background on opened, same as for closed and hovered */
