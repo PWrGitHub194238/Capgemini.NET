@@ -103,7 +103,7 @@
     justify-content: space-between;
     /* show checklist on top and back button on bottom */
     padding: 15px;
-    height: 100%; }
+    height: calc(100% - 2 * 15px); }
 
 #left-sidenav.left-sidenav-opened ~ #left-sub-sidenav.left-sub-sidenav-opened {
   position: fixed;

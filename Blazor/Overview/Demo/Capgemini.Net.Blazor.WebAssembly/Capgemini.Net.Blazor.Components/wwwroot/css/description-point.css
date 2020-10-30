@@ -1,4 +1,6 @@
 ﻿.description-point {
+  padding-right: 10px;
+  margin-bottom: 15px;
   font-family: monospace,monospace;
   overflow-y: auto; }
   .description-point mark {
@@ -9,7 +11,6 @@
     font-size: 1em; }
   .description-point p {
     font-weight: normal;
-    font-size: 12pt;
-    line-height: 0px; }
+    font-size: 12pt; }
   .description-point ul {
     list-style-image: url("/_content/Capgemini.Net.Blazor.Components.Tile/img/ul.png"); }

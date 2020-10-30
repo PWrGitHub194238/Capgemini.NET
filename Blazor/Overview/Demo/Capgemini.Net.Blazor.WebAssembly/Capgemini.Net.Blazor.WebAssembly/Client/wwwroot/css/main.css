@@ -97,22 +97,6 @@
   right: calc(100% - (15vw + 2.5 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
   transition: all 0.5s ease; }
 
-.content_loading {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center; }
-  .content_loading p {
-    font-family: 'Ubuntu';
-    font-weight: bold;
-    text-transform: uppercase; }
-  .content_loading img {
-    opacity: 0.15; }
-
 ::-webkit-scrollbar {
   height: 5px;
   width: 5px; }

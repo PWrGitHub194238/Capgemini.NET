@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Capgemini.Net.Blazor.Components.Tile
 {
-    public partial class Tile : TileBase
+    public partial class Tile : DemoTileBase
     {
         [Inject]
         public NavigationManager NavigationManager { get; set; } = default!;

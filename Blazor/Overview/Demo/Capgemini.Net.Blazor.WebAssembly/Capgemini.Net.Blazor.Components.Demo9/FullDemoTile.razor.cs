@@ -7,7 +7,7 @@ namespace Capgemini.Net.Blazor.Components.Demo9
     [Route(DemoTile.Href)]
     public partial class FullDemoTile
     {
-        internal DemoChecklistContext Context => new DemoChecklistContext
+        internal static DemoChecklistContext Context => new DemoChecklistContext
         {
             Name = typeof(FullDemoTile).FullName!,
             Points = new Collection<DemoChecklistPointContext>()

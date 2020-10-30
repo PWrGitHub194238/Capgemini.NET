@@ -2,7 +2,7 @@
 
 namespace Capgemini.Net.Blazor.Components.Demo9
 {
-    public partial class DemoTile : TileBase
+    public partial class DemoTile : DemoTileBase
     {
         public const string Href = "demo9";
 

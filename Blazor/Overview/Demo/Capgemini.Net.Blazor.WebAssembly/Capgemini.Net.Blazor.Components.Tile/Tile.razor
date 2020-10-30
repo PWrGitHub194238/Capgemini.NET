@@ -1,4 +1,4 @@
-﻿@inherits TileBase
+﻿@inherits DemoTileBase
 
 <div class="cap-tile cap-tile-@OpenClosedCssState cap-tile__border" style="@OpenClosedCssStyle"
      @onclick="@(() => ExpandTitle())" @onclick:stopPropagation>
@@ -17,6 +17,9 @@
             <div class="cap-tile__image-background">
                 <img class="w-100" src="@TileIconPath" />
             </div>
+            <div>
+                @CompletedPointCount / @PointCount
+            </div>
             @if (ShowContent)
             {
                 if (IsCurrentlyNavigated)
@@ -25,12 +28,7 @@
                 }
                 else
                 {
-                    <div class="content_loading">
-                        <p>LOADING</p>
-                    </div>
-                    <div class="content_loading">
-                        <img src="../img/cap-animation.gif" />
-                    </div>
+                    <LoadPlaceholder />
                 }
             }
         </div>

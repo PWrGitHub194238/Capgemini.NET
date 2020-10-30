@@ -1,9 +1,11 @@
-﻿@inherits TileBase
+﻿@inherits DemoTileBase
 
 <Tile Icon="@Icon"
       Title="@Title"
       Description="@Description"
       Href="@DemoTile.Href"
-      TileOpened="@(() => TileOpened.InvokeAsync())"
-      TileClosed="@(() => TileClosed.InvokeAsync())">
+      PointCount="@PointCount"
+      CompletedPointCount="@CompletedPointCount"
+      TileOpened="@(() => OpenTile(FullDemoTile.Context))"
+      TileClosed="@(() => CloseTile(FullDemoTile.Context))">
 </Tile>
