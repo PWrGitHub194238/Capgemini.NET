@@ -1,0 +1,39 @@
+﻿@using Capgemini.Net.Blazor.Components.Demo2.End
+@using Capgemini.Net.Blazor.Components.SvgIcons
+@using SvgIcons.Base
+
+<div class="demo2__container_wrapper">
+    <span class="demo2__label">Max rate</span>
+    <div class="demo2__selector">
+        <MinusIcon
+            Theme="IconTheme.DARK" 
+            OnClick="@(() => maxRate = Math.Max(2, maxRate - 1))" />
+        <strong>@maxRate</strong>
+        <PlusIcon
+            Theme="IconTheme.DARK"
+            OnClick="@(() => maxRate += 1)" />
+    </div>
+
+    <span class="demo2__label">Icon</span>
+    <div class="demo2__selector">
+        <MinusIcon
+            Theme="IconTheme.DARK"
+            OnClick="@(() => iconIndex = iconIndex == 0 ? icons.Length - 1 : iconIndex - 1)" />
+        <i class="far @icons[iconIndex]"></i>
+        <PlusIcon
+            Theme="IconTheme.DARK"
+            OnClick="@(() => iconIndex = (iconIndex + 1) % icons.Length)" />
+    </div>
+
+    <div class="demo2__container">
+        <RateComponent MaxRate="@maxRate" Icon="@icons[iconIndex]" />
+    </div>
+</div>
+
+@code {
+    private int maxRate = 6;
+
+    private string[] icons = new[] { "fa-grin-stars", "fa-angry", "fa-star", "fa-sun" };
+
+    private int iconIndex = 0;
+}

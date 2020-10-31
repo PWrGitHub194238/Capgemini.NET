@@ -1,5 +1,6 @@
 ﻿using Capgemini.Net.Blazor.Components.Tile.Base;
 using Microsoft.AspNetCore.Components;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace Capgemini.Net.Blazor.Components.Tile
@@ -51,6 +52,20 @@ namespace Capgemini.Net.Blazor.Components.Tile
 
         internal string OpenClosedCssStyle => IsCurrentlyNavigated || IsExpanded ? "z-index: 850;" : string.Empty;
 
+        internal string ProgressCssStyle => DemoTileProgressPercent switch
+        {
+            var d when d is < 0.25 => "0",
+            var d when d is >= 0.25 and < 0.5 => "25",
+            var d when d is >= 0.5 and < 0.75 => "50",
+            var d when d is >= 0.75 and < 1 => "75",
+            var d when d == 1 => "100",
+            _ => "0",
+        };
+
+        internal double DemoTileProgressPercent => (CompletedPointCount / (double)PointCount);
+
+        internal string DemoTileProgress => DemoTileProgressPercent.ToString("P0", cultureInfo);
+
         internal string TileIconPath => $"_content/Capgemini.Net.Blazor.Components.Tile/img/cap-tile-icons/{Icon.ToString().ToLowerInvariant().Replace("_", "-")}.png";
 
         internal void ToggleTitle() {
@@ -78,5 +93,8 @@ namespace Capgemini.Net.Blazor.Components.Tile
             await Task.Delay(500);
             NavigationManager.NavigateTo("/");
         }
+
+
+        private static readonly CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture("en");
     }
 }

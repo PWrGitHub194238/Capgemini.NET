@@ -33,7 +33,7 @@
                     position: absolute;
                     bottom: 12px;
                     display: block;
-                    // defaults for the arrow icon poiting to the right
+                    // defaults for the arrow icon pointing to the right
                     svg {
                         width: 24px;
                         height: 24px;
@@ -49,6 +49,29 @@
                     height: 50%;
                     opacity: 0.15;
                     display: block;
+                }
+                // show progress image with percentage
+                .cap-tile__progress {
+                    position: absolute;
+                    bottom: 0px;
+                    right: 0px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 78px;
+                    height: 78px;
+
+                    .progress-img {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0.5;
+                    }
+
+                    .progress-text {
+                        display: block;
+                        color: #a7c509;
+                    }
                 }
             }
         }
@@ -72,7 +95,7 @@
     }
     // if the tile was clicked then it toggles from  .cap-tile-closed to .cap-tile-opened
     &.cap-tile-closed {
-        // show poniter cursor on hover
+        // show pointer cursor on hover
         &:hover {
             cursor: pointer;
         }
@@ -113,6 +136,27 @@
             // do not show a watermark on a tile's background if it is not hovered
             .cap-tile__image-background {
                 display: none;
+            }
+            // show progress image but no percentage - it will be visible only on hover
+            .cap-tile__progress {
+                position: absolute;
+                bottom: 0px;
+                right: 0px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 78px;
+                height: 78px;
+
+                .progress-img {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .progress-text {
+                    display: none;
+                }
             }
         }
     }
@@ -186,6 +230,10 @@
             }
             // do not show a watermark on a tile's background if it is opened
             .cap-tile__image-background {
+                display: none;
+            }
+            // do not show progress
+            .cap-tile__progress {
                 display: none;
             }
 

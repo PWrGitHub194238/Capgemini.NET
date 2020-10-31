@@ -6,6 +6,6 @@
       Href="@DemoTile.Href"
       PointCount="@PointCount"
       CompletedPointCount="@CompletedPointCount"
-      TileOpened="@(() => OpenTile(FullDemoTile.Context))"
+      TileOpened="@(() => TileOpened.InvokeAsync())"
       TileClosed="@(() => CloseTile(FullDemoTile.Context))">
 </Tile>

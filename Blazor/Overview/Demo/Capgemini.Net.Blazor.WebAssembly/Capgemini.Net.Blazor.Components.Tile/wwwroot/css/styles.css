@@ -39,6 +39,23 @@
       height: 50%;
       opacity: 0.15;
       display: block; }
+    .cap-tile:hover.cap-tile-closed .cap-tile__content .cap-tile__progress {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 78px;
+      height: 78px; }
+      .cap-tile:hover.cap-tile-closed .cap-tile__content .cap-tile__progress .progress-img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5; }
+      .cap-tile:hover.cap-tile-closed .cap-tile__content .cap-tile__progress .progress-text {
+        display: block;
+        color: #a7c509; }
   .cap-tile.cap-tile__border {
     border: 1px solid #7d38ba; }
   .cap-tile .cap-tile__size {
@@ -75,6 +92,21 @@
     display: none; }
   .cap-tile.cap-tile-closed .cap-tile__content .cap-tile__image-background {
     display: none; }
+  .cap-tile.cap-tile-closed .cap-tile__content .cap-tile__progress {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 78px;
+    height: 78px; }
+    .cap-tile.cap-tile-closed .cap-tile__content .cap-tile__progress .progress-img {
+      position: absolute;
+      width: 100%;
+      height: 100%; }
+    .cap-tile.cap-tile-closed .cap-tile__content .cap-tile__progress .progress-text {
+      display: none; }
   .cap-tile.cap-tile-opened {
     color: #ffffff;
     /* white text on opened, same as for closed and hovered */
@@ -136,6 +168,8 @@
         /* rotate arrow to make it point to the left */
         transition: all 0.5s ease; }
     .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__image-background {
+      display: none; }
+    .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__progress {
       display: none; }
     .cap-tile.cap-tile-opened .cap-tile__content .cap-tile__content_full {
       position: absolute;

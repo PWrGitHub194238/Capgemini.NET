@@ -20,14 +20,56 @@
 .fas {
     font-size: 80px !important;
     color: #95e616;
-    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    &.fa-grin-stars {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    &.fa-angry {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    &.fa-star {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    &.fa-sun {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 }
 
 // Inactive Font Awesome default style
 .far {
     font-size: 70px !important;
     color: #95e616;
-    padding: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    &.fa-grin-stars {
+        padding-left: calc(5px + (77.500px - 67.813px) / 2);
+        padding-right: calc(5px + (77.500px - 67.813px) / 2);
+    }
+
+    &.fa-angry {
+        padding-left: calc(5px + (77.500px - 67.813px) / 2);
+        padding-right: calc(5px + (77.500px - 67.813px) / 2);
+    }
+
+    &.fa-star {
+        padding-left: calc(5px + (90px - 78.750px) / 2);
+        padding-right: calc(5px + (90px - 78.750px) / 2);
+    }
+
+    &.fa-sun {
+        padding-left: calc(5px + (80px - 70px) / 2);
+        padding-right: calc(5px + (80px - 70px) / 2);
+    }
 }
 
 .cap-tile-container {

@@ -18,12 +18,6 @@ namespace Capgemini.Net.Blazor.Components.Tile.Base
         [Parameter]
         public int PointCount { get; set; }
 
-        public async Task OpenTile(DemoChecklistContext context)
-        {
-            await CalculateTileCompletion(context);
-            await TileOpened.InvokeAsync();
-        }
-
         public async Task CloseTile(DemoChecklistContext context)
         {
             await CalculateTileCompletion(context);

@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "prism@1.22.0",
+      "destination": "wwwroot/lib/prism/",
+      "files": [
+        "components/prism-csharp.min.js",
+        "components/prism-markup.min.js",
+        "components/prism-typescript.min.js",
+        "plugins/autolinker/prism-autolinker.min.js",
+        "plugins/autolinker/prism-autolinker.min.css",
+        "plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js",
+        "plugins/keep-markup/prism-keep-markup.min.js",
+        "plugins/line-highlight/prism-line-highlight.min.js",
+        "plugins/line-highlight/prism-line-highlight.min.css",
+        "plugins/line-numbers/prism-line-numbers.min.css",
+        "plugins/line-numbers/prism-line-numbers.min.js",
+        "plugins/normalize-whitespace/prism-normalize-whitespace.min.js",
+        "plugins/toolbar/prism-toolbar.min.js",
+        "plugins/toolbar/prism-toolbar.min.css",
+        "prism.min.js",
+        "themes/prism.min.css"
+      ]
+    },
+    {
+      "library": "clipboard.js@2.0.6",
+      "destination": "wwwroot/lib/clipboard.js/",
+      "files": [
+        "clipboard.min.js"
+      ]
+    }
+  ]
+}

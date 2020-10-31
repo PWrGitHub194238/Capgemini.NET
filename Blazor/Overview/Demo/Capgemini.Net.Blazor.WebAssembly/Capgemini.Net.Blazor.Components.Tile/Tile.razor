@@ -17,9 +17,6 @@
             <div class="cap-tile__image-background">
                 <img class="w-100" src="@TileIconPath" />
             </div>
-            <div>
-                @CompletedPointCount / @PointCount
-            </div>
             @if (ShowContent)
             {
                 if (IsCurrentlyNavigated)
@@ -30,6 +27,16 @@
                 {
                     <LoadPlaceholder />
                 }
+            }
+            else
+            {
+                <div class="cap-tile__progress">
+                    <img class="progress-img" src="/_content/Capgemini.Net.Blazor.Components.Tile/img/cap-tile-progress/@(ProgressCssStyle).png" />
+                    @if (!@ProgressCssStyle.Equals("100"))
+                    {
+                        <div class="progress-text">@DemoTileProgress</div>
+                    }
+                </div>
             }
         </div>
     </div>

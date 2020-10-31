@@ -19,7 +19,7 @@
         <p>Open a file <mark>./End/RateComponent.razor</mark> Razor component. Its content should resemble snippet that is shown below:</p>
 
         <pre>
-        <code class="language-csharp line-numbers">
+        <code class="language-markup line-numbers">
 &lt;h3&gt;RateComponent&lt;/h3&gt;
 
 @@code {
@@ -231,10 +231,10 @@ public updateRateIconActiveState() {
     </p>
 
     <pre>
-    <code class="language-markup line-numbers">
-&lt;i class="@@(IsActive(index) ? ACTIVE_STYLE : INACTIVE_STYLE) fa-star cursor-pointer"
+    <code class="language-csharp line-numbers">
+&lt;i class="@@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) fa-star cursor-pointer"
     @@onclick="SetRate"
-    @@onmouseover="@@(() => ShowRate(index))"
+    @@onmouseover="@@(() => ShowRate(i))"
     @@onmouseout=RevertRate&gt;&lt;/i&gt;
         </code>
         </pre>
@@ -244,7 +244,7 @@ public updateRateIconActiveState() {
     <p>The method name has to be updated to make the above example working:</p>
 
     <pre>
-        <code class="language-csharp line-numbers">
+    <code class="language-csharp line-numbers">
 private bool IsActive(int index) => index &lt;= tempRate;
         </code>
         </pre>
@@ -262,9 +262,12 @@ private bool IsActive(int index) => index &lt;= tempRate;
         The side effect of this behavior is that the <mark>@@for (int i = 0; i &lt; 5; i += 1)</mark> loop will generate <mark>5</mark> elements, each calling <mark>ShowRate(5)</mark>.
     </p>
 
-    <p>To resolve the issue the separate variable have to be defined with a lifetime of a loop, so each time code make another pass, new variable will be created and its reference will be kept by lambda expression:</p>
+    <p>
+        To resolve the issue the separate variable have to be defined with a lifetime of a loop (line <mark>3</mark>), so each time code make another pass, 
+        new variable will be created and its reference will be kept by lambda expression (line <mark>6</mark>):
+    </p>
 
-    <pre data-line="3">
+    <pre data-line="3, 6">
     <code class="language-markup line-numbers">
 @@for (int i = 0; i &lt; 5; i += 1)
 {

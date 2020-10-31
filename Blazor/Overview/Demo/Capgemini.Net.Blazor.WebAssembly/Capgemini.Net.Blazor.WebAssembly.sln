@@ -57,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Compon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo12", "Capgemini.Net.Blazor.Components.Demo12\Capgemini.Net.Blazor.Components.Demo12.csproj", "{E18DF179-C1DE-4690-A007-4B6C0319639B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capgemini.Net.Blazor.Components.LoadPlaceholder", "Capgemini.Net.Blazor.Components.LoadPlaceholder\Capgemini.Net.Blazor.Components.LoadPlaceholder.csproj", "{D0F08786-AF70-4648-8B4C-693ACC7C95C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.LoadPlaceholder", "Capgemini.Net.Blazor.Components.LoadPlaceholder\Capgemini.Net.Blazor.Components.LoadPlaceholder.csproj", "{D0F08786-AF70-4648-8B4C-693ACC7C95C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
