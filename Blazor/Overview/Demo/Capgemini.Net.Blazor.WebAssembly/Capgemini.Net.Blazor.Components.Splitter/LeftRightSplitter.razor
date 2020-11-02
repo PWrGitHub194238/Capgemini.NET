@@ -1,21 +1,19 @@
-﻿<div
-     class="splitter__container"
+﻿<Link href="_content/Capgemini.Net.Blazor.Components.Splitter/css/styles.css" rel="stylesheet" />
+
+<div class="splitter__container"
      @onmousemove="@OnMouseMove"
      @onmousedown="@(OnMouseDown)"
      @onmouseup="@(OnMouseUp)"
-     @ref="ContainerRef"
->
+     @ref="ContainerRef">
     <div style="width: @(LeftPercentWidth); min-width: @(LeftPercentMinWidth); margin-right: @(SplitterPadding);" class="splitter-side-container">
         @Left
     </div>
-    <div
-         style="background-color: @(SplitterColorStyle); width:@(SplitterWidthStyle);"
+    <div style="background-color: @(SplitterColorStyle); width:@(SplitterWidthStyle);"
          class="splitter-bar splitter-bar-on-@(MouseStateClassName)"
          @onmouseover="@(OnMouseOver)"
-         @onmouseout="@(OnMouseOut)"
-    >
+         @onmouseout="@(OnMouseOut)">
         <div class="splitter-bar__before-arrow">
-            <ArrowToLeftIcon Theme="IconTheme.DARK" Height="24px" Width="24px" OnClick="@(() => OnHideLeftClicked() )"/>
+            <ArrowToLeftIcon Theme="IconTheme.DARK" Height="24px" Width="24px" OnClick="@(() => OnHideLeftClicked() )" />
         </div>
         <div class="splitter-bar__dots"></div>
         <div class="splitter-bar__after-arrow">

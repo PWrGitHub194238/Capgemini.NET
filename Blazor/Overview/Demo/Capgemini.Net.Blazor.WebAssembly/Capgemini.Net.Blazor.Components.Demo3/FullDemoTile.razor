@@ -5,10 +5,10 @@
 {
     <FullTileContainer ChecklistContext="@Context">
         <DemoEndPoint>
-            <Capgemini.Net.Blazor.Components.Demo3.End.RateComponent />
+            <Capgemini.Net.Blazor.Components.Demo3.End.ContainerComponent />
         </DemoEndPoint>
         <DemoStartPoint>
-            <Capgemini.Net.Blazor.Components.Demo3.Start.RateComponent />
+            <Capgemini.Net.Blazor.Components.Demo3.Start.ContainerComponent />
         </DemoStartPoint>
     </FullTileContainer>
 }
@@ -16,29 +16,588 @@
 @code {
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
-    <b>Label 1</b>
-    <span style="display:block" class="note">It **works!**</span>
+    <p>
+        While any <strong>C#</strong> logic can be placed inside a <mark>@@code { }</mark> block of a Razor component to be mixed up with HTML markup of the component,
+        <strong>C#</strong> code can be defined in separate file as long as:
+    </p>
+
+    <ul>
+        <li>
+            it is marked to be a <mark>partial class</mark>,
+        </li>
+        <li>
+            is named exactly the same as the <mark>*.razor</mark> file,
+        </li>
+        <li>
+            if the Razor component inherits and/or implements any base class/interface, the code-behind class also has to inherits/implements them
+
+        </li>
+        <li>
+            with the same namespace as a Razor component is (be default <mark>*.razor</mark> file lives in the namespace defined by assembly name directory tree
+            unless the <mark>@@namespace</mark> directive is defined inside an <mark>_Imports.razor</mark> file (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#namespaces">read more</a>).
+        </li>
+    </ul>
+
+    <p>The file itself is not required to be named after the Razor component but it might be helpful as Visual Studio IDE automatically nests files that share same prefix like shown below:</p>
+
+    <div style="display: flex; justify-content: space-around;">
+        <figure style="display: flex; flex-direction: column; align-items: center;">
+            <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/1/nested-files.png" />
+            <figcaption><mark>ContainerComponent</mark> Razor component with nested code-behind file</figcaption>
+        </figure>
+    </div>
+
+    <p>
+        Define <mark>ContainerComponent.razor.cs</mark> file and move the content of the <mark>./End/ContainerComponent.razor</mark> file to its code-behind file:
+    </p>
+
+    <pre>
+    <code class="language-csharp line-numbers">
+@@using Capgemini.Net.Blazor.Components.Demo3.End
+@@using Capgemini.Net.Blazor.Components.SvgIcons
+@@using SvgIcons.Base
+
+// ...
+
+@@code {
+
+}
+        </code>
+        </pre>
+
+    <p>
+        The <mark>@@code { }</mark> can be deleted as it is empty. If there is some code left in both Razor component file and code-behind file, both code chunks will be merged
+        (as normally partial class would - <a href="https://docs.microsoft.com/pl-pl/dotnet/csharp/language-reference/language-specification/classes#partial-types">read more</a>).
+    </p>
+
+    <p>
+        As the logic was moved to the code-behind <mark>ContainerComponent.razor.cs</mark> file, Visual Studio IDE can give code recommendations (or other refactoring):
+    </p>
+
+    <ul>
+        <li>
+            make <mark>icons</mark> private array <mark>readonly</mark> - that array is not a subject to change,
+        </li>
+        <li>
+            convert private <mark>maxRate</mark> and <mark>iconIndex</mark> to properties, renaming them in the process.
+        </li>
+        <li>
+            <strong><i>(optionally)</i></strong> move a logic from <mark>OnClick</mark> event handlers (i.e. <mark>@@(() => MaxRate = Math.Max(2, MaxRate - 1))</mark> can be simplified to
+            <mark>@@(() => MaxRate -= 1)</mark> with the logic to be handle by the <strong>setter</strong>).
+        </li>
+        <li>
+            <strong><i>(optionally)</i></strong> the <a href="https://docs.microsoft.com/pl-pl/dotnet/csharp/programming-guide/indexers/">indexer</a> can be introduced
+            to gracefully access the <mark>private readonly</mark> <mark>icons</mark> array.
+        </li>
+    </ul>
+
+    <p>
+        Final <mark>ContainerComponent.razor.cs</mark> Razor component's code-behind partial class might look like this:
+    </p>
+
+    <pre>
+    <code class="language-csharp line-numbers">
+using System;
+
+namespace Capgemini.Net.Blazor.Components.Demo3.End
+{
+    public partial class ContainerComponent
+    {
+        private int maxRate = 6;
+        private int iconIndex;
+
+        private readonly string[] icons = {
+            "fa-star",
+            "fa-grin-stars",
+            "fa-angry",
+            "fa-sun"
+        };
+
+        public string this[int i]
+        {
+            get => icons[i];
+            set => icons[i] = value;
+        }
+
+        public int MaxRate
+        {
+            get => maxRate;
+            set => maxRate = Math.Max(2, value);
+        }
+
+        public int IconIndex
+        {
+            get => iconIndex;
+            set => iconIndex = value &lt; 0
+                ? icons.Length - 1
+                : value &gt;= icons.Length
+                    ? 0
+                    : value;
+        }
+    }
+}
+        </code>
+        </pre>
+
+    <p>
+        ... and after moving the logic away from the Razor component markup file <mark>ContainerComponent.razor</mark> to the code-behind <strong>setters</strong>, event handlers for <mark>MinusIcon</mark>
+        and <mark>PlusIcon</mark> Razor nested components can be simplified:
+    </p>
+
+    <pre data-line="8, 10, 15, 17">
+    <code class="language-csharp line-numbers">
+@@using Capgemini.Net.Blazor.Components.Demo3.End
+@@using Capgemini.Net.Blazor.Components.SvgIcons
+@@using SvgIcons.Base
+
+&lt;div class="demo3__container_wrapper"&gt;
+    &lt;span class="demo3__label"&gt;Max rate&lt;/span&gt;
+    &lt;div class="demo3__selector"&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK" <mark>OnClick="@@(() =&gt; MaxRate -= 1)"</mark> /&gt;
+        &lt;strong&gt;@@MaxRate&lt;/strong&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" <mark>OnClick="@@(() =&gt; MaxRate += 1)"</mark> /&gt;
+    &lt;/div&gt;
+
+    &lt;span class="demo3__label"&gt;Icon&lt;/span&gt;
+    &lt;div class="demo3__selector"&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK"<mark> OnClick="@@(() =&gt; IconIndex -= 1)"</mark> /&gt;
+        &lt;i class="far @@icons[iconIndex]"&gt;&lt;/i&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" <mark>OnClick="@@(() =&gt; IconIndex += 1)"</mark> /&gt;
+    &lt;/div&gt;
+
+    &lt;div class="demo3__container"&gt;
+        &lt;RateComponent MaxRate="@@MaxRate" Icon="@@this[IconIndex]" /&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+    <p>
+        <strong>Note:</strong> As both partial classes <mark>ContainerComponent.razor</mark> and <mark>ContainerComponent.razor.cs</mark> will be merged as one,
+        Razor component can access all fields of the merged class including <mark>private</mark> fields. In that case <a href="https://docs.microsoft.com/pl-pl/dotnet/csharp/programming-guide/indexers/">indexer</a> is not needed.
+    </p>
+    <p>
+        <strong>Note:</strong> Although the <strong>setter</strong> for <mark>IconIndex</mark> property of the <mark>ContainerComponent.razor.cs</mark> looks complicated,
+        there is no possibility to simplify it by using <a href="https://docs.microsoft.com/pl-pl/dotnet/csharp/whats-new/csharp-9#pattern-matching-enhancements">pattern matching</a> as <mark>icons.length</mark> is not a constant.
+    </p>
     };
 
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
-    <i>Label 2</i>
+    <p>
+        Including static resources like <strong>CSS</strong> in Blazor can be done in several ways:
+    </p>
 
-    <mark-down>
-        ## h2
+    <ul>
+        <li>
+            by adding static file to a <mark>wwwroot</mark> directory that is containing <mark>index.html</mark> file (for <mark>WebAssembly</mark> - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/templates?view=aspnetcore-5.0#blazor-project-structure">read more</a>),
+            linking the static <mark>wwwroot/css/main.css</mark> <strong>CSS</strong> file in <mark>index.html</mark>:
 
-        * test
-        * test2
+            <pre data-line="6">
+            <code class="language-markup line-numbers">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
 
-        ```javascript
-        let x = 'asdf'
+    &lt;head&gt;
+        &lt;!-- ... --&gt;
+        &lt;link href="css/main.css" rel="stylesheet" /&gt;
+        &lt;!-- ... --&gt;
+    &lt;/head&gt;
 
-        class Text {
-        constructor() {
+    &lt;!-- ... --&gt;
+                    </code>
+        </pre>
+        </li>
+        <li>
+            by adding static file to a <mark>wwwroot</mark> directory of any <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-5.0&tabs=visual-studio">Razor components class library</a>
+            - during the compilation all static files that were added to that <mark>wwwroot</mark> directory will be available at the <mark>_content/{ASSEMBLY NAME}/{RELATIVE FILE PATH}</mark> path
+            (i.e. for <mark>Capgemini.Net.Blazor.Components.Demo3</mark> assembly and <mark>wwwroot\css\styles.css</mark> file the path would be <mark>_content/Capgemini.Net.Blazor.Components.Demo3/css/styles.css</mark>):
 
+            <pre data-line="6">
+            <code class="language-markup line-numbers">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+    &lt;head&gt;
+        &lt;!-- ... --&gt;
+        &lt;link href="_content/Capgemini.Net.Blazor.Components.Demo3/css/styles.css" rel="stylesheet" /&gt;
+        &lt;!-- ... --&gt;
+    &lt;/head&gt;
+
+    &lt;!-- ... --&gt;
+                    </code>
+        </pre>
+        </li>
+        <li>
+            by adding static file to a <mark>wwwroot</mark> directory of any <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-5.0&tabs=visual-studio">Razor components class library</a>
+            and utilizing the <mark>&lt;Link /&gt;</mark> component from <mark>Microsoft.AspNetCore.Components.Web.Extensions</mark> namespace (see <a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Web.Extensions/">NuGet package</a>)
+            directly into Razor component's markup:
+
+            <pre data-line="6">
+            <code class="language-markup line-numbers">
+&lt;!-- ... --&gt;
+&lt;Link href="_content/Capgemini.Net.Blazor.Components.Demo3/css/styles.css" rel="stylesheet" /&gt;
+&lt;!-- ... --&gt;
+                    </code>
+        </pre>
+        </li>
+        <li>
+            by utilizing <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-5.0">Blazor CSS isolation</a>.
+        </li>
+    </ul>
+
+    <p>
+        <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-5.0">Blazor CSS isolation</a> enables <strong>CSS</strong> files
+        to be nested in the same manner as code-behind <strong>*.cs</strong> files for Razor components.
+    </p>
+
+    <p>
+        Create the <mark>ContainerComponent.razor.scss</mark> file in the same directory as <mark>ContainerComponent.razor</mark> Razor component is (along with the
+        <mark>ContainerComponent.razor.cs</mark> partial code-behind class).
+    </p>
+
+    <p>
+        <strong>Note:</strong> <strong>*.scss</strong> has to be compiled to <strong>*.css</strong> file as Blazor does not support CSS preprocessors in terms of <strong>CSS</strong> isolation
+        - to enable <strong>*.scss</strong> compilation <a href="https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebEssentials2019">Web Essentials</a> extension for Visual Studio can be installed.
+    </p>
+
+    <div style="display: flex; justify-content: space-around;">
+        <figure style="display: flex; flex-direction: column; align-items: center;">
+            <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/2/nested-files.png" />
+            <figcaption><mark>ContainerComponent</mark> Razor component with nested code-behind and CSS files</figcaption>
+        </figure>
+    </div>
+
+    <p>
+        During the compilation process Blazor will bundle all nested <strong>cascade sheets</strong> into <mark>{ASSEMBLY NAME}.styles.css</mark> file
+        and for it to be used the given file has to be linked in the <mark>index.html</mark>:
+    </p>
+
+    <pre data-line="6">
+    <code class="language-markup line-numbers">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+    &lt;head&gt;
+        &lt;!-- ... --&gt;
+        &lt;link href="Capgemini.Net.Blazor.WebAssembly.Client.styles.css" rel="stylesheet" /&gt;
+        &lt;!-- ... --&gt;
+    &lt;/head&gt;
+
+    &lt;!-- ... --&gt;
+                    </code>
+        </pre>
+
+    <p>
+        Add the given content to the nested <mark>ContainerComponent.razor.scss</mark> file:
+    </p>
+
+    <pre>
+    <code class="language-css line-numbers">
+.demo__container_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 200px;
+
+    .demo__label {
+        font-family: 'Ubuntu';
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: larger;
+    }
+
+    .demo__selector {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .demo__container {
+        display: flex;
+    }
+}
+                    </code>
+        </pre>
+
+    <p>
+        and replace all class names in <mark>ContainerComponent.razor</mark> Razor component:
+    </p>
+
+    <ul>
+        <li>
+            <mark>demo3__container_wrapper</mark> -> <mark>demo__container_wrapper</mark>,
+        </li>
+        <li>
+            <mark>demo3__label</mark> -> <mark>demo__label</mark>,
+        </li>
+        <li>
+            <mark>demo3__selector</mark> -> <mark>demo__selector</mark>,
+        </li>
+        <li>
+            <mark>demo3__container</mark> -> <mark>demo__container</mark>,
+        </li>
+    </ul>
+
+    <pre data-line="5, 6, 7, 13, 14, 20">
+    <code class="language-csharp line-numbers">
+@@using Capgemini.Net.Blazor.Components.Demo3.End
+@@using Capgemini.Net.Blazor.Components.SvgIcons
+@@using SvgIcons.Base
+
+&lt;div <mark>class="demo__container_wrapper"</mark>&gt;
+    &lt;span <mark>class="demo__label"</mark>&gt;Max rate&lt;/span&gt;
+    &lt;div <mark>class="demo__selector"</mark>&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; MaxRate -= 1)" /&gt;
+        &lt;strong&gt;@@MaxRate&lt;/strong&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; MaxRate += 1)" /&gt;
+    &lt;/div&gt;
+
+    &lt;span <mark>class="demo__label"</mark>&gt;Icon&lt;/span&gt;
+    &lt;div <mark>class="demo__selector"</mark>&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; IconIndex -= 1)" /&gt;
+        &lt;i class="far @@icons[iconIndex]"&gt;&lt;/i&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; IconIndex += 1)" /&gt;
+    &lt;/div&gt;
+
+    &lt;div <mark>class="demo__container"</mark>&gt;
+        &lt;RateComponent MaxRate="@@MaxRate" Icon="@@this[IconIndex]" /&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+        </code>
+    </pre>
+
+    <p>
+        <strong>Note:</strong> The <mark>ContainerComponent.razor.scss</mark> has to be compiled manually for the first time:
+    </p>
+
+    <div style="display: flex; justify-content: space-around;">
+        <figure style="display: flex; flex-direction: column; align-items: center;">
+            <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/2/nested-files-before.png" />
+            <figcaption><mark>ContainerComponent</mark> Razor component before <string>SCSS</string> compilation</figcaption>
+        </figure>
+
+        <figure style="display: flex; flex-direction: column; align-items: center;">
+            <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/2/nested-files.png" />
+            <figcaption><mark>ContainerComponent</mark> Razor component after <string>SCSS</string> compilation</figcaption>
+        </figure>
+    </div>
+    };
+
+    internal static readonly RenderFragment PointContext3 = __builder =>
+    {
+    <p>
+        To separate the <mark>RateComponent</mark> Razor component's logic further create the <mark>RateComponentBase</mark> class in <mark>Capgemini.Net.Blazor.Components.Demo</mark> Razor component library
+        and move all the code from <mark>ContainerComponent.razor.cs</mark> file that modifies inner state of the component to <mark>RateComponentBase</mark>:
+    </p>
+
+    <pre data-line="7-9, 15-23">
+    <code class="language-csharp line-numbers">
+using Microsoft.AspNetCore.Components;
+
+namespace Capgemini.Net.Blazor.Components.Demo
+{
+    public class RateComponentBase : ComponentBase
+    {
+        public static <mark>readonly</mark> string ACTIVE_STYLE = "fas";
+
+        public static <mark>readonly</mark> string INACTIVE_STYLE = "far";
+
+        private int rate = 0;
+
+        private int tempRate = 0;
+
+        protected int Rate
+        {
+            get => rate + 1;
+            set
+            {
+                rate = value - 1;
+                tempRate = rate;
+            }
         }
+
+        protected void SetRate() =&gt; rate = tempRate;
+
+        protected void ShowRate(int index) =&gt; tempRate = index;
+
+        protected void RevertRate() =&gt; tempRate = rate;
+
+        protected bool IsActive(int index) => index &lt;= tempRate;
+    }
+}
+        </code>
+        </pre>
+
+    <p>
+        Several improvements were made to the copied code alongside (see highlighted lines):
+
+        <ul>
+            <li>
+                <mark>7-9</mark>: both static fields were marked as <mark>readonly</mark> as they never should be changed,
+            </li>
+            <li>
+                <mark>15-23</mark>: hides the fact that the <mark>RateComponent</mark> Razor component's markup is generating icons with zero-based loop <mark>@@for (int i = 0; i &lt; @@MaxRate; i += 1)</mark>.
+                It also makes more consistent that the <mark>tempRate</mark> has to be set to the same value as selected (not just by clicking a icon which implies that <mark>ShowRate(int index)</mark> will also be called
+                on mouse over with same <mark>index</mark> as selected <mark>rate</mark>).
+            </li>
+            <li>
+                Access modifiers had been changed.
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        Make created base class available to the <mark>RateComponent</mark> by:
+    </p>
+
+    <ul>
+        <li>
+            adding a reference to the <mark>Capgemini.Net.Blazor.Components.Demo</mark> assembly:
+            <pre>
+            <code class="language-csharp line-numbers">
+&lt;Project Sdk="Microsoft.NET.Sdk.Razor"&gt;
+    ...
+
+    &lt;ItemGroup&gt;
+    ...
+    &lt;ProjectReference Include="..\Capgemini.Net.Blazor.Components.Demo\Capgemini.Net.Blazor.Components.Demo.csproj" /&gt;
+    ...
+    &lt;/ItemGroup&gt;
+&lt;/Project&gt;
+                    </code>
+                </pre>
+        </li>
+        <li>
+            adding <mark>Capgemini.Net.Blazor.Components.Demo</mark> namespace to be used globally within <mark>Capgemini.Net.Blazor.Components.Demo3</mark> assembly
+            by adding <mark>@@using</mark> directive to the <mark>_Imports.razor</mark> file:
+
+            <pre>
+            <code class="language-csharp line-numbers">
+@@namespace Capgemini.Net.Blazor.Components.Demo3
+
+// ...
+@@using Capgemini.Net.Blazor.Components.Demo
+                    </code>
+                </pre>
+        </li>
+    </ul>
+
+    <p>
+        To make the <mark>RateComponent</mark> component to inherit from some other class use <mark>@@inherits</mark> directive (<a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#inherits">read more</a>). If the namespace of the <mark>RateComponentBase</mark> class
+        was added to <mark>_Imports.razor</mark> there is no need to use it. Class name only can be used:
+
+        <pre dat-line="1">
+        <code class="language-csharp line-numbers">
+@@inherits RateComponentBase
+
+@@for (int i = 0; i &lt; @@MaxRate; i += 1)
+// ...
+            </code>
+                </pre>
+    </p>
+
+    <p>
+        <strong>Note:</strong> to make Razor component to inherit from other class the base class of that other class either has to implement <mark>IComponent</mark> interface
+        or derive from <mark>ComponentBase</mark> (which implements<mark>IComponent</mark> - <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.componentbase?view=aspnetcore-3.1">read more</a>).
+        All Razor components derive/implement one of the above.
+    </p>
+    };
+
+    internal static readonly RenderFragment PointContext4 = __builder =>
+    {
+    <p>
+        In case the <mark>MaxRate</mark> decreases, currently selected value has to be updated accordinglCapgemini.Net.Blazor.Components.ClickOutsideOverlay.
+        It should never be possible for the <mark>RateComponent</mark> to be in state when <mark>Rate</mark> property value is greater that <mark>MaxRate</mark>.
+    </p>
+
+    <p>
+        To ensure that, the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0">Blazor lifecycle</a> method can be used.
+    </p>
+
+    <p>
+        Razor component allow to hook custom logic in several points in its lifecycle:
+
+        <ul>
+            <li>
+                <mark>SetParametersAsync</mark> - first lifecycle method to be run. By default it sets parameters supplied by the component's parent and decide which branch
+                the component's lifecycle will go next (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#before-parameters-are-set">read more</a>).
+            </li>
+            <li>
+                If <mark>SetParametersAsync</mark> determinates that the Razor component was not initialized yet (it was ran from the first time) then the given lifecycle methods would be triggered:
+                <ul>
+                    <li>
+                        <mark>OnInitialized</mark>/<mark>OnInitializedAsync</mark> are invoked when the component is initialized after having received its initial parameters from its parent component in <mark>SetParametersAsync</mark>.
+                        It can be used to perform some initialization logic that would normally be run by the constructor as it would normally be ran one-time only (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#component-initialization-methods">read more</a>).
+                        <strong>Note:</strong> upon this step no <strong>HTML</strong> markup in rendered an no render-related data is available.
+                        <strong>Note:</strong> <mark>OnInitialized</mark> is executed just before <mark>OnInitializedAsync</mark> and Razor component rerenders before the <mark>OnInitializedAsync</mark> is awaited if any <mark>async</mark> work is given.
+                        If not, the <mark>OnParametersSet</mark> will be called.
+                    </li>
+                    <li>
+                        <mark>OnParametersSet</mark>/<mark>OnParametersSetAsync</mark> - it can be used to manually control the decision should a given component has to be refreshed (to be render again) - by default, components rerender if the parameter values changed (for primitive types) or
+                        may have changed (for example, if they are mutable objects - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#avoid-unnecessary-rendering-of-component-subtrees">read more</a>).
+                        <strong>Note:</strong> upon this step no <strong>HTML</strong> markup in rendered an no render-related data is available.
+                        <strong>Note:</strong> <mark>OnParametersSet</mark> is executed just before <mark>OnParametersSetAsync</mark> and Razor component rerenders before the <mark>OnParametersSetAsync</mark> is awaited.
+                        Either way, the <mark>OnAfterRenderAsync</mark> will be called next.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                If <mark>SetParametersAsync</mark> determinates that the Razor component was initialized (it was ran from the first time) then the given lifecycle methods would be triggered:
+                <ul>
+                    <li>
+                        <mark>OnParametersSet</mark>/<mark>OnParametersSetAsync</mark> - it can be used to manually control the decision should a given component has to be refreshed (to be render again) - by default, components rerender if the parameter values changed (for primitive types) or
+                        may have changed (for example, if they are mutable objects - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#avoid-unnecessary-rendering-of-component-subtrees">read more</a>).
+                        <strong>Note:</strong> upon this step no <strong>HTML</strong> markup in rendered an no render-related data is available.
+                        <strong>Note:</strong> <mark>OnParametersSet</mark> is executed just before <mark>OnParametersSetAsync</mark> and Razor component rerenders before the <mark>OnParametersSetAsync</mark> is awaited.
+                        Either way, the <mark>OnAfterRenderAsync</mark> will be called next.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <mark>OnAfterRender</mark>/<mark>OnAfterRenderAsync</mark> - it can be used to trigger the <string>DOM</string> specific logic (i.e. run <strong>JavaScript</strong> code)
+                <strong>Note:</strong> <mark>OnAfterRender</mark> is executed just before <mark>OnAfterRenderAsync</mark>. Razor component won't rerender by default at this step.
+                <strong>Note:</strong> a <mark>firstRender</mark> can be used inside the method to determinate if this is the first time the Razor component's <strong>DOM</strong> is rendered.
+            </li>
+            <li>
+                <mark>ShouldRender</mark> - can be overloaded to decide if the entire Razor component should be rerendered (with nested components within). 
+                The method is called each time a state of the Razor component changes (or the <mark>StateHasChanged</mark> has been called manually) - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#suppress-ui-refreshing">read more</a>.
+                <strong>Note:</strong> the method won't get called on the first time the Razor component is rendering.
+
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        Create a code-behind <mark>RateComponent.razor.cs</mark> file and use <mark>OnParametersSet</mark> lifecycle method to update the <mark>Rate</mark> parameter after each time it is changed from outside:
+    </p>
+
+        <pre>
+        <code class="language-csharp line-numbers">
+using Capgemini.Net.Blazor.Components.Demo;
+
+namespace Capgemini.Net.Blazor.Components.Demo3.End
+{
+    public partial class RateComponent : RateComponentBase
+    {
+        protected override void OnParametersSet()
+        {
+            if (Rate >= MaxRate)
+            {
+                Rate = MaxRate;
+            }
         }
-        ```
-    </mark-down>
+    }
+}
+
+            </code>
+                </pre>
+
+                <p>
+                    After <mark>OnParametersSet</mark> and <mark>OnParametersSetAsync</mark> is executes, <mark>StateHasChanged</mark> would be called and in turn a Razor component 
+                    will be rerendered with conditionally new value <mark>Rate</mark>
+                </p>
     };
 }

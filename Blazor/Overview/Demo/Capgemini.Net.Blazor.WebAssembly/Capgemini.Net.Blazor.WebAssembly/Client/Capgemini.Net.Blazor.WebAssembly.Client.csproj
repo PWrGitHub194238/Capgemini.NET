@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="compilerconfig.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="compilerconfig.json" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0-rc.2.*" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0-rc.2.*" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0-rc.2.*" />
@@ -35,6 +27,7 @@
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo7\Capgemini.Net.Blazor.Components.Demo7.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo8\Capgemini.Net.Blazor.Components.Demo8.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo9\Capgemini.Net.Blazor.Components.Demo9.csproj" />
+    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo\Capgemini.Net.Blazor.Components.Demo.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate10\Capgemini.Net.Blazor.Components.Rate10.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate11\Capgemini.Net.Blazor.Components.Rate11.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate12\Capgemini.Net.Blazor.Components.Rate12.csproj" />

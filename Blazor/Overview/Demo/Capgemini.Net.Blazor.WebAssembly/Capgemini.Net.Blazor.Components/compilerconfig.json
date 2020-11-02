@@ -1,7 +1,27 @@
 ﻿[
   {
+    "outputFile": "wwwroot/css/cap-style.css",
+    "inputFile": "wwwroot/css/cap-style.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/fonts.css",
+    "inputFile": "wwwroot/css/fonts.scss"
+  },
+  {
     "outputFile": "wwwroot/css/styles.css",
     "inputFile": "wwwroot/css/styles.scss"
+  },
+  {
+    "outputFile": "CapBackground.razor.css",
+    "inputFile": "CapBackground.razor.scss"
+  },
+  {
+    "outputFile": "CapCheckbox.razor.css",
+    "inputFile": "CapCheckbox.razor.scss"
+  },
+  {
+    "outputFile": "ChecklistDescriptionSubSidenav.razor.css",
+    "inputFile": "ChecklistDescriptionSubSidenav.razor.scss"
   },
   {
     "outputFile": "wwwroot/css/background.css",
@@ -10,21 +30,5 @@
   {
     "outputFile": "wwwroot/css/cap-checkbox.css",
     "inputFile": "wwwroot/css/cap-checkbox.scss"
-  },
-  {
-    "outputFile": "wwwroot/css/cap-style.css",
-    "inputFile": "wwwroot/css/cap-style.scss"
-  },
-  {
-    "outputFile": "wwwroot/css/cap-svg-button.css",
-    "inputFile": "wwwroot/css/cap-svg-button.scss"
-  },
-  {
-    "outputFile": "wwwroot/css/fonts.css",
-    "inputFile": "wwwroot/css/fonts.scss"
-  },
-  {
-    "outputFile": "wwwroot/css/description-point.css",
-    "inputFile": "wwwroot/css/description-point.scss"
   }
 ]

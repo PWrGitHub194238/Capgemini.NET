@@ -1,0 +1,11 @@
+﻿i {
+    &.hovered {
+        transform: rotateY(0.5turn);
+        transition-duration: 0.4s;
+    }
+
+    &:not(.hovered) {
+        transform: rotateY(0);
+        transition-duration: 0.4s;
+    }
+}

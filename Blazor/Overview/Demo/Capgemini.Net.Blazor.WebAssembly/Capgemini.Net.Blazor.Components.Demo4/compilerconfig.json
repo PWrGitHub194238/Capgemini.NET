@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Start/ContainerComponent.razor.css",
+    "inputFile": "Start/ContainerComponent.razor.scss"
+  },
+  {
+    "outputFile": "End/ContainerComponent.razor.css",
+    "inputFile": "End/ContainerComponent.razor.scss"
+  }
+]

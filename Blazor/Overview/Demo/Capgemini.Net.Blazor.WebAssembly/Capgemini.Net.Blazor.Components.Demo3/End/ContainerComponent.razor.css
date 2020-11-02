@@ -1,0 +1,19 @@
+﻿.demo__container_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 200px; }
+  .demo__container_wrapper .demo__label {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger; }
+  .demo__container_wrapper .demo__selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 25px; }
+  .demo__container_wrapper .demo__container {
+    display: flex; }

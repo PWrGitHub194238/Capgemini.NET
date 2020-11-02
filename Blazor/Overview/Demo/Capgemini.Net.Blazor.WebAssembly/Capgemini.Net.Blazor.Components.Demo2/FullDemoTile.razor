@@ -8,7 +8,7 @@
             <Capgemini.Net.Blazor.Components.Demo2.End.ContainerComponent />
         </DemoEndPoint>
         <DemoStartPoint>
-            <Capgemini.Net.Blazor.Components.Demo2.Start.RateComponent />
+            <Capgemini.Net.Blazor.Components.Demo2.Start.ContainerComponent />
         </DemoStartPoint>
     </FullTileContainer>
 }
@@ -37,6 +37,11 @@
 
     <div style="display: flex; justify-content: space-around;">
         <figure style="display: flex; flex-direction: column; align-items: center;">
+            <i class="far fa-star"></i>
+            <figcaption><mark>fa-star</mark></figcaption>
+        </figure>
+
+        <figure style="display: flex; flex-direction: column; align-items: center;">
             <i class="far fa-grin-stars"></i>
             <figcaption><mark>fa-grin-stars</mark></figcaption>
         </figure>
@@ -44,11 +49,6 @@
         <figure style="display: flex; flex-direction: column; align-items: center;">
             <i class="far fa-angry"></i>
             <figcaption><mark>fa-angry</mark></figcaption>
-        </figure>
-
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <i class="far fa-star"></i>
-            <figcaption><mark>fa-star</mark></figcaption>
         </figure>
 
         <figure style="display: flex; flex-direction: column; align-items: center;">
@@ -63,7 +63,7 @@
 
     <pre>
     <code class="language-csharp line-numbers">
-private string[] icons = new[] { "fa-grin-stars", "fa-angry", "fa-star", "fa-sun" };
+private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun" };
         </code>
         </pre>
     };
@@ -120,7 +120,7 @@ private string[] icons = new[] { "fa-grin-stars", "fa-angry", "fa-star", "fa-sun
 
     <p>
         In addition to those delegates, the other Razor component specific syntax is a usage of <mark>RateComponent</mark>
-        as a <a href="https://docs.microsoft.com/pl-pl/aspnet/core/blazor/components/?view=aspnetcore-5.0">nested component</a> of <mark>ContainerComponent</mark>
+        as a <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#use-components">nested component</a> of <mark>ContainerComponent</mark>
         with a fully qualified name <mark>Capgemini.Net.Blazor.Components.Demo2.End</mark> which can be simplified.
     </p>
     };
@@ -129,8 +129,8 @@ private string[] icons = new[] { "fa-grin-stars", "fa-angry", "fa-star", "fa-sun
     {
     <p>
         By default, to add the nested component to other component, the full qualify name has to be given. This behavior is exactly the same as for other **.NET** types.
-        In Fact all Razor components are compiled and represented as classes so by adding a <mark>@@using</mark> <a href="https://docs.microsoft.com/pl-pl/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#using">directive</a>
-        with component's class namespace it allows to use only component's name as HTML tag (<a href="https://docs.microsoft.com/pl-pl/aspnet/core/blazor/components/?view=aspnetcore-5.0#namespaces">read more</a>):
+        In Fact all Razor components are compiled and represented as partial classes (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#partial-class-support">read more</a>) so by adding a <mark>@@using</mark> <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#using">directive</a>
+        with component's class namespace it allows to use only component's name as HTML tag (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#namespaces">read more</a>):
     </p>
 
     <pre>
@@ -146,7 +146,7 @@ private string[] icons = new[] { "fa-grin-stars", "fa-angry", "fa-star", "fa-sun
         </pre>
 
     <p>
-        It is also possible to move all namespaces to separate file, named as <mark>_Imports.razor</mark> by <a href="https://docs.microsoft.com/pl-pl/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#namespace">convention</a>.
+        It is also possible to move all namespaces to separate file, named as <mark>_Imports.razor</mark> by <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#namespace">convention</a>.
         Doing so will enable complier to search for used types in namespaces listed in that file as shown in line <mark>10</mark>:
     </p>
 
@@ -347,7 +347,7 @@ private string[] icons = new[] { "fa-grin-stars", "fa-angry", "fa-star", "fa-sun
 @@code {
     private int maxRate = 6;
 
-    private string[] icons = new[] { "fa-grin-stars", "fa-angry", "fa-star", "fa-sun" };
+    private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun" };
 
     private int iconIndex = 0;
 }

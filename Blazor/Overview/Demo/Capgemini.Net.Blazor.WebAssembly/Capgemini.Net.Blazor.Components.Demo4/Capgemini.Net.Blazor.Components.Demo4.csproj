@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.0-rc.2.*" />
@@ -13,13 +17,17 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-preview9.20513.1" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <Folder Include="wwwroot\js\end\" />
+    <ProjectReference Include="..\Capgemini.Net.Blazor.Components.Demo\Capgemini.Net.Blazor.Components.Demo.csproj" />
+    <ProjectReference Include="..\Capgemini.Net.Blazor.Components.Tile\Capgemini.Net.Blazor.Components.Tile.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Capgemini.Net.Blazor.Components.Tile\Capgemini.Net.Blazor.Components.Tile.csproj" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
 </Project>

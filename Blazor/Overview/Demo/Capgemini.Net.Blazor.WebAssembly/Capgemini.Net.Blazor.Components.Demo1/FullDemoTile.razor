@@ -88,13 +88,13 @@ public updateRateIconActiveState() {
         </li>
         <li>
             paste it into <mark>./End/RateComponent.razor</mark> file wrapping it with <mark>@@mark {</mark> and <mark>}</mark> syntax
-            which will mark a given mark as a <a href="https://docs.microsoft.com/pl-pl/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#no-locrazor-mark-blocks">Razor mark block</a>
+            which will mark a given mark as a <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#no-locrazor-mark-blocks">Razor mark block</a>
             (in <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0">Razor components</a>,
             use <mark>@@mark</mark> over <mark>@@functions</mark> to add <strong>C#</strong> members - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0">read more</a>),
         </li>
         <li>
             remove class constructor - Razor components didn't allow to have constructor
-            as it will be <a href="https://docs.microsoft.com/pl-pl/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#inspect-the-no-locrazor-c-class-generated-for-a-view">auto-generated</a>,
+            as it will be <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#inspect-the-no-locrazor-c-class-generated-for-a-view">auto-generated</a>,
         </li>
         <li>
             remove <mark>updateRateIconActiveState</mark> function - it's logic will be implemented by Razor syntax,
@@ -110,7 +110,7 @@ public updateRateIconActiveState() {
         </li>
         <li>
             <strong><i>(optionally)</i></strong> replace <mark>block body</mark> with <mark>expression body</mark> for one - line resulted methods
-            (<a href="https://docs.microsoft.com/pl-pl/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">read more</a>).
+            (<a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members">read more</a>).
         </li>
     </ul>
 
@@ -139,7 +139,7 @@ public updateRateIconActiveState() {
 
     internal static readonly RenderFragment PointContext3 = __builder =>
     {
-    <p>Blazor framework supports event handling by using a <mark>@@on{EVENT}</mark> markup (<a href="https://docs.microsoft.com/pl-pl/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#onevent">read more</a>).</p>
+    <p>Blazor framework supports event handling by using a <mark>@@on{EVENT}</mark> markup (<a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#onevent">read more</a>).</p>
 
     <p><mark>{EVENT}</mark> can be any of the well-known <strong>DOM event handlers</strong>. To shift from those events to Razor component markup change:</p>
 
@@ -160,11 +160,11 @@ public updateRateIconActiveState() {
     <ul>
         <li>
             by name (<mark>@@onclick="SetRate"</mark>) - to make that markup to work the method <mark>SetRate</mark> have to receive as parameters same argument types
-            as <mark>@@onclick</mark> provides (in this case <mark>MouseEventArgs</mark> - <a href="https://docs.microsoft.com/pl-pl/aspnet/core/blazor/components/event-handling?view=aspnetcore-5.0#event-argument-types">read more</a>),
+            as <mark>@@onclick</mark> provides (in this case <mark>MouseEventArgs</mark> - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-5.0#event-argument-types">read more</a>),
         </li>
         <li>
-            by <a href="https://docs.microsoft.com/pl-pl/dotnet/csharp/language-reference/operators/lambda-expressions">lambda expression</a> (<mark>@@onmouseover="@@(() => ShowRate(i))"</mark>)
-            when we need to provide other set of arguments or provide same argument explicitly (<a href="https://docs.microsoft.com/pl-pl/aspnet/core/blazor/components/event-handling?view=aspnetcore-5.0#lambda-expressions">read more</a>),
+            by <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions">lambda expression</a> (<mark>@@onmouseover="@@(() => ShowRate(i))"</mark>)
+            when we need to provide other set of arguments or provide same argument explicitly (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-5.0#lambda-expressions">read more</a>),
         </li>
         <li>
             by name without parentheses, same as regular HTML attribute values can be given - <mark>@@onmouseout=RevertRate</mark>.
@@ -254,7 +254,7 @@ private bool IsActive(int index) => index &lt;= tempRate;
     {
     <p>
         As the lambda expression <mark>@@(() => ShowRate(i))</mark> was used as a delegate-typed value for <mark>@@onmouseover</mark> event handler to be resolved upon <mark>mouseover</mark> DOM event,
-        the variable <mark>i</mark> was <a href="https://docs.microsoft.com/pl-pl/dotnet/csharp/language-reference/operators/lambda-expressions#capture-of-outer-variables-and-variable-scope-in-lambda-expressions">captured</a> by the expression.
+        the variable <mark>i</mark> was <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#capture-of-outer-variables-and-variable-scope-in-lambda-expressions">captured</a> by the expression.
     </p>
 
     <p>
