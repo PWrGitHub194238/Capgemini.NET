@@ -6,10 +6,10 @@ namespace Capgemini.Net.Blazor.Components.Demo4
     {
         public const string Href = "demo4";
 
-        public static TileIcon Icon => TileIcon.PAINT_BRUSH;
+        public static TileIcon Icon => TileIcon.RECYCLE;
 
-        public static string Title => "TypeScript Component";
+        public static string Title => "Improving components' re-usability: cascading values and render fragment";
 
-        public static string Description => "Non-Blazor component using standard HTML event attributes to call JavaScript function on trigger.";
+        public static string Description => "Using of RenderFragment parameter type to provide custom child components. Use of CascadingValue Razor component to provide context values for nested components.";
     }
 }

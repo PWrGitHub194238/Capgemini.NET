@@ -161,7 +161,7 @@ namespace Capgemini.Net.Blazor.Components.Demo3.End
     &lt;span class="demo3__label"&gt;Icon&lt;/span&gt;
     &lt;div class="demo3__selector"&gt;
         &lt;MinusIcon Theme="IconTheme.DARK"<mark> OnClick="@@(() =&gt; IconIndex -= 1)"</mark> /&gt;
-        &lt;i class="far @@icons[iconIndex]"&gt;&lt;/i&gt;
+        &lt;i class="far @@this[iconIndex]"&gt;&lt;/i&gt;
         &lt;PlusIcon Theme="IconTheme.DARK" <mark>OnClick="@@(() =&gt; IconIndex += 1)"</mark> /&gt;
     &lt;/div&gt;
 
@@ -358,7 +358,7 @@ namespace Capgemini.Net.Blazor.Components.Demo3.End
     &lt;span <mark>class="demo__label"</mark>&gt;Icon&lt;/span&gt;
     &lt;div <mark>class="demo__selector"</mark>&gt;
         &lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; IconIndex -= 1)" /&gt;
-        &lt;i class="far @@icons[iconIndex]"&gt;&lt;/i&gt;
+        &lt;i class="far @@this[iconIndex]"&gt;&lt;/i&gt;
         &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; IconIndex += 1)" /&gt;
     &lt;/div&gt;
 
@@ -531,15 +531,15 @@ namespace Capgemini.Net.Blazor.Components.Demo
                     <li>
                         <mark>OnInitialized</mark>/<mark>OnInitializedAsync</mark> are invoked when the component is initialized after having received its initial parameters from its parent component in <mark>SetParametersAsync</mark>.
                         It can be used to perform some initialization logic that would normally be run by the constructor as it would normally be ran one-time only (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#component-initialization-methods">read more</a>).
-                        <strong>Note:</strong> upon this step no <strong>HTML</strong> markup in rendered an no render-related data is available.
-                        <strong>Note:</strong> <mark>OnInitialized</mark> is executed just before <mark>OnInitializedAsync</mark> and Razor component rerenders before the <mark>OnInitializedAsync</mark> is awaited if any <mark>async</mark> work is given.
+                        <br /><strong>Note:</strong> upon this step no <strong>HTML</strong> markup in rendered an no render-related data is available.
+                        <br /><strong>Note:</strong> <mark>OnInitialized</mark> is executed just before <mark>OnInitializedAsync</mark> and Razor component rerenders before the <mark>OnInitializedAsync</mark> is awaited if any <mark>async</mark> work is given.
                         If not, the <mark>OnParametersSet</mark> will be called.
                     </li>
                     <li>
                         <mark>OnParametersSet</mark>/<mark>OnParametersSetAsync</mark> - it can be used to manually control the decision should a given component has to be refreshed (to be render again) - by default, components rerender if the parameter values changed (for primitive types) or
                         may have changed (for example, if they are mutable objects - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#avoid-unnecessary-rendering-of-component-subtrees">read more</a>).
-                        <strong>Note:</strong> upon this step no <strong>HTML</strong> markup in rendered an no render-related data is available.
-                        <strong>Note:</strong> <mark>OnParametersSet</mark> is executed just before <mark>OnParametersSetAsync</mark> and Razor component rerenders before the <mark>OnParametersSetAsync</mark> is awaited.
+                        <br /><strong>Note:</strong> upon this step no <strong>HTML</strong> markup in rendered an no render-related data is available.
+                        <br /><strong>Note:</strong> <mark>OnParametersSet</mark> is executed just before <mark>OnParametersSetAsync</mark> and Razor component rerenders before the <mark>OnParametersSetAsync</mark> is awaited.
                         Either way, the <mark>OnAfterRenderAsync</mark> will be called next.
                     </li>
                 </ul>
@@ -550,22 +550,21 @@ namespace Capgemini.Net.Blazor.Components.Demo
                     <li>
                         <mark>OnParametersSet</mark>/<mark>OnParametersSetAsync</mark> - it can be used to manually control the decision should a given component has to be refreshed (to be render again) - by default, components rerender if the parameter values changed (for primitive types) or
                         may have changed (for example, if they are mutable objects - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#avoid-unnecessary-rendering-of-component-subtrees">read more</a>).
-                        <strong>Note:</strong> upon this step no <strong>HTML</strong> markup in rendered an no render-related data is available.
-                        <strong>Note:</strong> <mark>OnParametersSet</mark> is executed just before <mark>OnParametersSetAsync</mark> and Razor component rerenders before the <mark>OnParametersSetAsync</mark> is awaited.
+                        <br /><strong>Note:</strong> upon this step no <strong>HTML</strong> markup in rendered an no render-related data is available.
+                        <br /><strong>Note:</strong> <mark>OnParametersSet</mark> is executed just before <mark>OnParametersSetAsync</mark> and Razor component rerenders before the <mark>OnParametersSetAsync</mark> is awaited.
                         Either way, the <mark>OnAfterRenderAsync</mark> will be called next.
                     </li>
                 </ul>
             </li>
             <li>
                 <mark>OnAfterRender</mark>/<mark>OnAfterRenderAsync</mark> - it can be used to trigger the <string>DOM</string> specific logic (i.e. run <strong>JavaScript</strong> code)
-                <strong>Note:</strong> <mark>OnAfterRender</mark> is executed just before <mark>OnAfterRenderAsync</mark>. Razor component won't rerender by default at this step.
-                <strong>Note:</strong> a <mark>firstRender</mark> can be used inside the method to determinate if this is the first time the Razor component's <strong>DOM</strong> is rendered.
+                <br /><strong>Note:</strong> <mark>OnAfterRender</mark> is executed just before <mark>OnAfterRenderAsync</mark>. Razor component won't rerender by default at this step.
+                <br /><strong>Note:</strong> a <mark>firstRender</mark> can be used inside the method to determinate if this is the first time the Razor component's <strong>DOM</strong> is rendered.
             </li>
             <li>
                 <mark>ShouldRender</mark> - can be overloaded to decide if the entire Razor component should be rerendered (with nested components within). 
                 The method is called each time a state of the Razor component changes (or the <mark>StateHasChanged</mark> has been called manually) - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#suppress-ui-refreshing">read more</a>.
-                <strong>Note:</strong> the method won't get called on the first time the Razor component is rendering.
-
+                <br /><strong>Note:</strong> the method won't get called on the first time the Razor component is rendering.
             </li>
         </ul>
     </p>

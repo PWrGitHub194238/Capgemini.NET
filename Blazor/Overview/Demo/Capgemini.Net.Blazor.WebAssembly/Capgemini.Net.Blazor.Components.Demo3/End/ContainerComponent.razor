@@ -13,7 +13,7 @@
     <span class="demo__label">Icon</span>
     <div class="demo__selector">
         <MinusIcon Theme="IconTheme.DARK" OnClick="@(() => IconIndex -= 1)" />
-        <i class="far @icons[iconIndex]"></i>
+        <i class="far @this[iconIndex]"></i>
         <PlusIcon Theme="IconTheme.DARK" OnClick="@(() => IconIndex += 1)" />
     </div>
 

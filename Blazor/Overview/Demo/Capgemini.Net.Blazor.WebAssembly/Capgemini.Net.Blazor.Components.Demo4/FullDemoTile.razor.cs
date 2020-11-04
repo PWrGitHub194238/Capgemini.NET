@@ -14,18 +14,18 @@ namespace Capgemini.Net.Blazor.Components.Demo4
             {
                 new DemoChecklistPointContext
                 {
-                    Name = "1",
+                    Name = "Adding ChildContent parameter of type RenderFragment",
                     Order = 1,
                     IsDone = false,
-                    Label = "Label 1",
+                    Label = "Allow Container Razor component to receive any markup as a child",
                     Content = PointContext1!
                 },
                 new DemoChecklistPointContext
                 {
-                    Name = "2",
+                    Name = "Use CascadingValue component to provide context-oriented values",
                     Order = 2,
                     IsDone = false,
-                    Label = "Label 2",
+                    Label = "Make custom child markup to receive loosely coupled parameters from the context of the container component",
                     Content = PointContext2!
                 }
             }

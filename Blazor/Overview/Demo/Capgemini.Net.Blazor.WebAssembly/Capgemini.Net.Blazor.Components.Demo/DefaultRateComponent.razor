@@ -10,9 +10,9 @@
 }
 
 @code {
-    [CascadingParameter(Name = "MaxRate")]
+    [Parameter]
     public int MaxRate { get; set; } = 5;
 
-    [CascadingParameter]
+    [Parameter]
     public string Icon { get; set; } = "fa-star";
 }

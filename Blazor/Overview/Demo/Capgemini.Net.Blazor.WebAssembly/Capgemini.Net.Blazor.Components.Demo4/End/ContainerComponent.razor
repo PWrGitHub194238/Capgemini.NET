@@ -13,11 +13,15 @@
     <span class="demo__label">Icon</span>
     <div class="demo__selector">
         <MinusIcon Theme="IconTheme.DARK" OnClick="@(() => IconIndex -= 1)" />
-        <i class="far @icons[iconIndex]"></i>
+        <i class="far @this[iconIndex]"></i>
         <PlusIcon Theme="IconTheme.DARK" OnClick="@(() => IconIndex += 1)" />
     </div>
 
-    <div class="demo__container">
-        <RateComponent MaxRate="@MaxRate" Icon="@this[IconIndex]" />
-    </div>
+    <CascadingValue Name="MaxRate" Value="@maxRate">
+        <CascadingValue Value="@this[iconIndex]">
+            <div class="demo__container">
+                @ChildContent
+            </div>
+        </CascadingValue>
+    </CascadingValue>
 </div>

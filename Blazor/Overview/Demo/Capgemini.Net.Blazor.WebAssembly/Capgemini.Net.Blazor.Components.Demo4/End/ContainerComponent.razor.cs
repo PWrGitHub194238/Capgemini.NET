@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using System;
 
 namespace Capgemini.Net.Blazor.Components.Demo4.End
 {
@@ -13,6 +14,9 @@ namespace Capgemini.Net.Blazor.Components.Demo4.End
             "fa-angry",
             "fa-sun"
         };
+
+        [Parameter]
+        public RenderFragment ChildContent { get; set; } = default!;
 
         public string this[int i]
         {

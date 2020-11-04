@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Capgemini.Net.Blazor.Components.Demo\Capgemini.Net.Blazor.Components.Demo.csproj" />
     <ProjectReference Include="..\Capgemini.Net.Blazor.Components.LoadPlaceholder\Capgemini.Net.Blazor.Components.LoadPlaceholder.csproj" />
     <ProjectReference Include="..\Capgemini.Net.Blazor.Components.SvgIcons\Capgemini.Net.Blazor.Components.SvgIcons.csproj" />
     <ProjectReference Include="..\Capgemini.Net.Blazor.Shared.Interfaces\Capgemini.Net.Blazor.Shared.Interfaces.csproj" />

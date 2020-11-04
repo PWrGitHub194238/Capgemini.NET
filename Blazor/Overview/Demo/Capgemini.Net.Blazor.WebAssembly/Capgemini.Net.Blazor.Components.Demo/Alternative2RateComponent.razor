@@ -5,7 +5,7 @@
     {
         int index = i;
         <div @onmouseover="@(() => { ShowRate(index); TempRate = index; })">
-            <i class="@(IsActive(index) ? ACTIVE_STYLE : INACTIVE_STYLE) @Icon cursor-pointer @GetHoveredStyle(index)" @onclick="@SetRate"></i>
+            <i class="@(IsActive(index) ? ACTIVE_STYLE : INACTIVE_STYLE) @Icon cursor-pointer" style="@GetHoveredStyle(index)" @onclick="@SetRate"></i>
         </div>
     }
 </div>
