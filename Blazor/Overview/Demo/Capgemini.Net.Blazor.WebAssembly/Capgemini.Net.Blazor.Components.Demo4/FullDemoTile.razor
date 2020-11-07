@@ -218,7 +218,7 @@ namespace Capgemini.Net.Blazor.Components.Demo4.End
         &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; IconIndex += 1)" /&gt;
     &lt;/div&gt;
 
-    &lt;CascadingValue Name="MaxRate" Value="@@maxRate"&gt;
+    &lt;CascadingValue Name="MaxRate" Value="@@MaxRate"&gt;
         &lt;CascadingValue Value="@@this[iconIndex]"&gt;
             &lt;div class="demo__container"&gt;
                 @@ChildContent
@@ -257,7 +257,7 @@ public class Foo : Bar
 
             <pre>
             <code class="language-csharp line-numbers">
-&lt;CascadingValue TValue="Foo" Value="obj"&gt;
+&lt;CascadingValue TValue="Foo" Value="@@obj"&gt;
     @@ChildContent
 &lt;/CascadingValue&gt;
 

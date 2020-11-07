@@ -6,6 +6,10 @@
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\cap-select.css" />
+  </ItemGroup>
   
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\main.ts" />
@@ -14,6 +18,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.0-rc.2.*" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.0-rc.2.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-preview9.20513.1" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Capgemini.Net.Blazor.Components.ClickOutsideOverlay\Capgemini.Net.Blazor.Components.ClickOutsideOverlay.csproj" />
     <ProjectReference Include="..\Capgemini.Net.Blazor.Components.Demo\Capgemini.Net.Blazor.Components.Demo.csproj" />
     <ProjectReference Include="..\Capgemini.Net.Blazor.Components.LoadPlaceholder\Capgemini.Net.Blazor.Components.LoadPlaceholder.csproj" />
     <ProjectReference Include="..\Capgemini.Net.Blazor.Components.SvgIcons\Capgemini.Net.Blazor.Components.SvgIcons.csproj" />

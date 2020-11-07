@@ -14,19 +14,35 @@ namespace Capgemini.Net.Blazor.Components.Demo5
             {
                 new DemoChecklistPointContext
                 {
-                    Name = "1",
+                    Name = "Add AvgRate",
                     Order = 1,
                     IsDone = false,
-                    Label = "Label 1",
+                    Label = "Add additional parameter for component representing average rate",
                     Content = PointContext1!
                 },
                 new DemoChecklistPointContext
                 {
-                    Name = "2",
+                    Name = "Add RateContext",
                     Order = 2,
                     IsDone = false,
-                    Label = "Label 2",
+                    Label = "Group rate parameters to form context model for the component",
                     Content = PointContext2!
+                },
+                new DemoChecklistPointContext
+                {
+                    Name = "Introduce IntSelector component",
+                    Order = 3,
+                    IsDone = false,
+                    Label = "Replace raw HTML markup for context model properties modification with custom components",
+                    Content = PointContext3!
+                },
+                new DemoChecklistPointContext
+                {
+                    Name = "Introduce EditForm component",
+                    Order = 4,
+                    IsDone = false,
+                    Label = "Replace custom parameter value selectors with build-in form component",
+                    Content = PointContext4!
                 }
             }
         };

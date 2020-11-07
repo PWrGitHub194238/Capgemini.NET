@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "End/ContainerComponent.razor.css",
+    "inputFile": "End/ContainerComponent.razor.scss"
+  },
+  {
+    "outputFile": "Start/ContainerComponent.razor.css",
+    "inputFile": "Start/ContainerComponent.razor.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/styles.css",
+    "inputFile": "wwwroot/css/styles.scss"
+  },
+  {
+    "outputFile": "End/RateComponent.razor.css",
+    "inputFile": "End/RateComponent.razor.scss"
+  }
+]

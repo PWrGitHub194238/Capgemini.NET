@@ -1,0 +1,102 @@
+﻿@typeparam TValue
+@inherits InputSelect<TValue>
+
+<Link href="_content/Capgemini.Net.Blazor.Components/css/cap-select.css" rel="stylesheet" />
+
+<div class="field custom-select" style="width: 100%; z-index: 2000">
+    <InputSelect @bind-Value="@Value" DisplayName="@DisplayName" AdditionalAttributes="@AdditionalAttributes">
+        <option value="">@Placeholder</option>
+        @foreach (CapOption<TValue> option in options)
+        {
+            <option value="@(option.Key)">@(option.Value)</option>
+        }
+    </InputSelect>
+
+    <div class="select-selected @ActiveStateClass" @onclick="@(() => ToggleActiveState())">
+        @if (@SelectedOption is not null)
+        {
+            if (@SelectedOption.Value is not null)
+            {
+                @SelectedOption.Value
+            }
+            else
+            {
+                @SelectedOption.Key
+            }
+        }
+    </div>
+    <label for="@InputName">@Label</label>
+    <div class="select-items @InactiveStateClass">
+        @foreach (CapOption<TValue> option in options)
+        {
+            <div class="select-option @SameAsSelectedClass(option)" @onclick="@(() => SelectOption(option))">
+                @if (@option.ChildContent is not null)
+                {
+                    @option.ChildContent
+                }
+                else if (@option.Value is not null)
+                {
+                    @option.Value
+                }
+                else
+                {
+                    @option.Key
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@if (IsOpened)
+{
+    <ClickOutsideOverlay Index="2000" OnOutsideClick="CloseSelect" />
+}
+
+<CascadingValue Value="@this">
+    <div style="display: none">
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@code {
+    private static readonly string SELECT_HIDE = "select-hide";
+
+    private static readonly string SELECT_ACTIVE = "select-arrow-active";
+
+    private static readonly string SELECT_SAME_AS_SELECTED = "same-as-selected";
+
+    private readonly IList<CapOption<TValue>> options = new List<CapOption<TValue>>();
+
+    [Parameter]
+    public string Label { get; set; } = default!;
+
+    [Parameter]
+    public string InputName { get; set; } = default!;
+
+    [Parameter]
+    public string Placeholder { get; set; } = default!;
+
+    public bool IsOpened { get; set; }
+
+    public CapOption<TValue> SelectedOption { get; set; } = default!;
+
+    public string ActiveStateClass => IsOpened ? SELECT_ACTIVE : string.Empty;
+
+    public string InactiveStateClass => !IsOpened ? SELECT_HIDE : string.Empty;
+
+    public string SameAsSelectedClass(CapOption<TValue> option) => IsSameAsSelectedClass(option.Key) ? SELECT_SAME_AS_SELECTED : string.Empty;
+
+    private bool IsSameAsSelectedClass(string key) => SelectedOption is not null && key.Equals(SelectedOption.Key);
+
+    public void ToggleActiveState() => IsOpened = !IsOpened;
+
+    public void CloseSelect() => IsOpened = false;
+
+    public void AddOption(CapOption<TValue> option) => options.Add(option);
+
+    public void SelectOption(CapOption<TValue> option)
+    {
+        SelectedOption = option;
+        CloseSelect();
+    }
+}

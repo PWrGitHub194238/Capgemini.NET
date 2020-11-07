@@ -1,0 +1,14 @@
+﻿<span class="demo__label">@Label</span>
+<div class="demo__selector">
+    <Capgemini.Net.Blazor.Components.SvgIcons.MinusIcon Theme="@Theme" OnClick="@(() => BoundValue -= 1)" />
+    @ChildContent(StringValue.Invoke(Value))
+    <Capgemini.Net.Blazor.Components.SvgIcons.PlusIcon Theme="@Theme" OnClick="@(() => BoundValue += 1)" />
+</div>
+
+@code {
+    private int BoundValue
+    {
+        get => Value;
+        set => ValueChanged.InvokeAsync(value);
+    }
+}

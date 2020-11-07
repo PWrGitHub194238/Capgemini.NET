@@ -30,4 +30,8 @@
     <None Include="compilerconfig.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Capgemini.Net.Blazor.Components.SvgIcons\Capgemini.Net.Blazor.Components.SvgIcons.csproj" />
+  </ItemGroup>
+
 </Project>

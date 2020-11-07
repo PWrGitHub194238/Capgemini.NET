@@ -41,12 +41,12 @@ input:checked + .checkbox-checkmark + .checkbox-label {
     box-shadow: 5px 5px #7d38ba;
 }
 
-/* On mouse-over, add a grey background color */
+/* On mouse-over */
 .checkbox__container:hover input ~ .checkbox-checkmark {
     border: 1px solid #95e616;
 }
 
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked */
 .checkbox__container:hover input:checked ~ .checkbox-checkmark {
     border: 1px solid #95e616;
 }

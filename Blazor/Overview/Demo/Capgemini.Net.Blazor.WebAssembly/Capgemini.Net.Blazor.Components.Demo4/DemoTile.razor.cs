@@ -10,6 +10,6 @@ namespace Capgemini.Net.Blazor.Components.Demo4
 
         public static string Title => "Improving components' re-usability: cascading values and render fragment";
 
-        public static string Description => "Using of RenderFragment parameter type to provide custom child components. Use of CascadingValue Razor component to provide context values for nested components.";
+        public static string Description => "Using of RenderFragment parameter type to provide custom child components. Use CascadingValue Razor component to provide context values for nested components.";
     }
 }

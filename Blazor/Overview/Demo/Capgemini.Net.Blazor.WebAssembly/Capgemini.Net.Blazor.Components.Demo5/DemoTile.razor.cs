@@ -6,10 +6,10 @@ namespace Capgemini.Net.Blazor.Components.Demo5
     {
         public const string Href = "demo5";
 
-        public static TileIcon Icon => TileIcon.PAINT_BRUSH;
+        public static TileIcon Icon => TileIcon.STORAGE;
 
-        public static string Title => "TypeScript Component";
+        public static string Title => "Build-in components: using Blazor forms to modify custom model for a component";
 
-        public static string Description => "Non-Blazor component using standard HTML event attributes to call JavaScript function on trigger.";
+        public static string Description => "Wrapping parameter set for RateComponent with custom model. Adding average rate property for component. Usage of EditForm Blazor component with build-in cascading value to modify object properties.";
     }
 }
