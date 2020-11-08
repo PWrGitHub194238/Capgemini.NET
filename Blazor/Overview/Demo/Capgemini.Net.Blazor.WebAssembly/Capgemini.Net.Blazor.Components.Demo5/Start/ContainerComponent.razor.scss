@@ -24,3 +24,18 @@
         display: flex;
     }
 }
+
+::deep form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 350px;
+
+    .far, .fab {
+        font-size: 24px !important;
+        color: unset;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}

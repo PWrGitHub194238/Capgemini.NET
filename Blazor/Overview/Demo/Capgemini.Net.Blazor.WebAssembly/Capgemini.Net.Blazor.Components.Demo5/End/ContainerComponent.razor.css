@@ -17,3 +17,15 @@
     margin-bottom: 25px; }
   .demo__container_wrapper .demo__container {
     display: flex; }
+
+::deep form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 350px; }
+  ::deep form .far, ::deep form .fab {
+    font-size: 24px !important;
+    color: unset;
+    padding-top: 10px;
+    padding-bottom: 10px; }

@@ -15,7 +15,11 @@
     <div class="select-selected @ActiveStateClass" @onclick="@(() => ToggleActiveState())">
         @if (@SelectedOption is not null)
         {
-            if (@SelectedOption.Value is not null)
+            if (ParseValue is not null)
+            {
+                @(ParseValue.Invoke(SelectedOption.Value))
+            }
+            else if (@SelectedOption.Value is not null)
             {
                 @SelectedOption.Value
             }
@@ -33,6 +37,10 @@
                 @if (@option.ChildContent is not null)
                 {
                     @option.ChildContent
+                }
+                else  if (ParseValue is not null)
+                {
+                    @(ParseValue.Invoke(option.Value))
                 }
                 else if (@option.Value is not null)
                 {
@@ -76,6 +84,9 @@
     [Parameter]
     public string Placeholder { get; set; } = default!;
 
+    [Parameter]
+    public Func<TValue, string> ParseValue { get; set; } = value => value is null ? string.Empty : value.ToString()!;
+
     public bool IsOpened { get; set; }
 
     public CapOption<TValue> SelectedOption { get; set; } = default!;
@@ -94,9 +105,10 @@
 
     public void AddOption(CapOption<TValue> option) => options.Add(option);
 
-    public void SelectOption(CapOption<TValue> option)
+    public async Task SelectOption(CapOption<TValue> option)
     {
         SelectedOption = option;
         CloseSelect();
+        await ValueChanged.InvokeAsync(SelectedOption.Value);
     }
 }

@@ -1,4 +1,10 @@
-﻿<div class="field">
-    @ChildContent
-    <label for="@InputName">@Label</label>
+﻿<div class="field-container">
+    <span class="field-label">
+        @Label
+    </span>
+    <span style="width: 100%;"></span>
+    <div class="field">
+        @ChildContent
+        <label for="@InputName">@Label</label>
+    </div>
 </div>

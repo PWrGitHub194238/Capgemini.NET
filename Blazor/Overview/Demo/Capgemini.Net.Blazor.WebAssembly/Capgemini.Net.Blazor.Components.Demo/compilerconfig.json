@@ -1,13 +1,5 @@
 ﻿[
   {
-    "outputFile": "AlternativeRouteComponent.razor.css",
-    "inputFile": "AlternativeRouteComponent.razor.scss"
-  },
-  {
-    "outputFile": "Alternative2RateComponent.razor.css",
-    "inputFile": "Alternative2RateComponent.razor.scss"
-  },
-  {
     "outputFile": "IntSelector.razor.css",
     "inputFile": "IntSelector.razor.scss"
   }

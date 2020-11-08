@@ -1,5 +1,21 @@
 ﻿[
   {
+    "outputFile": "wwwroot/css/background.css",
+    "inputFile": "wwwroot/css/background.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/cap-checkbox.css",
+    "inputFile": "wwwroot/css/cap-checkbox.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/cap-input.css",
+    "inputFile": "wwwroot/css/cap-input.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/cap-select.css",
+    "inputFile": "wwwroot/css/cap-select.scss"
+  },
+  {
     "outputFile": "wwwroot/css/cap-style.css",
     "inputFile": "wwwroot/css/cap-style.scss"
   },
@@ -20,31 +36,11 @@
     "inputFile": "CapCheckbox.razor.scss"
   },
   {
-    "outputFile": "ChecklistDescriptionSubSidenav.razor.css",
-    "inputFile": "ChecklistDescriptionSubSidenav.razor.scss"
-  },
-  {
-    "outputFile": "wwwroot/css/background.css",
-    "inputFile": "wwwroot/css/background.scss"
-  },
-  {
-    "outputFile": "wwwroot/css/cap-checkbox.css",
-    "inputFile": "wwwroot/css/cap-checkbox.scss"
-  },
-  {
-    "outputFile": "wwwroot/css/cap-input.css",
-    "inputFile": "wwwroot/css/cap-input.scss"
-  },
-  {
-    "outputFile": "wwwroot/css/cap-select.css",
-    "inputFile": "wwwroot/css/cap-select.scss"
-  },
-  {
     "outputFile": "CapInput.razor.css",
     "inputFile": "CapInput.razor.scss"
   },
   {
-    "outputFile": "CapSelect.razor.css",
-    "inputFile": "CapSelect.razor.scss"
+    "outputFile": "ChecklistDescriptionSubSidenav.razor.css",
+    "inputFile": "ChecklistDescriptionSubSidenav.razor.scss"
   }
 ]

@@ -1,0 +1,66 @@
+﻿@switch (Example)
+{
+    case 1:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector Label="Max rate" @bind-Value="@dumyContext.MaxRate" Theme="SvgIcons.Base.IconTheme.DARK">
+            <strong>@context</strong>
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        break;
+    case 2:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector Label="Custom label" @bind-Value="@dumyContext.MaxRate" Theme="SvgIcons.Base.IconTheme.DARK">
+            <strong>@context</strong>
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        break;
+    case 3:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector Label="Max rate" @bind-Value="@dumyContext.MaxRate" Theme="SvgIcons.Base.IconTheme.DARK">
+            <strong>@context</strong>
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        <div style="margin-bottom: 5px;">
+            Raw <mark>MaxRate</mark> value: <mark>@dumyContext.MaxRate</mark>
+        </div>
+        break;
+    case 4:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector @bind-Value="@dumyContext.IconIndex" Label="Icon" Theme="SvgIcons.Base.IconTheme.DARK" StringValue="@((_) => dumyContext.Icon)">
+            <i class="far @context" />
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        <div style="margin-bottom: 5px;">
+            Raw <mark>IconIndex</mark> value: <mark>@dumyContext.IconIndex</mark>
+        </div>
+        break;
+    case 5:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector @bind-Value="@dumyContext.IconIndex" Label="Icon" Theme="SvgIcons.Base.IconTheme.DARK" StringValue="@((_) => dumyContext.Icon)">
+            <i class="far @context" />
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        break;
+    case 6:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector @bind-Value="@dumyContext.IconIndex" Label="Icon" Theme="SvgIcons.Base.IconTheme.LIGHT" StringValue="@((_) => dumyContext.Icon)">
+            <i class="far @context" />
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        break;
+    case 7:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector @bind-Value="@dumyContext.IconIndex" Label="Icon" Theme="SvgIcons.Base.IconTheme.DISABLED" StringValue="@((_) => dumyContext.Icon)">
+            <i class="far @context" />
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        break;
+    case 8:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector @bind-Value="@dumyContext.AvgRate" Label="Avg rate" Theme="SvgIcons.Base.IconTheme.DARK" StringValue="@((rate) => rate.ToString())">
+            <strong>@context</strong>
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        break;
+    case 9:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector @bind-Value="@dumyContext.AvgRate" Label="Avg rate" Theme="SvgIcons.Base.IconTheme.DARK" StringValue="@((rate) => GetAvgRateLabel(rate))">
+            <strong>@context</strong>
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        break;
+    case 10:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector @bind-Value="@dumyContext.IconIndex" Label="Icon" Theme="SvgIcons.Base.IconTheme.DARK" StringValue="@((_) => dumyContext.Icon)">
+            <strong>@context</strong>
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        break;
+    case 11:
+        <Capgemini.Net.Blazor.Components.Demo.IntSelector @bind-Value="@dumyContext.IconIndex" Label="Icon" Theme="SvgIcons.Base.IconTheme.DARK" StringValue="@((_) => dumyContext.Icon)">
+            <i class="far @context" />
+        </Capgemini.Net.Blazor.Components.Demo.IntSelector>
+        break;
+    default:
+        break;
+}

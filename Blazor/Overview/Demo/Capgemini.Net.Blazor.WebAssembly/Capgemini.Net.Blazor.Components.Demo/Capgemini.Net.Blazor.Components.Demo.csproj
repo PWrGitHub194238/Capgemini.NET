@@ -9,10 +9,6 @@
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="compilerconfig.json" />
-  </ItemGroup>
   
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -23,15 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Capgemini.Net.Blazor.Components.SvgIcons\Capgemini.Net.Blazor.Components.SvgIcons.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Capgemini.Net.Blazor.Components.SvgIcons\Capgemini.Net.Blazor.Components.SvgIcons.csproj" />
   </ItemGroup>
 
 </Project>

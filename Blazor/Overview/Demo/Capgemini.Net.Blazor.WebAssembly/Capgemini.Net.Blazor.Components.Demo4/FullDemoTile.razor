@@ -114,24 +114,30 @@ namespace Capgemini.Net.Blazor.Components.Demo4.End
         where Razor component <mark>X</mark> can be replaced by:
     </p>
 
-    <div style="display: flex; justify-content: space-around;">
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <div style="margin-bottom: 5px;">
+    <div class="example-figure">
+        <figure>
+            <div>
                 <Capgemini.Net.Blazor.Components.Demo.DefaultRateComponent MaxRate="1" />
             </div>
-            <figcaption><mark>RateComponent</mark></figcaption>
+            <figcaption>
+                <mark>RateComponent</mark>
+            </figcaption>
         </figure>
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <div style="margin-bottom: 5px;">
+        <figure>
+            <div>
                 <Capgemini.Net.Blazor.Components.Demo.AlternativeRateComponent MaxRate="1" />
             </div>
-            <figcaption><mark>AlternativeRateComponent</mark></figcaption>
+            <figcaption>
+                <mark>AlternativeRateComponent</mark>
+            </figcaption>
         </figure>
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <div style="margin-bottom: 5px;">
+        <figure>
+            <div>
                 <Capgemini.Net.Blazor.Components.Demo.Alternative2RateComponent MaxRate="1" />
             </div>
-            <figcaption><mark>Alternative2RateComponent</mark></figcaption>
+            <figcaption>
+                <mark>Alternative2RateComponent</mark>
+            </figcaption>
         </figure>
     </div>
 
@@ -283,7 +289,7 @@ public class Foo : Bar
         <li>
             By <mark>Name</mark> - if specified, the parameter value will be supplied by the closest <mark>CascadingValue</mark> ancestor that supplies a value with this name.
             If no name is specified, then descendant components will receive the value based on the type of value they are requesting (or any type that extends or implements that type).
-                                                                                                     <br /><strong>Note:</strong> defining an optional <mark>Name</mark> property for a <mark>CascadingParameter</mark> attribute will make the decorated property to be matched only by the given name, not by its type.
+            <br /><strong>Note:</strong> defining an optional <mark>Name</mark> property for a <mark>CascadingParameter</mark> attribute will make the decorated property to be matched only by the given name, not by its type.
             Same applies to the <mark>CascadingValue</mark> component - if it provides the value to the <mark>Name</mark> parameter then the value it supplies won't be matched against any descendant component parameters
             that don't provide the <mark>Name</mark> parameter to the <mark>CascadingParameter</mark> attribute.
             <br /><strong>Note:</strong> if multiple <mark>CascadingValue</mark> components are defined each as a child of the previous one and then descendant component defines the cascading parameter with the matching name,

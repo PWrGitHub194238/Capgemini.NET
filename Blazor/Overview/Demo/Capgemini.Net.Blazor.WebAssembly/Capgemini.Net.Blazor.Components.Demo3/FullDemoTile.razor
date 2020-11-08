@@ -40,10 +40,14 @@
 
     <p>The file itself is not required to be named after the Razor component but it might be helpful as Visual Studio IDE automatically nests files that share same prefix like shown below:</p>
 
-    <div style="display: flex; justify-content: space-around;">
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/1/nested-files.png" />
-            <figcaption><mark>ContainerComponent</mark> Razor component with nested code-behind file</figcaption>
+    <div class="example-figure">
+        <figure>
+            <div>
+                <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/1/nested-files.png" />
+            </div>
+            <figcaption>
+                <mark>ContainerComponent</mark> Razor component with nested code-behind file
+            </figcaption>
         </figure>
     </div>
 
@@ -260,10 +264,14 @@ namespace Capgemini.Net.Blazor.Components.Demo3.End
         - to enable <strong>*.scss</strong> compilation <a href="https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebEssentials2019">Web Essentials</a> extension for Visual Studio can be installed.
     </p>
 
-    <div style="display: flex; justify-content: space-around;">
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/2/nested-files.png" />
-            <figcaption><mark>ContainerComponent</mark> Razor component with nested code-behind and CSS files</figcaption>
+    <div class="example-figure">
+        <figure>
+            <div>
+                <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/2/nested-files.png" />
+            </div>
+            <figcaption>
+                <mark>ContainerComponent</mark> Razor component with nested code-behind and CSS files
+            </figcaption>
         </figure>
     </div>
 
@@ -373,15 +381,23 @@ namespace Capgemini.Net.Blazor.Components.Demo3.End
         <strong>Note:</strong> The <mark>ContainerComponent.razor.scss</mark> has to be compiled manually for the first time:
     </p>
 
-    <div style="display: flex; justify-content: space-around;">
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/2/nested-files-before.png" />
-            <figcaption><mark>ContainerComponent</mark> Razor component before <string>SCSS</string> compilation</figcaption>
+    <div class="example-figure">
+        <figure>
+            <div>
+                <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/2/nested-files-before.png" />
+            </div>
+            <figcaption>
+                <mark>ContainerComponent</mark> Razor component before <string>SCSS</string> compilation
+            </figcaption>
         </figure>
 
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/2/nested-files.png" />
-            <figcaption><mark>ContainerComponent</mark> Razor component after <string>SCSS</string> compilation</figcaption>
+        <figure>
+            <div>
+                <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/3/2/nested-files.png" />
+            </div>
+            <figcaption>
+                <mark>ContainerComponent</mark> Razor component after <string>SCSS</string> compilation
+            </figcaption>
         </figure>
     </div>
     };
@@ -562,7 +578,7 @@ namespace Capgemini.Net.Blazor.Components.Demo
                 <br /><strong>Note:</strong> a <mark>firstRender</mark> can be used inside the method to determinate if this is the first time the Razor component's <strong>DOM</strong> is rendered.
             </li>
             <li>
-                <mark>ShouldRender</mark> - can be overloaded to decide if the entire Razor component should be rerendered (with nested components within). 
+                <mark>ShouldRender</mark> - can be overloaded to decide if the entire Razor component should be rerendered (with nested components within).
                 The method is called each time a state of the Razor component changes (or the <mark>StateHasChanged</mark> has been called manually) - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#suppress-ui-refreshing">read more</a>.
                 <br /><strong>Note:</strong> the method won't get called on the first time the Razor component is rendering.
             </li>
@@ -573,8 +589,8 @@ namespace Capgemini.Net.Blazor.Components.Demo
         Create a code-behind <mark>RateComponent.razor.cs</mark> file and use <mark>OnParametersSet</mark> lifecycle method to update the <mark>Rate</mark> parameter after each time it is changed from outside:
     </p>
 
-        <pre>
-        <code class="language-csharp line-numbers">
+    <pre>
+    <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Components.Demo;
 
 namespace Capgemini.Net.Blazor.Components.Demo3.End
@@ -594,9 +610,9 @@ namespace Capgemini.Net.Blazor.Components.Demo3.End
             </code>
                 </pre>
 
-                <p>
-                    After <mark>OnParametersSet</mark> and <mark>OnParametersSetAsync</mark> is executes, <mark>StateHasChanged</mark> would be called and in turn a Razor component 
-                    will be rerendered with conditionally new value <mark>Rate</mark>
-                </p>
+    <p>
+        After <mark>OnParametersSet</mark> and <mark>OnParametersSetAsync</mark> is executes, <mark>StateHasChanged</mark> would be called and in turn a Razor component
+        will be rerendered with conditionally new value <mark>Rate</mark>
+    </p>
     };
 }

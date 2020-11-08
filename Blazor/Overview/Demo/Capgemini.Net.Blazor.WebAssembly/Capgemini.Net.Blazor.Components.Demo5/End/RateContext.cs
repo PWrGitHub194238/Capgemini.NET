@@ -15,7 +15,7 @@ namespace Capgemini.Net.Blazor.Components.Demo5.End
             "fa-sun"
         };
 
-        public string Icon { get; set; } = Icons[0];
+        public string Icon => Icons[iconIndex];
 
         public int MaxRate
         {

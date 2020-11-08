@@ -1,64 +1,73 @@
 ﻿@using Capgemini.Net.Blazor.Components.Demo5.End
 
 <div class="demo__container_wrapper">
-    @*<EditForm Model="@rateContext">
-            <div>
-                <label for="Birthday">MaxRate</label>
-                <InputNumber class="form-control" @bind-Value="@rateContext.MaxRate" />
-            </div>
-
-            <div>
-                <label for="Birthday">Icon</label>
-                <InputSelect @bind-Value="rateContext.Icon" class="form-control">
-                    <option value="">Select icon ...</option>
-                    @foreach (string icon in RateContext.Icons)
-                    {
-                <option value="@icon">
-                    @icon
-                                </option>
-                    }
-                </InputSelect>
-            </div>
-
-            <div>
-                <label for="Birthday">AvgRate</label>
-                <InputNumber class="form-control" @bind-Value="@rateContext.AvgRate" />
-            </div>
-        </EditForm>*@
-
-    <EditForm Model="@rateContext" style="width: 100%">
-        @*<div class="field">
+    <EditForm Model="@rateContext">
+        <CapInput Label="Max rate" InputName="@nameof(rateContext.MaxRate)">
             <InputNumber @bind-Value="@rateContext.MaxRate" />
-            <label for="input">Label</label>
-        </div>
+        </CapInput>
 
-        <CapInput Label="Labelka" InputName="@nameof(rateContext.MaxRate)">
-            <InputNumber @bind-Value="@rateContext.MaxRate" />
-        </CapInput>*@
+        <CapInput Label="Avg rate" InputName="@nameof(rateContext.AvgRate)">
+            <InputNumber @bind-Value="@rateContext.AvgRate" />
+        </CapInput>
 
-        <CapSelect Label="Labeleczka" @bind-Value="rateContext.Icon">
-            <CapOption Key="1" Value="@("Value1")" />
-            <CapOption Key="2" Value="@("Value2")" />
-            <CapOption Key="3" TValue="string">
-                <div>Ciekawe</div>
-                <div>bardzo</div>
-            </CapOption>
+        <CapSelect Label="Icon" @bind-Value="rateContext.IconIndex" ParseValue="@((option) => RateContext.Icons[option])">
+            @for (int i = 0; i < RateContext.Icons.Length; i += 1)
+            {
+                string icon = RateContext.Icons[i];
+                <CapOption Key="@i.ToString()" Value="@i">
+                    <div>
+                        <i class="far @icon" /> - <strong>@icon</strong>
+                    </div>
+                </CapOption>
+            }
         </CapSelect>
     </EditForm>
 
-        @*<div class="field custom-select" style="width: 100%">
-                <select>
-                    <option value="0"></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-                <label for="input">Label</label>
-            </div>*@
-
-        <CascadingValue Value="@rateContext">
-            <div class="demo__container">
-                @ChildContent
-            </div>
-        </CascadingValue>
+    <CascadingValue Value="@rateContext">
+        <div class="demo__container">
+            @ChildContent
+        </div>
+    </CascadingValue>
 </div>
+
+
+
+@*<div class="demo__container_wrapper">
+      
+
+        <EditForm Model="@rateContext" style="width: 100%">
+            <div class="field">
+                <InputNumber @bind-Value="@rateContext.MaxRate" />
+                <label for="input">Label</label>
+            </div>
+
+            <CapInput Label="Labelka" InputName="@nameof(rateContext.MaxRate)">
+                <InputNumber @bind-Value="@rateContext.MaxRate" />
+            </CapInput>
+
+            <CapSelect Label="Labeleczka" @bind-Value="rateContext.Icon">
+                <CapOption Key="1" Value="@("Value1")" />
+                <CapOption Key="2" Value="@("Value2")" />
+                <CapOption Key="3" TValue="string">
+                    <div>Ciekawe</div>
+                    <div>bardzo</div>
+                </CapOption>
+            </CapSelect>
+        </EditForm>
+
+            <div class="field custom-select" style="width: 100%">
+                    <select>
+                        <option value="0"></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    <label for="input">Label</label>
+                </div>
+
+            <CascadingValue Value="@rateContext">
+                <div class="demo__container">
+                    @ChildContent
+                </div>
+            </CascadingValue>
+    </div>*@

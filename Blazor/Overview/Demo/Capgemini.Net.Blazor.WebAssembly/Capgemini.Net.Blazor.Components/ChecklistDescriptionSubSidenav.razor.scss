@@ -21,5 +21,36 @@
         ul {
             list-style-image: url('/_content/Capgemini.Net.Blazor.Components.Tile/img/ul.png');
         }
+
+        .example-figure {
+            display: flex;
+            justify-content: space-around;
+            flex: 1 1 auto;
+
+            figure {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+
+                & > div {
+                    margin-bottom: 5px;
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                figcaption {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    font-size: x-small;
+                }
+            }
+        }
     }
 }

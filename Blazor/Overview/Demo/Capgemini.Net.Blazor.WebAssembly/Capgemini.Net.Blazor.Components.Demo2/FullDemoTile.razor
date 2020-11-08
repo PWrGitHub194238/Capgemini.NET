@@ -35,25 +35,41 @@
         For instance we can use the given set of icons associated with given classes:
     </p>
 
-    <div style="display: flex; justify-content: space-around;">
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <i class="far fa-star"></i>
-            <figcaption><mark>fa-star</mark></figcaption>
+    <div class="example-figure">
+        <figure>
+            <div>
+                <i class="far fa-star"></i>
+            </div>
+            <figcaption>
+                <mark>fa-star</mark>
+            </figcaption>
         </figure>
 
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <i class="far fa-grin-stars"></i>
-            <figcaption><mark>fa-grin-stars</mark></figcaption>
+        <figure>
+            <div>
+                <i class="far fa-grin-stars"></i>
+            </div>
+            <figcaption>
+                <mark>fa-grin-stars</mark>
+            </figcaption>
         </figure>
 
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <i class="far fa-angry"></i>
-            <figcaption><mark>fa-angry</mark></figcaption>
+        <figure>
+            <div>
+                <i class="far fa-angry"></i>
+            </div>
+            <figcaption>
+                <mark>fa-angry</mark>
+            </figcaption>
         </figure>
 
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <i class="far fa-sun"></i>
-            <figcaption><mark>fa-sun</mark></figcaption>
+        <figure>
+            <div>
+                <i class="far fa-sun"></i>
+            </div>
+            <figcaption>
+                <mark>fa-sun</mark>
+            </figcaption>
         </figure>
     </div>
 
@@ -178,19 +194,23 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
         Add <mark>Capgemini.Net.Blazor.Components.SvgIcons</mark> dependency (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-5.0&tabs=visual-studio#consume-a-library-component">read more</a>) to the <mark>Capgemini.Net.Blazor.Components.Demo2</mark> project in order to be able to use two custom components:
     </p>
 
-    <div style="display: flex; justify-content: space-around;">
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <div style="margin-bottom: 5px;">
+    <div class="example-figure">
+        <figure>
+            <div>
                 <Capgemini.Net.Blazor.Components.SvgIcons.MinusIcon />
             </div>
-            <figcaption><mark>MinusIcon</mark> Razor component</figcaption>
+            <figcaption>
+                <mark>MinusIcon</mark> Razor component
+            </figcaption>
         </figure>
 
-        <figure style="display: flex; flex-direction: column; align-items: center;">
-            <div style="margin-bottom: 5px;">
+        <figure>
+            <div>
                 <Capgemini.Net.Blazor.Components.SvgIcons.PlusIcon />
             </div>
-            <figcaption><mark>PlusIcon</mark> Razor component</figcaption>
+            <figcaption>
+                <mark>PlusIcon</mark> Razor component
+            </figcaption>
         </figure>
     </div>
 
@@ -243,32 +263,32 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
             <div>
                 <mark>Height</mark>/<mark>Width</mark> which will define the size for the components:
             </div>
-            <div style="display: flex; justify-content: space-around;">
-                <figure style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="margin-bottom: 5px;">
+            <div class="example-figure">
+                <figure>
+                    <div>
                         <Capgemini.Net.Blazor.Components.SvgIcons.MinusIcon Height="36px" Width="36px" />
                     </div>
-                    <figcaption style="display: flex; flex-direction: column; align-items: center;">
+                    <figcaption>
                         <div>Height: <mark>36px</mark></div>
                         <div>Width: <mark>36px</mark></div>
                     </figcaption>
                 </figure>
 
-                <figure style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="margin-bottom: 5px;">
+                <figure>
+                    <div>
                         <Capgemini.Net.Blazor.Components.SvgIcons.MinusIcon Height="24px" Width="24px" />
-                        </div>
-                        <figcaption style="display: flex; flex-direction: column; align-items: center;">
-                            <div>Height: <mark>24px</mark></div>
-                            <div>Width: <mark>24px</mark></div>
-                        </figcaption>
+                    </div>
+                    <figcaption>
+                        <div>Height: <mark>24px</mark></div>
+                        <div>Width: <mark>24px</mark></div>
+                    </figcaption>
                 </figure>
 
-                <figure style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="margin-bottom: 5px;">
+                <figure>
+                    <div>
                         <Capgemini.Net.Blazor.Components.SvgIcons.MinusIcon Height="12px" Width="12px" />
                     </div>
-                    <figcaption style="display: flex; flex-direction: column; align-items: center;">
+                    <figcaption>
                         <div>Height: <mark>12px</mark></div>
                         <div>Width: <mark>12px</mark></div>
                     </figcaption>
@@ -279,26 +299,32 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
             <div>
                 <mark>Theme</mark> which will define the coloring for the components:
             </div>
-            <div style="display: flex; justify-content: space-around;">
-                <figure style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="margin-bottom: 5px;">
+            <div class="example-figure">
+                <figure>
+                    <div>
                         <Capgemini.Net.Blazor.Components.SvgIcons.MinusIcon Theme="SvgIcons.Base.IconTheme.DARK" />
                     </div>
-                    <figcaption><mark>IconTheme.DARK</mark></figcaption>
+                    <figcaption>
+                        <mark>IconTheme.DARK</mark>
+                    </figcaption>
                 </figure>
 
-                <figure style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="margin-bottom: 5px;">
+                <figure>
+                    <div>
                         <Capgemini.Net.Blazor.Components.SvgIcons.MinusIcon Theme="SvgIcons.Base.IconTheme.DISABLED" />
                     </div>
-                    <figcaption><mark>IconTheme.DISABLED</mark></figcaption>
+                    <figcaption>
+                        <mark>IconTheme.DISABLED</mark>
+                    </figcaption>
                 </figure>
 
-                <figure style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="margin-bottom: 5px;">
+                <figure>
+                    <div>
                         <Capgemini.Net.Blazor.Components.SvgIcons.MinusIcon Theme="SvgIcons.Base.IconTheme.LIGHT" />
                     </div>
-                    <figcaption><mark>IconTheme.LIGHT</mark></figcaption>
+                    <figcaption>
+                        <mark>IconTheme.LIGHT</mark>
+                    </figcaption>
                 </figure>
             </div>
         </li>

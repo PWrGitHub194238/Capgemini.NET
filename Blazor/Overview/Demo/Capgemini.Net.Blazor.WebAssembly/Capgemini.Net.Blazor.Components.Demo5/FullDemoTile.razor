@@ -313,14 +313,14 @@ namespace Capgemini.Net.Blazor.Components.Demo5.End
         private int avgRate = 3;
         private int iconIndex;
 
-        private readonly string[] icons = {
+        public static readonly string[] Icons = {
             "fa-star",
             "fa-grin-stars",
             "fa-angry",
             "fa-sun"
         };
 
-        public string Icon =&gt; icons[IconIndex];
+        public string Icon =&gt; Icons[IconIndex];
 
         public int MaxRate
         {
@@ -542,57 +542,268 @@ namespace Capgemini.Net.Blazor.Components.Demo5.End
         </code>
         </pre>
 
-        <p>
-            <mark>IntSelector</mark> is a component from <mark>Capgemini.Net.Blazor.Components.Demo</mark> assembly that defines: 
-        </p>
+    <p>
+        <mark>IntSelector</mark> is a component from <mark>Capgemini.Net.Blazor.Components.Demo</mark> assembly that defines:
+    </p>
 
-        <ul>
-            <li>
-                simple <mark>Label</mark> parameter that will internally generate the <mark>&lt;span class="demo__label"&gt;@@Label&lt;/span&gt;</mark> markup,
-            </li>
-            <li>
-                <a data-ng-href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0">data binding</a> for <mark>rateContext</mark> properties <mark>MaxRate</mark>, <mark>AvgRate</mark>
-                and <mark>IconIndex</mark>. Data binding will be more covered in <strong>./demo11</strong>. At this point that would be enough to say that thanks to the power of data binding the inner state of the 
-                <mark>IntSelector</mark> component (which is represented by the parameter <mark>Value</mark>) will be in sync with the binded value. So whenever <mark>Value</mark> changes, <mark>rateContext.MaxRate</mark>
-                also changes and vice-versa (<mark>@@bind-Value="@@(rateContext.MaxRate)"</mark>).
-            </li>
-            <li>
-                Simple <mark>Theme</mark> parameter to decide which color both arrow icons (<span style="position: relative; top: 3px;"><Capgemini.Net.Blazor.Components.SvgIcons.ArrowToLeftIcon Width="16px" Height="16px" Theme="SvgIcons.Base.IconTheme.DARK" /></span>/<span style="position: relative; top: 3px;"><Capgemini.Net.Blazor.Components.SvgIcons.ArrowToRightIcon Width="16px" Height="16px" Theme="SvgIcons.Base.IconTheme.DARK" /></span>) should have.
-            </li>
-            <li>
-                <mark>StringValue</mark> parameter that is a simple predicate accepting <mark>int</mark> value and returning the <mark>string</mark> value to be displayed (<mark>@@((_) =&gt; rateContext.Icon)</mark> 
-                transforms <mark>rateContext.IconIndex</mark> to <mark>icons[IconIndex]</mark>). That value then is provided for child content within <mark>IntSelector</mark> tags.
-            </li>
-            <li>
-                It also defines a special variable called <mark>@@context</mark> by default which is a part of the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0">Blazor templated components</a> 
-                (such as <mark>IntSelector</mark>). That also would be covered more in depth in the next demo (<strong>./demo6</strong>). For <mark>IntSelector</mark> the <mark>@@context</mark> is defined in such a way
-                to provide a value returned by the <mark>StringValue</mark> predicate to be used by <mark>@@ChildContent</mark> of the component (which in this case is <mark>&lt;i class="far @@context"&gt;&lt;/i&gt;</mark> 
-                and the <mark>@@context</mark> value itself is defined with <mark>StringValue="@@((_) =&gt; rateContext.Icon)"</mark>).
-            </li>
-        </ul>
+    <ul>
+        <li>
+            simple <mark>Label</mark> parameter that will internally generate the <mark>&lt;span class="demo__label"&gt;@@Label&lt;/span&gt;</mark> markup:
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="1" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Label="Max Rate" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="2" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Label="Custom label" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+        </li>
+        <li>
+            <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0">Data binding</a> for <mark>rateContext</mark> properties <mark>MaxRate</mark>, <mark>AvgRate</mark>
+            and <mark>IconIndex</mark>. Data binding will be more covered in <strong>./demo11</strong>. At this point that would be enough to say that thanks to the power of data binding the inner state of the
+            <mark>IntSelector</mark> component (which is represented by the parameter <mark>Value</mark>) will be in sync with the binded value. So whenever <mark>Value</mark> changes, <mark>rateContext.MaxRate</mark>
+            also changes and vice-versa (<mark>@@bind-Value="@@(rateContext.MaxRate)"</mark>):
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="3" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector @@bind-Value="@@MaxRate" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="4" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector @@bind-Value="@@IconIndex" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+        </li>
+        <li>
+            Simple <mark>Theme</mark> parameter to decide which color both arrow icons (<span style="position: relative; top: 3px;"><Capgemini.Net.Blazor.Components.SvgIcons.ArrowToLeftIcon Width="16px" Height="16px" Theme="SvgIcons.Base.IconTheme.DARK" /></span>/<span style="position: relative; top: 3px;"><Capgemini.Net.Blazor.Components.SvgIcons.ArrowToRightIcon Width="16px" Height="16px" Theme="SvgIcons.Base.IconTheme.DARK" /></span>) should have:
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="5" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Theme="IconTheme.DARK" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="6" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Theme="IconTheme.LIGHT" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="7" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Theme="IconTheme.DISABLED" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+        </li>
+        <li>
+            <mark>StringValue</mark> parameter that is a simple predicate accepting <mark>int</mark> value and returning the <mark>string</mark> value to be displayed (<mark>@@((_) =&gt; rateContext.Icon)</mark>
+            transforms <mark>rateContext.IconIndex</mark> to <mark>icons[IconIndex]</mark>). That value then is provided for child content within <mark>IntSelector</mark> tags:
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="8" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector StringValue="@@((rate) =&gt; rate.ToString())" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="9" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector StringValue="@@((rate) =&gt; GetAvgRateLabel(rate))" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+
+            when the <mark> GetAvgRateLabel(avgRate)</mark> is defined as:
+
+            <pre>
+            <code class="language-csharp line-numbers">
+private static string GetAvgRateLabel(int agvRate) =&gt; agvRate switch
+{
+	int rate when rate is &lt; 3 =&gt; $"{agvRate} (poor)",
+	int rate when rate is &gt;= 3 and &lt; 5 =&gt; $"{agvRate} (good)",
+	_ =&gt; $"{agvRate} (excellent)",
+};
+                    </code>
+        </pre>
+
+        </li>
+        <li>
+            It also defines a special variable called <mark>@@context</mark> by default which is a part of the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0">Blazor templated components</a>
+            (such as <mark>IntSelector</mark>). That also would be covered more in depth in the next demo (<strong>./demo6</strong>). For <mark>IntSelector</mark> the <mark>@@context</mark> is defined in such a way
+            to provide a value returned by the <mark>StringValue</mark> predicate to be used by <mark>@@ChildContent</mark> of the component (which in this case is <mark>&lt;i class="far @@context"&gt;&lt;/i&gt;</mark>
+            and the <mark>@@context</mark> value itself is defined with <mark>StringValue="@@((_) =&gt; rateContext.Icon)"</mark>):
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="10" />
+                    </div>
+                    <figcaption>
+                        <span>Child content:</span>
+                        <mark>&lt;strong&gt;@@context&lt;/strong&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="11" />
+                    </div>
+                    <figcaption>
+                        <span>Child content:</span>
+                        <mark>&lt;i class="far @@context"&lt;/i&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+        </li>
+    </ul>
     };
 
     internal static readonly RenderFragment PointContext4 = __builder =>
     {
-        <p>
-            Although <mark>IntSelector</mark> component made code smaller and less complex by wrapping details about handling the state of the <mark>RateContext</mark> class properties it has the following limitations:
-        </p>
+    <p>
+        Although <mark>IntSelector</mark> component made code smaller and less complex by wrapping details about handling the state of the <mark>RateContext</mark> class properties it has the following limitations:
+    </p>
 
-        <ul>
-            <li>
-                it supports only one primitive type of value - <mark>int</mark>. For more complex cases the <mark>StringValue</mark> delegate can be used but it is still based on the single <mark>int</mark> property.
-            </li>
-            <li>
-                It assumes that any given <mark>int</mark> property will be increased/decreased by <mark>1</mark>.
-            </li>
-            <li>
-                It doesn't support any kind of cross-field validation - simple single-based property validation can be achieved by defining more complex logic for <mark>getter</mark> and/or <mark>setter</mark>
-                of the property bounded to the <mark>Value</mark> component's parameter.
-            </li>
-        </ul>
+    <ul>
+        <li>
+            it supports only one primitive type of value - <mark>int</mark>. For more complex cases the <mark>StringValue</mark> delegate can be used but it is still based on the single <mark>int</mark> property.
+        </li>
+        <li>
+            It assumes that any given <mark>int</mark> property will be increased/decreased by <mark>1</mark>.
+        </li>
+        <li>
+            It doesn't support any kind of cross-field validation - simple single-based property validation can be achieved by defining more complex logic for <mark>getter</mark> and/or <mark>setter</mark>
+            of the property bounded to the <mark>Value</mark> component's parameter.
+        </li>
+    </ul>
 
-        <p>
-            To solve those
-        </p>
+    <p>
+        To solve those problems a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform?view=aspnetcore-5.0">EditForm</a> component can be used
+        along with other <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#built-in-forms-components">build-in Razor components</a> like:
+    </p>
+
+    <ul>
+        <li>
+            <mark>InputNumber&lt;TValue&gt;</mark>,
+        </li>
+        <li>
+            <mark>InputSelect&lt;TValue&gt;</mark>.
+        </li>
+    </ul>
+
+    <p>
+        Replace the markup for all custom input fields with build-in components:
+    </p>
+
+    <pre data-line="4-20">
+    <code class="language-csharp line-numbers">
+@@using Capgemini.Net.Blazor.Components.Demo5.End
+
+&lt;div class="demo__container_wrapper"&gt;
+    &lt;EditForm Model="@@rateContext"&gt;
+        &lt;span class="demo__label"&gt;Max rate&lt;/span&gt;
+        &lt;InputNumber class="demo__selector" @@bind-Value="@@rateContext.MaxRate" /&gt;
+
+        &lt;span class="demo__label"&gt;Avg rate&lt;/span&gt;
+        &lt;InputNumber class="demo__selector" @@bind-Value="@@rateContext.AvgRate" /&gt;
+
+        &lt;span class="demo__label"&gt;Icon&lt;/span&gt;
+        &lt;InputSelect class="demo__selector" @@bind-Value="rateContext.IconIndex"&gt;
+            @@for(int i = 0; i &lt; RateContext.Icons.Length; i += 1)
+            {
+                &lt;option value="@@i"&gt;
+                    @@(RateContext.Icons[i])
+                &lt;/option&gt;
+            }
+        &lt;/InputSelect&gt;
+    &lt;/EditForm&gt;
+
+    &lt;CascadingValue Value="@@rateContext"&gt;
+        &lt;div class="demo__container"&gt;
+            @@ChildContent
+        &lt;/div&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+        </code>
+    </pre>
+
+    <p>
+        To make use of build-in <mark>EditForm</mark>, <mark>InputNumber</mark>, <mark>InputSelect</mark> components, add <mark>Microsoft.AspNetCore.Components.Forms</mark> namespace to the <mark>_Imports.razor</mark> file:
+    </p>
+
+    <pre data-line="6">
+    <code class="language-csharp line-numbers">
+@@namespace Capgemini.Net.Blazor.Components.Demo5
+
+@@using Microsoft.AspNetCore.Components.Web
+@@using Microsoft.AspNetCore.Components.Rendering
+@@using Microsoft.AspNetCore.Components.Web.Extensions.Head
+@@using Microsoft.AspNetCore.Components.Forms
+
+@@using Capgemini.Net.Blazor.Components.Tile
+@@using Capgemini.Net.Blazor.Components.Tile.Base
+@@using Capgemini.Net.Blazor.Components.Demo
+        </code>
+    </pre>
+
+    <p>
+        The snippet code above gathers three input fields under one common <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext?view=aspnetcore-5.0">edit context</a>.
+        It allows to define forms in the way known from previous ASP.NET frameworks. For instance it enables validation based on <mark>RateContext</mark> validation attributes that the class properties are decorated with
+        like <mark>[Required]</mark> or <mark>[Range]</mark> (which will be introduced in <strong>./demo8</strong>).
+    </p>
+
+    <p>
+        All <mark>Input*</mark> components rely on data binding to modify model's properties on any input change.
+    </p>
+
+    <p>
+        <strong>Note:</strong> introducing standard <mark>&lt;input&gt;</mark> markup shows that validation based on property <mark>setter</mark> is not prohibiting user to select invalid values - in case the invalid value was entered,
+        firstly it will be accepted as an input; due to input's value change, <mark>setter</mark> of the binded property will be triggered (e.i. <mark>@@bind-Value="@@rateContext.MaxRate"</mark>) which will assign a value to the inner private field of the model.
+        Due to the invalid value received by the <mark>setter</mark>, it will assign a different value (after validation) to the field which in turn will trigger component to be rendered again (as the given property is two-way binded to the <mark>Input*</mark> component's <mark>Value</mark> parameter).
+        Lastly changed value will be displayed to the user. To create a proper validation <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-5.0#validation-attributes">validation attributes</a>
+        have to be used. Alternatively custom validation can be implemented either within a custom component that inherits from  <mark>Input*</mark> (to prevent user to input invalid values) or by <mark>OnSubmit</mark>
+        event handler of <mark>EditForm</mark> component - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#built-in-forms-components">read more</a>.
+    </p>
+    };
+
+    internal static readonly RenderFragment PointContext5 = __builder =>
+    {
+    <p>
+        One major flow of this solution is that <strong>HTML</strong> specification doesn't allow any additional markup between <mark>&lt;option&gt;</mark> and <mark>&lt;/option&gt;</mark> (<a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-option-element">read more</a>)
+        so the usage of <a href="https://fontawesome.com/icons/star?style=solid">Font Awesome markup classes</a> is not possible.
+    </p>
     };
 }

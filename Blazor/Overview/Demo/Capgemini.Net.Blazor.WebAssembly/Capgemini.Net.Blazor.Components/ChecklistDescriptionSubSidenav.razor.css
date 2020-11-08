@@ -14,3 +14,26 @@
     font-size: 12pt; }
   .description-point ::deep ul {
     list-style-image: url("/_content/Capgemini.Net.Blazor.Components.Tile/img/ul.png"); }
+  .description-point ::deep .example-figure {
+    display: flex;
+    justify-content: space-around;
+    flex: 1 1 auto; }
+    .description-point ::deep .example-figure figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%; }
+      .description-point ::deep .example-figure figure > div {
+        margin-bottom: 5px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center; }
+      .description-point ::deep .example-figure figure figcaption {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: x-small; }
