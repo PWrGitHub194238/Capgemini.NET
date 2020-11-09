@@ -200,12 +200,12 @@ namespace Capgemini.Net.Blazor.Components.Demo4.End
     </p>
 
     <p>
-        Modify the content of the <mark>ContainerComponent</mark> component to define two nested <mark>CascadingValue</mark> Razor components (one for each primitive type parameter):
+        Modify the content of the <mark>ContainerComponent</mark> component to define two nested <mark>CascadingValue</mark> Razor components (one for each primitive type parameter). 
+        Remove the <mark>@@using</mark> statement that is no longer needed (<mark>@@using Capgemini.Net.Blazor.Components.Demo4.Start</mark> - as the <mark>&lt;RateComponent MaxRate="@@MaxRate" Icon="@@this[IconIndex]" /&gt;</mark> was removed):
     </p>
 
-    <pre data-line="20-21, 25-26">
+    <pre data-line="19-20, 24-25">
     <code class="language-csharp line-numbers">
-@@using Capgemini.Net.Blazor.Components.Demo4.End
 @@using Capgemini.Net.Blazor.Components.SvgIcons
 @@using SvgIcons.Base
 

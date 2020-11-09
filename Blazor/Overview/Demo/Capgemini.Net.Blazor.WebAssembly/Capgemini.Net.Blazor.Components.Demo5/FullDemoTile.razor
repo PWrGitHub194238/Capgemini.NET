@@ -142,9 +142,8 @@ public int IconIndex
         that is provided by the <mark>@@ChildContent</mark> parameter (lines <mark>28</mark> and <mark>34</mark>):
     </p>
 
-    <pre data-line="13-18, 28, 34">
+    <pre data-line="12-17, 27, 33">
     <code class="language-csharp line-numbers">
-@@using Capgemini.Net.Blazor.Components.Demo5.End
 @@using Capgemini.Net.Blazor.Components.SvgIcons
 @@using SvgIcons.Base
 
@@ -374,9 +373,8 @@ namespace Capgemini.Net.Blazor.Components.Demo5.End
         Update the main markup of the <mark>ContainerComponent</mark> component to refer new field:
     </p>
 
-    <pre data-line="8-10, 15-17, 22-24">
+    <pre data-line="7-9, 14-16, 21-23">
     <code class="language-csharp line-numbers">
-@@using Capgemini.Net.Blazor.Components.Demo5.End
 @@using Capgemini.Net.Blazor.Components.SvgIcons
 @@using SvgIcons.Base
 
@@ -515,9 +513,8 @@ namespace Capgemini.Net.Blazor.Components.Demo5.End
         Change the content of the <mark>ContainerComponent</mark> component:
     </p>
 
-    <pre data-line="5-7, 9-11, 13-15">
+    <pre data-line="4-6, 8-10, 12-14">
     <code class="language-csharp line-numbers">
-@@using Capgemini.Net.Blazor.Components.Demo5.End
 @@using SvgIcons.Base
 
 &lt;div class="demo__container_wrapper"&gt;
@@ -728,10 +725,8 @@ private static string GetAvgRateLabel(int agvRate) =&gt; agvRate switch
         Replace the markup for all custom input fields with build-in components:
     </p>
 
-    <pre data-line="4-20">
+    <pre data-line="2-18">
     <code class="language-csharp line-numbers">
-@@using Capgemini.Net.Blazor.Components.Demo5.End
-
 &lt;div class="demo__container_wrapper"&gt;
     &lt;EditForm Model="@@rateContext"&gt;
         &lt;span class="demo__label"&gt;Max rate&lt;/span&gt;
@@ -874,10 +869,8 @@ private static string GetAvgRateLabel(int agvRate) =&gt; agvRate switch
         </ul>
     </p>
 
-    <pre data-line="5-7, 9-11, 13-23">
+    <pre data-line="3-5, 7-9, 11-21">
     <code class="language-csharp line-numbers">
-@@using Capgemini.Net.Blazor.Components.Demo5.End
-
 &lt;div class="demo__container_wrapper"&gt;
     &lt;EditForm Model="@@rateContext"&gt;
         &lt;CapInput Label="Max rate" InputName="@@nameof(rateContext.MaxRate)"&gt;

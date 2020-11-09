@@ -91,10 +91,18 @@
 
     public CapOption<TValue>? SelectedOption { get; set; }
 
-    protected override void OnInitialized()
+    protected override void OnAfterRender(bool firstRender)
     {
-        SelectedOption = options.SingleOrDefault(option => option.Key.Equals(Value));
-        base.OnInitialized();
+        if (firstRender)
+        {
+            SelectedOption = options.SingleOrDefault(option => option.Value.Equals(Value));
+
+            if (SelectedOption is not null)
+            {
+                StateHasChanged();
+            }
+        }
+        base.OnAfterRender(firstRender);
     }
 
     public string ActiveStateClass => isOpened ? SELECT_ACTIVE : string.Empty;
