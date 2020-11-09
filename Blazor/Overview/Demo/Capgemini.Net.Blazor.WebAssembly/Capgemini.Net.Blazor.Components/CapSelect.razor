@@ -55,12 +55,12 @@
     </div>
 </div>
 
-@if (IsOpened)
+@if (isOpened)
 {
     <ClickOutsideOverlay Index="2000" OnOutsideClick="CloseSelect" />
 }
 
-<CascadingValue Value="@this">
+<CascadingValue Value="@this" IsFixed="true">
     <div style="display: none">
         @ChildContent
     </div>
@@ -75,6 +75,8 @@
 
     private readonly IList<CapOption<TValue>> options = new List<CapOption<TValue>>();
 
+    private bool isOpened;
+
     [Parameter]
     public string Label { get; set; } = default!;
 
@@ -87,23 +89,28 @@
     [Parameter]
     public Func<TValue, string> ParseValue { get; set; } = value => value is null ? string.Empty : value.ToString()!;
 
-    public bool IsOpened { get; set; }
+    public CapOption<TValue>? SelectedOption { get; set; }
 
-    public CapOption<TValue> SelectedOption { get; set; } = default!;
+    protected override void OnInitialized()
+    {
+        SelectedOption = options.SingleOrDefault(option => option.Key.Equals(Value));
+        base.OnInitialized();
+    }
 
-    public string ActiveStateClass => IsOpened ? SELECT_ACTIVE : string.Empty;
+    public string ActiveStateClass => isOpened ? SELECT_ACTIVE : string.Empty;
 
-    public string InactiveStateClass => !IsOpened ? SELECT_HIDE : string.Empty;
+    public string InactiveStateClass => !isOpened ? SELECT_HIDE : string.Empty;
 
     public string SameAsSelectedClass(CapOption<TValue> option) => IsSameAsSelectedClass(option.Key) ? SELECT_SAME_AS_SELECTED : string.Empty;
 
     private bool IsSameAsSelectedClass(string key) => SelectedOption is not null && key.Equals(SelectedOption.Key);
 
-    public void ToggleActiveState() => IsOpened = !IsOpened;
+    public void ToggleActiveState() => isOpened = !isOpened;
 
-    public void CloseSelect() => IsOpened = false;
+    public void CloseSelect() => isOpened = false;
 
     public void AddOption(CapOption<TValue> option) => options.Add(option);
+
 
     public async Task SelectOption(CapOption<TValue> option)
     {

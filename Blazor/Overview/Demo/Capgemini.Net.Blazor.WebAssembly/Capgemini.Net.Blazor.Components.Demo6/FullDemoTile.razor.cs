@@ -14,18 +14,18 @@ namespace Capgemini.Net.Blazor.Components.Demo6
             {
                 new DemoChecklistPointContext
                 {
-                    Name = "1",
+                    Name = "Add generic parameter to the RenderFragment",
                     Order = 1,
                     IsDone = false,
-                    Label = "Label 1",
+                    Label = "Add a payload to the render fragment to pass a context object",
                     Content = PointContext1!
                 },
                 new DemoChecklistPointContext
                 {
-                    Name = "2",
+                    Name = "Pass context object to child component",
                     Order = 2,
                     IsDone = false,
-                    Label = "Label 2",
+                    Label = "Pass context object to the child component",
                     Content = PointContext2!
                 }
             }

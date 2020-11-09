@@ -6,6 +6,7 @@
         CHAIN,
         NETWORKING,
         DIAGRAM,
+        DIRECTION,
         RECYCLE,
         PAINT_BRUSH,
         STORAGE,

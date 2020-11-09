@@ -16,7 +16,7 @@
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
     <p>
-        Open <mark>./End/RateComponent.razor.cs</mark> and introduce a new property <mark>AvgRate</mark> decorated with the <mark>Parameter</mark> attribute (with <mark>Name = "AvgRate"</mark> which will be used
+        Open <mark>./Start/RateComponent.razor.cs</mark> and introduce a new property <mark>AvgRate</mark> decorated with the <mark>Parameter</mark> attribute (with <mark>Name = "AvgRate"</mark> which will be used
         as <mark>Name</mark> value for <mark>CascadingValue</mark> component):
     </p>
 
@@ -40,8 +40,8 @@
         </pre>
 
     <p>
-        Modify the <strong>HTML</strong> markup of the same file (<mark>./End/RateComponent.razor.cs</mark>) and supply additional <strong>CSS</strong> styles (add new file <mark>./End/RateComponent.razor.scss</mark>
-        and compile it to generate <mark>./End/RateComponent.razor.css</mark>):
+        Modify the <strong>HTML</strong> markup of the same file (<mark>./Start/RateComponent.razor.cs</mark>) and supply additional <strong>CSS</strong> styles (add new file <mark>./Start/RateComponent.razor.scss</mark>
+        and compile it to generate <mark>./Start/RateComponent.razor.css</mark>):
     </p>
 
     <pre data-line="3, 4, 13-17">
@@ -103,7 +103,7 @@
         </pre>
 
     <p>
-        Open the <mark>./End/ContainerComponent.razor.cs</mark> file to provide a property with a basic logic for the parameter to be able to be set by the <mark>ContainerComponent</mark> component:
+        Open the <mark>./Start/ContainerComponent.razor.cs</mark> file to provide a property with a basic logic for the parameter to be able to be set by the <mark>ContainerComponent</mark> component:
     </p>
 
     <pre data-line="9-13">
@@ -935,7 +935,7 @@ private static string GetAvgRateLabel(int agvRate) =&gt; agvRate switch
     </p>
 
     <p>
-        <mark>CapSelect</mark> component works in the same way, allowing to define <mark>CapOption</mark> component in place of the standard <mark>&lt;option&gt;</mark> tag. 
+        <mark>CapSelect</mark> component works in the same way, allowing to define <mark>CapOption</mark> component in place of the standard <mark>&lt;option&gt;</mark> tag (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0#tabset-example">read more</a> for a similar example). 
         <mark>(option) => RateContext.Icons[option]</mark> lambda expression is used to provide a display value for any value selected (instead of showing the raw selected value that binds to the input - <mark>rateContext.IconIndex</mark>).
     </p>
     };

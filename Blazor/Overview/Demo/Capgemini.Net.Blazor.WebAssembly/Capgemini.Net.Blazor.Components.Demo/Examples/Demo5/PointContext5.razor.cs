@@ -3,7 +3,7 @@ using System;
 
 namespace Capgemini.Net.Blazor.Components.Demo.Examples.Demo5
 {
-    public partial class PointContext5 : ComponentBase
+    public partial class PointContext5
     {
 
         [Parameter]
@@ -71,12 +71,5 @@ namespace Capgemini.Net.Blazor.Components.Demo.Examples.Demo5
                     : value;
             }
         }
-
-        private static string GetAvgRateLabel(int agvRate) => agvRate switch
-        {
-            int rate when rate is < 3 => $"{agvRate} (poor)",
-            int rate when rate is >= 3 and < 5 => $"{agvRate} (good)",
-            _ => $"{agvRate} (excellent)",
-        };
     }
 }

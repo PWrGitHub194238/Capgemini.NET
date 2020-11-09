@@ -17,7 +17,7 @@
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
     <p>
-        Edit a file <mark>./End/ContainerComponent.razor</mark> using Razor Component template and add basic <mark>maxRate</mark> and <mark>iconIndex</mark> fields to the <mark>@@code{ }</mark> section.
+        Edit a file <mark>./Start/ContainerComponent.razor</mark> using Razor Component template and add basic <mark>maxRate</mark> and <mark>iconIndex</mark> fields to the <mark>@@code{ }</mark> section.
         Those variables will be used to store the selection of both max rate and icon class for the <mark>RateComponent</mark> that was created in <a href="./demo1">demo1</a>.
     </p>
 
@@ -86,7 +86,7 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
 
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
-    <p>Add the following code snipped to the top of the <mark>./End/ContainerComponent.razor</mark>:</p>
+    <p>Add the following code snipped to the top of the <mark>./Start/ContainerComponent.razor</mark>:</p>
 
     <pre data-line="4, 6, 11, 13, 17">
     <code class="language-markup line-numbers">
@@ -183,7 +183,7 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
 
     <p>
         <strong>Note:</strong> adding <mark>@@using Capgemini.Net.Blazor.Components.Demo2.End</mark> to <mark>_Imports.razor</mark> in scenario where there are multiple classes with the same name
-        that are differing only by a namespace (<mark>./End/RateComponent.razor</mark> and <mark>./Start/RateComponent.razor</mark>) will make impossible
+        that are differing only by a namespace (<mark>./Start/RateComponent.razor</mark> and <mark>./Start/RateComponent.razor</mark>) will make impossible
         to call <mark>Capgemini.Net.Blazor.Components.Demo2.Start.RateComponent</mark> with component's name only.
     </p>
     };
@@ -387,7 +387,7 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
     <p>
         To make use of the <mark>maxRate</mark> and <mark>iconIndex</mark> and make <mark>RateComponent</mark> to react on any fields' value change,
         <mark>RateComponent</mark> has to define <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#component-parameters">parameters</a> for both entries.
-        Open the <mark>./End/RateComponent.razor</mark> file and add <mark>MaxRate</mark> and <mark>Icon</mark> properties to the <mark>@@code { }</mark> block:
+        Open the <mark>./Start/RateComponent.razor</mark> file and add <mark>MaxRate</mark> and <mark>Icon</mark> properties to the <mark>@@code { }</mark> block:
     </p>
 
     <pre>

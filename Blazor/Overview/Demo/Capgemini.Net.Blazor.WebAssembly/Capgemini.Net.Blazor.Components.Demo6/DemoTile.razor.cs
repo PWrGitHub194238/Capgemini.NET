@@ -6,10 +6,10 @@ namespace Capgemini.Net.Blazor.Components.Demo6
     {
         public const string Href = "demo6";
 
-        public static TileIcon Icon => TileIcon.PAINT_BRUSH;
+        public static TileIcon Icon => TileIcon.DIRECTION;
 
-        public static string Title => "TypeScript Component";
+        public static string Title => "Generic render fragment: give a child content a context of the parent";
 
-        public static string Description => "Non-Blazor component using standard HTML event attributes to call JavaScript function on trigger.";
+        public static string Description => "Replacing cascading values with a generic type of render fragments. Providing context of a parent component to child content.";
     }
 }

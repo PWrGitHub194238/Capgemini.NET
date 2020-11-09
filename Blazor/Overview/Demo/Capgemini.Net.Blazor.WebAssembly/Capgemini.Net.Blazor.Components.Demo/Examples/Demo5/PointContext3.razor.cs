@@ -3,7 +3,7 @@ using System;
 
 namespace Capgemini.Net.Blazor.Components.Demo.Examples.Demo5
 {
-    public partial class PointContext3 : ComponentBase
+    public partial class PointContext3
     {
 
         [Parameter]
