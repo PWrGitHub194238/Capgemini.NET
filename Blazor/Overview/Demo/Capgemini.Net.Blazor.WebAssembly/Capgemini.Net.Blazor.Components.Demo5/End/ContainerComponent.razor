@@ -15,7 +15,7 @@
             {
                 string icon = RateContext.Icons[i];
                 <CapOption Key="@i.ToString()" Value="@i">
-                    <div>
+                    <div class="fa-cap-option">
                         <i class="far @icon" /> - <strong>@icon</strong>
                     </div>
                 </CapOption>
@@ -29,45 +29,3 @@
         </div>
     </CascadingValue>
 </div>
-
-
-
-@*<div class="demo__container_wrapper">
-      
-
-        <EditForm Model="@rateContext" style="width: 100%">
-            <div class="field">
-                <InputNumber @bind-Value="@rateContext.MaxRate" />
-                <label for="input">Label</label>
-            </div>
-
-            <CapInput Label="Labelka" InputName="@nameof(rateContext.MaxRate)">
-                <InputNumber @bind-Value="@rateContext.MaxRate" />
-            </CapInput>
-
-            <CapSelect Label="Labeleczka" @bind-Value="rateContext.Icon">
-                <CapOption Key="1" Value="@("Value1")" />
-                <CapOption Key="2" Value="@("Value2")" />
-                <CapOption Key="3" TValue="string">
-                    <div>Ciekawe</div>
-                    <div>bardzo</div>
-                </CapOption>
-            </CapSelect>
-        </EditForm>
-
-            <div class="field custom-select" style="width: 100%">
-                    <select>
-                        <option value="0"></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                    <label for="input">Label</label>
-                </div>
-
-            <CascadingValue Value="@rateContext">
-                <div class="demo__container">
-                    @ChildContent
-                </div>
-            </CascadingValue>
-    </div>*@

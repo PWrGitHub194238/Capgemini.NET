@@ -29,3 +29,7 @@
     color: unset;
     padding-top: 10px;
     padding-bottom: 10px; }
+  ::deep form .fa-cap-option i {
+    padding-right: 20px; }
+  ::deep form .fa-cap-option strong {
+    padding-left: 20px; }

@@ -802,8 +802,141 @@ private static string GetAvgRateLabel(int agvRate) =&gt; agvRate switch
     internal static readonly RenderFragment PointContext5 = __builder =>
     {
     <p>
+        Note that it is no longer possible to preview of the icon user is selecting from the input. Replace the inner content of the <mark>&lt;option&gt;</mark> markup from <mark>@@(RateContext.Icons[i])</mark>
+        to display the preview of the icon and a class name that is used to display it:
+    </p>
+    <pre data-line="6-8">
+    <code class="language-csharp line-numbers">
+&lt;!-- ... --&gt;
+@@for(int i = 0; i &lt; RateContext.Icons.Length; i += 1)
+{
+    string icon = RateContext.Icons[i];
+    &lt;option value="@@i"&gt;
+        &lt;div class="fa-cap-option"&gt;
+	        &lt;i class="far @@icon" /&gt; - &lt;strong&gt;@@icon&lt;/strong&gt;
+        &lt;/div&gt;
+    &lt;/option&gt;
+}
+&lt;!-- ... --&gt;
+        </code>
+    </pre>
+
+    <p>
         One major flow of this solution is that <strong>HTML</strong> specification doesn't allow any additional markup between <mark>&lt;option&gt;</mark> and <mark>&lt;/option&gt;</mark> (<a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-option-element">read more</a>)
-        so the usage of <a href="https://fontawesome.com/icons/star?style=solid">Font Awesome markup classes</a> is not possible.
+        so the usage of <a href="https://fontawesome.com/icons/star?style=solid">Font Awesome markup classes</a> is not possible. Browser will strip away all additional markup form the following code leaving only raw text.
+    </p>
+
+    <div class="example-figure">
+        <figure>
+            <div>
+                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext5 MaxRate="5" AvgRate="5" IconIndex="0" Example="1" />
+            </div>
+            <figcaption>
+                <span><mark>&lt;/option&gt;</mark> content:</span>
+                <mark>@@(RateContext.Icons[i])</mark>
+            </figcaption>
+        </figure>
+        <figure>
+            <div>
+                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo5.PointContext5 MaxRate="5" AvgRate="5" IconIndex="0" Example="2" />
+            </div>
+            <figcaption>
+                <span><mark>&lt;/option&gt;</mark> content:</span>
+                <mark>&lt;i class="far @@context"&lt;/i&gt;  - &lt;strong&gt;@@icon&lt;/strong&gt;</mark>
+            </figcaption>
+        </figure>
+    </div>
+
+    <div class="example-figure">
+        <figure>
+            <div>
+                <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/5/5/html-warning.png" />
+            </div>
+            <figcaption>
+                <span>Markup cannot be add as a <mark>&lt;option&gt;</mark> content</span>
+            </figcaption>
+        </figure>
+    </div>
+
+    <p>
+        Replace the content of the <mark>ContainerComponent</mark> component for the last time to make it use a custom components which provide:
+
+        <ul>
+            <li>
+                custom styling for <mark>Input*</mark> components,
+            </li>
+            <li>
+                default style and markup for a label of the given input within the component
+            </li>
+            <li>
+                support for any custom markup to be placed between <mark>&lt;option&gt;</mark> and <mark>&lt;/option&gt;</mark> tags.
+            </li>
+        </ul>
+    </p>
+
+    <pre data-line="5-7, 9-11, 13-23">
+    <code class="language-csharp line-numbers">
+@@using Capgemini.Net.Blazor.Components.Demo5.End
+
+&lt;div class="demo__container_wrapper"&gt;
+    &lt;EditForm Model="@@rateContext"&gt;
+        &lt;CapInput Label="Max rate" InputName="@@nameof(rateContext.MaxRate)"&gt;
+            &lt;InputNumber @@bind-Value="@@rateContext.MaxRate" /&gt;
+        &lt;/CapInput&gt;
+
+        &lt;CapInput Label="Avg rate" InputName="@@nameof(rateContext.AvgRate)"&gt;
+            &lt;InputNumber @@bind-Value="@@rateContext.AvgRate" /&gt;
+        &lt;/CapInput&gt;
+
+        &lt;CapSelect Label="Icon" @@bind-Value="rateContext.IconIndex" ParseValue="@@((option) =&gt; RateContext.Icons[option])"&gt;
+            @@for (int i = 0; i &lt; RateContext.Icons.Length; i += 1)
+            {
+                string icon = RateContext.Icons[i];
+                &lt;CapOption Key="@@i.ToString()" Value="@@i"&gt;
+                    &lt;div class="fa-cap-option"&gt;
+                        &lt;i class="far @@icon" /&gt; - &lt;strong&gt;@@icon&lt;/strong&gt;
+                    &lt;/div&gt;
+                &lt;/CapOption&gt;
+            }
+        &lt;/CapSelect&gt;
+    &lt;/EditForm&gt;
+
+    &lt;CascadingValue Value="@@rateContext"&gt;
+        &lt;div class="demo__container"&gt;
+            @@ChildContent
+        &lt;/div&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+        </code>
+    </pre>
+
+    <p>
+        Same as <mark>IntSelector</mark> component that was used earlier, both <mark>CapInput</mark> and <mark>CapSelect</mark> components uses <mark>RenderFragment</mark> parameter named <mark>ChildContent</mark>
+        to define their inner content as shown. <mark>CapInput</mark> child content is used to provide any of the build-in <mark>Input*</mark> components. See the actual component's markup:
+    </p>
+
+    <pre data-line="3, 7, 8">
+    <code class="language-csharp line-numbers">
+&lt;div class="field-container"&gt;
+    &lt;span class="field-label"&gt;
+        @@Label
+    &lt;/span&gt;
+    &lt;span style="width: 100%;"&gt;&lt;/span&gt;
+    &lt;div class="field"&gt;
+        @@ChildContent
+        &lt;label for="@@InputName"&gt;@@Label&lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+        </code>
+    </pre>
+
+    <p>
+        Highlighted <mark>@@ChildContent</mark> is replaced by the <mark>&lt;InputNumber @@bind-Value="@@rateContext.MaxRate" /&gt;</mark>/<mark>&lt;InputNumber @@bind-Value="@@rateContext.AvgRate" /&gt;</mark>.
+    </p>
+
+    <p>
+        <mark>CapSelect</mark> component works in the same way, allowing to define <mark>CapOption</mark> component in place of the standard <mark>&lt;option&gt;</mark> tag. 
+        <mark>(option) => RateContext.Icons[option]</mark> lambda expression is used to provide a display value for any value selected (instead of showing the raw selected value that binds to the input - <mark>rateContext.IconIndex</mark>).
     </p>
     };
 }

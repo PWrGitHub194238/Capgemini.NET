@@ -49,7 +49,7 @@ namespace Capgemini.Net.Blazor.Components.Demo5
                     Name = "Style build-in inputs",
                     Order = 5,
                     IsDone = false,
-                    Label = "Replace build-in input components with custom wrap components to add styles for inputs",
+                    Label = "Replace build-in input components with custom wrap components to add styles for inputs and custom <option> tag markup",
                     Content = PointContext5!
                 }
             }

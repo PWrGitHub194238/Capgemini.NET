@@ -1,0 +1,34 @@
+﻿@switch (Example)
+{
+    case 1:
+        <EditForm Model="@dumyContext">
+            <span class="demo__label">Icon</span>
+            <InputSelect class="demo__selector" @bind-Value="dumyContext.IconIndex">
+                @for (int i = 0; i < RateContext.Icons.Length; i += 1)
+                {
+                    <option value="@i">
+                        @(RateContext.Icons[i])
+                    </option>
+                }
+            </InputSelect>
+        </EditForm>
+        break;
+    case 2:
+        <EditForm Model="@dumyContext">
+            <span class="demo__label">Icon</span>
+            <InputSelect class="demo__selector" @bind-Value="dumyContext.IconIndex">
+                @for (int i = 0; i < RateContext.Icons.Length; i += 1)
+                {
+                    string icon = RateContext.Icons[i];
+                    <option value="@i">
+                        <div class="fa-cap-option">
+                            <i class="far @icon" /> - <strong>@icon</strong>
+                        </div>
+                    </option>
+                }
+            </InputSelect>
+        </EditForm>
+        break;
+    default:
+        break;
+}
