@@ -1,0 +1,31 @@
+﻿<div class="demo__container_wrapper">
+    <div class="demo__container">
+        @ChildContent(rateContext)
+    </div>
+
+    <div class="average-rate-container">
+        @AvgRate(AverageRateContext)
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment<RateContext> ChildContent { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment<AverageRateContext> AvgRate { get; set; } = default!;
+
+    private readonly RateContext rateContext = new RateContext()
+    {
+        MaxRate = 3,
+        AvgRate = 1,
+        IconIndex = 1,
+    };
+
+    private AverageRateContext AverageRateContext => new AverageRateContext()
+    {
+        MinRate = 1,
+        AvgRate = rateContext.AvgRate,
+        MaxRate = rateContext.MaxRate,
+    };
+}

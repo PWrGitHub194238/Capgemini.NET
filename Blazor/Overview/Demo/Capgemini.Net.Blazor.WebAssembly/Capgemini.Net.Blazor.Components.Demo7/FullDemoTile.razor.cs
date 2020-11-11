@@ -14,18 +14,18 @@ namespace Capgemini.Net.Blazor.Components.Demo7
             {
                 new DemoChecklistPointContext
                 {
-                    Name = "1",
+                    Name = "Move avg rate outside",
                     Order = 1,
                     IsDone = false,
-                    Label = "Label 1",
+                    Label = "Separate the average counter from the rating component",
                     Content = PointContext1!
                 },
                 new DemoChecklistPointContext
                 {
-                    Name = "2",
+                    Name = "Add RenderFragment for AvgRate",
                     Order = 2,
                     IsDone = false,
-                    Label = "Label 2",
+                    Label = "Replace default average rate markup with replaceable render fragment",
                     Content = PointContext2!
                 }
             }

@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "End/RateComponent.razor.css",
+    "inputFile": "End/RateComponent.razor.scss"
+  },
+  {
+    "outputFile": "End/ContainerComponent.razor.css",
+    "inputFile": "End/ContainerComponent.razor.scss"
+  }
+]

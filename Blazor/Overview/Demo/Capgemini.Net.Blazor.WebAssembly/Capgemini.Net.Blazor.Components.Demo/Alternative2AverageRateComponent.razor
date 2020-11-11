@@ -1,0 +1,11 @@
+﻿@inherits AverageRateComponentBase
+
+<div style="color: @GetHslColor(Percentage, MinColor, MaxColor)">@AvgRate</div>
+
+@code {
+    [Parameter]
+    public Colors MinColor { get; set; } = Colors.RED;
+
+    [Parameter]
+    public Colors MaxColor { get; set; } = Colors.GREEN;
+}

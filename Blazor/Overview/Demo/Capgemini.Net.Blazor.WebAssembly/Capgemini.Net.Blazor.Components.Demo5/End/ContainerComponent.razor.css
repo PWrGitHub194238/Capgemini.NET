@@ -24,7 +24,7 @@
   justify-content: space-evenly;
   align-items: center;
   width: 350px; }
-  ::deep form .far, ::deep form .fab {
+  ::deep form .far, ::deep form .fas {
     font-size: 24px !important;
     color: unset;
     padding-top: 10px;

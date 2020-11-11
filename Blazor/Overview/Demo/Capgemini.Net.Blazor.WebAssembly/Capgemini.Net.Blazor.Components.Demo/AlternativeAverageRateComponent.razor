@@ -1,0 +1,11 @@
+﻿@inherits AverageRateComponentBase
+
+<div>@GetAvgRateLabel</div>
+
+@code {
+    [Parameter]
+    public DisplayStyle DisplayStyleType { get; set; } = DisplayStyle.DEFAULT;
+
+    [Parameter]
+    public string[] Labels { get; set; } = { "poor", "good", "excellent" };
+}

@@ -2,5 +2,13 @@
   {
     "outputFile": "IntSelector.razor.css",
     "inputFile": "IntSelector.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Demo7/End/ContainerComponent.razor.css",
+    "inputFile": "Examples/Demo7/End/ContainerComponent.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Demo7/End/RateComponent.razor.css",
+    "inputFile": "Examples/Demo7/End/RateComponent.razor.scss"
   }
 ]

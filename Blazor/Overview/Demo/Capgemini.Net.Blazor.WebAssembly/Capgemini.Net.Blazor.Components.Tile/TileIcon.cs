@@ -5,6 +5,7 @@
         HOME,
         CHAIN,
         NETWORKING,
+        PUZZLE,
         DIAGRAM,
         DIRECTION,
         RECYCLE,

@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    width: 200px;
+    width: 300px;
 
     .demo__label {
         font-family: 'Ubuntu';
@@ -23,6 +23,23 @@
     .demo__container {
         display: flex;
     }
+
+    .average-rate-container {
+        display: flex;
+        align-items: center;
+        font-family: 'Ubuntu';
+        font-weight: bold;
+        font-size: large;
+
+        &:before {
+            content: 'Average rate: ';
+            font-family: 'Ubuntu';
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: larger;
+            padding-right: 15px;
+        }
+    }
 }
 
 ::deep form {
@@ -32,7 +49,7 @@
     align-items: center;
     width: 350px;
 
-    .far, .fab {
+    .far, .fas {
         font-size: 24px !important;
         color: unset;
         padding-top: 10px;
@@ -49,3 +66,4 @@
         }
     }
 }
+
