@@ -1,0 +1,6 @@
+﻿.demo__container_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }

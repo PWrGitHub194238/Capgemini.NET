@@ -10,12 +10,10 @@
         DIRECTION,
         PUZZLE,
         SATISFACTION,
+        DOWNLOAD,
         NETWORKING,
-        PAINT_BRUSH,
-        SERVER,
-        TEAM,
-        EXCLAMATION,
-        VISION,
-        FLAG
+        //...
+        FLAG,
+        PAINT_BRUSH
     }
 }

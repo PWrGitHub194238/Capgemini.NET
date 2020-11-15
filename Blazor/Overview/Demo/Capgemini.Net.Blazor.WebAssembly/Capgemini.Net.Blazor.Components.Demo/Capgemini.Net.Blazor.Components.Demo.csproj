@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Capgemini.Net.Blazor.Api.ViewModels\Capgemini.Net.Blazor.Api.ViewModels.csproj" />
     <ProjectReference Include="..\Capgemini.Net.Blazor.Components.SvgIcons\Capgemini.Net.Blazor.Components.SvgIcons.csproj" />
   </ItemGroup>
 

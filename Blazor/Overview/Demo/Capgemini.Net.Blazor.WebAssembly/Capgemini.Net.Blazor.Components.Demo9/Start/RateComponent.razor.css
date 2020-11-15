@@ -1,0 +1,20 @@
+﻿.rate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .rate-container .icon-rate-container {
+    display: flex; }
+
+.average-rate-container {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .average-rate-container:before {
+    content: 'Average rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
