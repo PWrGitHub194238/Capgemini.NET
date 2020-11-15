@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Capgemini.Net.Blazor.Components
+namespace Capgemini.Net.Blazor.Components.Demo.Examples.Demo8.End
 {
     public partial class CapInput
     {

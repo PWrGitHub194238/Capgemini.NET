@@ -36,10 +36,6 @@
     "inputFile": "CapCheckbox.razor.scss"
   },
   {
-    "outputFile": "CapInput.razor.css",
-    "inputFile": "CapInput.razor.scss"
-  },
-  {
     "outputFile": "ChecklistDescriptionSubSidenav.razor.css",
     "inputFile": "ChecklistDescriptionSubSidenav.razor.scss"
   }

@@ -6,10 +6,10 @@ namespace Capgemini.Net.Blazor.Components.Demo8
     {
         public const string Href = "demo8";
 
-        public static TileIcon Icon => TileIcon.PAINT_BRUSH;
+        public static TileIcon Icon => TileIcon.SATISFACTION;
 
-        public static string Title => "TypeScript Component";
+        public static string Title => "Blazor form validation: controlling user inputs";
 
-        public static string Description => "Non-Blazor component using standard HTML event attributes to call JavaScript function on trigger.";
+        public static string Description => "Custom validation attributes, narrowing down of the allowed user inputs, adding a support for the form errors summary, attribute splatting";
     }
 }

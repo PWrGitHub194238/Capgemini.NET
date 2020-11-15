@@ -1,0 +1,22 @@
+﻿@typeparam TValue
+@inherits RateInputMinMaxNumberAbstractBase<TValue>
+@implements IDisposable
+
+<input @attributes="AdditionalAttributes"
+       class="@CssClass"
+       @bind-value="@CurrentValueAsString"
+       @bind-value:event="oninput" />
+
+@code {
+    protected override void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
+        => OnSelectedFieldChanged<RateContext>(nameof(RateContext.MaxRate), e, UpdateField);
+
+    private void UpdateField(RateContext model, FieldIdentifier fieldIdentifier)
+    {
+        if (model.MaxRate < model.AvgRate)
+        {
+            CurrentValueAsString = model.MaxRate.ToString();
+            EditContext.Validate();
+        }
+    }
+}

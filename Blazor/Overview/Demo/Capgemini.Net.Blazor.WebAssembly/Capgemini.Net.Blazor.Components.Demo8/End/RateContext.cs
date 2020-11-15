@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Capgemini.Net.Blazor.Components.Demo;
+using System.ComponentModel.DataAnnotations;
 
 namespace Capgemini.Net.Blazor.Components.Demo8.End
 {
     public class RateContext
     {
-        private int maxRate = 6;
-        private int avgRate = 3;
-        private int iconIndex;
-
         public static readonly string[] Icons = {
             "fa-star",
             "fa-grin-stars",
@@ -15,28 +12,15 @@ namespace Capgemini.Net.Blazor.Components.Demo8.End
             "fa-sun"
         };
 
-        public string Icon => Icons[iconIndex];
+        [Required]
+        [Range(2, int.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
+        public int MaxRate { get; set; } = 6;
 
-        public int MaxRate
-        {
-            get => maxRate;
-            set => maxRate = Math.Max(2, value);
-        }
+        [Required]
+        [Range(2, int.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
+        [CompareTo(CompareToAttribute.CompareTo.LESS_THAN_OR_EQUAL, "MaxRate")]
+        public int AvgRate { get; set; } = 3;
 
-        public int AvgRate
-        {
-            get => avgRate;
-            set => avgRate = Math.Max(1, Math.Min(MaxRate, value));
-        }
-
-        public int IconIndex
-        {
-            get => iconIndex;
-            set => iconIndex = value < 0
-                ? Icons.Length - 1
-                : value >= Icons.Length
-                ? 0
-                : value;
-        }
+        public string Icon { get; set; } = Icons[0];
     }
 }

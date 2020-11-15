@@ -1,0 +1,49 @@
+﻿@using Capgemini.Net.Blazor.Components.Demo.Examples.Demo8.End
+
+@switch (Example)
+{
+    case 1:
+        <EditForm Model="@rateContext">
+            <DataAnnotationsValidator />
+
+            <CapInput Label="Max rate" InputName="@nameof(rateContext.MaxRate)">
+                <ChildContent>
+                    <InputNumber @bind-Value="@rateContext.MaxRate" />
+                </ChildContent>
+                <ValidationContent>
+                    <ValidationMessage For="@(() => @rateContext.MaxRate)" />
+                </ValidationContent>
+            </CapInput>
+        </EditForm>
+        break;
+    case 2:
+        <EditForm Model="@rateContext">
+            <DataAnnotationsValidator />
+
+            <CapInput Label="Max rate" InputName="@nameof(rateContext.MaxRate)">
+                <ChildContent>
+                    <AvgRateInputNumber @bind-Value="@rateContext.MaxRate" type="number" />
+                </ChildContent>
+                <ValidationContent>
+                    <ValidationMessage For="@(() => @rateContext.MaxRate)" />
+                </ValidationContent>
+            </CapInput>
+        </EditForm>
+        break;
+    case 3:
+        <EditForm Model="@rateContext">
+            <CapInput Label="Max rate" InputName="@nameof(rateContext.MaxRate)">
+                <AvgRateInputNumber @bind-Value="@rateContext.MaxRate" />
+            </CapInput>
+        </EditForm>
+        break;
+    case 4:
+        <EditForm Model="@rateContext">
+            <CapInput Label="Max rate" InputName="@nameof(rateContext.MaxRate)">
+                <AvgRateInputNumber @bind-Value="@rateContext.MaxRate" type="number" />
+            </CapInput>
+        </EditForm>
+        break;
+    default:
+        break;
+}

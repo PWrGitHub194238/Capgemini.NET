@@ -1,18 +1,37 @@
 ﻿<div class="demo__container_wrapper">
     <EditForm Model="@rateContext">
+        <DataAnnotationsValidator />
+
         <CapInput Label="Max rate" InputName="@nameof(rateContext.MaxRate)">
-            <InputNumber @bind-Value="@rateContext.MaxRate" />
+            <ChildContent>
+                <MaxRateInputNumber
+                    @bind-Value="@rateContext.MaxRate"
+                    Min="@rateContext.AvgRate"
+                    Max="@int.MaxValue"
+                    type="number" />
+            </ChildContent>
+            <ValidationContent>
+                <ValidationMessage For="@(() => @rateContext.MaxRate)" />
+            </ValidationContent>
         </CapInput>
 
         <CapInput Label="Avg rate" InputName="@nameof(rateContext.AvgRate)">
-            <InputNumber @bind-Value="@rateContext.AvgRate" />
+            <ChildContent>
+                <AvgRateInputNumber
+                    @bind-Value="@rateContext.AvgRate"
+                    Min="2"
+                    Max="@rateContext.MaxRate"
+                    type="number" />
+            </ChildContent>
+            <ValidationContent>
+                <ValidationMessage For="@(() => @rateContext.AvgRate)" />
+            </ValidationContent>
         </CapInput>
 
-        <CapSelect Label="Icon" @bind-Value="rateContext.IconIndex" ParseValue="@((option) => RateContext.Icons[option])">
-            @for (int i = 0; i < RateContext.Icons.Length; i += 1)
+        <CapSelect Label="Icon" @bind-Value="rateContext.Icon">
+            @foreach (string icon in RateContext.Icons)
             {
-                string icon = RateContext.Icons[i];
-                <CapOption Key="@i.ToString()" Value="@i">
+                <CapOption Key="@icon" Value="@icon">
                     <div class="fa-cap-option">
                         <i class="far @icon" /> - <strong>@icon</strong>
                     </div>

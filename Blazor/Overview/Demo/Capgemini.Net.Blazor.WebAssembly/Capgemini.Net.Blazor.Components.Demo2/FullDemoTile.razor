@@ -90,25 +90,25 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
 
     <pre data-line="4, 6, 11, 13, 17">
     <code class="language-markup line-numbers">
-            &lt;div class="demo2__container_wrapper"&gt;
-            &lt;span class="demo2__label"&gt;Max rate&lt;/span&gt;
-            &lt;div class="demo2__selector"&gt;
-            &lt;button @@onclick="@@(() =&gt; maxRate = Math.Max(2, maxRate - 1))"&gt;-&lt;/button&gt;
+&lt;div class="demo2__container_wrapper"&gt;
+    &lt;span class="demo2__label"&gt;Max rate&lt;/span&gt;
+    &lt;div class="demo2__selector"&gt;
+        &lt;button @@onclick="@@(() =&gt; maxRate = Math.Max(2, maxRate - 1))"&gt;-&lt;/button&gt;
             &lt;strong&gt;@@maxRate&lt;/strong&gt;
-            &lt;button @@onclick="@@(() =&gt; maxRate += 1)"&gt;+&lt;/button&gt;
-            &lt;/div&gt;
+        &lt;button @@onclick="@@(() =&gt; maxRate += 1)"&gt;+&lt;/button&gt;
+    &lt;/div&gt;
 
-            &lt;span class="demo2__label"&gt;Icon&lt;/span&gt;
-            &lt;div class="demo2__selector"&gt;
-            &lt;button @@onclick="@@(() =&gt; iconIndex = iconIndex == 0 ? icons.Length - 1 : iconIndex - 1)"&gt;-&lt;/button&gt;
+    &lt;span class="demo2__label"&gt;Icon&lt;/span&gt;
+    &lt;div class="demo2__selector"&gt;
+        &lt;button @@onclick="@@(() =&gt; iconIndex = iconIndex == 0 ? icons.Length - 1 : iconIndex - 1)"&gt;-&lt;/button&gt;
             &lt;i class="far @@icons[iconIndex]"&gt;&lt;/i&gt;
-            &lt;button @@onclick="@@(() =&gt; iconIndex = (iconIndex + 1) % icons.Length)"&gt;+&lt;/button&gt;
-            &lt;/div&gt;
+        &lt;button @@onclick="@@(() =&gt; iconIndex = (iconIndex + 1) % icons.Length)"&gt;+&lt;/button&gt;
+    &lt;/div&gt;
 
-            &lt;div class="demo2__container"&gt;
-            &lt;Capgemini.Net.Blazor.Components.Demo2.Start.RateComponent /&gt;
-            &lt;/div&gt;
-            &lt;/div&gt;
+    &lt;div class="demo2__container"&gt;
+        &lt;Capgemini.Net.Blazor.Components.Demo2.Start.RateComponent /&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
         </code>
         </pre>
 
@@ -151,13 +151,13 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
 
     <pre>
     <code class="language-csharp line-numbers">
-            @@using Capgemini.Net.Blazor.Components.Demo2.Start
+@@using Capgemini.Net.Blazor.Components.Demo2.Start
 
-            // ...
+// ...
 
-            &lt;div class="demo2__container"&gt;
-            &lt;RateComponent /&gt;
-            &lt;/div&gt;
+&lt;div class="demo2__container"&gt;
+    &lt;RateComponent /&gt;
+&lt;/div&gt;
         </code>
         </pre>
 
@@ -220,29 +220,29 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
 
     <pre data-line="2, 7, 9, 14, 16">
     <code class="language-markup line-numbers">
-            @@using Capgemini.Net.Blazor.Components.Demo2.Start
-            @@using Capgemini.Net.Blazor.Components.SvgIcons
+@@using Capgemini.Net.Blazor.Components.Demo2.Start
+@@using Capgemini.Net.Blazor.Components.SvgIcons
 
-            &lt;div class="demo2__container_wrapper"&gt;
-            &lt;span class="demo2__label"&gt;Max rate&lt;/span&gt;
-            &lt;div class="demo2__selector"&gt;
-            &lt;MinusIcon OnClick="@@(() =&gt; maxRate = Math.Max(2, maxRate - 1))" /&gt;
+&lt;div class="demo2__container_wrapper"&gt;
+    &lt;span class="demo2__label"&gt;Max rate&lt;/span&gt;
+    &lt;div class="demo2__selector"&gt;
+        &lt;MinusIcon OnClick="@@(() =&gt; maxRate = Math.Max(2, maxRate - 1))" /&gt;
             &lt;strong&gt;@@maxRate&lt;/strong&gt;
-            &lt;PlusIcon OnClick="@@(() =&gt; maxRate += 1)" /&gt;
-            &lt;/div&gt;
+        &lt;PlusIcon OnClick="@@(() =&gt; maxRate += 1)" /&gt;
+    &lt;/div&gt;
 
-            &lt;span class="demo2__label"&gt;Icon&lt;/span&gt;
-            &lt;div class="demo2__selector"&gt;
-            &lt;MinusIcon OnClick="@@(() =&gt; iconIndex = iconIndex == 0 ? icons.Length - 1 : iconIndex - 1)" /&gt;
+    &lt;span class="demo2__label"&gt;Icon&lt;/span&gt;
+    &lt;div class="demo2__selector"&gt;
+        &lt;MinusIcon OnClick="@@(() =&gt; iconIndex = iconIndex == 0 ? icons.Length - 1 : iconIndex - 1)" /&gt;
             &lt;i class="far @@icons[iconIndex]"&gt;&lt;/i&gt;
-            &lt;PlusIcon OnClick="@@(() =&gt; iconIndex = (iconIndex + 1) % icons.Length)" /&gt;
-            &lt;/div&gt;
+        &lt;PlusIcon OnClick="@@(() =&gt; iconIndex = (iconIndex + 1) % icons.Length)" /&gt;
+    &lt;/div&gt;
 
-            &lt;div class="demo2__container"&gt;
-            &lt;RateComponent /&gt;
-            @@*&lt;Rate2 MaxRate="@@maxRate" Icon="@@icons[iconIndex]"&gt;&lt;/Rate2&gt;*@@
-            &lt;/div&gt;
-            &lt;/div&gt;
+    &lt;div class="demo2__container"&gt;
+        &lt;RateComponent /&gt;
+        @@*&lt;Rate2 MaxRate="@@maxRate" Icon="@@icons[iconIndex]"&gt;&lt;/Rate2&gt;*@@
+    &lt;/div&gt;
+&lt;/div&gt;
         </code>
         </pre>
 

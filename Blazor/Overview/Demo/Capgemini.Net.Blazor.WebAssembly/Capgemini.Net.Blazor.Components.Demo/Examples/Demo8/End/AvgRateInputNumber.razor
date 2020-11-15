@@ -1,0 +1,8 @@
+﻿@typeparam TValue
+@inherits InputNumber<TValue>
+
+<input
+    @attributes="AdditionalAttributes"
+    class="@CssClass"
+    value="@CurrentValue"
+    @oninput="@((value) => CurrentValueAsString = value.Value?.ToString())" />

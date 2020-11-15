@@ -2,7 +2,8 @@
   padding-right: 10px;
   margin-bottom: 15px;
   font-family: monospace,monospace;
-  overflow-y: auto; }
+  overflow-y: auto;
+  height: 100%; }
   .description-point ::deep mark {
     color: #6b25c7;
     background-color: #f5f2f9;

@@ -1,18 +1,24 @@
-﻿.field-container {
+﻿.field-wrapper {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  position: relative; }
+  .field-wrapper .field-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%; }
 
 .field-label {
+  margin-bottom: 32px;
+  flex: 1 0 auto;
   font-family: 'Ubuntu';
   font-weight: bold;
   text-transform: uppercase;
-  font-size: larger;
-  margin-bottom: 32px;
-  flex: 1 0 auto; }
+  font-size: larger; }
 
 .field {
   display: flex;
@@ -44,6 +50,7 @@
     font: 1rem/1.3 "ubuntu", Verdana, Arial, sans-serif;
     padding: 8px 24px 8px 16px;
     background: 0 0;
+    min-width: 4vw;
     width: 100%;
     outline: none;
     transition: all 0.5s ease; }
@@ -102,3 +109,12 @@
             transition: all 0.5s ease, border-bottom-width 0s ease, height 0s ease; }
           .field input:not(:disabled).invalid:focus + label {
             color: #ff304d; }
+
+.field-validation {
+  margin: 0 0 5px;
+  font: 0.75rem/1.33 "ubuntu", Verdana, Arial, sans-serif;
+  letter-spacing: 0.2px;
+  position: absolute;
+  z-index: 1;
+  bottom: 6px;
+  right: 0; }
