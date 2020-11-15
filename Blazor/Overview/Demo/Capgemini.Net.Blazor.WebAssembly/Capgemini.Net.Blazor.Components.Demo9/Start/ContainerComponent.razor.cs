@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Capgemini.Net.Blazor.Components.Demo.Interfaces;
+using Capgemini.Net.Blazor.Components.Demo.Models;
+using Microsoft.AspNetCore.Components;
 
 namespace Capgemini.Net.Blazor.Components.Demo9.Start
 {
     public partial class ContainerComponent
     {
-        private readonly RateContext rateContext = new RateContext();
+        private readonly IRateableProduct product = new RateableProduct();
 
         [Parameter]
-        public RenderFragment<RateContext> ChildContent { get; set; } = default!;
+        public RenderFragment<IRateableProduct> ChildContent { get; set; } = default!;
     }
 }

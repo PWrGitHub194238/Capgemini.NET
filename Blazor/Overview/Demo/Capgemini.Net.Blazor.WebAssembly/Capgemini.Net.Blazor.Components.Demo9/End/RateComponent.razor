@@ -1,34 +1,46 @@
 ﻿@inherits RateComponentBase
 
-<div class="rate-container">
-    <div class="icon-rate-container">
-        @for (int i = 0; i < @RateContext.MaxRate; i += 1)
-        {
-            int index = i;
-            <i class="@(IsActive(index) ? ACTIVE_STYLE : INACTIVE_STYLE) @(RateContext.Icon) cursor-pointer"
-               @onclick="SetRate"
-               @onmouseover="@(() => ShowRate(index))"
-               @onmouseout=RevertRate></i>
-        }
-    </div>
-</div>
+@if (Product is null)
+{
+    <LoadPlaceholder />
+}
+else
+{
+    <div class="rate-container">
 
-<div class="average-rate-container">
-    @AvgRate(AverageRateContext)
-</div>
+        <div class="icon-rate-container">
+            @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+            {
+                <i class="@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @(Icon) cursor-pointer"
+                   @onclick="SetRate"
+                   @onmouseover="@(() => ShowRate(i))"
+                   @onmouseout=RevertRate></i>
+            }
+        </div>
+    </div>
+
+    <div class="average-rate-container">
+        @AvgRate(AverageRateContext)
+    </div>
+}
 
 @code {
     [Parameter]
-    public RateContext RateContext { get; set; } = default!;
+    public IRateableProduct? Product { get; set; } = null;
+    @*[Parameter]
+        public RateContext RateContext { get; set; } = default!;*@
 
-    [Parameter]
-    public RenderFragment<AverageRateContext> AvgRate { get; set; } = default!;
+[Parameter]
+public string Icon { get; set; } = "fa-star";
 
 
-    private AverageRateContext AverageRateContext => new AverageRateContext()
-    {
-        MinRate = 1,
-        AvgRate = RateContext.AvgRate,
-        MaxRate = RateContext.MaxRate,
-    };
+
+
+
+
+[Parameter]
+public RenderFragment<AverageRateContext> AvgRate { get; set; } = default!;
+
+
+private AverageRateContext AverageRateContext => new AverageRateContext();
 }

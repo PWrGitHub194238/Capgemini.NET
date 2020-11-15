@@ -10,7 +10,7 @@ namespace Capgemini.Net.Blazor.Components.Demo
         public int MinRate { get; set; }
 
         [Parameter]
-        public int AvgRate { get; set; }
+        public decimal AvgRate { get; set; }
 
         [Parameter]
         public int MaxRate { get; set; }

@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Capgemini.Net.Blazor.Components.LoadPlaceholder\Capgemini.Net.Blazor.Components.LoadPlaceholder.csproj" />
     <ProjectReference Include="..\Capgemini.Net.Blazor.Components.Tile\Capgemini.Net.Blazor.Components.Tile.csproj" />
   </ItemGroup>
 
