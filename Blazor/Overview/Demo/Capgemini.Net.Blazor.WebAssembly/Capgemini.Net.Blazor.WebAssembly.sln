@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.WebAss
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.WebAssembly.Client", "Capgemini.Net.Blazor.WebAssembly\Client\Capgemini.Net.Blazor.WebAssembly.Client.csproj", "{4D5D79B5-7AF4-4259-9563-50E6B1353C15}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Rate9", "Capgemini.Net.Blazor.Components.Rate8\Capgemini.Net.Blazor.Components.Rate9.csproj", "{CA819A4B-855A-4C15-8E95-B8E459DC96B4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Api", "Capgemini.Net.Blazor.Api\Capgemini.Net.Blazor.Api.csproj", "{3D2C4FE9-F52F-4005-AE70-850DE0F19E21}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Shared", "Capgemini.Net.Blazor.Shared\Capgemini.Net.Blazor.Shared.csproj", "{85ED960B-5F64-4387-84F1-658FC652F483}"
@@ -75,10 +73,6 @@ Global
 		{4D5D79B5-7AF4-4259-9563-50E6B1353C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D5D79B5-7AF4-4259-9563-50E6B1353C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D5D79B5-7AF4-4259-9563-50E6B1353C15}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA819A4B-855A-4C15-8E95-B8E459DC96B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA819A4B-855A-4C15-8E95-B8E459DC96B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA819A4B-855A-4C15-8E95-B8E459DC96B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA819A4B-855A-4C15-8E95-B8E459DC96B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D2C4FE9-F52F-4005-AE70-850DE0F19E21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D2C4FE9-F52F-4005-AE70-850DE0F19E21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D2C4FE9-F52F-4005-AE70-850DE0F19E21}.Release|Any CPU.ActiveCfg = Release|Any CPU

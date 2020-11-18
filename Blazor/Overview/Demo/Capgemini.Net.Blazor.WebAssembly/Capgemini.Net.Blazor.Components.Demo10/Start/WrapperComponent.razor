@@ -1,0 +1,12 @@
+﻿<ContainerComponent>
+    <ChildContent Context="product">
+        <RateComponent Product="@product">
+            <AvgRate Context="avgContext">
+                <DefaultAverageRateComponent 
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
