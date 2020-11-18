@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+
+@switch (Example)
+{
+    case 1:
+        <a href="#"
+           @onclick="@(() => NavigationManager.NavigateTo($"/demo09/{ProductId}"))"
+           @onclick:preventDefault>
+            @ProductId
+        </a>
+        break;
+    case 2:
+        <NavLink href="@($"/demo09/{ProductId}")">
+            @ProductId
+        </NavLink>
+        break;
+    case 3:
+        <ProductButton ProductId = "@ProductId" />
+        break;
+    default:
+        break;
+}

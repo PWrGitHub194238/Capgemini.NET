@@ -43,8 +43,9 @@ namespace Capgemini.Net.Blazor.Components.Tile
 
         internal bool IsCollapsed { get; set; }
 
-        internal bool IsCurrentlyNavigated => NavigationManager.ToBaseRelativePath(NavigationManager.Uri).ToLowerInvariant()
-            .CompareTo(Href.ToLowerInvariant()) == 0;
+        internal bool IsCurrentlyNavigated => NavigationManager
+            .ToBaseRelativePath(NavigationManager.Uri).ToLowerInvariant()
+            .StartsWith(Href.ToLowerInvariant());
 
         internal bool ShowContent => !IsCollapsed && IsCurrentlyNavigated || IsExpanded;
 
@@ -78,20 +79,26 @@ namespace Capgemini.Net.Blazor.Components.Tile
             }
         }
         internal async void ExpandTitle() {
-            IsExpanded = true;
-            IsCollapsed = false;
-            await TileOpened.InvokeAsync();
-            await Task.Delay(500);
-            NavigationManager.NavigateTo(Href);
+            if (!ShowContent)
+            {
+                IsExpanded = true;
+                IsCollapsed = false;
+                await TileOpened.InvokeAsync();
+                await Task.Delay(500);
+                NavigationManager.NavigateTo(Href);
+            }
         }
 
         internal async void CollapseTitle()
         {
-            IsExpanded = false;
-            IsCollapsed = true;
-            await TileClosed.InvokeAsync();
-            await Task.Delay(500);
-            NavigationManager.NavigateTo("/");
+            if (ShowContent)
+            {
+                IsExpanded = false;
+                IsCollapsed = true;
+                await TileClosed.InvokeAsync();
+                await Task.Delay(500);
+                NavigationManager.NavigateTo("/");
+            }
         }
 
 

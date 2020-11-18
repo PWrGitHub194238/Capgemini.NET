@@ -8,10 +8,11 @@
     justify-content: center;
     align-items: center;
 
-    p {
+    ::deep p {
         font-family: 'Ubuntu';
         font-weight: bold;
         text-transform: uppercase;
+        text-align: center;
     }
 
     img {

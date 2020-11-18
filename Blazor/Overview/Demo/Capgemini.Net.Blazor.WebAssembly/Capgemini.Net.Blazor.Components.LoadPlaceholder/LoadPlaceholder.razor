@@ -1,6 +1,21 @@
 ﻿<div class="content_loading">
-    <p>Loading</p>
+    @if (Message is not null)
+    {
+        @Message
+    }
+    else
+    {
+        <p>Loading</p>
+    }
 </div>
 <div class="content_loading">
-    <img src="_content/Capgemini.Net.Blazor.Components.LoadPlaceholder/img/cap-animation.gif" />
+    <img style="height: @Size; width: @Size;" src="_content/Capgemini.Net.Blazor.Components.LoadPlaceholder/img/cap-animation.gif" />
 </div>
+
+@code {
+    [Parameter]
+    public RenderFragment Message { get; set; } = default!;
+
+    [Parameter]
+    public string Size { get; set; } = "unset";
+}

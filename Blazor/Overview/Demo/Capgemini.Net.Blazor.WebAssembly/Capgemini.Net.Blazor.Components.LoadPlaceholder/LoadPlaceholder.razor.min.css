@@ -1,1 +1,1 @@
-﻿.content_loading{position:absolute;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;}.content_loading p{font-family:'Ubuntu';font-weight:bold;text-transform:uppercase;}.content_loading img{opacity:.15;}
+﻿.content_loading{position:absolute;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;}.content_loading ::deep p{font-family:'Ubuntu';font-weight:bold;text-transform:uppercase;text-align:center;}.content_loading img{opacity:.15;}

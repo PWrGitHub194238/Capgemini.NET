@@ -1,15 +1,15 @@
 ﻿[
   {
-    "outputFile": "Examples/Demo7/End/ContainerComponent.razor.css",
-    "inputFile": "Examples/Demo7/End/ContainerComponent.razor.scss"
+    "outputFile": "Examples/Demo07/End/ContainerComponent.razor.css",
+    "inputFile": "Examples/Demo07/End/ContainerComponent.razor.scss"
   },
   {
-    "outputFile": "Examples/Demo7/End/RateComponent.razor.css",
-    "inputFile": "Examples/Demo7/End/RateComponent.razor.scss"
+    "outputFile": "Examples/Demo07/End/RateComponent.razor.css",
+    "inputFile": "Examples/Demo07/End/RateComponent.razor.scss"
   },
   {
-    "outputFile": "Examples/Demo8/End/CapInput.razor.css",
-    "inputFile": "Examples/Demo8/End/CapInput.razor.scss"
+    "outputFile": "Examples/Demo08/End/CapInput.razor.css",
+    "inputFile": "Examples/Demo08/End/CapInput.razor.scss"
   },
   {
     "outputFile": "Alternative2RateComponent.razor.css",
@@ -22,5 +22,13 @@
   {
     "outputFile": "IntSelector.razor.css",
     "inputFile": "IntSelector.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Demo09/Start/ContainerComponent.razor.css",
+    "inputFile": "Examples/Demo09/Start/ContainerComponent.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Demo09/Start/RateComponent.razor.css",
+    "inputFile": "Examples/Demo09/Start/RateComponent.razor.scss"
   }
 ]

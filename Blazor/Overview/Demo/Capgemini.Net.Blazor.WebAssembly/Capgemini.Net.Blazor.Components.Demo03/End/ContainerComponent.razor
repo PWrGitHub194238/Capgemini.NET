@@ -1,0 +1,23 @@
+﻿@using Capgemini.Net.Blazor.Components.Demo03.End
+@using Capgemini.Net.Blazor.Components.SvgIcons
+@using SvgIcons.Base
+
+<div class="demo__container_wrapper">
+    <span class="demo__label">Max rate</span>
+    <div class="demo__selector">
+        <MinusIcon Theme="IconTheme.DARK" OnClick="@(() => MaxRate -= 1)" />
+        <strong>@MaxRate</strong>
+        <PlusIcon Theme="IconTheme.DARK" OnClick="@(() => MaxRate += 1)" />
+    </div>
+
+    <span class="demo__label">Icon</span>
+    <div class="demo__selector">
+        <MinusIcon Theme="IconTheme.DARK" OnClick="@(() => IconIndex -= 1)" />
+        <i class="far @this[iconIndex]"></i>
+        <PlusIcon Theme="IconTheme.DARK" OnClick="@(() => IconIndex += 1)" />
+    </div>
+
+    <div class="demo__container">
+        <RateComponent MaxRate="@MaxRate" Icon="@this[IconIndex]" />
+    </div>
+</div>

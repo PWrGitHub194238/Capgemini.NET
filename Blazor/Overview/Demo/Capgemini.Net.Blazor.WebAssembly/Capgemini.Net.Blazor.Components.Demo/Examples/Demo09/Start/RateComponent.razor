@@ -1,0 +1,37 @@
+﻿@inherits RateComponentBase
+
+@using Capgemini.Net.Blazor.Components.Demo.Interfaces
+
+<div class="rate-container">
+    <div class="icon-rate-container">
+        @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+        {
+            <i class="@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @(Icon) cursor-pointer"
+               @onclick="SetRate"
+               @onmouseover="@(() => ShowRate(i))"
+               @onmouseout=RevertRate></i>
+        }
+    </div>
+</div>
+
+<div class="average-rate-container">
+    @AvgRate(AverageRateContext)
+</div>
+
+@code {
+    [Parameter]
+    public IRateableProduct Product { get; set; } = default!;
+
+    [Parameter]
+    public string Icon { get; set; } = "fa-star";
+
+    [Parameter]
+    public RenderFragment<AverageRateContext> AvgRate { get; set; } = default!;
+
+    private AverageRateContext AverageRateContext => new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = Product.AverageRate,
+        MaxRate = Product.MaxRate,
+    };
+}

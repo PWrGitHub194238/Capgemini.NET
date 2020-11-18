@@ -1,0 +1,935 @@
+﻿<Title Value=".NET Community Blazor Introduction | Demo 5"></Title>
+
+@if (Context is not null)
+{
+    <FullTileContainer ChecklistContext="@Context">
+        <DemoEndPoint>
+            <Capgemini.Net.Blazor.Components.Demo05.End.WrapperComponent />
+        </DemoEndPoint>
+        <DemoStartPoint>
+            <Capgemini.Net.Blazor.Components.Demo05.Start.WrapperComponent />
+        </DemoStartPoint>
+    </FullTileContainer>
+}
+
+@code {
+    internal static readonly RenderFragment PointContext1 = __builder =>
+    {
+    <p>
+        Open <mark>./Start/RateComponent.razor.cs</mark> and introduce a new property <mark>AvgRate</mark> decorated with the <mark>Parameter</mark> attribute (with <mark>Name = "AvgRate"</mark> which will be used
+        as <mark>Name</mark> value for <mark>CascadingValue</mark> component):
+    </p>
+
+    <pre data-line="9-10">
+    <code class="language-csharp line-numbers">
+@@inherits RateComponentBase
+
+&lt;!-- ... --&gt;
+
+@@code {
+    [CascadingParameter(Name = "MaxRate")]
+    public int MaxRate { get; set; } = 5;
+
+    [CascadingParameter(Name = "AvgRate")]
+    public int AvgRate { get; set; } = 3;
+
+    [CascadingParameter]
+    public string Icon { get; set; } = "fa-star";
+}
+        </code>
+        </pre>
+
+    <p>
+        Modify the <strong>HTML</strong> markup of the same file (<mark>./Start/RateComponent.razor.cs</mark>) and supply additional <strong>CSS</strong> styles (add new file <mark>./Start/RateComponent.razor.scss</mark>
+        and compile it to generate <mark>./Start/RateComponent.razor.css</mark>):
+    </p>
+
+    <pre data-line="3, 4, 13-17">
+    <code class="language-markup line-numbers">
+@@inherits RateComponentBase
+
+&lt;div class="rate-container"&gt;
+    &lt;div class="icon-rate-container"&gt;
+        @@for (int i = 0; i &lt; @@MaxRate; i += 1)
+        {
+            int index = i;
+            &lt;i class="@@(IsActive(index) ? ACTIVE_STYLE : INACTIVE_STYLE) @@Icon cursor-pointer"
+               @@onclick="SetRate"
+               @@onmouseover="@@(() =&gt; ShowRate(index))"
+               @@onmouseout=RevertRate&gt;&lt;/i&gt;
+        }
+    &lt;/div&gt;
+    &lt;div class="average-rate-container"&gt;
+        @@AvgRate
+    &lt;/div&gt;
+&lt;/div&gt;
+
+@@code {
+    //...
+}
+        </code>
+        </pre>
+
+    <pre>
+    <code class="language-css line-numbers">
+.rate-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .icon-rate-container {
+        display: flex;
+    }
+
+    .average-rate-container {
+        display: flex;
+        align-items: center;
+        font-family: 'Ubuntu';
+        font-weight: bold;
+        font-size: large;
+
+        &:before {
+            content: 'Average rate: ';
+            font-family: 'Ubuntu';
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: larger;
+            padding-right: 15px;
+        }
+    }
+}
+
+        </code>
+        </pre>
+
+    <p>
+        Open the <mark>./Start/ContainerComponent.razor.cs</mark> file to provide a property with a basic logic for the parameter to be able to be set by the <mark>ContainerComponent</mark> component:
+    </p>
+
+    <pre data-line="9-13">
+    <code class="language-csharp line-numbers">
+//...
+
+public int MaxRate
+{
+    get => maxRate;
+    set => maxRate = Math.Max(2, value);
+}
+
+public int AvgRate
+{
+    get => avgRate;
+    set => avgRate = Math.Max(1, Math.Min(MaxRate, value));
+}
+
+public int IconIndex
+{
+    get => iconIndex;
+    set => iconIndex = value &lt; 0
+        ? icons.Length - 1
+        : value &gt;= icons.Length
+        ? 0
+        : value;
+}
+
+//...
+        </code>
+        </pre>
+
+    <p>
+        Open the Razor component for the code-behind class shown above (<mark>ContainerComponent.razor</mark>), add a markup for another property to enable component to change it (lines <mark>13-18</mark>).
+        To enable <mark>ContainerComponent</mark> to pass its value, add additional nested layer of cascading values to provide the <mark>AvgRate</mark> property for the <mark>RateComponent</mark>
+        that is provided by the <mark>@@ChildContent</mark> parameter (lines <mark>28</mark> and <mark>34</mark>):
+    </p>
+
+    <pre data-line="12-17, 27, 33">
+    <code class="language-csharp line-numbers">
+@@using Capgemini.Net.Blazor.Components.SvgIcons
+@@using SvgIcons.Base
+
+&lt;div class="demo__container_wrapper"&gt;
+    &lt;span class="demo__label"&gt;Max rate&lt;/span&gt;
+    &lt;div class="demo__selector"&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; MaxRate -= 1)" /&gt;
+        &lt;strong&gt;@@MaxRate&lt;/strong&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; MaxRate += 1)" /&gt;
+    &lt;/div&gt;
+
+    &lt;span class="demo__label"&gt;Avg rate&lt;/span&gt;
+    &lt;div class="demo__selector"&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; AvgRate -= 1)" /&gt;
+        &lt;strong&gt;@@AvgRate&lt;/strong&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; AvgRate += 1)" /&gt;
+    &lt;/div&gt;
+
+    &lt;span class="demo__label"&gt;Icon&lt;/span&gt;
+    &lt;div class="demo__selector"&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; IconIndex -= 1)" /&gt;
+        &lt;i class="far @@this[iconIndex]"&gt;&lt;/i&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; IconIndex += 1)" /&gt;
+    &lt;/div&gt;
+
+    &lt;CascadingValue Name="MaxRate" Value="@@MaxRate"&gt;
+        &lt;CascadingValue Name="AvgRate" Value="@@AvgRate"&gt;
+            &lt;CascadingValue Value="@@this[iconIndex]"&gt;
+                &lt;div class="demo__container"&gt;
+                    @@ChildContent
+                &lt;/div&gt;
+            &lt;/CascadingValue&gt;
+        &lt;/CascadingValue&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+    };
+
+    internal static readonly RenderFragment PointContext2 = __builder =>
+    {
+    <p>
+        Having multiple <mark>CascadingValue</mark> components may have substantial impact of the application performance (unless a variable that is supplied by the component can be marked as fixed - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#ensure-cascading-parameters-are-fixed">read more</a>).
+        To avoid that kind of situation one can group multiple variables that each one is supplied by one <mark>CascadingValue</mark> into a separated context class. By doing so it won't only make the <strong>HTML</strong> markup
+        less nested and simpler to read and maintain but it also enable the supplied variable to be a fixed reference rather than set of primitive types. Therefore change the given lines:
+    </p>
+
+    <pre data-line="3-5, 9-11">
+    <code class="language-csharp line-numbers">
+&lt;!-- ... --&gt;
+
+    &lt;CascadingValue Name="MaxRate" Value="@@MaxRate"&gt;
+        &lt;CascadingValue Name="AvgRate" Value="@@AvgRate"&gt;
+            &lt;CascadingValue Value="@@this[iconIndex]"&gt;
+                &lt;div class="demo__container"&gt;
+                    @@ChildContent
+                &lt;/div&gt;
+            &lt;/CascadingValue&gt;
+        &lt;/CascadingValue&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+
+    <p>
+        with a single <mark>CascadingValue</mark> component that will provide an object with three inner properties with desired values:
+    </p>
+
+    <pre data-line="3, 7">
+    <code class="language-csharp line-numbers">
+&lt;!-- ... --&gt;
+
+    &lt;CascadingValue Value="@@rateContext"&gt;
+        &lt;div class="demo__container"&gt;
+            @@ChildContent
+        &lt;/div&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+
+    <p>
+        Create a empty public <mark>RateContext</mark> class in the <mark>End</mark> directory and add a <mark>readonly</mark> field named <mark>RateContext</mark> with type of that class to the <mark>ContainerComponent.razor.cs</mark> code-behind file:
+    </p>
+
+    <pre>
+    <code class="language-csharp line-numbers">
+namespace Capgemini.Net.Blazor.Components.Demo05.Start
+{
+    public class RateContext
+    {
+    }
+}
+
+        </code>
+        </pre>
+
+    <pre data-line="8">
+    <code class="language-csharp line-numbers">
+using Microsoft.AspNetCore.Components;
+using System;
+
+namespace Capgemini.Net.Blazor.Components.Demo05.Start
+{
+    public partial class ContainerComponent
+    {
+        private readonly RateContext rateContext = new RateContext();
+
+        //...
+    }
+}
+        </code>
+        </pre>
+
+    <p>
+        <strong>Note:</strong> using <mark>CascadingValue</mark> with a reference to <mark>*Context</mark> class often leads to rely on the supplied value type which may safe debugging time in case the name of the <mark>CascadingValue</mark>
+        was changed accidentally (either in <mark>&lt;CascadingValue Name="<strong>SuppliedValueName</strong>" ...&gt;</mark> or <mark>[CascadingParameter(Name = "<strong>SuppliedValueName</strong>")]</mark> part)
+        or start to collide with any other <mark>CascadingValue</mark> which was named the same (and it is an ancestor/descendant of that <mark>CascadingValue</mark>).
+        Such <mark>CascadingValue</mark> might be used as a part of the 3<sup>ed</sup> party library. Using <mark>CascadingValue</mark> that is based on the complex type solves both of these problems.
+    </p>
+    <p>
+        <strong>Note:</strong> marking <mark>CascadingValue</mark> that supplies a complex object reference as fixed (<mark>&lt;CascadingValue Value="@@rateContext" IsFixed-"true"&gt;</mark>)
+        makes components not be rerendered on that complex object state change - <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.cascadingvalue-1.isfixed?view=aspnetcore-5.0#Microsoft_AspNetCore_Components_CascadingValue_1_IsFixed">read more</a>.
+        To make the component to be rerender it either has to:
+
+        <ul>
+            <li>
+                have a value of any of its primitive property marked with <mark>[Parameter]</mark> changed by a parent component (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#avoid-unnecessary-rendering-of-component-subtrees">read more</a>),
+            </li>
+            <li>
+                have complex type  <mark>[Parameter]</mark> supplied by its parent  (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#after-parameters-are-set">read more</a>) or
+            </li>
+            <li>
+                trigger either of its events (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-5.0#eventcallback">read more</a>).
+            </li>
+        </ul>
+
+        Regardless of whether the component will be rerenered or not, its property marked with <mark>[CascadingParameter]</mark> refers to the same address in memory so it will reflect any changes.
+    </p>
+
+    <p>
+        Refactor the <mark>ContainerComponent.razor.cs</mark> file:
+    </p>
+
+    <ul>
+        <li>
+            move all <mark>private</mark> primitive fields (lines <mark>7-16</mark>),
+        </li>
+        <li>
+            move <mark>MaxRate</mark>, <mark>AvgRate</mark> and <mark>IconIndex</mark> properties to the <mark>RateContext</mark> class (lines <mark>20-40</mark>),
+        </li>
+        <li>
+            remove the indexer and add a <mark>getter</mark> for the icon (line <mark>18</mark>):
+        </li>
+    </ul>
+
+    <pre date-line="7-16, 18, 20-40">
+    <code class="language-csharp line-numbers">
+using System;
+
+namespace Capgemini.Net.Blazor.Components.Demo05.Start
+{
+    public class RateContext
+    {
+        private int maxRate = 6;
+        private int avgRate = 3;
+        private int iconIndex;
+
+        public static readonly string[] Icons = {
+            "fa-star",
+            "fa-grin-stars",
+            "fa-angry",
+            "fa-sun"
+        };
+
+        public string Icon =&gt; Icons[IconIndex];
+
+        public int MaxRate
+        {
+            get => maxRate;
+            set => maxRate = Math.Max(2, value);
+        }
+
+        public int AvgRate
+        {
+            get => avgRate;
+            set => avgRate = Math.Max(1, Math.Min(MaxRate, value));
+        }
+
+        public int IconIndex
+        {
+            get => iconIndex;
+            set => iconIndex = value &lt; 0
+                ? icons.Length - 1
+                : value &gt;= icons.Length
+                ? 0
+                : value;
+        }
+    }
+}
+        </code>
+        </pre>
+
+    <p>
+        The content of the code-behind of the <mark>ContainerComponent.razor</mark>:
+    </p>
+
+    <pre>
+    <code class="language-csharp line-numbers">
+using Microsoft.AspNetCore.Components;
+
+namespace Capgemini.Net.Blazor.Components.Demo05.Start
+{
+    public partial class ContainerComponent
+    {
+        private readonly RateContext rateContext = new RateContext();
+
+        [Parameter]
+        public RenderFragment ChildContent { get; set; } = default!;
+    }
+}
+
+        </code>
+        </pre>
+
+    <p>
+        Update the main markup of the <mark>ContainerComponent</mark> component to refer new field:
+    </p>
+
+    <pre data-line="7-9, 14-16, 21-23">
+    <code class="language-csharp line-numbers">
+@@using Capgemini.Net.Blazor.Components.SvgIcons
+@@using SvgIcons.Base
+
+&lt;div class="demo__container_wrapper"&gt;
+    &lt;span class="demo__label"&gt;Max rate&lt;/span&gt;
+    &lt;div class="demo__selector"&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; <mark>rateContext.MaxRate</mark> -= 1)" /&gt;
+        &lt;strong&gt;<mark>@@(rateContext.MaxRate)</mark>&lt;/strong&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; <mark>rateContext.MaxRate</mark> += 1)" /&gt;
+    &lt;/div&gt;
+
+    &lt;span class="demo__label"&gt;Avg rate&lt;/span&gt;
+    &lt;div class="demo__selector"&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; <mark>rateContext.AvgRate</mark> -= 1)" /&gt;
+        &lt;strong&gt;<mark>@@(rateContext.AvgRate)</mark>&lt;/strong&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; <mark>rateContext.AvgRate</mark> += 1)" /&gt;
+    &lt;/div&gt;
+
+    &lt;span class="demo__label"&gt;Icon&lt;/span&gt;
+    &lt;div class="demo__selector"&gt;
+        &lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; <mark>rateContext.IconIndex</mark> -= 1)" /&gt;
+        &lt;i class="far <mark>@@(rateContext.Icon)</mark>"&gt;&lt;/i&gt;
+        &lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; <mark>rateContext.IconIndex</mark> += 1)" /&gt;
+    &lt;/div&gt;
+
+    &lt;CascadingValue Value="@@rateContext"&gt;
+        &lt;div class="demo__container"&gt;
+            @@ChildContent
+        &lt;/div&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+
+    <p>
+        Lastly change the <mark>RateComponent.razor</mark> and <mark>RateComponent.razor.cs</mark> files to use the cascade value that is supplied by <mark>ContainerComponent</mark>:
+    </p>
+
+    <pre data-line="5, 8, 15, 20-21">
+    <code class="language-csharp line-numbers">
+@@inherits RateComponentBase
+
+&lt;div class="rate-container"&gt;
+    &lt;div class="icon-rate-container"&gt;
+        @@for (int i = 0; i &lt; <mark>@@RateContext.MaxRate</mark>; i += 1)
+        {
+            int index = i;
+            &lt;i class="@@(IsActive(index) ? ACTIVE_STYLE : INACTIVE_STYLE) <mark>@@(RateContext.Icon)</mark> cursor-pointer"
+               @@onclick="SetRate"
+               @@onmouseover="@@(() =&gt; ShowRate(index))"
+               @@onmouseout=RevertRate&gt;&lt;/i&gt;
+        }
+    &lt;/div&gt;
+    &lt;div class="average-rate-container"&gt;
+    <mark>@@(RateContext.AvgRate)</mark>
+    &lt;/div&gt;
+&lt;/div&gt;
+
+@@code {
+    [CascadingParameter]
+    public RateContext RateContext { get; set; } = default!;
+}
+        </code>
+        </pre>
+
+    <pre data-line="9, 11">
+    <code class="language-csharp line-numbers">
+using Capgemini.Net.Blazor.Components.Demo;
+
+namespace Capgemini.Net.Blazor.Components.Demo05.Start
+{
+    public partial class RateComponent : RateComponentBase
+    {
+        protected override void OnParametersSet()
+        {
+            if (Rate &gt;= <mark>RateContext.MaxRate</mark>)
+            {
+                Rate = <mark>RateContext.MaxRate</mark>;
+            }
+        }
+    }
+}
+        </code>
+        </pre>
+    };
+
+    internal static readonly RenderFragment PointContext3 = __builder =>
+    {
+    <p>
+        A content of the <mark>ContainerComponent.razor</mark> starts the get duplicated. Each property of the <mark>RateContext</mark> class needs its own markup in the component to enable a user to change it:
+    </p>
+
+    <ul>
+        <li>
+            <mark>Max rate</mark>
+            <pre>
+            <code class="language-csharp line-numbers">
+&lt;span class="demo__label"&gt;Max rate&lt;/span&gt;
+&lt;div class="demo__selector"&gt;
+	&lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; rateContext.MaxRate -= 1)" /&gt;
+	&lt;strong&gt;@@(rateContext.MaxRate)&lt;/strong&gt;
+	&lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; rateContext.MaxRate += 1)" /&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+        </li>
+        <li>
+            <mark>Avg rate</mark>
+            <pre>
+            <code class="language-csharp line-numbers">
+&lt;span class="demo__label"&gt;Avg rate&lt;/span&gt;
+&lt;div class="demo__selector"&gt;
+	&lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; rateContext.AvgRate -= 1)" /&gt;
+	&lt;strong&gt;@@(rateContext.AvgRate)&lt;/strong&gt;
+	&lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; rateContext.AvgRate += 1)" /&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+        </li>
+        <li>
+            <mark>Icon</mark>
+            <pre>
+            <code class="language-csharp line-numbers">
+&lt;span class="demo__label"&gt;Icon&lt;/span&gt;
+&lt;div class="demo__selector"&gt;
+	&lt;MinusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; rateContext.IconIndex -= 1)" /&gt;
+	&lt;i class="far @@(rateContext.Icon)"&gt;&lt;/i&gt;
+	&lt;PlusIcon Theme="IconTheme.DARK" OnClick="@@(() =&gt; rateContext.IconIndex += 1)" /&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+        </li>
+    </ul>
+
+    <p>
+        Change the content of the <mark>ContainerComponent</mark> component:
+    </p>
+
+    <pre data-line="4-6, 8-10, 12-14">
+    <code class="language-csharp line-numbers">
+@@using SvgIcons.Base
+
+&lt;div class="demo__container_wrapper"&gt;
+    &lt;IntSelector Label="Max rate" @@bind-Value="@@(rateContext.MaxRate)" Theme="IconTheme.DARK"&gt;
+        &lt;strong&gt;@@context&lt;/strong&gt;
+    &lt;/IntSelector&gt;
+
+    &lt;IntSelector Label="Avg rate" @@bind-Value="@@(rateContext.AvgRate)" Theme="IconTheme.DARK"&gt;
+        &lt;strong&gt;@@context&lt;/strong&gt;
+    &lt;/IntSelector&gt;
+
+    &lt;IntSelector Label="Icon" @@bind-Value="@@(rateContext.IconIndex)" Theme="IconTheme.DARK" StringValue="@@((_) =&gt; rateContext.Icon)"&gt;
+        &lt;i class="far @@context"&gt;&lt;/i&gt;
+    &lt;/IntSelector&gt;
+
+    &lt;CascadingValue Value="@@rateContext"&gt;
+        &lt;div class="demo__container"&gt;
+            @@ChildContent
+        &lt;/div&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+
+    <p>
+        <mark>IntSelector</mark> is a component from <mark>Capgemini.Net.Blazor.Components.Demo</mark> assembly that defines:
+    </p>
+
+    <ul>
+        <li>
+            simple <mark>Label</mark> parameter that will internally generate the <mark>&lt;span class="demo__label"&gt;@@Label&lt;/span&gt;</mark> markup:
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="1" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Label="Max Rate" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="2" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Label="Custom label" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+        </li>
+        <li>
+            <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0">Data binding</a> for <mark>rateContext</mark> properties <mark>MaxRate</mark>, <mark>AvgRate</mark>
+            and <mark>IconIndex</mark>. Data binding will be more covered in <strong>./demo11</strong>. At this point that would be enough to say that thanks to the power of data binding the inner state of the
+            <mark>IntSelector</mark> component (which is represented by the parameter <mark>Value</mark>) will be in sync with the binded value. So whenever <mark>Value</mark> changes, <mark>rateContext.MaxRate</mark>
+            also changes and vice-versa (<mark>@@bind-Value="@@(rateContext.MaxRate)"</mark>):
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="3" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector @@bind-Value="@@MaxRate" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="4" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector @@bind-Value="@@IconIndex" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+        </li>
+        <li>
+            Simple <mark>Theme</mark> parameter to decide which color both arrow icons (<span style="position: relative; top: 3px;"><Capgemini.Net.Blazor.Components.SvgIcons.ArrowToLeftIcon Width="16px" Height="16px" Theme="SvgIcons.Base.IconTheme.DARK" /></span>/<span style="position: relative; top: 3px;"><Capgemini.Net.Blazor.Components.SvgIcons.ArrowToRightIcon Width="16px" Height="16px" Theme="SvgIcons.Base.IconTheme.DARK" /></span>) should have:
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="5" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Theme="IconTheme.DARK" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="6" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Theme="IconTheme.LIGHT" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="7" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector Theme="IconTheme.DISABLED" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+        </li>
+        <li>
+            <mark>StringValue</mark> parameter that is a simple predicate accepting <mark>int</mark> value and returning the <mark>string</mark> value to be displayed (<mark>@@((_) =&gt; rateContext.Icon)</mark>
+            transforms <mark>rateContext.IconIndex</mark> to <mark>icons[IconIndex]</mark>). That value then is provided for child content within <mark>IntSelector</mark> tags:
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="8" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector StringValue="@@((rate) =&gt; rate.ToString())" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="9" />
+                    </div>
+                    <figcaption>
+                        <mark>&lt;IntSelector StringValue="@@((rate) =&gt; GetAvgRateLabel(rate))" ... /&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+
+            when the <mark> GetAvgRateLabel(avgRate)</mark> is defined as:
+
+            <pre>
+            <code class="language-csharp line-numbers">
+private static string GetAvgRateLabel(int agvRate) =&gt; agvRate switch
+{
+	int rate when rate is &lt; 3 =&gt; $"{agvRate} (poor)",
+	int rate when rate is &gt;= 3 and &lt; 5 =&gt; $"{agvRate} (good)",
+	_ =&gt; $"{agvRate} (excellent)",
+};
+                    </code>
+        </pre>
+
+        </li>
+        <li>
+            It also defines a special variable called <mark>@@context</mark> by default which is a part of the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0">Blazor templated components</a>
+            (such as <mark>IntSelector</mark>). That also would be covered more in depth in the next demo (<strong>./demo06</strong>). For <mark>IntSelector</mark> the <mark>@@context</mark> is defined in such a way
+            to provide a value returned by the <mark>StringValue</mark> predicate to be used by <mark>@@ChildContent</mark> of the component (which in this case is <mark>&lt;i class="far @@context"&gt;&lt;/i&gt;</mark>
+            and the <mark>@@context</mark> value itself is defined with <mark>StringValue="@@((_) =&gt; rateContext.Icon)"</mark>):
+
+            <div class="example-figure">
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="10" />
+                    </div>
+                    <figcaption>
+                        <span>Child content:</span>
+                        <mark>&lt;strong&gt;@@context&lt;/strong&gt;</mark>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <div>
+                        <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext3 MaxRate="5" AvgRate="5" IconIndex="0" Example="11" />
+                    </div>
+                    <figcaption>
+                        <span>Child content:</span>
+                        <mark>&lt;i class="far @@context"&lt;/i&gt;</mark>
+                    </figcaption>
+                </figure>
+            </div>
+        </li>
+    </ul>
+    };
+
+    internal static readonly RenderFragment PointContext4 = __builder =>
+    {
+    <p>
+        Although <mark>IntSelector</mark> component made code smaller and less complex by wrapping details about handling the state of the <mark>RateContext</mark> class properties it has the following limitations:
+    </p>
+
+    <ul>
+        <li>
+            it supports only one primitive type of value - <mark>int</mark>. For more complex cases the <mark>StringValue</mark> delegate can be used but it is still based on the single <mark>int</mark> property.
+        </li>
+        <li>
+            It assumes that any given <mark>int</mark> property will be increased/decreased by <mark>1</mark>.
+        </li>
+        <li>
+            It doesn't support any kind of cross-field validation - simple single-based property validation can be achieved by defining more complex logic for <mark>getter</mark> and/or <mark>setter</mark>
+            of the property bounded to the <mark>Value</mark> component's parameter.
+        </li>
+    </ul>
+
+    <p>
+        To solve those problems a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform?view=aspnetcore-5.0">EditForm</a> component can be used
+        along with other <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#built-in-forms-components">build-in Razor components</a> like:
+    </p>
+
+    <ul>
+        <li>
+            <mark>InputNumber&lt;TValue&gt;</mark>,
+        </li>
+        <li>
+            <mark>InputSelect&lt;TValue&gt;</mark>.
+        </li>
+    </ul>
+
+    <p>
+        Replace the markup for all custom input fields with build-in components:
+    </p>
+
+    <pre data-line="2-18">
+    <code class="language-csharp line-numbers">
+&lt;div class="demo__container_wrapper"&gt;
+    &lt;EditForm Model="@@rateContext"&gt;
+        &lt;span class="demo__label"&gt;Max rate&lt;/span&gt;
+        &lt;InputNumber class="demo__selector" @@bind-Value="@@rateContext.MaxRate" /&gt;
+
+        &lt;span class="demo__label"&gt;Avg rate&lt;/span&gt;
+        &lt;InputNumber class="demo__selector" @@bind-Value="@@rateContext.AvgRate" /&gt;
+
+        &lt;span class="demo__label"&gt;Icon&lt;/span&gt;
+        &lt;InputSelect class="demo__selector" @@bind-Value="rateContext.IconIndex"&gt;
+            @@for(int i = 0; i &lt; RateContext.Icons.Length; i += 1)
+            {
+                &lt;option value="@@i"&gt;
+                    @@(RateContext.Icons[i])
+                &lt;/option&gt;
+            }
+        &lt;/InputSelect&gt;
+    &lt;/EditForm&gt;
+
+    &lt;CascadingValue Value="@@rateContext"&gt;
+        &lt;div class="demo__container"&gt;
+            @@ChildContent
+        &lt;/div&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+        </code>
+    </pre>
+
+    <p>
+        To make use of build-in <mark>EditForm</mark>, <mark>InputNumber</mark>, <mark>InputSelect</mark> components, add <mark>Microsoft.AspNetCore.Components.Forms</mark> namespace to the <mark>_Imports.razor</mark> file:
+    </p>
+
+    <pre data-line="6">
+    <code class="language-csharp line-numbers">
+@@namespace Capgemini.Net.Blazor.Components.Demo05
+
+@@using Microsoft.AspNetCore.Components.Web
+@@using Microsoft.AspNetCore.Components.Rendering
+@@using Microsoft.AspNetCore.Components.Web.Extensions.Head
+@@using Microsoft.AspNetCore.Components.Forms
+
+@@using Capgemini.Net.Blazor.Components.Tile
+@@using Capgemini.Net.Blazor.Components.Tile.Base
+@@using Capgemini.Net.Blazor.Components.Demo
+        </code>
+    </pre>
+
+    <p>
+        The snippet code above gathers three input fields under one common <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext?view=aspnetcore-5.0">edit context</a>.
+        It allows to define forms in the way known from previous ASP.NET frameworks. For instance it enables validation based on <mark>RateContext</mark> validation attributes that the class properties are decorated with
+        like <mark>[Required]</mark> or <mark>[Range]</mark> (which will be introduced in <strong>./demo08</strong>).
+    </p>
+
+    <p>
+        All <mark>Input*</mark> components rely on data binding to modify model's properties on any input change.
+    </p>
+
+    <p>
+        <strong>Note:</strong> introducing standard <mark>&lt;input&gt;</mark> markup shows that validation based on property <mark>setter</mark> is not prohibiting user to select invalid values - in case the invalid value was entered,
+        firstly it will be accepted as an input; due to input's value change, <mark>setter</mark> of the binded property will be triggered (e.i. <mark>@@bind-Value="@@rateContext.MaxRate"</mark>) which will assign a value to the inner private field of the model.
+        Due to the invalid value received by the <mark>setter</mark>, it will assign a different value (after validation) to the field which in turn will trigger component to be rendered again (as the given property is two-way binded to the <mark>Input*</mark> component's <mark>Value</mark> parameter).
+        Lastly changed value will be displayed to the user. To create a proper validation <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-5.0#validation-attributes">validation attributes</a>
+        have to be used. Alternatively custom validation can be implemented either within a custom component that inherits from  <mark>Input*</mark> (to prevent user to input invalid values) or by <mark>OnSubmit</mark>
+        event handler of <mark>EditForm</mark> component - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#built-in-forms-components">read more</a>.
+    </p>
+    };
+
+    internal static readonly RenderFragment PointContext5 = __builder =>
+    {
+    <p>
+        Note that it is no longer possible to preview of the icon user is selecting from the input. Replace the inner content of the <mark>&lt;option&gt;</mark> markup from <mark>@@(RateContext.Icons[i])</mark>
+        to display the preview of the icon and a class name that is used to display it:
+    </p>
+    <pre data-line="6-8">
+    <code class="language-csharp line-numbers">
+&lt;!-- ... --&gt;
+@@for(int i = 0; i &lt; RateContext.Icons.Length; i += 1)
+{
+    string icon = RateContext.Icons[i];
+    &lt;option value="@@i"&gt;
+        &lt;div class="fa-cap-option"&gt;
+	        &lt;i class="far @@icon" /&gt; - &lt;strong&gt;@@icon&lt;/strong&gt;
+        &lt;/div&gt;
+    &lt;/option&gt;
+}
+&lt;!-- ... --&gt;
+        </code>
+    </pre>
+
+    <p>
+        One major flow of this solution is that <strong>HTML</strong> specification doesn't allow any additional markup between <mark>&lt;option&gt;</mark> and <mark>&lt;/option&gt;</mark> (<a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-option-element">read more</a>)
+        so the usage of <a href="https://fontawesome.com/icons/star?style=solid">Font Awesome markup classes</a> is not possible. Browser will strip away all additional markup form the following code leaving only raw text.
+    </p>
+
+    <div class="example-figure">
+        <figure>
+            <div>
+                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext5 MaxRate="5" AvgRate="5" IconIndex="0" Example="1" />
+            </div>
+            <figcaption>
+                <span><mark>&lt;/option&gt;</mark> content:</span>
+                <mark>@@(RateContext.Icons[i])</mark>
+            </figcaption>
+        </figure>
+        <figure>
+            <div>
+                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo05.PointContext5 MaxRate="5" AvgRate="5" IconIndex="0" Example="2" />
+            </div>
+            <figcaption>
+                <span><mark>&lt;/option&gt;</mark> content:</span>
+                <mark>&lt;i class="far @@context"&lt;/i&gt;  - &lt;strong&gt;@@icon&lt;/strong&gt;</mark>
+            </figcaption>
+        </figure>
+    </div>
+
+    <div class="example-figure">
+        <figure>
+            <div>
+                <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/5/5/html-warning.png" />
+            </div>
+            <figcaption>
+                <span>Markup cannot be add as a <mark>&lt;option&gt;</mark> content</span>
+            </figcaption>
+        </figure>
+    </div>
+
+    <p>
+        Replace the content of the <mark>ContainerComponent</mark> component for the last time to make it use a custom components which provide:
+
+        <ul>
+            <li>
+                custom styling for <mark>Input*</mark> components,
+            </li>
+            <li>
+                default style and markup for a label of the given input within the component
+            </li>
+            <li>
+                support for any custom markup to be placed between <mark>&lt;option&gt;</mark> and <mark>&lt;/option&gt;</mark> tags.
+            </li>
+        </ul>
+    </p>
+
+    <pre data-line="3-5, 7-9, 11-21">
+    <code class="language-csharp line-numbers">
+&lt;div class="demo__container_wrapper"&gt;
+    &lt;EditForm Model="@@rateContext"&gt;
+        &lt;CapInput Label="Max rate" InputName="@@nameof(rateContext.MaxRate)"&gt;
+            &lt;InputNumber @@bind-Value="@@rateContext.MaxRate" /&gt;
+        &lt;/CapInput&gt;
+
+        &lt;CapInput Label="Avg rate" InputName="@@nameof(rateContext.AvgRate)"&gt;
+            &lt;InputNumber @@bind-Value="@@rateContext.AvgRate" /&gt;
+        &lt;/CapInput&gt;
+
+        &lt;CapSelect Label="Icon" @@bind-Value="rateContext.IconIndex" ParseValue="@@((option) =&gt; RateContext.Icons[option])"&gt;
+            @@for (int i = 0; i &lt; RateContext.Icons.Length; i += 1)
+            {
+                string icon = RateContext.Icons[i];
+                &lt;CapOption Key="@@i.ToString()" Value="@@i"&gt;
+                    &lt;div class="fa-cap-option"&gt;
+                        &lt;i class="far @@icon" /&gt; - &lt;strong&gt;@@icon&lt;/strong&gt;
+                    &lt;/div&gt;
+                &lt;/CapOption&gt;
+            }
+        &lt;/CapSelect&gt;
+    &lt;/EditForm&gt;
+
+    &lt;CascadingValue Value="@@rateContext"&gt;
+        &lt;div class="demo__container"&gt;
+            @@ChildContent
+        &lt;/div&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+        </code>
+    </pre>
+
+    <p>
+        Same as <mark>IntSelector</mark> component that was used earlier, both <mark>CapInput</mark> and <mark>CapSelect</mark> components uses <mark>RenderFragment</mark> parameter named <mark>ChildContent</mark>
+        to define their inner content as shown. <mark>CapInput</mark> child content is used to provide any of the build-in <mark>Input*</mark> components. See the actual component's markup:
+    </p>
+
+    <pre data-line="3, 7, 8">
+    <code class="language-csharp line-numbers">
+&lt;div class="field-container"&gt;
+    &lt;span class="field-label"&gt;
+        @@Label
+    &lt;/span&gt;
+    &lt;span style="width: 100%;"&gt;&lt;/span&gt;
+    &lt;div class="field"&gt;
+        @@ChildContent
+        &lt;label for="@@InputName"&gt;@@Label&lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+        </code>
+    </pre>
+
+    <p>
+        Highlighted <mark>@@ChildContent</mark> is replaced by the <mark>&lt;InputNumber @@bind-Value="@@rateContext.MaxRate" /&gt;</mark>/<mark>&lt;InputNumber @@bind-Value="@@rateContext.AvgRate" /&gt;</mark>.
+    </p>
+
+    <p>
+        <mark>CapSelect</mark> component works in the same way, allowing to define <mark>CapOption</mark> component in place of the standard <mark>&lt;option&gt;</mark> tag (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0#tabset-example">read more</a> for a similar example). 
+        <mark>(option) => RateContext.Icons[option]</mark> lambda expression is used to provide a display value for any value selected (instead of showing the raw selected value that binds to the input - <mark>rateContext.IconIndex</mark>).
+    </p>
+    };
+}

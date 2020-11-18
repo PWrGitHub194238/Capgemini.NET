@@ -12,7 +12,7 @@ namespace Capgemini.Net.Blazor.Components.Demo
             _ => $"{AvgRate} ({Label})",
         };
 
-        private double Percentage => MaxRate - MinRate is 0 ? 0 : (AvgRate - MinRate) / (double)(MaxRate - MinRate);
+        private double Percentage => MaxRate - MinRate is 0 ? 0 : (double)(AvgRate - MinRate) / (MaxRate - MinRate);
 
         private string Label => Labels[Math.Max(0,(int)Math.Floor(Labels.Length * Percentage) - 1)];
 

@@ -1,0 +1,79 @@
+﻿@inherits RateComponentBase
+
+<div class="rate-container">
+    <div class="icon-rate-container">
+        @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+        {
+            <i class="@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @(Icon) cursor-pointer"
+               @onclick="SetRate"
+               @onmouseover="@(() => ShowRate(i))"
+               @onmouseout=RevertRate></i>
+        }
+    </div>
+</div>
+
+<div class="current-rate-container">
+    @CurrentRate(CurrentRateContext)
+</div>
+
+<div class="average-rate-container">
+    @AvgRate(AverageRateContext)
+</div>
+
+<div class="max-rate-container">
+    @MaxRate(CurrentRateInt)
+</div>
+
+@code {
+    [Parameter]
+    public IRateableProduct Product { get; set; } = default!;
+
+    [Parameter]
+    public string Icon { get; set; } = "fa-star";
+
+    [Parameter]
+    public RenderFragment<AverageRateContext> CurrentRate { get; set; } = context => __builder =>
+    {
+        @if (@context.AvgRate > 0)
+        {
+            <DefaultAverageRateComponent 
+                MinRate="@context.MinRate"
+                AvgRate="@context.AvgRate"
+                MaxRate="@context.MaxRate" />
+        } else
+        {
+            @: ---
+        }
+    };
+
+    [Parameter]
+    public RenderFragment<AverageRateContext> AvgRate { get; set; } = context => __builder =>
+    {
+        <DefaultAverageRateComponent 
+            MinRate="@context.MinRate"
+            AvgRate="@context.AvgRate"
+            MaxRate="@context.MaxRate" />
+    };
+
+    [Parameter]
+    public RenderFragment<int> MaxRate { get; set; } = context => __builder =>
+    {
+        @context
+    };
+
+    private int CurrentRateInt => Product.CurrentRate ?? 0;
+
+    private AverageRateContext CurrentRateContext => new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = (decimal)CurrentRateInt,
+        MaxRate = Product.MaxRate,
+    };
+
+    private AverageRateContext AverageRateContext => new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = Product.AverageRate,
+        MaxRate = Product.MaxRate,
+    };
+}

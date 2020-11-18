@@ -1,0 +1,22 @@
+﻿.cursor-pointer {
+  cursor: pointer; }
+
+.demo02__container_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 200px; }
+  .demo02__container_wrapper .demo02__label {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger; }
+  .demo02__container_wrapper .demo02__selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 25px; }
+  .demo02__container_wrapper .demo02__container {
+    display: flex; }

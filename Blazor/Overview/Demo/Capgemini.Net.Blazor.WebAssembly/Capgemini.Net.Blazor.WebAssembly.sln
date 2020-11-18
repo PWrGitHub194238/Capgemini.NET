@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Compon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components", "Capgemini.Net.Blazor.Components\Capgemini.Net.Blazor.Components.csproj", "{3AD82CA5-D3D7-409A-BB64-E1F85B51A65D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo1", "Capgemini.Net.Blazor.Components.Demo1\Capgemini.Net.Blazor.Components.Demo1.csproj", "{F5C3C20A-322B-471E-9939-C3E9BB29E6F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo01", "Capgemini.Net.Blazor.Components.Demo01\Capgemini.Net.Blazor.Components.Demo01.csproj", "{F5C3C20A-322B-471E-9939-C3E9BB29E6F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Tile", "Capgemini.Net.Blazor.Components.Tile\Capgemini.Net.Blazor.Components.Tile.csproj", "{D8EF580C-DFDE-4B3C-B476-DA4F690CE04D}"
 EndProject
@@ -35,21 +35,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Compon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Splitter", "Capgemini.Net.Blazor.Components.Splitter\Capgemini.Net.Blazor.Components.Splitter.csproj", "{B56E55A6-FEB2-40CA-9A56-58DA864EF8E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo2", "Capgemini.Net.Blazor.Components.Demo2\Capgemini.Net.Blazor.Components.Demo2.csproj", "{7EA1B62D-A7AB-45A3-9304-6A6184FE509F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo02", "Capgemini.Net.Blazor.Components.Demo02\Capgemini.Net.Blazor.Components.Demo02.csproj", "{7EA1B62D-A7AB-45A3-9304-6A6184FE509F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo3", "Capgemini.Net.Blazor.Components.Demo3\Capgemini.Net.Blazor.Components.Demo3.csproj", "{17D20CBA-1FF6-472A-B223-8E5A2A1410ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo03", "Capgemini.Net.Blazor.Components.Demo03\Capgemini.Net.Blazor.Components.Demo03.csproj", "{17D20CBA-1FF6-472A-B223-8E5A2A1410ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo4", "Capgemini.Net.Blazor.Components.Demo4\Capgemini.Net.Blazor.Components.Demo4.csproj", "{D8CC0F28-22B7-451E-992E-CC73429F1838}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo04", "Capgemini.Net.Blazor.Components.Demo04\Capgemini.Net.Blazor.Components.Demo04.csproj", "{D8CC0F28-22B7-451E-992E-CC73429F1838}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo5", "Capgemini.Net.Blazor.Components.Demo5\Capgemini.Net.Blazor.Components.Demo5.csproj", "{2726D97D-32B3-4B40-89E2-420076023CED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo05", "Capgemini.Net.Blazor.Components.Demo05\Capgemini.Net.Blazor.Components.Demo05.csproj", "{2726D97D-32B3-4B40-89E2-420076023CED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo6", "Capgemini.Net.Blazor.Components.Demo6\Capgemini.Net.Blazor.Components.Demo6.csproj", "{4300DA05-80BD-4A73-8D93-942E1AA71AF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo06", "Capgemini.Net.Blazor.Components.Demo06\Capgemini.Net.Blazor.Components.Demo06.csproj", "{4300DA05-80BD-4A73-8D93-942E1AA71AF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo7", "Capgemini.Net.Blazor.Components.Demo7\Capgemini.Net.Blazor.Components.Demo7.csproj", "{77205598-D340-48D7-972D-766AF56F0CE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo07", "Capgemini.Net.Blazor.Components.Demo07\Capgemini.Net.Blazor.Components.Demo07.csproj", "{77205598-D340-48D7-972D-766AF56F0CE3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo8", "Capgemini.Net.Blazor.Components.Demo8\Capgemini.Net.Blazor.Components.Demo8.csproj", "{1BB48899-2920-4B7A-8F49-69801F75F1CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo08", "Capgemini.Net.Blazor.Components.Demo08\Capgemini.Net.Blazor.Components.Demo08.csproj", "{1BB48899-2920-4B7A-8F49-69801F75F1CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo9", "Capgemini.Net.Blazor.Components.Demo9\Capgemini.Net.Blazor.Components.Demo9.csproj", "{6E6FE5E1-3370-4A59-8403-2A8C07A6B1D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo09", "Capgemini.Net.Blazor.Components.Demo09\Capgemini.Net.Blazor.Components.Demo09.csproj", "{6E6FE5E1-3370-4A59-8403-2A8C07A6B1D3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capgemini.Net.Blazor.Components.Demo10", "Capgemini.Net.Blazor.Components.Demo10\Capgemini.Net.Blazor.Components.Demo10.csproj", "{E60AF2CC-9FF5-4094-B5C7-8EB2B232B459}"
 EndProject

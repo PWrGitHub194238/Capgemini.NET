@@ -8,6 +8,7 @@
       "files": [
         "components/prism-csharp.min.js",
         "components/prism-css.min.js",
+        "components/prism-json.min.js",
         "components/prism-markup.min.js",
         "components/prism-typescript.min.js",
         "plugins/autolinker/prism-autolinker.min.js",

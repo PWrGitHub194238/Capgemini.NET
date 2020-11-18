@@ -4,7 +4,7 @@ namespace Capgemini.Net.Blazor.Components.Demo
 {
     public partial class Alternative2AverageRateComponent : AverageRateComponentBase
     {
-        private double Percentage => MaxRate - MinRate is 0 ? 0 : (AvgRate - MinRate) / (double)(MaxRate - MinRate);
+        private double Percentage => MaxRate - MinRate is 0 ? 0 : (double)(AvgRate - MinRate) / (MaxRate - MinRate);
 
         private string GetHslColor(double percent, Colors start, Colors end) => $"hsl({(int)Math.Floor((int)start + ((int)end - (int)start) * percent)}, 100%, 50%)";
 

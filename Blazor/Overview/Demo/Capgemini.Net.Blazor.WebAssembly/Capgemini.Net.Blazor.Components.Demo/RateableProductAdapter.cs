@@ -2,7 +2,7 @@
 using Capgemini.Net.Blazor.Components.Demo.Interfaces;
 using System;
 
-namespace Capgemini.Net.Blazor.WebAssembly.Client.Adapters
+namespace Capgemini.Net.Blazor.Components.Demo
 {
     public class RateableProductAdapter : IRateableProduct
     {

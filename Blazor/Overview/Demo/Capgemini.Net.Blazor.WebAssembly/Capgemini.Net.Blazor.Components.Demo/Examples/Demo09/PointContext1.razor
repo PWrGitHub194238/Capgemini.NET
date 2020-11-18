@@ -1,0 +1,21 @@
+﻿@using Capgemini.Net.Blazor.Components.Demo.Examples.Demo09.Start
+
+@switch (Example)
+{
+    case 1:
+<ContainerComponent>
+    <ChildContent Context="product">
+        <RateComponent Product="@product">
+            <AvgRate Context="avgContext">
+                <DefaultAverageRateComponent 
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
+        break;
+    default:
+        break;
+}
