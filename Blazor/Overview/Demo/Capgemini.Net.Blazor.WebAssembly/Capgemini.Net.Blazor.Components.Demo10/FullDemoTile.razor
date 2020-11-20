@@ -1,24 +1,1108 @@
 ﻿<Title Value=".NET Community Blazor Introduction | Demo 10"></Title>
-<Link href="_content/Capgemini.Net.Blazor.Components.Demo10/css/styles.css" rel="stylesheet" />
 
 @if (Context is not null)
 {
-    <FullTileContainer ChecklistContext="@Context">
-        <DemoEndPoint>
-            <Capgemini.Net.Blazor.Components.Demo10.End.RateComponent />
-        </DemoEndPoint>
-        <DemoStartPoint>
-            <Capgemini.Net.Blazor.Components.Demo10.Start.RateComponent />
-        </DemoStartPoint>
-    </FullTileContainer>
+    <CascadingValue Name="Id" Value="@Id">
+        <FullTileContainer ChecklistContext="@Context">
+            <DemoEndPoint>
+                <Capgemini.Net.Blazor.Components.Demo10.End.WrapperComponent />
+            </DemoEndPoint>
+            <DemoStartPoint>
+                <Capgemini.Net.Blazor.Components.Demo10.Start.WrapperComponent />
+            </DemoStartPoint>
+        </FullTileContainer>
+    </CascadingValue>
 }
 
 @code {
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
+    <p>
+        Update the <mark>_Imports.razor</mark> file and add a additional import for the <mark>ILogger&lt;TValue&gt;</mark> type:
+    </p>
+
+    <pre data-line="6">
+    <code class="language-csharp line-numbers">
+@@namespace Capgemini.Net.Blazor.Components.Demo10
+
+@@using Microsoft.AspNetCore.Components.Web
+@@using Microsoft.AspNetCore.Components.Rendering
+@@using Microsoft.AspNetCore.Components.Web.Extensions.Head
+@@using Microsoft.Extensions.Logging
+
+@@using Capgemini.Net.Blazor.Components.Tile
+@@using Capgemini.Net.Blazor.Components.Tile.Base
+@@using Capgemini.Net.Blazor.Components.Demo
+
+@@using Capgemini.Net.Blazor.Components.Demo.Interfaces
+@@using Capgemini.Net.Blazor.Components.Demo.Models
+
+@@using Capgemini.Net.Blazor.Components.LoadPlaceholder
+        </code>
+    </pre>
+
+    <p>
+        Use the <mark>SetParametersAsync</mark> lifecycle method to determinate the set of parameters that was provided to the component (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#before-parameters-are-set">read more</a>):
+    </p>
+
+    <pre data-line="3, 10-28">
+    <code class="language-csharp line-numbers">
+@@inherits RateComponentBase
+
+@@inject ILogger&lt;RateComponent&gt; Logger
+
+&lt;!-- ... --&gt;
+
+@@code {
+	// ...
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(CurrentRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(CurrentRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(AvgRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(AvgRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;int&gt;&gt;(nameof(MaxRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(MaxRate));
+        }
+    }
+}
+        </code>
+    </pre>
+
+    <p>
+        Parameter of type <mark>ParameterView</mark> provides the component with the information about set of parameters that were passed to the component by the parent's markup (using the properties of
+        the component marked with <mark>[Parameter]</mark> or <mark>[CascadingParameter]</mark>). <mark>SetParametersAsync</mark> method is the first of the lifecycle method to be executed before values for the
+        properties are set.
+    </p>
     };
 
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
+    <p>
+        Clicking on the rate icon doesn't update <mark>IRateableProduct Product</mark> context object (<mark>SetRate</mark> method bounded to the <mark>@@onclick</mark> directive only
+        updates the internal state of the <mark>RateComponentBase</mark> class which <mark>RateComponent</mark> inherits). To change the current <mark>Product.CurrentRate</mark> property on rate icon click,
+        override the <mark>SetRate</mark> method:
+    </p>
+
+    <pre data-line="10, 32-36">
+    <code class="language-csharp line-numbers">
+@@inherits RateComponentBase
+
+@@inject ILogger&lt;RateComponent&gt; Logger
+
+&lt;div class="rate-container"&gt;
+    &lt;div class="icon-rate-container"&gt;
+        @@foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
+        {
+            &lt;i class="@@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @@(Icon) cursor-pointer"
+               @@onclick="SetRate"
+               @@onmouseover="@@(() =&gt; ShowRate(i))"
+               @@onmouseout=RevertRate&gt;&lt;/i&gt;
+        }
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="current-rate-container"&gt;
+    @@CurrentRate(CurrentRateContext)
+&lt;/div&gt;
+
+&lt;div class="average-rate-container"&gt;
+    @@AvgRate(AverageRateContext)
+&lt;/div&gt;
+
+&lt;div class="max-rate-container"&gt;
+    @@MaxRate(Product.MaxRate)
+&lt;/div&gt;
+
+@@code {
+	// ...
+
+    protected override void SetRate()
+    {
+        base.SetRate();
+        Product.CurrentRate = Rate;
+    }
+}
+    </code>
+    </pre>
+
+    <p>
+        To be able to override the <mark>SetRate</mark> method, mark it as <mark>virtual</mark> in the base class:
+    </p>
+
+    <pre data-line="25">
+    <code class="language-csharp line-numbers">
+using Microsoft.AspNetCore.Components;
+
+namespace Capgemini.Net.Blazor.Components.Demo
+{
+    public class RateComponentBase : ComponentBase
+    {
+        public static readonly string ACTIVE_STYLE = "fas";
+
+        public static readonly string INACTIVE_STYLE = "far";
+
+        private int rate = 0;
+
+        private int tempRate = 0;
+
+        protected int Rate
+        {
+            get =&gt; rate + 1;
+            set
+            {
+                rate = value - 1;
+                tempRate = rate;
+            }
+        }
+
+        protected <mark>virtual</mark> void SetRate() =&gt; rate = tempRate;
+
+        protected void ShowRate(int index) =&gt; tempRate = index;
+
+        protected void RevertRate() =&gt; tempRate = rate;
+
+        protected bool IsActive(int index) =&gt; index &lt;= tempRate;
+    }
+}
+    </code>
+    </pre>
+    };
+
+    internal static readonly RenderFragment PointContext3 = __builder =>
+    {
+    <p>
+        Overriding the <mark>SetRate</mark> with:
+    </p>
+
+    <pre data-line="4">
+    <code class="language-csharp line-numbers">
+protected override void SetRate()
+{
+    base.SetRate();
+    Product.CurrentRate = Rate;
+}
+    </code>
+    </pre>
+
+    <p>
+        enables the component to update its markup:
+    </p>
+
+    <ul>
+        <li>
+            <mark>SetRate</mark> method is called on the <mark>click</mark> <strong>DOM</strong> event (<mark>@@onclick="SetRate"</mark>),
+        </li>
+        <li>
+            <mark>base.SetRate()</mark> updates the inner state of the component to update the <mark>Rate</mark> property,
+        </li>
+        <li>
+            <mark>Product.CurrentRate</mark> is updated with the current <mark>Rate</mark>
+        </li>
+        <li>
+            as a <strong>DOM</strong> event was called, component will be rerendered,
+        </li>
+        <li>
+            in the process the <mark>@@CurrentRate</mark> render fragment will be invoked with <mark>CurrentRateContext</mark> property (<mark>@@CurrentRate(CurrentRateContext)</mark>)
+        </li>
+        <li>
+            in order to invoke the render fragment, <mark>CurrentRateContext</mark> will be recalculated on get and will include the change of the <mark>Product.CurrentRate</mark>,
+        </li>
+        <li>
+            component will display a new markup for <mark>@@CurrentRate</mark> render fragment with updated value.
+        </li>
+    </ul>
+
+    <p>
+        As soon as the component will receive different set of parameters (i.e. by routing to product with different ID) selected rate would be lost.
+        To make the selection be stored in the persistent storage, <strong>API</strong> has to be called upon rate change.
+    </p>
+
+    <p>
+        Provide a similar method to the <mark>OnParametersSetAsync</mark> for the <mark>ContainerComponent</mark> component that will be used to call the <strong>API</strong> to send and store new values:
+    </p>
+
+    <pre data-line="22-25">
+    <code class="language-csharp line-numbers">
+using Capgemini.Net.Blazor.Api.ViewModels;
+using Capgemini.Net.Blazor.Components.Demo;
+using Capgemini.Net.Blazor.Components.Demo.Interfaces;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+
+namespace Capgemini.Net.Blazor.Components.Demo10.Start
+{
+    public partial class ContainerComponent
+    {
+		// ...
+
+        protected override async Task OnParametersSetAsync()
+        {
+			// ...
+        }
+
+        public async Task ChangeProductRate(int productRate)
+        {
+            // API logic to be added
+        }
+    }
+}
+    </code>
+    </pre>
+
+    <p>
+        The <strong>API</strong> will be called if the new rate will be provided.
+    </p>
+
+    <p>
+        Add a <a href="https://blazor-university.com/components/component-events/">component event</a> to <mark>RateComponent</mark>:
+    </p>
+
+    <pre data-line="32-33, 40">
+    <code class="language-csharp line-numbers">
+@@inherits RateComponentBase
+
+@@inject ILogger&lt;RateComponent&gt; Logger
+
+&lt;div class="rate-container"&gt;
+    &lt;div class="icon-rate-container"&gt;
+        @@foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
+        {
+            &lt;i class="@@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @@(Icon) cursor-pointer"
+               @@onclick="SetRate"
+               @@onmouseover="@@(() =&gt; ShowRate(i))"
+               @@onmouseout=RevertRate&gt;&lt;/i&gt;
+        }
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="current-rate-container"&gt;
+    @@CurrentRate(CurrentRateContext)
+&lt;/div&gt;
+
+&lt;div class="average-rate-container"&gt;
+    @@AvgRate(AverageRateContext)
+&lt;/div&gt;
+
+&lt;div class="max-rate-container"&gt;
+    @@MaxRate(Product.MaxRate)
+&lt;/div&gt;
+
+@@code {
+	// ...
+
+    [Parameter]
+    public Action&lt;int&gt; ProductRated { get; set; } = default!;
+
+	// ...
+
+    protected override void SetRate()
+    {
+        base.SetRate();
+        ProductRated.Invoke(Rate);
+    }
+}
+    </code>
+    </pre>
+
+    <p>
+        An ordinary parameter for the component was added with a type of an <mark>Action&lt;int&gt;</mark> type. Delegate that is provided by the parent as a value of that parameter is invoked inside the
+        <mark>SetRate</mark> method, called on user's interaction. That will make the parent component to be notified by this interaction by the execution of defined delegate.
+    </p>
+
+    <p>
+        <strong>Note:</strong> the type of the <mark>ProductRated</mark> can be any of the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=net-5.0">delegate</a> type i.e.
+        <mark>Action</mark> or <mark>Func</mark> with any number of generic types.
+    </p>
+
+    <p>
+        Provide a value for the <mark>ProductRated</mark> parameter. Edit the <mark>WrapperComponent</mark> Razor component with the following markup:
+    </p>
+
+    <pre data-line="1, 3, 14-24">
+    <code class="language-csharp line-numbers">
+&lt;ContainerComponent <mark>@@ref="ContainerComponentRef"</mark>&gt;
+    &lt;ChildContent Context="product"&gt;
+        &lt;RateComponent Product="@@product" ProductRated="@@(async (rate) =&gt; await ChangeProductRate(rate))"&gt;
+            &lt;AvgRate Context="avgContext"&gt;
+                &lt;DefaultAverageRateComponent 
+                    MinRate="@@(avgContext.MinRate)"
+                    AvgRate="@@(avgContext.AvgRate)"
+                    MaxRate="@@(avgContext.MaxRate)" /&gt;
+            &lt;/AvgRate&gt;
+        &lt;/RateComponent&gt;
+    &lt;/ChildContent&gt;
+&lt;/ContainerComponent&gt;
+
+@@code {
+    private ContainerComponent? ContainerComponentRef;
+
+    public async Task ChangeProductRate(int productRate)
+    {
+        if (ContainerComponentRef is not null)
+        {
+            await ContainerComponentRef.ChangeProductRate(productRate);
+        }
+    }
+}
+    </code>
+    </pre>
+
+    <p>
+        <mark>ProductRated</mark> defines the async method that will in turn call the <mark>ChangeProductRate</mark> method, defined in the <mark>ContainerComponent</mark> component that will call the <strong>API</strong> to save changes.
+    </p>
+
+    <p>
+        <strong>Note:</strong> as <mark>RateComponent</mark> component is provided to the <mark>ContainerComponent</mark> component as <mark>RenderFragment&lt;IRateableProduct&gt; ChildContent</mark>,
+        it is impossible for the <mark>ContainerComponent</mark> component to determinate that its render fragment triggers the delegate - the component that provides the delegate needs to pass the call,
+        referring the <mark>ContainerComponent</mark>'s method. Any component can be capture by the reference by assigning the name of the field/property as a value of the <mark>@@ref</mark> <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#ref">build-in</a>
+        Blazor directive (line <mark>1</mark>) - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#capture-references-to-components">read more</a>.
+    </p>
+
+    <p>
+        <strong>Note:</strong> <mark>@@ref</mark> directive can be used for any tag, including standard <strong>HTML</strong> tags. Value of the directive needs to refer the field/property of the type:
+    </p>
+    <ul>
+        <li>
+            same as Blazor component which <mark>@@ref</mark> refers to (i.e. <mark>&lt;ContainerComponent&gt;</mark> -&gt; <mark>private ContainerComponent? ContainerComponentRef</mark>),
+        </li>
+        <li>
+            <mark>ElementReference</mark> to any other tag (which can be used to provide <mark>HTMLElement</mark> as an argument for the <strng>JavaScript</strng> call - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-javascript-from-dotnet?view=aspnetcore-5.0#capture-references-to-elements">read more</a>).
+        </li>
+    </ul>
+
+    <p>
+        <strong>Note:</strong> element that is obtained by the <mark>@@ref</mark> directive is available as soon as the <mark>OnAfterRender</mark> is called (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#detect-when-the-app-is-prerendering">see example</a>).
+    </p>
+
+    <p>
+        Define the body of the <mark>ContainerComponentRef.ChangeProductRate</mark> method:
+    </p>
+
+    <pre data-line="29, 70-84">
+    <code class="language-csharp line-numbers">
+using Capgemini.Net.Blazor.Api.ViewModels;
+using Capgemini.Net.Blazor.Components.Demo;
+using Capgemini.Net.Blazor.Components.Demo.Interfaces;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+
+namespace Capgemini.Net.Blazor.Components.Demo10.Start
+{
+    public partial class ContainerComponent
+    {
+        [Inject]
+        public HttpClient HttpClient { get; set; } = default!;
+
+        [Inject]
+        public ILogger&lt;ContainerComponent&gt; Logger { get; set; } = default!;
+
+        [Parameter]
+        public RenderFragment&lt;IRateableProduct&gt; ChildContent { get; set; } = default!;
+
+        [CascadingParameter(Name = "Id")]
+        public int ProductId { get; set; }
+
+        public string Endpoint =&gt; $"products/{ProductId}";
+
+        public string RateEndpoint =&gt; $"{Endpoint}/rate";
+
+        private IRateableProduct? product;
+
+        private string loadingMessage = "Loading product";
+
+        protected override async Task OnParametersSetAsync()
+        {
+            try
+            {
+                var rateableProductViewModel = await HttpClient
+                    .GetFromJsonAsync&lt;RateableProductViewModel&gt;(Endpoint);
+
+                if (rateableProductViewModel is not null)
+                {
+                    product = new RateableProductAdapter(rateableProductViewModel);
+                }
+            }
+            catch (HttpRequestException e1)
+            {
+                Logger.LogError(
+                    e1,
+                    Properties.Resources.LOG_ERROR_CANNOT_FETCH,
+                    Endpoint);
+            }
+            catch (NotSupportedException e2)
+            {
+                Logger.LogError(
+                    e2,
+                    Properties.Resources.LOG_ERROR_RESPONSE_INVALID_FORMAT,
+                    Endpoint);
+            }
+            finally
+            {
+                if (product is null)
+                {
+                    loadingMessage = "Loading error";
+                }
+            }
+        }
+
+        public async Task ChangeProductRate(int productRate)
+        {
+            HttpResponseMessage response = await HttpClient.PostAsJsonAsync(RateEndpoint, productRate);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var rateableProductViewModel = await response.Content.ReadFromJsonAsync&lt;RateableProductViewModel&gt;();
+
+                if (rateableProductViewModel is not null)
+                {
+                    product = new RateableProductAdapter(rateableProductViewModel);
+                    StateHasChanged();
+                }
+            }
+        }
+    }
+}
+    </code>
+    </pre>
+
+    <p>
+        The following chain of events will be triggered on user's click on one of the rate icon in the <mark>RateComponent</mark> component:
+    </p>
+
+    <ul>
+        <li>
+            <mark>SetRate</mark> method is called on the <mark>click</mark> <strong>DOM</strong> event (<mark>@@onclick="SetRate"</mark>),
+        </li>
+        <li>
+            <mark>base.SetRate()</mark> updates the inner state of the component to update the <mark>Rate</mark> property,
+        </li>
+        <li>
+            <mark>ProductRated</mark> delegate of type <mark>Action&lt;int&gt;</mark> is invoked (<mark>ProductRated.Invoke(Rate)</mark>) and the delegate defined in the <mark>WrapperComponent</mark> will be triggered (<mark>ProductRated="@@(async (rate) => await ChangeProductRate(rate))"</mark>).
+        </li>
+        <li>
+            Asynchronous <mark>ChangeProductRate</mark> method will use captured reference to the <mark>ContainerComponent</mark> component to call its <mark>ChangeProductRate</mark> method (lines <mark>70-84</mark>).
+        </li>
+        <li>
+            If the rate of the product changes, injected <mark>HttpClient</mark> will use the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.json.httpclientjsonextensions.postasjsonasync?view=net-5.0">helper</a> method
+            in order to pass the new rate to the API endpoint (defined in the line <mark>29</mark>). In <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpresponsemessage?view=net-5.0">response</a>, <strong>API</strong> will send back the JSON-formatted body with updated <mark>RateableProductViewModel</mark>
+            that can be converted to the type of the <mark>product</mark> field.
+        </li>
+        <li>
+            <mark>StateHasChanged()</mark> will notify the framework to rerender the component and its child content (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#state-changes">read more</a>).
+        </li>
+    </ul>
+
+    <p>
+        <strong>Note:</strong> by replacing the delegate type that was used for the <mark>ProductRated</mark> parameter to the Blazor-specific <mark>EventCallback</mark>/<mark>EventCallback&lt;TValue&gt;</mark>
+        the <mark>StateHasChanged()</mark> call can be omitted - StateHasChanged is called automatically during the process - <a href="https://blazor-university.com/components/component-events/">read more</a>.
+    </p>
+
+    <p>
+        Update the type of the <mark>ProductRated</mark> parameter of the <mark>RateComponent</mark>:
+    </p>
+
+    <pre data-line="1, 68, 106-110">
+    <code class="language-csharp line-numbers">
+@@inherits RateComponentBaseWithTask
+
+@@inject ILogger&lt;RateComponent&gt; Logger
+
+&lt;div class="rate-container"&gt;
+    &lt;div class="icon-rate-container"&gt;
+        @@foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
+        {
+            &lt;i class="@@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @@(Icon) cursor-pointer"
+               @@onclick="SetRate"
+               @@onmouseover="@@(() =&gt; ShowRate(i))"
+               @@onmouseout=RevertRate&gt;&lt;/i&gt;
+        }
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="current-rate-container"&gt;
+    @@CurrentRate(CurrentRateContext)
+&lt;/div&gt;
+
+&lt;div class="average-rate-container"&gt;
+    @@AvgRate(AverageRateContext)
+&lt;/div&gt;
+
+&lt;div class="max-rate-container"&gt;
+    @@MaxRate(Product.MaxRate)
+&lt;/div&gt;
+
+@@code {
+    [Parameter]
+    public IRateableProduct Product { get; set; } = default!;
+
+    [Parameter]
+    public string Icon { get; set; } = "fa-star";
+
+    [Parameter]
+    public RenderFragment&lt;AverageRateContext&gt; CurrentRate { get; set; } = context =&gt; __builder =&gt;
+    {
+    @@if (@@context.AvgRate &gt; 0)
+        {
+            &lt;DefaultAverageRateComponent
+                MinRate="@@context.MinRate"
+                AvgRate="@@context.AvgRate"
+                MaxRate="@@context.MaxRate" /&gt;
+        }
+        else
+        {
+            @@: ---
+        }
+    };
+
+    [Parameter]
+    public RenderFragment&lt;AverageRateContext&gt; AvgRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        &lt;DefaultAverageRateComponent 
+            MinRate="@@context.MinRate"
+            AvgRate="@@context.AvgRate"
+            MaxRate="@@context.MaxRate" /&gt;
+    };
+
+    [Parameter]
+    public RenderFragment&lt;int&gt; MaxRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        @@context
+    };
+
+    [Parameter]
+    public <mark>EventCallback&lt;int&gt;</mark> ProductRated { get; set; } = default!;
+
+    private int CurrentRateInt =&gt; Product.CurrentRate ?? 0;
+
+    private AverageRateContext CurrentRateContext =&gt; new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = (decimal)CurrentRateInt,
+        MaxRate = Product.MaxRate,
+    };
+
+    private AverageRateContext AverageRateContext =&gt; new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = Product.AverageRate,
+        MaxRate = Product.MaxRate,
+    };
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(CurrentRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(CurrentRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(AvgRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(AvgRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;int&gt;&gt;(nameof(MaxRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(MaxRate));
+        }
+    }
+
+    protected override async Task SetRate()
+    {
+        await base.SetRate();
+        await ProductRated.InvokeAsync(Rate);
+    }
+}
+    </code>
+    </pre>
+
+    <p>
+        <strong>Note:</strong> Blazor <mark>EventCallback&lt;TValue&gt;</mark> is asynchronous which force the <mark>SetRate</mark> to also be asynchronous so the base class for the component was changed (line <mark>1</mark>).
+        <mark>RateComponentBaseWithTask</mark> (from the <mark>Capgemini.Net.Blazor.Components.Demo</mark> namespace) provides the method with valid signature.
+    </p>
+
+    <p>
+        Remove the <mark>StateHasChanged</mark> from the <mark>ContainerComponent</mark> markup as it is no longer needed:
+    </p>
+
+    <pre>
+    <code class="language-csharp line-numbers">
+using Capgemini.Net.Blazor.Api.ViewModels;
+using Capgemini.Net.Blazor.Components.Demo;
+using Capgemini.Net.Blazor.Components.Demo.Interfaces;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+
+namespace Capgemini.Net.Blazor.Components.Demo10.Start
+{
+    public partial class ContainerComponent
+    {
+        [Inject]
+        public HttpClient HttpClient { get; set; } = default!;
+
+        [Inject]
+        public ILogger&lt;ContainerComponent&gt; Logger { get; set; } = default!;
+
+        [Parameter]
+        public RenderFragment&lt;IRateableProduct&gt; ChildContent { get; set; } = default!;
+
+        [CascadingParameter(Name = "Id")]
+        public int ProductId { get; set; }
+
+        public string Endpoint =&gt; $"products/{ProductId}";
+
+        public string RateEndpoint =&gt; $"{Endpoint}/rate";
+
+        private IRateableProduct? product;
+
+        private string loadingMessage = "Loading product";
+
+        protected override async Task OnParametersSetAsync()
+        {
+            try
+            {
+                var rateableProductViewModel = await HttpClient
+                    .GetFromJsonAsync&lt;RateableProductViewModel&gt;(Endpoint);
+
+                if (rateableProductViewModel is not null)
+                {
+                    product = new RateableProductAdapter(rateableProductViewModel);
+                }
+            }
+            catch (HttpRequestException e1)
+            {
+                Logger.LogError(
+                    e1,
+                    Properties.Resources.LOG_ERROR_CANNOT_FETCH,
+                    Endpoint);
+            }
+            catch (NotSupportedException e2)
+            {
+                Logger.LogError(
+                    e2,
+                    Properties.Resources.LOG_ERROR_RESPONSE_INVALID_FORMAT,
+                    Endpoint);
+            }
+            finally
+            {
+                if (product is null)
+                {
+                    loadingMessage = "Loading error";
+                }
+            }
+        }
+
+        public async Task ChangeProductRate(int productRate)
+        {
+            HttpResponseMessage response = await HttpClient.PostAsJsonAsync(RateEndpoint, productRate);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var rateableProductViewModel = await response.Content.ReadFromJsonAsync&lt;RateableProductViewModel&gt;();
+
+                if (rateableProductViewModel is not null)
+                {
+                    product = new RateableProductAdapter(rateableProductViewModel);
+                }
+            }
+        }
+    }
+}
+
+    </code>
+    </pre>
+    };
+
+    internal static readonly RenderFragment PointContext4 = __builder =>
+    {
+    <p>
+        Replace the content of the <mark>ContainerComponent.razor.cs</mark> file with a given markup:
+    </p>
+
+    <pre data-line="22-23, 39-56, 60-70, 88-112">
+    <code class="language-csharp line-numbers">
+using Capgemini.Net.Blazor.Api.ViewModels;
+using Capgemini.Net.Blazor.Components.Demo;
+using Capgemini.Net.Blazor.Components.Demo.Interfaces;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace Capgemini.Net.Blazor.Components.Demo10.Start
+{
+    public partial class ContainerComponent
+    {
+        [Inject]
+        public HttpClient HttpClient { get; set; } = default!;
+
+        [Inject]
+        public ILogger&lt;ContainerComponent&gt; Logger { get; set; } = default!;
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; } = default!;
+
+        [Parameter]
+        public RenderFragment&lt;IRateableProduct&gt; ChildContent { get; set; } = default!;
+
+        [CascadingParameter(Name = "Id")]
+        public int ProductId { get; set; }
+
+        public string Endpoint =&gt; $"products/{ProductId}";
+
+        public string RateEndpoint =&gt; $"{Endpoint}/rate";
+
+        private IRateableProduct? product;
+
+        private string loadingMessage = "Loading product";
+
+        protected override async Task OnInitializedAsync()
+        {
+            if (!HasProductIdParameterInRoute())
+            {
+                var numberOfProducts = await GetFromJsonAsync&lt;int?&gt;("products/count");
+
+                if (numberOfProducts.HasValue)
+                {
+                    NavigationManager.NavigateTo(
+                        GetRouteWithRandomProductId(numberOfProducts.Value));
+                }
+            }
+
+            bool HasProductIdParameterInRoute() =&gt; Regex.IsMatch(NavigationManager.Uri, @@"/\d+$");
+
+            string GetRouteWithRandomProductId(int numberOfProducts) 
+                =&gt; $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            var rateableProductViewModel = await GetFromJsonAsync&lt;RateableProductViewModel&gt;(Endpoint);
+
+            if (rateableProductViewModel is not null)
+            {
+                product = new RateableProductAdapter(rateableProductViewModel);
+            }
+
+            if (product is null)
+            {
+                loadingMessage = "Loading error";
+            }
+        }
+
+        public async Task ChangeProductRate(int productRate)
+        {
+            HttpResponseMessage response = await HttpClient.PostAsJsonAsync(RateEndpoint, productRate);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var rateableProductViewModel = await response.Content.ReadFromJsonAsync&lt;RateableProductViewModel&gt;();
+
+                if (rateableProductViewModel is not null)
+                {
+                    product = new RateableProductAdapter(rateableProductViewModel);
+                }
+            }
+        }
+
+        private async Task&lt;TValue?&gt; GetFromJsonAsync&lt;TValue&gt;(string endpoint)
+        {
+            try
+            {
+                TValue? result = await HttpClient
+                    .GetFromJsonAsync&lt;TValue&gt;(endpoint);
+                return result;
+            }
+            catch (HttpRequestException e1)
+            {
+                Logger.LogError(
+                    e1,
+                    Properties.Resources.LOG_ERROR_CANNOT_FETCH,
+                    Endpoint);
+            }
+            catch (NotSupportedException e2)
+            {
+                Logger.LogError(
+                    e2,
+                    Properties.Resources.LOG_ERROR_RESPONSE_INVALID_FORMAT,
+                    Endpoint);
+            }
+
+            return default;
+        }
+    }
+}
+        </code>
+    </pre>
+
+    <ul>
+        <li>
+            JSON helper <mark>HttpClient.GetFromJsonAsync&lt;TValue&gt;</mark> was extracted to the <mark>GetFromJsonAsync&lt;TValue&gt;</mark> method
+            to not have to duplicate error handling related to the <strong>API</strong> calls (lines <mark>88-112</mark>).
+        </li>
+        <li>
+            <mark>OnParametersSetAsync</mark> lifecycle method was changed to reflect the replacement of the <mark>HttpClient.GetFromJsonAsync&lt;TValue&gt;</mark> with <mark>GetFromJsonAsync&lt;TValue&gt;</mark>.
+        </li>
+        <li>
+            <mark>NavigationManager</mark> was injected to make the component able to redirect from the default route, where the <mark>id</mark> of the product is not given (lines <mark>22-23</mark>).
+        </li>
+        <li>
+            <mark>OnInitializedAsync</mark> lifecycle method will cause the route to be changed if no <mark>ProductId</mark> was captured from the route (lines <mark>39-56</mark>):
+            <ul>
+                <li>
+                    <mark>HasProductIdParameterInRoute</mark> <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/local-functions">local function</a> checks if the current route contains a route value
+                    for <mark>{id:int?}</mark>, which is then passed by the <mark>CascadingValue</mark> to the <mark>ContainerComponent</mark>, allowing it to fetch the product of the given <mark>ProductId</mark>.
+                </li>
+                <li>
+                    If the <mark>{id:int?}</mark> is not present in the route, call to the <strong>API</strong> <mark>products/count</mark> is made to receive the number of the products in the database.
+                </li>
+                <li>
+                    If the number of products is returned from the <strong>API</strong>, <mark>NavigationManager</mark> will make a route to change with a random product id added to the route.
+                </li>
+                <li>
+                    Navigating to the route with a <mark>{id:int?}</mark> will cause the <mark>ProductId</mark> parameter to change (as the cascading value changed - <mark>[CascadingParameter(Name = "Id")]</mark>).
+                </li>
+                <li>
+                    <mark>OnParametersSetAsync</mark> will be called upon the <mark>[CascadingParameter(Name = "Id")]</mark> change.
+                </li>
+                <li>
+                    <mark>OnParametersSetAsync</mark> lifecycle method will call the <strong>API</strong> to fetch a product with the new <mark>ProductId</mark> and update the <mark>product</mark>.
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <p>
+        Once the <mark>ProductId</mark> is selected randomly on component's initialization, markup for the <mark>ContainerComponent</mark> need to be updated to render as much <mark>&lt;ProductButton ProductId="@@productId" /&gt;</mark>
+        components as the number of products in the database is. Update the <mark>ContainerComponent.razor.cs</mark> file to store the number of component fetched from the API
+        and use it to update the range in <mark>ContainerComponent</mark>:
+    </p>
+
+    <pre data-line="18, 24">
+    <code class="language-csharp line-numbers">
+using Capgemini.Net.Blazor.Api.ViewModels;
+using Capgemini.Net.Blazor.Components.Demo;
+using Capgemini.Net.Blazor.Components.Demo.Interfaces;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace Capgemini.Net.Blazor.Components.Demo10.Start
+{
+    public partial class ContainerComponent
+    {
+		// ...
+
+        private int? numberOfProducts;
+
+        protected override async Task OnInitializedAsync()
+        {
+            if (!HasProductIdParameterInRoute())
+            {
+                numberOfProducts = await GetFromJsonAsync&lt;int?&gt;("products/count");
+
+                if (numberOfProducts.HasValue)
+                {
+                    NavigationManager.NavigateTo(
+                        GetRouteWithRandomProductId(numberOfProducts.Value));
+                }
+            }
+
+            bool HasProductIdParameterInRoute() =&gt; Regex.IsMatch(NavigationManager.Uri, @@"/\d+$");
+
+            string GetRouteWithRandomProductId(int numberOfProducts) 
+                =&gt; $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
+        }
+
+		// ...
+    }
+}
+        </code>
+    </pre>
+
+    <pre data-line="19-25">
+    <code class="language-csharp line-numbers">
+&lt;div class="demo__container_wrapper"&gt;
+    @@if (product is null)
+    {
+        &lt;LoadPlaceholder&gt;
+            &lt;Message&gt;
+                &lt;p&gt;@@loadingMessage&lt;/p&gt;
+            &lt;/Message&gt;
+        &lt;/LoadPlaceholder&gt;
+    }
+    else
+    {
+        &lt;div class="demo__container"&gt;
+            @@ChildContent(product)
+        &lt;/div&gt;
+    }
+&lt;/div&gt;
+
+&lt;div class="navigation-bar"&gt;
+    @@if (numberOfProducts.HasValue)
+    {
+        @@foreach (int productId in Enumerable.Range(1, numberOfProducts.Value))
+        {
+            &lt;ProductButton ProductId="@@productId" /&gt;
+        }
+    }
+&lt;/div&gt;
+        </code>
+    </pre>
+
+    <p>
+        To avoid having the <mark>&lt;ProductButton ProductId="@@productId" /&gt;</mark> buttons to be rendered only if the <mark>HasProductIdParameterInRoute</mark> method returns <mark>true</mark>, replace the line order
+        of the <mark>OnInitializedAsync</mark> within the <mark>ContainerComponent</mark> code-behind file:
+    </p>
+
+    <pre data-line="43-45">
+    <code class="language-csharp line-numbers">
+using Capgemini.Net.Blazor.Api.ViewModels;
+using Capgemini.Net.Blazor.Components.Demo;
+using Capgemini.Net.Blazor.Components.Demo.Interfaces;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace Capgemini.Net.Blazor.Components.Demo10.Start
+{
+    public partial class ContainerComponent
+    {
+        [Inject]
+        public HttpClient HttpClient { get; set; } = default!;
+
+        [Inject]
+        public ILogger&lt;ContainerComponent&gt; Logger { get; set; } = default!;
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; } = default!;
+
+        [Parameter]
+        public RenderFragment&lt;IRateableProduct&gt; ChildContent { get; set; } = default!;
+
+        [CascadingParameter(Name = "Id")]
+        public int ProductId { get; set; }
+
+        public string Endpoint =&gt; $"products/{ProductId}";
+
+        public string RateEndpoint =&gt; $"{Endpoint}/rate";
+
+        private IRateableProduct? product;
+
+        private string loadingMessage = "Loading product";
+
+        private int? numberOfProducts;
+
+        protected override async Task OnInitializedAsync()
+        {
+            numberOfProducts = await GetFromJsonAsync&lt;int?&gt;("products/count");
+
+            if (numberOfProducts.HasValue && !HasProductIdParameterInRoute())
+            {
+                NavigationManager.NavigateTo(
+                    GetRouteWithRandomProductId(numberOfProducts.Value));
+            }
+
+            bool HasProductIdParameterInRoute() =&gt; Regex.IsMatch(NavigationManager.Uri, @@"/\d+$");
+
+            string GetRouteWithRandomProductId(int numberOfProducts) 
+                =&gt; $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            var rateableProductViewModel = await GetFromJsonAsync&lt;RateableProductViewModel&gt;(Endpoint);
+
+            if (rateableProductViewModel is not null)
+            {
+                product = new RateableProductAdapter(rateableProductViewModel);
+            }
+
+            if (product is null)
+            {
+                loadingMessage = "Loading error";
+            }
+        }
+
+        public async Task ChangeProductRate(int productRate)
+        {
+            HttpResponseMessage response = await HttpClient.PostAsJsonAsync(RateEndpoint, productRate);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var rateableProductViewModel = await response.Content.ReadFromJsonAsync&lt;RateableProductViewModel&gt;();
+
+                if (rateableProductViewModel is not null)
+                {
+                    product = new RateableProductAdapter(rateableProductViewModel);
+                }
+            }
+        }
+
+        private async Task&lt;TValue?&gt; GetFromJsonAsync&lt;TValue&gt;(string endpoint)
+        {
+            try
+            {
+                TValue? result = await HttpClient
+                    .GetFromJsonAsync&lt;TValue&gt;(endpoint);
+                return result;
+            }
+            catch (HttpRequestException e1)
+            {
+                Logger.LogError(
+                    e1,
+                    Properties.Resources.LOG_ERROR_CANNOT_FETCH,
+                    Endpoint);
+            }
+            catch (NotSupportedException e2)
+            {
+                Logger.LogError(
+                    e2,
+                    Properties.Resources.LOG_ERROR_RESPONSE_INVALID_FORMAT,
+                    Endpoint);
+            }
+
+            return default;
+        }
+    }
+}
+        </code>
+    </pre>
     };
 }

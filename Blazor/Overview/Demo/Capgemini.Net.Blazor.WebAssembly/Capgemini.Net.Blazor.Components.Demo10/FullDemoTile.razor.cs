@@ -4,9 +4,12 @@ using System.Collections.ObjectModel;
 
 namespace Capgemini.Net.Blazor.Components.Demo10
 {
-    [Route(DemoTile.Href)]
+    [Route(DemoTile.Href + "/{id:int?}")]
     public partial class FullDemoTile
     {
+        [Parameter]
+        public int Id { get; set; }
+
         internal static DemoChecklistContext Context => new DemoChecklistContext
         {
             Name = typeof(FullDemoTile).FullName!,
@@ -14,19 +17,35 @@ namespace Capgemini.Net.Blazor.Components.Demo10
             {
                 new DemoChecklistPointContext
                 {
-                    Name = "1",
+                    Name = "Log default RenderFragment usage",
                     Order = 1,
                     IsDone = false,
-                    Label = "Label 1",
+                    Label = "Log information about default render fragment usage",
                     Content = PointContext1!
                 },
                 new DemoChecklistPointContext
                 {
-                    Name = "2",
+                    Name = "Override SetRate",
                     Order = 2,
                     IsDone = false,
-                    Label = "Label 2",
+                    Label = "Set the current rate on rate click to update the context object",
                     Content = PointContext2!
+                },
+                new DemoChecklistPointContext
+                {
+                    Name = "Custom event callback",
+                    Order = 3,
+                    IsDone = false,
+                    Label = "Notify API about the change, fetch new set of data and refresh component",
+                    Content = PointContext3!
+                },
+                new DemoChecklistPointContext
+                {
+                    Name = "Custom event callback",
+                    Order = 3,
+                    IsDone = false,
+                    Label = "Provide initial rate value for the rate component, redirect to random product on initialization",
+                    Content = PointContext4!
                 }
             }
         };

@@ -6,10 +6,10 @@ namespace Capgemini.Net.Blazor.Components.Demo10
     {
         public const string Href = "demo10";
 
-        public static TileIcon Icon => TileIcon.NETWORKING;
+        public static TileIcon Icon => TileIcon.ARROWS;
 
-        public static string Title => "TypeScript Component";
+        public static string Title => "Custom event callbacks: reacting on user interaction";
 
-        public static string Description => "Non-Blazor component using standard HTML event attributes to call JavaScript function on trigger.";
+        public static string Description => "Synchronizing rate component values with the API, utilize POST response body, redrawing the component on user interaction, redirecting on component's initialization";
     }
 }

@@ -4,7 +4,7 @@
 
 <div class="rate-container">
     <div class="icon-rate-container">
-        @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+        @foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
         {
             <i class="@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @(Icon) cursor-pointer"
                @onclick="SetRate"

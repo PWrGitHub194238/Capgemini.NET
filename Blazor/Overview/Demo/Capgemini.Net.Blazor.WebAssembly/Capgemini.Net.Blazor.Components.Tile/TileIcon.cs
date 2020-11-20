@@ -11,9 +11,8 @@
         PUZZLE,
         SATISFACTION,
         DOWNLOAD,
+        ARROWS,
         NETWORKING,
-        //...
         FLAG,
-        PAINT_BRUSH
     }
 }

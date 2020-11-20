@@ -9,7 +9,7 @@ using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Capgemini.Net.Blazor.Components.Demo10.End
+namespace Capgemini.Net.Blazor.Components.Demo11.End
 {
     public partial class ContainerComponent
     {

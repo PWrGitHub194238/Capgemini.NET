@@ -23,7 +23,7 @@
 
     <ul>
         <li>
-            add the data loading from the <mark>API</mark> with the following definition:
+            add the data loading from the <strong>API</strong> with the following definition:
 
             <ul>
                 <li>
@@ -143,7 +143,7 @@ namespace Capgemini.Net.Blazor.Components.Demo.Interfaces
 
             <ul>
                 <li>
-                    <mark>EditForm</mark> with its content was removed - all data would be provided from the <mark>API</mark>, not by the user from the form.
+                    <mark>EditForm</mark> with its content was removed - all data would be provided from the <strong>API</strong>, not by the user from the form.
                 </li>
                 <li>
                     <mark>@@AvgRate</mark> render fragment was moved from <mark>ContainerComponent</mark> to <mark>RateComponent</mark> component.
@@ -228,7 +228,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 
 &lt;div class="rate-container"&gt;
     &lt;div class="icon-rate-container"&gt;
-        @@foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+        @@foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
         {
             &lt;i class="@@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @@(Icon) cursor-pointer"
                @@onclick="SetRate"
@@ -375,12 +375,12 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         </pre>
 
     <p>
-        Updated code will call the <mark>products/1</mark> API endpoint for the fixed <mark>productId</mark> (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0">read more</a>). The component will try to resolve the call ones after the component is initialized (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#component-initialization-methods">OnInitializedAsync</a> lifecycle method is used).
-        After data was successfully fetched, the API model is used to populate the context object for the <mark>ChildContent</mark> render fragment (lines <mark>28-34</mark>).
+        Updated code will call the <mark>products/1</mark> <strong>API</strong> endpoint for the fixed <mark>productId</mark> (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0">read more</a>). The component will try to resolve the call ones after the component is initialized (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#component-initialization-methods">OnInitializedAsync</a> lifecycle method is used).
+        After data was successfully fetched, the <strong>API</strong> model is used to populate the context object for the <mark>ChildContent</mark> render fragment (lines <mark>28-34</mark>).
     </p>
 
     <p>
-        To simplify the process of handling data conversion from the API, the <mark>GetFromJsonAsync&lt;TValue&gt;</mark> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.json.httpclientjsonextensions.getfromjsonasync?view=net-5.0">extension method</a>
+        To simplify the process of handling data conversion from the <strong>API</strong>, the <mark>GetFromJsonAsync&lt;TValue&gt;</mark> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.json.httpclientjsonextensions.getfromjsonasync?view=net-5.0">extension method</a>
         can be used - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#httpclient-and-json-helpers">read more</a>.
     </p>
 
@@ -430,13 +430,13 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client
     </p>
 
     <p>
-        Wrap the API call with a <mark>try-catch</mark> block to prevent runtime exceptions to be thrown - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#handle-errors">read more</a>.
+        Wrap the <strong>API</strong> call with a <mark>try-catch</mark> block to prevent runtime exceptions to be thrown - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#handle-errors">read more</a>.
         Handle at least two type of exceptions:
     </p>
 
     <ul>
         <li>
-            <mark>NotSupportedException</mark> that might be called if the API response with a non-JSON data type (<a href="https://docs.microsoft.com/en-us/dotnet/api/system.notsupportedexception?view=net-5.0">read more</a>),
+            <mark>NotSupportedException</mark> that might be called if the <strong>API</strong> response with a non-JSON data type (<a href="https://docs.microsoft.com/en-us/dotnet/api/system.notsupportedexception?view=net-5.0">read more</a>),
         </li>
         <li>
             <mark>HttpRequestException</mark> - a base class for exceptions thrown by the HttpClient (see an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-5.0#examples">example</a>).
@@ -516,7 +516,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
     internal static readonly RenderFragment PointContext3 = __builder =>
     {
     <p>
-        To prevent the application to start throwing runtime exception because of null reference before the API returns and assigns the value, the default instance implementing <mark>IRateableProduct</mark>
+        To prevent the application to start throwing runtime exception because of null reference before the <strong>API</strong> returns and assigns the value, the default instance implementing <mark>IRateableProduct</mark>
         was provided:
     </p>
 
@@ -560,7 +560,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         </pre>
 
     <p>
-        Until the API call is resolved, <mark>new RateableProduct()</mark> is passed to the <mark>RateComponent</mark> component:
+        Until the <strong>API</strong> call is resolved, <mark>new RateableProduct()</mark> is passed to the <mark>RateComponent</mark> component:
     </p>
 
     <pre data-line="2">
@@ -676,7 +676,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 
     <p>
         Before the API returns the <mark>product</mark> Blazor won't render its main content (<mark>RateComponent</mark>).
-        <mark>LoadPlaceholder</mark> is used instead. Once the API returns and the <mark>product</mark> is reassigned,  the <mark>@@ChildContent(product)</mark> is rendered with the object returned from the API.
+        <mark>LoadPlaceholder</mark> is used instead. Once the <strong>API</strong> returns and the <mark>product</mark> is reassigned, the <mark>@@ChildContent(product)</mark> is rendered with the object returned from the <strong>API</strong>.
         <mark>@@ChildContent(product)</mark> is defined as <mark>RateComponent</mark> in the markup of <mark>WrapperComponent</mark> component:
     </p>
 
@@ -698,7 +698,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         </pre>
 
     <p>
-        Add the <mark>loadingMessage</mark> field to notify the user if an error occurred during the API call (by default if API call will throw an error it will be captured by the code, <mark>product</mark>
+        Add the <mark>loadingMessage</mark> field to notify the user if an error occurred during the <strong>API</strong> call (by default if <strong>API</strong> call will throw an error it will be captured by the code, <mark>product</mark>
         will preserve to be <mark>null</mark>, <mark>LoadPlaceholder</mark> will never be hidden):
     </p>
 
@@ -795,7 +795,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
     internal static readonly RenderFragment PointContext4 = __builder =>
     {
     <p>
-        Change the fixed API endpoint in <mark>ContainerComponent.razor.cs</mark> file to receive the <mark>id</mark> cascading parameter:
+        Change the fixed <strong>API</strong> endpoint in <mark>ContainerComponent.razor.cs</mark> file to receive the <mark>id</mark> cascading parameter:
     </p>
 
     <pre data-line="24-25, 27, 37-38, 48-51, 55-58">
@@ -1180,7 +1180,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 
 &lt;div class="rate-container"&gt;
     &lt;div class="icon-rate-container"&gt;
-        @@foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+        @@foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
         {
             &lt;i class="@@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @@(Icon) cursor-pointer"
                @@onclick="SetRate"
@@ -1221,7 +1221,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 &lt;div class="current-rate-container"&gt;
     @@if (CurrentRate is null)
     {
-        @@Product.MaxRate
+        @@CurrentRateInt
     }
     else
     {
@@ -1240,7 +1240,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
     }
     else
     {
-        @@MaxRate(CurrentRateInt)
+        @@MaxRate(Product.MaxRate)
     }
 &lt;/div&gt;
 
@@ -1331,7 +1331,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 
 &lt;div class="rate-container"&gt;
     &lt;div class="icon-rate-container"&gt;
-        @@foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+        @@foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
         {
             &lt;i class="@@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @@(Icon) cursor-pointer"
                @@onclick="SetRate"
@@ -1350,7 +1350,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 &lt;/div&gt;
 
 &lt;div class="max-rate-container"&gt;
-    @@MaxRate(CurrentRateInt)
+    @@MaxRate(Product.MaxRate)
 &lt;/div&gt;
 
 @@code {
@@ -1419,7 +1419,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 
     <ul>
         <li>
-            <a href="https://docs.microsoft.com/pl-pl/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#conditionals-if-else-if-else-and-switch">condition blocks</a> (like <mark>@@if</mark> can be used (lines <mark>35-47</mark>),
+            <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#conditionals-if-else-if-else-and-switch">condition blocks</a> (like <mark>@@if</mark> can be used (lines <mark>35-47</mark>),
         </li>
         <li>
             custom defined components can be used, receiving their parameters from the provided <mark>context</mark> parameter (both lines <mark>35-47</mark> and <mark>50-56</mark>),

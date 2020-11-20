@@ -16,7 +16,7 @@ else
 @*<CascadingValue Value="@TempRateValue" Name="@nameof(TempRateValue)">
     <CascadingValue Value="@Focused" Name="@nameof(Focused)">
         <div @onmouseover="@(() => Focused = true)" @onmouseout="@(() => Focused = false)">
-            @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+            @foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
             {
                 <RateIcon @bind-Value="@CurrentRateValue" Rate="@i" Icon="@Icon"></RateIcon>
             }
@@ -28,7 +28,7 @@ else
 
     <CascadingValue Value="@Context" Name="@nameof(RateContext)">
         <div @onmouseover="@(() => Context.Focused = true)" @onmouseout="@(() => Context.Focused = false)">
-            @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+            @foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
             {
                 <RateIcon @bind-Value="@CurrentRateValue" Rate="@i" Icon="@Icon" ></RateIcon>
             }

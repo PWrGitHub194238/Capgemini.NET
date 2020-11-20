@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace Capgemini.Net.Blazor.Components.Demo
 {
-    public class RateComponentBase : ComponentBase
+    public class RateComponentBaseWithTask : ComponentBase
     {
         public static readonly string ACTIVE_STYLE = "fas";
 
@@ -22,7 +23,11 @@ namespace Capgemini.Net.Blazor.Components.Demo
             }
         }
 
-        protected virtual void SetRate() => rate = tempRate;
+        protected virtual Task SetRate()
+        {
+            rate = tempRate;
+            return Task.CompletedTask;
+        }
 
         protected void ShowRate(int index) => tempRate = index;
 

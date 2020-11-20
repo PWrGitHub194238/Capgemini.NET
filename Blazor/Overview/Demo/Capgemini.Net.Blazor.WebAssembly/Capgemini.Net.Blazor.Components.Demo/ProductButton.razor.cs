@@ -13,10 +13,8 @@ namespace Capgemini.Net.Blazor.Components.Demo
 
         public char CharId => char.Parse(ProductId.ToString());
 
-        public string ProductIdString => ProductId.ToString().PadLeft(2, '0');
-
         public string CurrentUrl => NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
 
-        public string Href => Regex.IsMatch(CurrentUrl, @".*\/\d{2}$") ? Regex.Replace(CurrentUrl, @"/\d{2}$", $"/{ProductIdString}") : $"{CurrentUrl}/{ProductIdString}";
+        public string Href => Regex.IsMatch(CurrentUrl, @".*\/\d+$") ? Regex.Replace(CurrentUrl, @"/\d+$", $"/{ProductId}") : $"{CurrentUrl}/{ProductId}";
     }
 }

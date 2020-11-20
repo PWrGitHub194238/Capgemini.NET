@@ -6,7 +6,7 @@ namespace Capgemini.Net.Blazor.Components.Demo11
     {
         public const string Href = "demo11";
 
-        public static TileIcon Icon => TileIcon.PAINT_BRUSH;
+        public static TileIcon Icon => TileIcon.NETWORKING;
 
         public static string Title => "TypeScript Component";
 

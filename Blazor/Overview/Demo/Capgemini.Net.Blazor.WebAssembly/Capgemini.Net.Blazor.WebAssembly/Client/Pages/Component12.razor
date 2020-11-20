@@ -23,7 +23,7 @@
 
 <Rate Product="@Product" ProductRated="ChangeProductRate">
     <ChildContent Context="Product">
-        @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate))
+        @foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
         {
             <RateIcon Rate="@i" Icon="@GetRateIcon(@i, Product.MaxRate - Product.MinRate)"></RateIcon>
         }

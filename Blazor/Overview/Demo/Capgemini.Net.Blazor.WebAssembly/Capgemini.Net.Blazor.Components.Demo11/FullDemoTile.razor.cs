@@ -4,9 +4,12 @@ using System.Collections.ObjectModel;
 
 namespace Capgemini.Net.Blazor.Components.Demo11
 {
-    [Route(DemoTile.Href)]
+    [Route(DemoTile.Href + "/{id:int?}")]
     public partial class FullDemoTile
     {
+        [Parameter]
+        public int Id { get; set; }
+
         internal static DemoChecklistContext Context => new DemoChecklistContext
         {
             Name = typeof(FullDemoTile).FullName!,
