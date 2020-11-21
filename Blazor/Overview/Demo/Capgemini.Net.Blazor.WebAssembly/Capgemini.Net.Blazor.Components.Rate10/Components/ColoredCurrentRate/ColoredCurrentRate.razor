@@ -1,9 +1,0 @@
-﻿@inherits RateableProductBase
-@if (Product.CurrentRate.HasValue)
-{
-    <ColoredRate RateRange="@Product" Value="@(Product.CurrentRate.Value)"></ColoredRate>
-}
-else
-{
-    @: ---
-}

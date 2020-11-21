@@ -10,6 +10,6 @@ namespace Capgemini.Net.Blazor.Components.Demo12
 
         public static string Title => "TypeScript Component";
 
-        public static string Description => "Non-Blazor component using standard HTML event attributes to call JavaScript function on trigger.";
+        public static string Description => "Providing yet another layer of customization by render fragments for rate icons, ";
     }
 }

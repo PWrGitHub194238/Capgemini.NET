@@ -42,10 +42,18 @@ namespace Capgemini.Net.Blazor.Components.Demo10
                 new DemoChecklistPointContext
                 {
                     Name = "Custom event callback",
-                    Order = 3,
+                    Order = 4,
                     IsDone = false,
                     Label = "Provide initial rate value for the rate component, redirect to random product on initialization",
                     Content = PointContext4!
+                },
+                new DemoChecklistPointContext
+                {
+                    Name = "Custom event callback",
+                    Order = 5,
+                    IsDone = false,
+                    Label = "Trigger displaying rate update on product change",
+                    Content = PointContext5!
                 }
             }
         };

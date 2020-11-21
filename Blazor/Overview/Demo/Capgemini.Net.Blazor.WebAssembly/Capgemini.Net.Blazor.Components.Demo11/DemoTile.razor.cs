@@ -8,8 +8,8 @@ namespace Capgemini.Net.Blazor.Components.Demo11
 
         public static TileIcon Icon => TileIcon.NETWORKING;
 
-        public static string Title => "TypeScript Component";
+        public static string Title => "Custom value binding: encapsulating logic for the rate selection icons";
 
-        public static string Description => "Non-Blazor component using standard HTML event attributes to call JavaScript function on trigger.";
+        public static string Description => "Replace base logic for icon rating, create an icon rate component wit multiple custom event callbacks and parameters, replacing parameter-callback pairs with data binding.";
     }
 }

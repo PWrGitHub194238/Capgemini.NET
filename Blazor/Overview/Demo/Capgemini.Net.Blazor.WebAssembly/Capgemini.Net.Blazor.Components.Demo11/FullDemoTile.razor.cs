@@ -17,19 +17,35 @@ namespace Capgemini.Net.Blazor.Components.Demo11
             {
                 new DemoChecklistPointContext
                 {
-                    Name = "1",
+                    Name = "Add RateIcon component",
                     Order = 1,
                     IsDone = false,
-                    Label = "Label 1",
+                    Label = "Replace HTML markup for the icons with a component, use event callbacks to use base class logic",
                     Content = PointContext1!
                 },
                 new DemoChecklistPointContext
                 {
-                    Name = "2",
+                    Name = "RateContext",
                     Order = 2,
                     IsDone = false,
-                    Label = "Label 2",
+                    Label = "Replace the base class logic with context class",
                     Content = PointContext2!
+                },
+                new DemoChecklistPointContext
+                {
+                    Name = "Add custom data binding",
+                    Order = 3,
+                    IsDone = false,
+                    Label = "Simplify the logic for RateIconComponent handled by its parameters and event callbacks",
+                    Content = PointContext3!
+                },
+                new DemoChecklistPointContext
+                {
+                    Name = "Extract on focus events",
+                    Order = 4,
+                    IsDone = false,
+                    Label = "Reduce the complexity of the callbacks, wrap all rate icons with a tag to handle on focus events",
+                    Content = PointContext4!
                 }
             }
         };

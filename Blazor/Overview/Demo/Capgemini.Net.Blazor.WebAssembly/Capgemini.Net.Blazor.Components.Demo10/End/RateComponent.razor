@@ -103,6 +103,11 @@
         }
     }
 
+    protected override void OnParametersSet()
+    {
+        Rate = CurrentRateInt;
+    }
+
     protected override async Task SetRate()
     {
         await base.SetRate();

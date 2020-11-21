@@ -1105,4 +1105,133 @@ namespace Capgemini.Net.Blazor.Components.Demo10.Start
         </code>
     </pre>
     };
+
+    internal static readonly RenderFragment PointContext5 = __builder =>
+    {
+    <p>
+        Update the <mark>RateComponent</mark> component by adding the <mark>OnParametersSet</mark> lifecycle method to update the <mark>Rate</mark> base class property to display accurate number of icons selected
+        based on the <mark>CurrentRate</mark> property of a <mark>Product</mark> that was provided by the <strong>API</strong> (form <mark>ContainerComponent</mark> component):
+    </p>
+
+    <pre data-line="106-109">
+    <code class="language-csharp line-numbers">
+@@inherits RateComponentBaseWithTask
+
+@@inject ILogger&lt;RateComponent&gt; Logger
+
+&lt;div class="rate-container"&gt;
+    &lt;div class="icon-rate-container"&gt;
+        @@foreach (int i in Enumerable.Range(Product.MinRate - 1, Product.MaxRate - Product.MinRate + 1))
+        {
+            &lt;i class="@@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @@(Icon) cursor-pointer"
+               @@onclick="SetRate"
+               @@onmouseover="@@(() =&gt; ShowRate(i))"
+               @@onmouseout=RevertRate&gt;&lt;/i&gt;
+        }
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="current-rate-container"&gt;
+    @@CurrentRate(CurrentRateContext)
+&lt;/div&gt;
+
+&lt;div class="average-rate-container"&gt;
+    @@AvgRate(AverageRateContext)
+&lt;/div&gt;
+
+&lt;div class="max-rate-container"&gt;
+    @@MaxRate(Product.MaxRate)
+&lt;/div&gt;
+
+@@code {
+    [Parameter]
+    public IRateableProduct Product { get; set; } = default!;
+
+    [Parameter]
+    public string Icon { get; set; } = "fa-star";
+
+    [Parameter]
+    public RenderFragment&lt;AverageRateContext&gt; CurrentRate { get; set; } = context =&gt; __builder =&gt;
+    {
+    @@if (@@context.AvgRate &gt; 0)
+        {
+            &lt;DefaultAverageRateComponent
+                MinRate="@@context.MinRate"
+                AvgRate="@@context.AvgRate"
+                MaxRate="@@context.MaxRate" /&gt;
+        }
+        else
+        {
+            @@: ---
+        }
+    };
+
+    [Parameter]
+    public RenderFragment&lt;AverageRateContext&gt; AvgRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        &lt;DefaultAverageRateComponent 
+            MinRate="@@context.MinRate"
+            AvgRate="@@context.AvgRate"
+            MaxRate="@@context.MaxRate" /&gt;
+    };
+
+    [Parameter]
+    public RenderFragment&lt;int&gt; MaxRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        @@context
+    };
+
+    [Parameter]
+    public EventCallback&lt;int&gt; ProductRated { get; set; } = default!;
+
+    private int CurrentRateInt =&gt; Product.CurrentRate ?? 0;
+
+    private AverageRateContext CurrentRateContext =&gt; new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = (decimal)CurrentRateInt,
+        MaxRate = Product.MaxRate,
+    };
+
+    private AverageRateContext AverageRateContext =&gt; new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = Product.AverageRate,
+        MaxRate = Product.MaxRate,
+    };
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(CurrentRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(CurrentRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(AvgRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(AvgRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;int&gt;&gt;(nameof(MaxRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(MaxRate));
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        Rate = CurrentRateInt;
+    }
+
+    protected override async Task SetRate()
+    {
+        await base.SetRate();
+        await ProductRated.InvokeAsync(Rate);
+    }
+}
+        </code>
+    </pre>
+    };
 }
