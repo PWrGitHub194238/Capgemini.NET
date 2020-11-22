@@ -1,10 +1,10 @@
 ﻿@for (int i = 0; i < 5; i += 1)
 {
     int index = i;
-    <i class="@(IsActive(index) ? ACTIVE_STYLE : INACTIVE_STYLE) fa-star cursor-pointer"
-       @onclick="SetRate"
-       @onmouseover="@(() => ShowRate(index))"
-       @onmouseout=RevertRate></i>
+    <i class="@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) fa-star cursor-pointer"
+        @onclick="SetRate"
+        @onmouseover="@(() => ShowRate(index))"
+        @onmouseout=RevertRate></i>
 }
 
 @code {

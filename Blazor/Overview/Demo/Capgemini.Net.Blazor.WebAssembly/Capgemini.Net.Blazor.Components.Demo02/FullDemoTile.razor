@@ -4,12 +4,12 @@
 @if (Context is not null)
 {
     <FullTileContainer ChecklistContext="@Context">
-        <DemoEndPoint>
-            <Capgemini.Net.Blazor.Components.Demo02.End.ContainerComponent />
-        </DemoEndPoint>
         <DemoStartPoint>
             <Capgemini.Net.Blazor.Components.Demo02.Start.ContainerComponent />
         </DemoStartPoint>
+        <DemoEndPoint>
+            <Capgemini.Net.Blazor.Components.Demo02.End.ContainerComponent />
+        </DemoEndPoint>
     </FullTileContainer>
 }
 
@@ -424,7 +424,7 @@ private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun
 @@for (int i = 0; i &lt; <mark>@@MaxRate</mark>; i += 1)
 {
     int index = i;
-    &lt;i class="@@(IsActive(index) ? ACTIVE_STYLE : INACTIVE_STYLE) <mark>@@Icon</mark> cursor-pointer"
+    &lt;i class="@@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) <mark>@@Icon</mark> cursor-pointer"
         @@onclick="SetRate"
         @@onmouseover="@@(() =&gt; ShowRate(index))"
         @@onmouseout=RevertRate&gt;&lt;/i&gt;
