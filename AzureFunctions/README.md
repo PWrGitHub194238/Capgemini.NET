@@ -18,6 +18,7 @@ Agenda for this project and presentation:
 ## Video
 
 The whole script was presented by me during the below video:
+
 [![Azure Shorts - Azure Functions](http://img.youtube.com/vi/er4u5HQFCtk/0.jpg)](http://www.youtube.com/watch?v=er4u5HQFCtk)
 
 ## Prerequirements
