@@ -14,7 +14,7 @@ namespace Capgemini.Net.Blazor.Components.Demo.Examples.Final.End
             MinRate = 1,
             CurrentRate = 4,
             AverageRate = 8.5M,
-            MaxRate = 12,
+            MaxRate = 10,
         });
 
         public void ChangeProductRate(int productRate) => product.CurrentRate = productRate;

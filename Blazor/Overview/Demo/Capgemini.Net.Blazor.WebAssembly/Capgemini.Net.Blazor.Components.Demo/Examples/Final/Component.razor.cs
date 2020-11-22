@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Capgemini.Net.Blazor.Components.Demo.Examples.Final
 {
-    public partial class PointContext2
+    public partial class Component
     {
         [Parameter]
         public int Example { get; set; }
