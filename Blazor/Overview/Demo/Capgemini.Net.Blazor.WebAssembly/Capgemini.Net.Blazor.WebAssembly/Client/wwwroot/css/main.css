@@ -23,10 +23,7 @@
   color: #95e616;
   padding-top: 5px;
   padding-bottom: 5px; }
-  .fas.fa-grin-stars {
-    padding-left: 5px;
-    padding-right: 5px; }
-  .fas.fa-angry {
+  .fas.fa-grin-stars, .fas.fa-angry, .fas.fa-smile-beam, .fas.fa-meh-blank, .fas.fa-sad-tear {
     padding-left: 5px;
     padding-right: 5px; }
   .fas.fa-star {
@@ -41,10 +38,7 @@
   color: #95e616;
   padding-top: 10px;
   padding-bottom: 10px; }
-  .far.fa-grin-stars {
-    padding-left: calc(5px + (77.500px - 67.813px) / 2);
-    padding-right: calc(5px + (77.500px - 67.813px) / 2); }
-  .far.fa-angry {
+  .far.fa-grin-stars, .far.fa-angry, .far.fa-smile-beam, .far.fa-meh-blank, .far.fa-sad-tear {
     padding-left: calc(5px + (77.500px - 67.813px) / 2);
     padding-right: calc(5px + (77.500px - 67.813px) / 2); }
   .far.fa-star {

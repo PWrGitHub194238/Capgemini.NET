@@ -3,23 +3,601 @@
 @if (Context is not null)
 {
     <CascadingValue Name="Id" Value="@Id">
-        @*<FullTileContainer ChecklistContext="@Context">
+        <FullTileContainer ChecklistContext="@Context">
             <DemoEndPoint>
-                <Capgemini.Net.Blazor.Components.Demo10.End.WrapperComponent />
+                <Capgemini.Net.Blazor.Components.Demo12.End.WrapperComponent />
             </DemoEndPoint>
             <DemoStartPoint>
-                <Capgemini.Net.Blazor.Components.Demo10.Start.WrapperComponent />
+                <Capgemini.Net.Blazor.Components.Demo12.Start.WrapperComponent />
             </DemoStartPoint>
-        </FullTileContainer>*@
+        </FullTileContainer>
     </CascadingValue>
 }
 
 @code {
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
+    <p>
+        <mark>CascadingValue</mark> component is able to capable to display any <mark>RenderFragment</mark> if one is provided to <mark>ChildContent</mark> parameter.
+        To wrap the logic related with the <mark>RateContext</mark> class and remove it from the <mark>RateComponent</mark> create a <mark>CascadingRateContext.razor</mark> file:
+    </p>
+
+    <pre data-line="5">
+    <code class="language-csharp line-numbers">
+&lt;div class="icon-rate-container"
+    @@onmouseover="@@(() =&gt; RateContext.IsFocused = true)"
+    @@onmouseout="@@(() =&gt; RateContext.IsFocused = false)"
+&gt;
+    &lt;CascadingValue Value="@@RateContext" <mark>ChildContent="@@ChildContent"</mark> IsFixed="true" /&gt;
+&lt;/div&gt;
+
+@@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+
+    private RateContext RateContext = new RateContext();
+}
+            </code>
+        </pre>
+
+    <p>
+        Update the markup of the <mark>RateComponent.razor</mark> file:
+    </p>
+
+    <pre data-line="4, 9">
+    <code class="language-csharp line-numbers">
+@@inject ILogger&lt;RateComponent&gt; Logger
+
+&lt;div class="rate-container"&gt;
+    &lt;CascadingRateContext&gt;
+        @@foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate - Product.MinRate + 1))
+        {
+            &lt;RateIconComponent Icon="@@Icon" IconRate="@@i" @@bind-Value="@@CurrentRateInt" /&gt;
+        }
+    &lt;/CascadingRateContext&gt;
+&lt;/div&gt;
+
+&lt;!-- ... --&gt;
+            </code>
+        </pre>
+
+    <p>
+        <strong>Note:</strong> if the cascading value requires some additional logic, having <mark>Cascading{CLASS}</mark> components to provide a cascading value for the object
+        of type <mark>{CLASS}</mark> is also used by the build-in Blazor components i.e. <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.authorization.cascadingauthenticationstate?view=aspnetcore-5.0">CascadingAuthenticationState</a>.
+    </p>
+
+    <p>
+        Create a <mark>CascadingRateContext.razor.scss</mark> file, to provide a definition for a <strong>CSS</strong> class that is used by the <mark>CascadingRateContext</mark>:
+    </p>
+
+    <pre>
+    <code class="language-css line-numbers">
+.icon-rate-container {
+    display: flex;
+}
+            </code>
+        </pre>
     };
 
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
+    <p>
+        Blazor does not support defining render fragments for a components at runtime. To overcome this limitation a <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#ensure-cascading-parameters-are-fixed">this cascading value</a>
+        can be used (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0#tabset-example">see example</a>).
+        This allows to pass a parent component to any markup that is defined by the <mark>RenderFragment</mark> using a <mark>CascadingValue</mark> component.
+        Any markup/different component that wants to use the value, needs to define the <mark>CascadingParameter</mark> of the proper type.
+        Modify the <mark>RateComponent</mark> component to provide such a parameter:
+    </p>
+
+    <pre data-line="4, 8, 17-18">
+    <code class="language-csharp line-numbers">
+@@inject ILogger&lt;RateComponent&gt; Logger
+
+&lt;div class="rate-container"&gt;
+    &lt;CascadingValue Value="this"&gt;
+        &lt;CascadingRateContext&gt;
+            @@ChildContent(Product)
+        &lt;/CascadingRateContext&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+
+&lt;!-- ... --&gt;
+
+@@code {
+    [Parameter]
+    public IRateableProduct Product { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment&lt;IRateableProduct&gt; ChildContent { get; set; } = default!;
+
+	// ...
+}
+            </code>
+        </pre>
+
+    <p>
+        Add the following parameter to the <mark>RateIconComponent</mark> which will be used as a part of the <mark>ChildContent</mark> render fragment.
+    </p>
+
+    <pre data-line="3, 9-10, 21">
+    <code class="language-csharp line-numbers">
+&lt;i class="@@(IsActive ? ActiveCss : InActiveCss) @@(Icon) cursor-pointer"
+   alt="@@IconRate"
+   @@onclick="@@(() =&gt; RateComponent.CurrentRateInt = IconRate)"
+   @@onmouseover="@@(() =&gt; OnMouseOver())"
+   @@onmouseout="@@(() =&gt; OnMouseOut())"&gt;&lt;/i&gt;
+
+@@code {
+
+    [CascadingParameter]
+    public RateComponent RateComponent { get; set; } = default!;
+
+    [CascadingParameter]
+    public RateContext Context { get; set; } = default!;
+
+    [Parameter]
+    public string Icon { get; set; } = "fa-star";
+
+    [Parameter]
+    public int IconRate { get; set; }
+
+    private int Value =&gt; RateComponent.CurrentRateInt;
+
+    [Parameter]
+    public string ActiveCss { get; set; } = "fas";
+
+    [Parameter]
+    public string InActiveCss { get; set; } = "far";
+
+    private bool IsActive =&gt; (Context.IsFocused && IconRate &lt;= Context.FocusedRateValue)
+        || (!Context.IsFocused && IconRate &lt;= Value);
+
+    private void OnMouseOver()
+    {
+        Context.IsFocused = true;
+        Context.FocusedRateValue = IconRate;
+    }
+
+    private void OnMouseOut() =&gt; Context.IsFocused = false;
+}
+            </code>
+        </pre>
+
+    <p>
+        Update the visibility of the <mark>CurrentRateInt</mark> property of the <mark>RateComponent</mark> as it is used by lines <mark>3</mark> (as a lambda expression to assign a new rate <mark>@@onclick</mark>)
+        and <mark>21</mark>.
+    </p>
+
+    <pre data-line="3">
+    <code class="language-csharp line-numbers">
+// ...
+
+    <mark>public</mark> int CurrentRateInt
+{
+	get =&gt; Product.CurrentRate ?? 0;
+	set =&gt; ProductRated.InvokeAsync(value);
+}
+
+// ...
+            </code>
+        </pre>
+
+
+    <p>
+        As the default content for icons of the <mark>RateComponent</mark> component was replaced by the <mark>ChildContent</mark> render fragment, provide the same markup
+        as its default value (in case <mark>RateComponent</mark> won't be provided by the custom child content):
+    </p>
+
+    <pre data-line="28-34">
+    <code class="language-csharp line-numbers">
+@@inject ILogger&lt;RateComponent&gt; Logger
+
+&lt;div class="rate-container"&gt;
+    &lt;CascadingValue Value="this"&gt;
+        &lt;CascadingRateContext&gt;
+            @@ChildContent(Product)
+        &lt;/CascadingRateContext&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+
+&lt;div class="current-rate-container"&gt;
+    @@CurrentRate(CurrentRateContext)
+&lt;/div&gt;
+
+&lt;div class="average-rate-container"&gt;
+    @@AvgRate(AverageRateContext)
+&lt;/div&gt;
+
+&lt;div class="max-rate-container"&gt;
+    @@MaxRate(Product.MaxRate)
+&lt;/div&gt;
+
+@@code {
+    [Parameter]
+    public IRateableProduct Product { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment&lt;IRateableProduct&gt; ChildContent { get; set; } = context =&gt; __builder =&gt;
+    {
+        @@foreach (int i in Enumerable.Range(context.MinRate, context.MaxRate - context.MinRate + 1))
+        {
+            &lt;RateIconComponent IconRate="@@i" /&gt;
+        }
+    };
+
+    [Parameter]
+    public RenderFragment&lt;AverageRateContext&gt; CurrentRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        @@if (@@context.AvgRate &gt; 0)
+        {
+            &lt;DefaultAverageRateComponent 
+                MinRate="@@context.MinRate"
+                AvgRate="@@context.AvgRate"
+                MaxRate="@@context.MaxRate" /&gt;
+        }
+        else
+        {
+            @@: ---
+        }
+    };
+
+    [Parameter]
+    public RenderFragment&lt;AverageRateContext&gt; AvgRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        &lt;DefaultAverageRateComponent 
+            MinRate="@@context.MinRate"
+            AvgRate="@@context.AvgRate"
+            MaxRate="@@context.MaxRate" /&gt;
+    };
+
+    [Parameter]
+    public RenderFragment&lt;int&gt; MaxRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        @@context
+    };
+
+    [Parameter]
+    public EventCallback&lt;int&gt; ProductRated { get; set; } = default!;
+
+    public int CurrentRateInt
+    {
+        get =&gt; Product.CurrentRate ?? 0;
+        set =&gt; ProductRated.InvokeAsync(value);
+    }
+
+    private AverageRateContext CurrentRateContext =&gt; new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = (decimal)CurrentRateInt,
+        MaxRate = Product.MaxRate,
+    };
+
+    private AverageRateContext AverageRateContext =&gt; new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = Product.AverageRate,
+        MaxRate = Product.MaxRate,
+    };
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(CurrentRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(CurrentRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(AvgRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(AvgRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;int&gt;&gt;(nameof(MaxRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(MaxRate));
+        }
+    }
+}
+            </code>
+        </pre>
+
+    <p>
+        To provide a different set of icons, provide a custom markup for the <mark></mark> and wrap it with the <mark>&lt;ChildContent&gt;</mark> tag, providing a <mark>Product</mark> variable as a context:
+    </p>
+
+    <pre data-line="4-11, 33-45">
+    <code class="language-csharp line-numbers">
+&lt;ContainerComponent @@ref="ContainerComponentRef"&gt;
+    &lt;ChildContent Context="product"&gt;
+        &lt;RateComponent Product="@@product" ProductRated="@@(async (rate) =&gt; await ChangeProductRate(rate))"&gt;
+            &lt;ChildContent Context="Product"&gt;
+                @@foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate - Product.MinRate + 1))
+                {
+                    &lt;RateIconComponent
+                        IconRate="@@i"
+                        Icon="@@GetRateIcon(@@i, Product.MaxRate - Product.MinRate)" /&gt;
+                }
+            &lt;/ChildContent&gt;
+            &lt;AvgRate Context="avgContext"&gt;
+                &lt;DefaultAverageRateComponent 
+                    MinRate="@@(avgContext.MinRate)"
+                    AvgRate="@@(avgContext.AvgRate)"
+                    MaxRate="@@(avgContext.MaxRate)" /&gt;
+            &lt;/AvgRate&gt;
+        &lt;/RateComponent&gt;
+    &lt;/ChildContent&gt;
+&lt;/ContainerComponent&gt;
+
+@@code {
+    private ContainerComponent? ContainerComponentRef;
+
+    public async Task ChangeProductRate(int productRate)
+    {
+        if (ContainerComponentRef is not null)
+        {
+            await ContainerComponentRef.ChangeProductRate(productRate);
+        }
+    }
+
+    private static string GetRateIcon(int productRate, int rateRange) =&gt; productRate switch
+    {
+        int rate when rate &lt;= rateRange * 0.2 * 1 =&gt; "fa-angry",
+        int rate when rateRange * 0.2 * 1 &lt; rate
+            && rate &lt;= rateRange * 0.2 * 2 =&gt; "fa-sad-tear",
+        int rate when rateRange * 0.2 * 2 &lt; rate 
+            && rate &lt;= rateRange * 0.2 * 3 =&gt; "fa-meh-blank",
+        int rate when rateRange * 0.2 * 3 &lt; rate 
+            && rate &lt;= rateRange * 0.2 * 4 =&gt; "fa-smile-beam",
+        int rate when rateRange * 0.2 * 4 &lt; rate 
+            && rate &lt;= rateRange * 0.2 * 5 =&gt; "fa-grin-stars",
+        _ =&gt; "fa-grin-stars",
+    };
+}
+            </code>
+        </pre>
+
+    <p>
+        The custom method was provided to select the icon based on the product's current rate.
+    </p>
+
+    <div class="example-figure">
+        <figure>
+            <div>
+                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo12.PointContext2 Example="1" />
+            </div>
+            <figcaption>
+                <span><mark>RateComponent</mark> with default markup for icons</span>
+            </figcaption>
+        </figure>
+        <figure>
+            <div>
+                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo12.PointContext2 Example="2" />
+            </div>
+            <figcaption>
+                <span><mark>RateComponent</mark> with custom markup for icons</span>
+            </figcaption>
+        </figure>
+    </div>
+    };
+
+    internal static readonly RenderFragment PointContext3 = __builder =>
+    {
+    <p>
+        To make the <mark>RateComponent</mark> component to rerender itself upon focus change of any <mark>RateIconComponent</mark>, use the <mark>RateComponent</mark> cascading parameter
+        to call <mark>StateHasChanged</mark> method, which will force a component that calls it to rerender (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#state-changes">read more</a>):
+    </p>
+
+    <pre data-line="8-9, 35, 41">
+    <code class="language-csharp line-numbers">
+&lt;i class="@@(IsActive ? ActiveCss : InActiveCss) @@(Icon) cursor-pointer"
+   alt="@@IconRate"
+   @@onclick="@@(() =&gt; RateComponent.CurrentRateInt = IconRate)"
+   @@onmouseover="@@(() =&gt; OnMouseOver())"
+   @@onmouseout="@@(() =&gt; OnMouseOut())"&gt;&lt;/i&gt;
+
+@@code {
+    [CascadingParameter]
+    public RateComponent RateComponent { get; set; } = default!;
+
+    [CascadingParameter]
+    public RateContext Context { get; set; } = default!;
+
+    [Parameter]
+    public string Icon { get; set; } = "fa-star";
+
+    [Parameter]
+    public int IconRate { get; set; }
+
+    private int Value =&gt; RateComponent.CurrentRateInt;
+
+    [Parameter]
+    public string ActiveCss { get; set; } = "fas";
+
+    [Parameter]
+    public string InActiveCss { get; set; } = "far";
+
+    private bool IsActive =&gt; (Context.IsFocused && IconRate &lt;= Context.FocusedRateValue)
+        || (!Context.IsFocused && IconRate &lt;= Value);
+
+    private void OnMouseOver()
+    {
+        Context.IsFocused = true;
+        Context.FocusedRateValue = IconRate;
+        RateComponent.RateIconComponentFocusHasChanged();
+    }
+
+    private void OnMouseOut()
+    {
+        Context.IsFocused = false;
+        RateComponent.RateIconComponentFocusHasChanged();
+    }
+}
+            </code>
+        </pre>
+
+    <p>
+        Create the <mark>RateIconComponentFocusHasChanged</mark> method in <mark>RateComponent.razor</mark> file:
+    </p>
+
+    <pre data-line="110">
+    <code class="language-csharp line-numbers">
+@@inject ILogger&lt;RateComponent&gt; Logger
+
+&lt;div class="rate-container"&gt;
+    &lt;CascadingValue Value="this"&gt;
+        &lt;CascadingRateContext&gt;
+            @@ChildContent(Product)
+        &lt;/CascadingRateContext&gt;
+    &lt;/CascadingValue&gt;
+&lt;/div&gt;
+
+&lt;div class="current-rate-container"&gt;
+    @@CurrentRate(CurrentRateContext)
+&lt;/div&gt;
+
+&lt;div class="average-rate-container"&gt;
+    @@AvgRate(AverageRateContext)
+&lt;/div&gt;
+
+&lt;div class="max-rate-container"&gt;
+    @@MaxRate(Product.MaxRate)
+&lt;/div&gt;
+
+@@code {
+    [Parameter]
+    public IRateableProduct Product { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment&lt;IRateableProduct&gt; ChildContent { get; set; } = context =&gt; __builder =&gt;
+    {
+        @@foreach (int i in Enumerable.Range(context.MinRate, context.MaxRate - context.MinRate + 1))
+        {
+            &lt;RateIconComponent IconRate="@@i" /&gt;
+        }
+    };
+
+    [Parameter]
+    public RenderFragment&lt;AverageRateContext&gt; CurrentRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        @@if (@@context.AvgRate &gt; 0)
+        {
+            &lt;DefaultAverageRateComponent 
+                MinRate="@@context.MinRate"
+                AvgRate="@@context.AvgRate"
+                MaxRate="@@context.MaxRate" /&gt;
+        }
+        else
+        {
+            @@: ---
+        }
+    };
+
+    [Parameter]
+    public RenderFragment&lt;AverageRateContext&gt; AvgRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        &lt;DefaultAverageRateComponent 
+            MinRate="@@context.MinRate"
+            AvgRate="@@context.AvgRate"
+            MaxRate="@@context.MaxRate" /&gt;
+    };
+
+    [Parameter]
+    public RenderFragment&lt;int&gt; MaxRate { get; set; } = context =&gt; __builder =&gt;
+    {
+        @@context
+    };
+
+    [Parameter]
+    public EventCallback&lt;int&gt; ProductRated { get; set; } = default!;
+
+    public int CurrentRateInt
+    {
+        get =&gt; Product.CurrentRate ?? 0;
+        set =&gt; ProductRated.InvokeAsync(value);
+    }
+
+    private AverageRateContext CurrentRateContext =&gt; new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = (decimal)CurrentRateInt,
+        MaxRate = Product.MaxRate,
+    };
+
+    private AverageRateContext AverageRateContext =&gt; new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = Product.AverageRate,
+        MaxRate = Product.MaxRate,
+    };
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(CurrentRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(CurrentRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;AverageRateContext&gt;&gt;(nameof(AvgRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(AvgRate));
+        }
+
+        if (parameters.GetValueOrDefault&lt;RenderFragment&lt;int&gt;&gt;(nameof(MaxRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(MaxRate));
+        }
+    }
+
+    public void RateIconComponentFocusHasChanged() =&gt; StateHasChanged();
+}
+            </code>
+        </pre>
+
+    <div class="example-figure">
+        <figure>
+            <div>
+                <Capgemini.Net.Blazor.Components.Demo.Examples.Final.Component Example="1" />
+            </div>
+            <figcaption>
+                <span>Final component view for a markup:</span>
+                <pre>
+                    <code class="language-csharp line-numbers">
+&lt;ContainerComponent @@ref="ContainerComponentRef"&gt;
+    &lt;ChildContent Context="product"&gt;
+        &lt;RateComponent Product="@@product" ProductRated="@@((rate) =&gt; ChangeProductRate(rate))"&gt;
+            &lt;ChildContent Context="Product"&gt;
+                @@foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate - Product.MinRate + 1))
+                {
+                    &lt;RateIconComponent
+                        IconRate="@@i"
+                        Icon="@@GetRateIcon(@@i, Product.MaxRate - Product.MinRate)" /&gt;
+                }
+            &lt;/ChildContent&gt;
+            &lt;CurrentRate Context="rateContext"&gt;
+                &lt;Alternative2AverageRateComponent
+                    MinRate="@@(rateContext.MinRate)"
+                    AvgRate="@@(rateContext.AvgRate)"
+                    MaxRate="@@(rateContext.MaxRate)"
+                    MinColor="Alternative2AverageRateComponent.Colors.RED"
+                    MaxColor="Alternative2AverageRateComponent.Colors.GREEN"/&gt;
+            &lt;/CurrentRate&gt;
+            &lt;AvgRate Context="avgContext"&gt;
+                &lt;AlternativeAverageRateComponent 
+                    MinRate="@@(avgContext.MinRate)"
+                    AvgRate="@@(avgContext.AvgRate)"
+                    MaxRate="@@(avgContext.MaxRate)"
+                    DisplayStyleType="AlternativeAverageRateComponent.DisplayStyle.DEFAULT" /&gt;
+            &lt;/AvgRate&gt;
+        &lt;/RateComponent&gt;
+    &lt;/ChildContent&gt;
+&lt;/ContainerComponent&gt;
+                    </code>
+                </pre>
+            </figcaption>
+        </figure>
+    </div>
     };
 }

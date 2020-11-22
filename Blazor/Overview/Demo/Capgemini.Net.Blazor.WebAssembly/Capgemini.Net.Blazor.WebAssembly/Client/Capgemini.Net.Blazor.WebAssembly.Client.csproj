@@ -36,7 +36,6 @@
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo08\Capgemini.Net.Blazor.Components.Demo08.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo09\Capgemini.Net.Blazor.Components.Demo09.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Demo\Capgemini.Net.Blazor.Components.Demo.csproj" />
-    <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Rate12\Capgemini.Net.Blazor.Components.Rate12.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Splitter\Capgemini.Net.Blazor.Components.Splitter.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components.Tile\Capgemini.Net.Blazor.Components.Tile.csproj" />
     <ProjectReference Include="..\..\Capgemini.Net.Blazor.Components\Capgemini.Net.Blazor.Components.csproj" />

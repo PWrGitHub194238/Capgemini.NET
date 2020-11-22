@@ -17,19 +17,27 @@ namespace Capgemini.Net.Blazor.Components.Demo12
             {
                 new DemoChecklistPointContext
                 {
-                    Name = "1",
+                    Name = "Custom cascading component",
                     Order = 1,
                     IsDone = false,
-                    Label = "Label 1",
+                    Label = "Create custom cascading component to provide the context for the rate icons",
                     Content = PointContext1!
                 },
                 new DemoChecklistPointContext
                 {
-                    Name = "2",
+                    Name = "Use RenderFragment for rate icons",
                     Order = 2,
                     IsDone = false,
-                    Label = "Label 2",
+                    Label = "Enable to use any type of icons for rate component",
                     Content = PointContext2!
+                },
+                new DemoChecklistPointContext
+                {
+                    Name = "Usage of StateHasChanged",
+                    Order = 3,
+                    IsDone = false,
+                    Label = "Fix change state detection to render icons on any icon focus/blur",
+                    Content = PointContext3!
                 }
             }
         };

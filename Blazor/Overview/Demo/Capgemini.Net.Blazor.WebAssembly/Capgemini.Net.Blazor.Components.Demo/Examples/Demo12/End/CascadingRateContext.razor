@@ -1,0 +1,13 @@
+﻿<div class="icon-rate-container" 
+     @onmouseover="@(() => RateContext.IsFocused = true)" 
+     @onmouseout="@(() => RateContext.IsFocused = false)"
+>
+    <CascadingValue Value="@RateContext" ChildContent="@ChildContent" IsFixed="true" />
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+
+    private RateContext RateContext = new RateContext();
+}

@@ -1,0 +1,38 @@
+﻿@using Capgemini.Net.Blazor.Components.Demo.Examples.Final.End
+
+@switch (Example)
+{
+    case 1:
+<ContainerComponent @ref="ContainerComponentRef">
+    <ChildContent Context="product">
+        <RateComponent Product="@product" ProductRated="@((rate) => ChangeProductRate(rate))">
+            <ChildContent Context="Product">
+                @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate - Product.MinRate + 1))
+                {
+                    <RateIconComponent
+                        IconRate="@i"
+                        Icon="@GetRateIcon(@i, Product.MaxRate - Product.MinRate)" />
+                }
+            </ChildContent>
+            <CurrentRate Context="rateContext">
+                <Alternative2AverageRateComponent
+                    MinRate="@(rateContext.MinRate)"
+                    AvgRate="@(rateContext.AvgRate)"
+                    MaxRate="@(rateContext.MaxRate)"
+                    MinColor="Alternative2AverageRateComponent.Colors.RED"
+                    MaxColor="Alternative2AverageRateComponent.Colors.GREEN"/>
+            </CurrentRate>
+            <AvgRate Context="avgContext">
+                <AlternativeAverageRateComponent 
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)"
+                    DisplayStyleType="AlternativeAverageRateComponent.DisplayStyle.DEFAULT" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
+        break;
+    default:
+        break;
+}

@@ -1,0 +1,46 @@
+﻿<ContainerComponent @ref="ContainerComponentRef">
+    <ChildContent Context="product">
+        <RateComponent Product="@product" ProductRated="@(async (rate) => await ChangeProductRate(rate))">
+            <ChildContent Context="Product">
+                @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate - Product.MinRate + 1))
+                {
+                    <RateIconComponent
+                        IconRate="@i"
+                        Icon="@GetRateIcon(@i, Product.MaxRate - Product.MinRate)" />
+                }
+            </ChildContent>
+            <AvgRate Context="avgContext">
+                <DefaultAverageRateComponent 
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
+
+@code {
+    private ContainerComponent? ContainerComponentRef;
+
+    public async Task ChangeProductRate(int productRate)
+    {
+        if (ContainerComponentRef is not null)
+        {
+            await ContainerComponentRef.ChangeProductRate(productRate);
+        }
+    }
+
+    private static string GetRateIcon(int productRate, int rateRange) => productRate switch
+    {
+        int rate when rate <= rateRange * 0.2 * 1 => "fa-angry",
+        int rate when rateRange * 0.2 * 1 < rate
+            && rate <= rateRange * 0.2 * 2 => "fa-sad-tear",
+        int rate when rateRange * 0.2 * 2 < rate 
+            && rate <= rateRange * 0.2 * 3 => "fa-meh-blank",
+        int rate when rateRange * 0.2 * 3 < rate 
+            && rate <= rateRange * 0.2 * 4 => "fa-smile-beam",
+        int rate when rateRange * 0.2 * 4 < rate 
+            && rate <= rateRange * 0.2 * 5 => "fa-grin-stars",
+        _ => "fa-grin-stars",
+    };
+}

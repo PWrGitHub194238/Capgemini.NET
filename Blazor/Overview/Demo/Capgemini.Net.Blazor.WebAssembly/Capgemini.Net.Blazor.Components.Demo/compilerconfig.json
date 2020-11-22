@@ -30,5 +30,29 @@
   {
     "outputFile": "Examples/Demo09/Start/RateComponent.razor.css",
     "inputFile": "Examples/Demo09/Start/RateComponent.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Demo12/End/CascadingRateContext.razor.css",
+    "inputFile": "Examples/Demo12/End/CascadingRateContext.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Demo12/End/ContainerComponent.razor.css",
+    "inputFile": "Examples/Demo12/End/ContainerComponent.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Demo12/End/RateComponent.razor.css",
+    "inputFile": "Examples/Demo12/End/RateComponent.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Final/End/CascadingRateContext.razor.css",
+    "inputFile": "Examples/Final/End/CascadingRateContext.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Final/End/ContainerComponent.razor.css",
+    "inputFile": "Examples/Final/End/ContainerComponent.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Final/End/RateComponent.razor.css",
+    "inputFile": "Examples/Final/End/RateComponent.razor.scss"
   }
 ]

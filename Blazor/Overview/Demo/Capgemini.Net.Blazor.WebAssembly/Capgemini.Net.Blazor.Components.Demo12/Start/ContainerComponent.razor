@@ -1,0 +1,26 @@
+﻿<div class="demo__container_wrapper">
+    @if (product is null)
+    {
+        <LoadPlaceholder>
+            <Message>
+                <p>@loadingMessage</p>
+            </Message>
+        </LoadPlaceholder>
+    }
+    else
+    {
+        <div class="demo__container">
+            @ChildContent(product)
+        </div>
+    }
+</div>
+
+<div class="navigation-bar">
+    @if (numberOfProducts.HasValue)
+    {
+        @foreach (int productId in Enumerable.Range(1, numberOfProducts.Value))
+        {
+            <ProductButton ProductId="@productId" />
+        }
+    }
+</div>

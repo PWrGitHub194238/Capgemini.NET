@@ -1,0 +1,111 @@
+﻿@inject ILogger<RateComponent> Logger
+
+<div class="rate-container">
+    <CascadingValue Value="this">
+        <CascadingRateContext>
+            @ChildContent(Product)
+        </CascadingRateContext>
+    </CascadingValue>
+</div>
+
+<div class="current-rate-container">
+    @CurrentRate(CurrentRateContext)
+</div>
+
+<div class="average-rate-container">
+    @AvgRate(AverageRateContext)
+</div>
+
+<div class="max-rate-container">
+    @MaxRate(Product.MaxRate)
+</div>
+
+@code {
+    [Parameter]
+    public IRateableProduct Product { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment<IRateableProduct> ChildContent { get; set; } = context => __builder =>
+    {
+        @foreach (int i in Enumerable.Range(context.MinRate, context.MaxRate - context.MinRate + 1))
+        {
+            <RateIconComponent IconRate="@i" />
+        }
+    };
+
+    [Parameter]
+    public RenderFragment<AverageRateContext> CurrentRate { get; set; } = context => __builder =>
+    {
+        @if (@context.AvgRate > 0)
+        {
+            <DefaultAverageRateComponent 
+                MinRate="@context.MinRate"
+                AvgRate="@context.AvgRate"
+                MaxRate="@context.MaxRate" />
+        }
+        else
+        {
+            @: ---
+        }
+    };
+
+    [Parameter]
+    public RenderFragment<AverageRateContext> AvgRate { get; set; } = context => __builder =>
+    {
+        <DefaultAverageRateComponent 
+            MinRate="@context.MinRate"
+            AvgRate="@context.AvgRate"
+            MaxRate="@context.MaxRate" />
+    };
+
+    [Parameter]
+    public RenderFragment<int> MaxRate { get; set; } = context => __builder =>
+    {
+        @context
+    };
+
+    [Parameter]
+    public EventCallback<int> ProductRated { get; set; } = default!;
+
+    public int CurrentRateInt
+    {
+        get => Product.CurrentRate ?? 0;
+        set => ProductRated.InvokeAsync(value);
+    }
+
+    private AverageRateContext CurrentRateContext => new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = (decimal)CurrentRateInt,
+        MaxRate = Product.MaxRate,
+    };
+
+    private AverageRateContext AverageRateContext => new AverageRateContext()
+    {
+        MinRate = Product.MinRate,
+        AvgRate = Product.AverageRate,
+        MaxRate = Product.MaxRate,
+    };
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        if (parameters.GetValueOrDefault<RenderFragment<AverageRateContext>>(nameof(CurrentRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(CurrentRate));
+        }
+
+        if (parameters.GetValueOrDefault<RenderFragment<AverageRateContext>>(nameof(AvgRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(AvgRate));
+        }
+
+        if (parameters.GetValueOrDefault<RenderFragment<int>>(nameof(MaxRate)) is null)
+        {
+            Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(MaxRate));
+        }
+    }
+
+    public void RateIconComponentFocusHasChanged() => StateHasChanged();
+}

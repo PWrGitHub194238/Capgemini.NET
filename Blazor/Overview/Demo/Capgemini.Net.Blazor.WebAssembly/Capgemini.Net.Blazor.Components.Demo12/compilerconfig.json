@@ -1,0 +1,22 @@
+﻿[
+  {
+    "outputFile": "End/ContainerComponent.razor.css",
+    "inputFile": "End/ContainerComponent.razor.scss"
+  },
+  {
+    "outputFile": "End/RateComponent.razor.css",
+    "inputFile": "End/RateComponent.razor.scss"
+  },
+  {
+    "outputFile": "End/CascadingRateContext.razor.css",
+    "inputFile": "End/CascadingRateContext.razor.scss"
+  },
+  {
+    "outputFile": "Start/ContainerComponent.razor.css",
+    "inputFile": "Start/ContainerComponent.razor.scss"
+  },
+  {
+    "outputFile": "Start/RateComponent.razor.css",
+    "inputFile": "Start/RateComponent.razor.scss"
+  }
+]

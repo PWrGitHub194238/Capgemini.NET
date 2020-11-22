@@ -1,0 +1,24 @@
+﻿<ContainerComponent @ref="ContainerComponentRef">
+    <ChildContent Context="product">
+        <RateComponent Product="@product" ProductRated="@(async (rate) => await ChangeProductRate(rate))">
+            <AvgRate Context="avgContext">
+                <DefaultAverageRateComponent 
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
+
+@code {
+    private ContainerComponent? ContainerComponentRef;
+
+    public async Task ChangeProductRate(int productRate)
+    {
+        if (ContainerComponentRef is not null)
+        {
+            await ContainerComponentRef.ChangeProductRate(productRate);
+        }
+    }
+}
