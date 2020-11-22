@@ -8,6 +8,12 @@ namespace Capgemini.Net.Blazor.Components.SvgIcons
         [Parameter]
         public char Icon { get; set; }
 
+        [Parameter]
+        public int X { get; set; } = 13;
+
+        [Parameter]
+        public int Y { get; set; } = 25;
+
         protected override void OnParametersSet()
         {
             Height ??= "36px";
