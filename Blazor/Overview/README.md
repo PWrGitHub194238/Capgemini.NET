@@ -7,4 +7,16 @@
 
 This is a short description of each of the examples from 1 to 12 that this project consists of:
 
-- Demo 01: [Razor Components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0), [Razor code blocks](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#no-locrazor-mark-blocks), [One-way binding](https://blazor-university.com/components/one-way-binding/), [Lambda variable capturing](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#capture-of-outer-variables-and-variable-scope-in-lambda-expressions).
+- Demo 01: during this exercise the simple icon-base rate component will be built.
+  - [Razor Components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0),
+  - [Razor code blocks](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#no-locrazor-mark-blocks),
+  - [One-way binding](https://blazor-university.com/components/one-way-binding/),
+  - [Lambda variable capturing](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#capture-of-outer-variables-and-variable-scope-in-lambda-expressions).
+- Demo 02: buttons to select number of icons and their type will be added.
+  - [Nested coponents](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#use-components),
+  - [Partial classes](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#partial-class-support),
+  - [Blazor directives](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#using),
+  - [namespace hierarchy](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#namespaces),
+  - [Library components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-5.0&tabs=visual-studio#consume-a-library-component),
+  - [Component parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#component-parameters).
+- Demo 03:
