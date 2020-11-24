@@ -13,14 +13,23 @@
 }
 
 @code {
+    private static readonly string CHILD_CONTENT = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content";
+    private static readonly string RAZOR_CLASS_LIBS = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-5.0&tabs=visual-studio";
+    private static readonly string RENDER_FRAGMENTS = "https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment?view=aspnetcore-5.0";
+    private static readonly string GENERIC_RENDER_FRAGMENTS = "https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment-1?view=aspnetcore-5.0";
+    private static readonly string READ_MORE_1 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-parameters";
+    private static readonly string LAMBDA_STATEMENT = "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#statement-lambdas";
+    private static readonly string READ_MORE_2 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content";
+
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
-    <p>
-        Add a parameter of the <mark>RenderFragment</mark> type to the code-behind of the <mark>ContainerComponent.razor</mark> Razor component:
-    </p>
+        <p>
+            Add a parameter of the <mark>RenderFragment</mark> type to the <mark>ContainerComponent.razor.cs</mark> file
+            (code-behind file for the Razor component):
+        </p>
 
-    <pre data-line="10-11">
-    <code class="language-csharp line-numbers">
+        <pre data-line="10-11">
+            <code class="language-csharp line-numbers">
 using Microsoft.AspNetCore.Components;
 using System;
 
@@ -40,113 +49,117 @@ namespace Capgemini.Net.Blazor.Components.Demo04.Start
         }
 
         //...
-        </code>
+            </code>
         </pre>
 
-    <p>
-        Change a markup of <mark>ContainerComponent.razor</mark> Razor component:
-    </p>
+        <p>
+            Change the given markup of <mark>ContainerComponent.razor</mark> Razor component (line <mark>4</mark>):
+        </p>
 
-    <pre data-line="5">
-    <code class="language-csharp line-numbers">
+        <pre data-line="4">
+            <code class="language-csharp line-numbers">
 &lt;!-- ... --&gt;
 
 &lt;div class="demo__container"&gt;
 	&lt;RateComponent MaxRate="@@MaxRate" Icon="@@this[IconIndex]" /&gt;
 &lt;/div&gt;
-        </code>
+            </code>
         </pre>
 
-    <ul>
-        <li>
-            Remove the <mark>&lt;RateComponent MaxRate="@@MaxRate" Icon="@@this[IconIndex]" /&gt;</mark> component's markup
-        </li>
-        <li>
-            and replace it with a parameter that was added previously: <mark>@@ChildContent</mark>:
-        </li>
-    </ul>
+        <ul>
+            <li>
+                Remove the <mark>&lt;RateComponent MaxRate="@@MaxRate" Icon="@@this[IconIndex]" /&gt;</mark> component's markup
+            </li>
+            <li>
+                and replace it with a parameter that was added previously: <mark>@@ChildContent</mark>:
+            </li>
+        </ul>
 
-    <pre data-line="5">
-    <code class="language-csharp line-numbers">
+    <pre data-line="4">
+        <code class="language-csharp line-numbers">
 &lt;!-- ... --&gt;
 
 &lt;div class="demo__container"&gt;
     @@ChildContent
 &lt;/div&gt;
-        </code>
+            </code>
         </pre>
 
-    <p>
-        That change makes a <mark>ContainerComponent</mark> unrelated to any specific implementation of component that inherits the base class <mark>RateComponentBase</mark>,
-        allowing it to receive any markup assigned as a value of the <mark>ChildContent</mark> variable in return.
-    </p>
+        <p>
+            That change makes a <mark>ContainerComponent</mark> unrelated to any specific implementation of a component that inherits
+            from the <mark>RateComponentBase</mark> base class,
+            allowing <mark>ContainerComponent</mark> to receive any markup assigned as a value of the <mark>ChildContent</mark> variable.
+        </p>
 
-    <p>
-        Type of the parameter <mark>ChildContent</mark> - <mark>RenderFragment</mark> represents a chunk of Razor component's markup. By convention a property:
-    </p>
+        <p>
+            Type of the parameter <mark>ChildContent</mark> - <mark>RenderFragment</mark> represents a chunk of Razor component's markup. 
+            By convention a property which is:
+        </p>
 
-    <ul>
-        <li>
-            marked with an attribute <mark>[Parameter]</mark>,
-        </li>
-        <li>
-            named <mark>ChildContent</mark>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                marked with an attribute <mark>[Parameter]</mark>,
+            </li>
+            <li>
+                named as <mark>ChildContent</mark>
+            </li>
+        </ul>
 
-    <p>
-        represents any markup that is placed as a component's content (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content">child content</a>).
-        This enables to customize a part of the Razor component without accessing and overriding its own code.
-        Most of the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-5.0&tabs=visual-studio">Razor components class libraries</a> that enables some degree of customization
-        utilize one or more <a href="">render fragments</a> (or <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment-1?view=aspnetcore-3.1">generic render fragments</a> - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-parameters">read more</a>).
-        See the example possible content of the <mark>WrapperComponent.razor</mark> Razor component:
-    </p>
+        <p>
+            represents any markup that is placed as a component's content (<a href="@CHILD_CONTENT">child content</a>).
+            This enables to customize a part of the Razor component without accessing and overriding its own code.
+            Most of the <a href="@RAZOR_CLASS_LIBS">Razor components class libraries</a> that enable some degree of customization
+            utilize one or more <a href="@RENDER_FRAGMENTS">render fragments</a> 
+            (or <a href="@GENERIC_RENDER_FRAGMENTS">generic render fragments</a> - <a href="@READ_MORE_1">read more</a>).
+            Below example shows possible content of the <mark>WrapperComponent.razor</mark> Razor component to be used:
+        </p>
 
-    <pre data-line="2">
-    <code class="language-csharp line-numbers">
+        <pre data-line="2">
+            <code class="language-csharp line-numbers">
 &lt;ContainerComponent&gt;
     &lt;X /&gt;
 &lt;/ContainerComponent&gt;
-        </code>
+            </code>
         </pre>
 
-    <p>
-        where Razor component <mark>X</mark> can be replaced by:
-    </p>
+        <p>
+            where Razor component <mark>X</mark> can be replaced by:
+        </p>
 
-    <div class="example-figure">
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.DefaultRateComponent MaxRate="1" />
-            </div>
-            <figcaption>
-                <mark>RateComponent</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.AlternativeRateComponent MaxRate="1" />
-            </div>
-            <figcaption>
-                <mark>AlternativeRateComponent</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Alternative2RateComponent MaxRate="1" />
-            </div>
-            <figcaption>
-                <mark>Alternative2RateComponent</mark>
-            </figcaption>
-        </figure>
-    </div>
+        <div class="example-figure">
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.DefaultRateComponent MaxRate="1" />
+                </div>
+                <figcaption>
+                    <mark>RateComponent</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.AlternativeRateComponent MaxRate="1" />
+                </div>
+                <figcaption>
+                    <mark>AlternativeRateComponent</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Alternative2RateComponent MaxRate="1" />
+                </div>
+                <figcaption>
+                    <mark>Alternative2RateComponent</mark>
+                </figcaption>
+            </figure>
+        </div>
 
-    <p>
-        <mark>RenderFragment</mark> allows the child content of the component to be a mixture of <strong>C#</strong> and Razor markup as well:
-    </p>
+        <p>
+            <mark>RenderFragment</mark> allows the child content of the component to be a mixture of <strong>C#</strong> 
+            and Razor markup as well:
+        </p>
 
-    <pre>
-    <code class="language-csharp line-numbers">
+        <pre data-line="2-15">
+            <code class="language-csharp line-numbers">
 &lt;ContainerComponent&gt;
     @@switch (new Random().Next(0, 2))
     {
@@ -163,49 +176,60 @@ namespace Capgemini.Net.Blazor.Components.Demo04.Start
             break;
     }
 &lt;/ContainerComponent&gt;
-        </code>
+            </code>
         </pre>
 
-    <p>
-        This. will make a child content of the <mark>WrapperComponent</mark> rendering one of three components based on a pseudo-random value.
-        Replace the content of the <mark>WrapperComponent.razor</mark> file with the markup below:
-    </p>
+        <p>
+            Lines <mark>2-15</mark> will make the <mark>WrapperComponent</mark> to display different components
+            based on the pseudo-random value without modifying the content of the <mark>WrapperComponent</mark>.
+            Replace the content of the <mark>WrapperComponent.razor</mark> file with the markup below:
+        </p>
 
-    <pre data-line="2">
-    <code class="language-csharp line-numbers">
+        <pre data-line="2">
+            <code class="language-csharp line-numbers">
 &lt;ContainerComponent&gt;
     &lt;RateComponent /&gt;
 &lt;/ContainerComponent&gt;
-        </code>
+            </code>
         </pre>
 
-    <p>
-        <strong>Note:</strong> child content of a component that is assigned as a value of the <mark>ChildContent</mark> internally is treated as a <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#statement-lambdas">lambda statements</a>
-        that will be capturing any variables that was used to generate the expression with all drawbacks that it presents - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content">read more</a>.
-    </p>
-
+        <p>
+            <strong>Note:</strong> child content of a component that is assigned as a value of the <mark>ChildContent</mark> 
+            internally is treated as a <a href="@LAMBDA_STATEMENT">lambda statement</a>
+            that will be capturing any variables that was used to generate the expression with all its drawbacks 
+            - <a href="@READ_MORE_2">read more</a>.
+        </p>
     };
+
+    private static readonly string READ_MORE_3 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0";
+    private static readonly string READ_MORE_4 = "https://docs.microsoft.com/en-us/dotnet/api/system.type.isassignablefrom?view=net-5.0";
 
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
-    <p>
-        Replacing <mark>&lt;RateComponent MaxRate="@@MaxRate" Icon="@@this[IconIndex]" /&gt;</mark> markup with the <mark>@@ChildContent</mark> parameter the information about <mark>RateComponent</mark>'s parameter values were lost.
-        Changing the values on the form within the <mark>ContainerComponent</mark> no longer affects the <mark>RateComponent</mark> properties and the component won't rerender.
-    </p>
+        <p>
+            By replacing <mark>&lt;RateComponent MaxRate="@@MaxRate" Icon="@@this[IconIndex]" /&gt;</mark> markup with the 
+            <mark>@@ChildContent</mark> parameter makes the information about <mark>RateComponent</mark>'s parameter values to be lost.
+            Changing the values on the form within the <mark>ContainerComponent</mark> no longer affects 
+            the <mark>RateComponent</mark> properties and the component won't rerender or change its parameter values.
+        </p>
 
-    <p>
-        Both <mark>MaxRate</mark> and <mark>Icon</mark> can be passed to the given component by utilizing parameters with <mark>CascadingParameter</mark> attribute and <mark>CascadingValue</mark> Razor component.
-        In this model the component which renders the <mark>RenderFragment</mark> parameter creates a context with those properties assigned to that component's fields/properties.
-        Any markup/component that is a child content that is put within than context can subscribe to those parameters by decorating its own parameters with <mark>CascadingParameter</mark> attribute instead of <mark>[Parameter]</mark> - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0">read more</a>.
-    </p>
+        <p>
+            Both <mark>MaxRate</mark> and <mark>Icon</mark> can be passed to the given component by utilizing parameters 
+            with <mark>CascadingParameter</mark> attribute and <mark>CascadingValue</mark> Razor component.
+            In this model, the component which renders the <mark>RenderFragment</mark> parameter creates a context 
+            around the <mark>RenderFragment</mark>, providing any needed values in a form of parameters that can be observable.
+            Any markup/component to be put within that context can subscribe to those parameters 
+            by decorating its own parameters with the <mark>CascadingParameter</mark> attribute 
+            instead of <mark>[Parameter]</mark> - <a href="@READ_MORE_3">read more</a>.
+        </p>
 
-    <p>
-        Modify the content of the <mark>ContainerComponent</mark> to define two nested <mark>CascadingValue</mark> Razor components (one for each primitive type parameter). 
-        Remove the <mark>@@using</mark> statement that is no longer needed (<mark>@@using Capgemini.Net.Blazor.Components.Demo04.Start</mark> - as the <mark>&lt;RateComponent MaxRate="@@MaxRate" Icon="@@this[IconIndex]" /&gt;</mark> was removed):
-    </p>
+        <p>
+            Modify the content of the <mark>ContainerComponent</mark> to define two nested <mark>CascadingValue</mark> 
+            Razor components (one for each primitive type parameter):
+        </p>
 
-    <pre data-line="19-20, 24-25">
-    <code class="language-csharp line-numbers">
+        <pre data-line="19-20, 24-25">
+            <code class="language-csharp line-numbers">
 @@using Capgemini.Net.Blazor.Components.SvgIcons
 @@using SvgIcons.Base
 
@@ -232,26 +256,33 @@ namespace Capgemini.Net.Blazor.Components.Demo04.Start
         &lt;/CascadingValue&gt;
     &lt;/CascadingValue&gt;
 &lt;/div&gt;
-        </code>
+            </code>
         </pre>
 
-    <p>
-        Lines <mark>20-21</mark>, <mark>25-26</mark> define cascading parameters available to be used in <mark>@@ChildContent</mark>.
-        Razor components that want to use any of those variables have to decorate their parameters with <mark>CascadingParameter</mark> (the property name does not have to match).
-    </p>
+        <p>
+            Lines <mark>19-20</mark>, <mark>24-25</mark> define cascading parameters available to be used in <mark>@@ChildContent</mark>.
+            Razor components that want to use any of those variables have to decorate their parameters 
+            with <mark>CascadingParameter</mark> attribute (the property name does not have to match).
+        </p>
 
-    <p>
-        <mark>CascadingValue</mark> component can define cascading parameters in two ways:
-    </p>
+        <p>
+            <mark>CascadingValue</mark> component can define cascading parameters in two ways:
+        </p>
 
-    <ul>
-        <li>
-            by <mark>Type</mark> - any component wrapped by <mark>CascadingValue</mark> that defines a parameter of type <mark>T</mark> decorated with <mark>[CascadingParameter]</mark>
-            will receive the reference that <mark>CascadingValue</mark> supplies (if its <mark>Value</mark> type is also <mark>T</mark>). If the component's parameter is of type <mark>U</mark>
-            which <mark>T</mark> extends or implements the parameter will also be supplies - type of the target property must allow the assignment (<a href="https://docs.microsoft.com/en-us/dotnet/api/system.type.isassignablefrom?view=net-5.0">read more</a>):
+        <ul>
+            <li>
+                by <mark>Type</mark> - any component that defines a parameter of a type <mark>T</mark> 
+                decorated with <mark>[CascadingParameter]</mark> will receive the reference that wrapping <mark>CascadingValue</mark> 
+                supplies (if its <mark>Value</mark> type is also <mark>T</mark>). If the component's parameter is of type <mark>U</mark>
+                which <mark>T</mark> extends or implements, the parameter will also be supplies - 
+                type of the target property must allow the assignment (<a href="@READ_MORE_4">read more</a>).
+                See below example where <mark>Foo</mark> extends <mark>Bar</mark> and <mark>Foo</mark> is provided by the
+                <mark>CascadingValue</mark> to the <mark>@@ChildContent</mark>. Component provided to this <mark>RenderFragment</mark>
+                is subscribing for any <mark>CascadingParameter</mark> of type <mark>Bar</mark> and will accept the <mark>Foo</mark>
+                object that was provided.
 
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                    <code class="language-csharp line-numbers">
 //...
 public class Foo : Bar
 {
@@ -259,10 +290,10 @@ public class Foo : Bar
 }
 //...
                     </code>
-        </pre>
+                </pre>
 
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                <code class="language-csharp line-numbers">
 &lt;CascadingValue TValue="Foo" Value="@@obj"&gt;
     @@ChildContent
 &lt;/CascadingValue&gt;
@@ -271,10 +302,10 @@ public class Foo : Bar
     private Foo obj = new Foo();
 }
                     </code>
-        </pre>
+                </pre>
 
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                <code class="language-csharp line-numbers">
 @@CascadateObject.Property
 
 @@code {
@@ -282,27 +313,40 @@ public class Foo : Bar
     public Bar CascadateObject { get; set; }
 }
                     </code>
-        </pre>
-            <strong>Note:</strong> if multiple <mark>CascadingValue</mark> components are defined each as a child of the previous one and then descendant component defines the cascading parameter of type <mark>T</mark>,
-            the reference to the variable that is defined by the nearest ancestor will be used (it type of two or more values supplied by <mark>CascadingValue</mark> components can be assigned to the component's property).
-        </li>
-        <li>
-            By <mark>Name</mark> - if specified, the parameter value will be supplied by the closest <mark>CascadingValue</mark> ancestor that supplies a value with this name.
-            If no name is specified, then descendant components will receive the value based on the type of value they are requesting (or any type that extends or implements that type).
-            <br /><strong>Note:</strong> defining an optional <mark>Name</mark> property for a <mark>CascadingParameter</mark> attribute will make the decorated property to be matched only by the given name, not by its type.
-            Same applies to the <mark>CascadingValue</mark> component - if it provides the value to the <mark>Name</mark> parameter then the value it supplies won't be matched against any descendant component parameters
-            that don't provide the <mark>Name</mark> parameter to the <mark>CascadingParameter</mark> attribute.
-            <br /><strong>Note:</strong> if multiple <mark>CascadingValue</mark> components are defined each as a child of the previous one and then descendant component defines the cascading parameter with the matching name,
-            the reference to the variable that is defined by the nearest parent will be used (it type of two or more <mark>CascadingValue</mark> components define parameter <mark>Name</mark> with the same value).
-        </li>
-    </ul>
+                </pre>
 
-    <p>
-        Change the attributes for both <mark>MaxRate</mark> and <mark>Icon</mark> parameters inside the <mark>ContainerComponent</mark> (lines <mark>13</mark> and <mark>16</mark>):
-    </p>
+                <strong>Note:</strong> if multiple <mark>CascadingValue</mark> components are defined each as a child 
+                of the previous one and then descendant component defines the cascading parameter of type <mark>T</mark>,
+                the reference to the variable that is defined by the nearest ancestor will be used 
+                (if type of two or more values supplied by <mark>CascadingValue</mark> components can be assigned 
+                to the component's property).
+            </li>
+            <li>
+                By <mark>Name</mark> - if specified, the parameter value will be supplied by the closest <mark>CascadingValue</mark> 
+                ancestor that supplies a value with this name.
+                If no name is specified, then descendant components will receive the value based on 
+                the type of value they are requesting (or any type that extends or implements that type).
+                <br /><strong>Note:</strong> defining an optional <mark>Name</mark> property 
+                for a <mark>CascadingParameter</mark> attribute will make the decorated property to be matched only by the given name, 
+                not by its type.
+                Same applies to the <mark>CascadingValue</mark> component - if it provides the value 
+                for its <mark>Name</mark> parameter then the value it supplies won't be matched against 
+                any descendant component parameters
+                that don't provide the <mark>Name</mark> parameter to the <mark>CascadingParameter</mark> attribute.
+                <br /><strong>Note:</strong> if multiple <mark>CascadingValue</mark> components are defined each as a child 
+                of the previous one and then descendant component defines the cascading parameter with the matching name,
+                the reference to the variable that is defined by the nearest parent will be used (if there are two or more 
+                <mark>CascadingValue</mark> components that have <mark>Name</mark> parameter defined with the requested name).
+            </li>
+        </ul>
 
-    <pre data-line="13, 16">
-    <code class="language-csharp line-numbers">
+        <p>
+            Change the attributes for both <mark>MaxRate</mark> and <mark>Icon</mark> parameters 
+            inside the <mark>RateComponent</mark> (lines <mark>13</mark> and <mark>16</mark>):
+        </p>
+
+        <pre data-line="13, 16">
+            <code class="language-csharp line-numbers">
 @@inherits RateComponentBase
 
 @@for (int i = 0; i &lt; @@MaxRate; i += 1)
@@ -321,13 +365,16 @@ public class Foo : Bar
     [CascadingParameter]
     public string Icon { get; set; } = "fa-star";
 }
-                    </code>
+            </code>
         </pre>
 
-    <p>
-        Changing attribute from <mark>[Parameter]</mark> to <mark>[CascadingParameter(Name = "MaxRate")]</mark> will make the component to subscribe for changes of the value that was supplied
-        by the nearest <mark>CascadingValue</mark> ancestor that defines its name to be equal. Changing attribute from <mark>[Parameter]</mark> to <mark>[CascadingParameter]</mark> for the <mark>Icon</mark> property
-        will subscribe for value changes of the variable of type <mark>string</mark> supplied by the nearest <mark>CascadingValue</mark> ancestor.
-    </p>
+        <p>
+            Changing attribute from <mark>[Parameter]</mark> to <mark>[CascadingParameter(Name = "MaxRate")]</mark> will make 
+            the component to subscribe for changes of the value that was supplied by the nearest <mark>CascadingValue</mark> ancestor 
+            that defines its name to be equal.
+            Changing attribute from <mark>[Parameter]</mark> to <mark>[CascadingParameter]</mark> 
+            for the <mark>Icon</mark> property will subscribe for value changes of the variable of type <mark>string</mark> 
+            supplied by the nearest <mark>CascadingValue</mark> ancestor.
+        </p>
     };
 }

@@ -23,5 +23,9 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [CSS Isolation](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-5.0),
   - [Web Essentials](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebEssentials2019),
   - [@inherits directive](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#inherits),
-  - [Lifecycle](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0),
-- Demo 04:
+  - [Lifecycle](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0).
+- Demo 04: the markup for the specific rate component would be extracted, making possible to define it as a Blazor component's child content. Cascading parameters will be added to provide scoped variables for render fragment, making a aparent component to push down values without knowing which component would receive them.
+  - [Child content](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content),
+  - [Render fragments](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment?view=aspnetcore-5.0),
+  - [Cascading values](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0).
+- Demo 05:
