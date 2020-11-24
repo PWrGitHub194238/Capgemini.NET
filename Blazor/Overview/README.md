@@ -16,10 +16,10 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [Nested coponents](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#use-components),
   - [Partial classes](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#partial-class-support),
   - [Blazor directives](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#using),
-  - [namespace hierarchy](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#namespaces),
+  - [Namespace hierarchy](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#namespaces),
   - [Library components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-5.0&tabs=visual-studio#consume-a-library-component),
   - [Component parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#component-parameters).
-- Demo 03:
+- Demo 03: at this point CSS component-related classes will be moved from global wwwroot directory to component, CSS encapsulation wil be added, C# logic separated from the markup, base class for the component created. Decreasing MaxRate while user already rated with MaxRate will be handled by the useage of the lifecycle method.
   - [CSS Isolation](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-5.0),
   - [Web Essentials](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebEssentials2019),
   - [@inherits directive](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#inherits),
