@@ -2,7 +2,8 @@
   font-family: 'Ubuntu';
   font-weight: bold;
   text-transform: uppercase;
-  font-size: larger; }
+  font-size: larger;
+  text-align: center; }
 
 .demo__selector {
   display: flex;

@@ -28,4 +28,9 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [Child content](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content),
   - [Render fragments](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment?view=aspnetcore-5.0),
   - [Cascading values](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0).
-- Demo 05:
+- Demo 05: this exercise will introduce a usage of the basic Blazor build-in components, replacing buttons from **Demo 02**. Custom components that inherits from build-in input components will be used to provide custom styling and behaviour.
+  - [Fixed cascading values](https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#ensure-cascading-parameters-are-fixed),
+  - [EditForm component](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform?view=aspnetcore-5.0),
+  - [Build-in input componrnts](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#built-in-forms-components),
+  - [EditContext](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext?view=aspnetcore-5.0).
+- Demo 06:
