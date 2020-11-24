@@ -16,7 +16,7 @@
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
     <p>
-        Move the given markup from the <mark>RateComponent</mark> component to the <mark>ContainerComponent.razor</mark> file:
+        Move the given markup from the <mark>RateComponent</mark> to the <mark>ContainerComponent.razor</mark> file:
     </p>
 
     <pre>
@@ -143,7 +143,7 @@
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
     <p>
-        Add the second <mark>RenderFragment</mark> to the code-behind file for the <mark>ContainerComponent</mark> component:
+        Add the second <mark>RenderFragment</mark> to the code-behind file for the <mark>ContainerComponent</mark>:
     </p>
 
     <pre data-line="12-13">
@@ -191,7 +191,7 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
         </pre>
 
     <p>
-        Additional <mark>RenderFragment</mark> enabled a user of the <mark>ContainerComponent</mark> component to define a way to display the average rate of the <mark>RateComponent</mark>.
+        Additional <mark>RenderFragment</mark> enabled a user of the <mark>ContainerComponent</mark> to define a way to display the average rate of the <mark>RateComponent</mark>.
         That enables the child content of the <mark>ContainerComponent</mark> to be defined like below. Change the content of the <mark>WrapperComponent.razor</mark> file:
     </p>
 
@@ -324,7 +324,7 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
 
     <p>
         Note that part of the <mark>AverageRateContext</mark> object can be received from the <mark>rateContext</mark> filed.
-        Add a parameter for the generic <mark>@@AvgRate</mark> render fragment invocation inside the <mark>ContainerComponent</mark> component's markup:
+        Add a parameter for the generic <mark>@@AvgRate</mark> render fragment invocation inside the <mark>ContainerComponent</mark>'s markup:
     </p>
 
     <pre data-line="29">
@@ -365,7 +365,7 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
 
     <p>
         Change the markup of the <mark>WrapperComponent.razor</mark> file to use the new <mark>@@context</mark> variable for the <mark>&lt;AvgRate&gt;</mark> part
-        to make the child component receive its parameters from the <mark>ContainerComponent</mark> component and react if one of those were changed by the parent:
+        to make the child component receive its parameters from the <mark>ContainerComponent</mark> and react if one of those were changed by the parent:
     </p>
 
     <pre data-line="5, 7-9">
@@ -445,7 +445,7 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
     </p>
 
     <p>
-        <strong>Note:</strong> in oppose to the <mark>RateComponent</mark> component, <mark>DefaultAverageRateComponent</mark> defines its types as primitives, not a complex object.
+        <strong>Note:</strong> in oppose to the <mark>RateComponent</mark>, <mark>DefaultAverageRateComponent</mark> defines its types as primitives, not a complex object.
         This is a performance tradeoff:
     </p>
 
@@ -462,7 +462,7 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
     </ul>
 
     <p>
-        Now as the <mark>ContainerComponent</mark> component is able to receive <mark>AvgRate</mark> in addition to the <mark>ChildContent</mark> render fragment, the number of combination for the below markup grown:
+        Now as the <mark>ContainerComponent</mark> is able to receive <mark>AvgRate</mark> in addition to the <mark>ChildContent</mark> render fragment, the number of combination for the below markup grown:
     </p>
 
     <pre>

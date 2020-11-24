@@ -146,7 +146,7 @@ namespace Capgemini.Net.Blazor.Components.Demo.Interfaces
                     <mark>EditForm</mark> with its content was removed - all data would be provided from the <strong>API</strong>, not by the user from the form.
                 </li>
                 <li>
-                    <mark>@@AvgRate</mark> render fragment was moved from <mark>ContainerComponent</mark> to <mark>RateComponent</mark> component.
+                    <mark>@@AvgRate</mark> render fragment was moved from <mark>ContainerComponent</mark> to <mark>RateComponent</mark>.
                 </li>
             </ul>
 
@@ -560,7 +560,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         </pre>
 
     <p>
-        Until the <strong>API</strong> call is resolved, <mark>new RateableProduct()</mark> is passed to the <mark>RateComponent</mark> component:
+        Until the <strong>API</strong> call is resolved, <mark>new RateableProduct()</mark> is passed to the <mark>RateComponent</mark>:
     </p>
 
     <pre data-line="2">
@@ -639,7 +639,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
     </p>
 
     <p>
-        Provide the additional markup for <mark>ContainerComponent</mark> component to handle the nullability of the context object (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#handle-incomplete-async-actions-at-render">read more</a>):
+        Provide the additional markup for <mark>ContainerComponent</mark> to handle the nullability of the context object (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#handle-incomplete-async-actions-at-render">read more</a>):
     </p>
 
     <div class="example-figure">
@@ -677,7 +677,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
     <p>
         Before the API returns the <mark>product</mark> Blazor won't render its main content (<mark>RateComponent</mark>).
         <mark>LoadPlaceholder</mark> is used instead. Once the <strong>API</strong> returns and the <mark>product</mark> is reassigned, the <mark>@@ChildContent(product)</mark> is rendered with the object returned from the <strong>API</strong>.
-        <mark>@@ChildContent(product)</mark> is defined as <mark>RateComponent</mark> in the markup of <mark>WrapperComponent</mark> component:
+        <mark>@@ChildContent(product)</mark> is defined as <mark>RateComponent</mark> in the markup of <mark>WrapperComponent</mark>:
     </p>
 
     <pre data-line="2-11">
@@ -1171,7 +1171,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
     internal static readonly RenderFragment PointContext5 = __builder =>
     {
     <p>
-        Update <mark>RateComponent</mark> component's markup to show additional parameters of the selected product - <mark>MaxRate</mark> and <mark>CurrentRate</mark>:
+        Update <mark>RateComponent</mark>'s markup to show additional parameters of the selected product - <mark>MaxRate</mark> and <mark>CurrentRate</mark>:
     </p>
 
     <pre data-line="15-17, 23-25">

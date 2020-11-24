@@ -64,7 +64,7 @@
     </pre>
 
     <p>
-        The markup and Blazor event handlers used for the component are the same as for the original markup inside the <mark>RateComponent</mark> component:
+        The markup and Blazor event handlers used for the component are the same as for the original markup inside the <mark>RateComponent</mark>:
     </p>
 
     <pre data-line="9-12">
@@ -110,7 +110,7 @@
     <p>
         <mark>RateIconComponent</mark> needs to notify the <mark>RateComponent</mark> whenever it is focused to simulate the <mark>ShowRate(i)</mark>.
         <mark>RateIconComponent</mark> use <mark>EventCallback&lt;bool&gt; OnFocusChanged</mark> parameter to provide that and it is called on both <mark>@@onmouseover</mark>
-        and <mark>@@onmouseout</mark> (to also notify other <mark>RateIconComponent</mark> components about focus state):
+        and <mark>@@onmouseout</mark> (to also notify other <mark>RateIconComponent</mark>s about focus state):
     </p>
 
     <ul>
@@ -123,7 +123,7 @@
     </ul>
 
     <p>
-        <strong>Note:</strong> <mark>RateIconComponent</mark> components needs to know the shared focus state as they either:
+        <strong>Note:</strong> <mark>RateIconComponent</mark>s needs to know the shared focus state as they either:
     </p>
 
     <ul>
@@ -136,7 +136,7 @@
     </ul>
 
     <p>
-        Use the component to replace the <mark>&lt;i&gt;</mark> tag used inside the <mark>RateComponent</mark> component:
+        Use the component to replace the <mark>&lt;i&gt;</mark> tag used inside the <mark>RateComponent</mark>:
     </p>
 
     <pre data-line="7, 9-16, 76,77">
@@ -268,7 +268,7 @@
     </pre>
 
     <p>
-        Each of the <mark>RateIconComponent</mark> components receives an <mark>Icon</mark> and <mark>IconRate</mark> (based on loop index).
+        Each of the <mark>RateIconComponent</mark>s receives an <mark>Icon</mark> and <mark>IconRate</mark> (based on loop index).
     </p>
 
     <p>
@@ -277,15 +277,15 @@
     </p>
 
     <p>
-        On any mouse in/out event each of the generated <mark>RateIconComponent</mark> components call <mark>OnFocusChanged</mark>. <mark>OnFocusChanged</mark> updates both shared <mark>focus</mark> (line <mark>76</mark>)
-        and <mark>tempRate</mark> (line <mark>77</mark>) fields to provide their updated values for <mark>IsFocused</mark> and <mark>FocusedValue</mark> parameters of each of the <mark>RateIconComponent</mark> components.
+        On any mouse in/out event each of the generated <mark>RateIconComponent</mark>s call <mark>OnFocusChanged</mark>. <mark>OnFocusChanged</mark> updates both shared <mark>focus</mark> (line <mark>76</mark>)
+        and <mark>tempRate</mark> (line <mark>77</mark>) fields to provide their updated values for <mark>IsFocused</mark> and <mark>FocusedValue</mark> parameters of each of the <mark>RateIconComponent</mark>s.
     </p>
     };
 
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
     <p>
-        Remove the <mark>RateComponentBaseWithTask</mark> inheritance from the <mark>RateComponent</mark> component.
+        Remove the <mark>RateComponentBaseWithTask</mark> inheritance from the <mark>RateComponent</mark>.
     </p>
 
     <ul>
@@ -525,7 +525,7 @@ namespace Capgemini.Net.Blazor.Components.Demo11.End
     </p>
 
     <p>
-        Replace the <mark>RateIconComponent</mark> markup in the <mark>RateComponent</mark> component:
+        Replace the <mark>RateIconComponent</mark> markup in the <mark>RateComponent</mark>:
     </p>
 
     <pre data-line="10">
@@ -882,7 +882,7 @@ private int CurrentRateInt
     internal static readonly RenderFragment PointContext4 = __builder =>
     {
     <p>
-        Managing the state of the <mark>RateContext</mark> object never was a responsibility of the <mark>RateIconComponent</mark> component.
+        Managing the state of the <mark>RateContext</mark> object never was a responsibility of the <mark>RateIconComponent</mark>.
         Introduction of the <mark>RateIconComponent</mark> makes it possible to take the advantage of the fact that each component is able to hold its own state (like the rate
         each of the given icons represent without a need to share that data within a base class of the <mark>ContainerComponent</mark>) but also force each of those components
         to be involved in such a tasks as:
@@ -898,7 +898,7 @@ private int CurrentRateInt
     </ul>
 
     <p>
-        Both properties should be related to the <mark>RateComponent</mark> and be only shared with all the <mark>RateIconComponent</mark> components. <mark>CascadingValue</mark> component
+        Both properties should be related to the <mark>RateComponent</mark> and be only shared with all the <mark>RateIconComponent</mark>s. <mark>CascadingValue</mark> component
         can be used to provide that kind of behavior.
     </p>
 

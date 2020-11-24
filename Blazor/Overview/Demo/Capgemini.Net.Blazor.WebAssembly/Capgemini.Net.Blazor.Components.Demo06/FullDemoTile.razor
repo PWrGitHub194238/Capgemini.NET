@@ -29,7 +29,7 @@
     </p>
 
     <p>
-        Replace the <mark>RenderFragment ChildContent</mark> parameter within <mark>./Start/ContainerComponent.razor.cs</mark> code-behind file for the <mark>ContainerComponent</mark> component with a generic type:
+        Replace the <mark>RenderFragment ChildContent</mark> parameter within <mark>./Start/ContainerComponent.razor.cs</mark> code-behind file for the <mark>ContainerComponent</mark> with a generic type:
     </p>
 
     <pre data-line="10">
@@ -50,7 +50,7 @@ namespace Capgemini.Net.Blazor.Components.Demo06.Start
         </pre>
 
     <p>
-        Remove the <mark>CascadingValue</mark> from the <mark>ContainerComponent</mark> component and provide a <mark>rateContext</mark> variable as a parameter for the generic <mark>@@ChildContent</mark> invocation (if not provided
+        Remove the <mark>CascadingValue</mark> from the <mark>ContainerComponent</mark> and provide a <mark>rateContext</mark> variable as a parameter for the generic <mark>@@ChildContent</mark> invocation (if not provided
         then the variable <mark>@@ChildContent</mark> will be rendered as <mark>@@(ChildContent.ToString())</mark>):
     </p>
 
@@ -140,7 +140,7 @@ namespace Capgemini.Net.Blazor.Components.Demo06.Start
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
     <p>
-        To supply the value for the <mark>RateContext</mark> property of the <mark>RateComponent</mark> component open the its razor file and make the property to be a parameter.
+        To supply the value for the <mark>RateContext</mark> property of the <mark>RateComponent</mark> open the its razor file and make the property to be a parameter.
         That will allow to use the name of the property as a <strong>HTML</strong> attribute (<mark>&lt;RateComponent RateContext="..." /&gt;</mark>):
     </p>
 

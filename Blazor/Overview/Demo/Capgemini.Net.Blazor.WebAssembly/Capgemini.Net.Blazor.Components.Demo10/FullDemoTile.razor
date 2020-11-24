@@ -229,7 +229,7 @@ protected override void SetRate()
     </p>
 
     <p>
-        Provide a similar method to the <mark>OnParametersSetAsync</mark> for the <mark>ContainerComponent</mark> component that will be used to call the <strong>API</strong> to send and store new values:
+        Provide a similar method to the <mark>OnParametersSetAsync</mark> for the <mark>ContainerComponent</mark> that will be used to call the <strong>API</strong> to send and store new values:
     </p>
 
     <pre data-line="22-25">
@@ -363,12 +363,12 @@ namespace Capgemini.Net.Blazor.Components.Demo10.Start
     </pre>
 
     <p>
-        <mark>ProductRated</mark> defines the async method that will in turn call the <mark>ChangeProductRate</mark> method, defined in the <mark>ContainerComponent</mark> component that will call the <strong>API</strong> to save changes.
+        <mark>ProductRated</mark> defines the async method that will in turn call the <mark>ChangeProductRate</mark> method, defined in the <mark>ContainerComponent</mark> that will call the <strong>API</strong> to save changes.
     </p>
 
     <p>
-        <strong>Note:</strong> as <mark>RateComponent</mark> component is provided to the <mark>ContainerComponent</mark> component as <mark>RenderFragment&lt;IRateableProduct&gt; ChildContent</mark>,
-        it is impossible for the <mark>ContainerComponent</mark> component to determinate that its render fragment triggers the delegate - the component that provides the delegate needs to pass the call,
+        <strong>Note:</strong> as <mark>RateComponent</mark> is provided to the <mark>ContainerComponent</mark> as <mark>RenderFragment&lt;IRateableProduct&gt; ChildContent</mark>,
+        it is impossible for the <mark>ContainerComponent</mark> to determinate that its render fragment triggers the delegate - the component that provides the delegate needs to pass the call,
         referring the <mark>ContainerComponent</mark>'s method. Any component can be capture by the reference by assigning the name of the field/property as a value of the <mark>@@ref</mark> <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#ref">build-in</a>
         Blazor directive (line <mark>1</mark>) - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#capture-references-to-components">read more</a>.
     </p>
@@ -485,7 +485,7 @@ namespace Capgemini.Net.Blazor.Components.Demo10.Start
     </pre>
 
     <p>
-        The following chain of events will be triggered on user's click on one of the rate icon in the <mark>RateComponent</mark> component:
+        The following chain of events will be triggered on user's click on one of the rate icon in the <mark>RateComponent</mark>:
     </p>
 
     <ul>
@@ -499,7 +499,7 @@ namespace Capgemini.Net.Blazor.Components.Demo10.Start
             <mark>ProductRated</mark> delegate of type <mark>Action&lt;int&gt;</mark> is invoked (<mark>ProductRated.Invoke(Rate)</mark>) and the delegate defined in the <mark>WrapperComponent</mark> will be triggered (<mark>ProductRated="@@(async (rate) => await ChangeProductRate(rate))"</mark>).
         </li>
         <li>
-            Asynchronous <mark>ChangeProductRate</mark> method will use captured reference to the <mark>ContainerComponent</mark> component to call its <mark>ChangeProductRate</mark> method (lines <mark>70-84</mark>).
+            Asynchronous <mark>ChangeProductRate</mark> method will use captured reference to the <mark>ContainerComponent</mark> to call its <mark>ChangeProductRate</mark> method (lines <mark>70-84</mark>).
         </li>
         <li>
             If the rate of the product changes, injected <mark>HttpClient</mark> will use the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.json.httpclientjsonextensions.postasjsonasync?view=net-5.0">helper</a> method
@@ -1109,8 +1109,8 @@ namespace Capgemini.Net.Blazor.Components.Demo10.Start
     internal static readonly RenderFragment PointContext5 = __builder =>
     {
     <p>
-        Update the <mark>RateComponent</mark> component by adding the <mark>OnParametersSet</mark> lifecycle method to update the <mark>Rate</mark> base class property to display accurate number of icons selected
-        based on the <mark>CurrentRate</mark> property of a <mark>Product</mark> that was provided by the <strong>API</strong> (form <mark>ContainerComponent</mark> component):
+        Update the <mark>RateComponent</mark> by adding the <mark>OnParametersSet</mark> lifecycle method to update the <mark>Rate</mark> base class property to display accurate number of icons selected
+        based on the <mark>CurrentRate</mark> property of a <mark>Product</mark> that was provided by the <strong>API</strong> (form <mark>ContainerComponent</mark>):
     </p>
 
     <pre data-line="106-109">
