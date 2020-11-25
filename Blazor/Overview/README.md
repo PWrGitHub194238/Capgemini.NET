@@ -40,4 +40,15 @@ This is a short description of each of the examples from 1 to 12 that this proje
 - Demo 07: the UI fragment for displaying the average rate will be extracted from the RateComponent to be on the same level and provided as another render fragment.
   - [Multiple generic RenderFragments](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment-1?view=aspnetcore-5.0),
   - [Template parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-parameters),
-  - [Template context parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-context-parameters),
+  - [Template context parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-context-parameters).
+- Demo 08: during this exercise the validation for the inputs will be enhanced to not allow invalid inputs based on a cross-field validation.
+  - [Build-in validation attributes](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-5.0#validation-attributes),
+  - [Custom validation attributes](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#custom-validation-attributes),
+  - [ValidationSummary and ValidationMessage build-in components](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#validation-summary-and-validation-message-components),
+  - [Extending buil-in components](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#inputtext-based-on-the-input-even),
+  - [Generic components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-parameters),
+  - [Attribute splatting](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#attribute-splatting-and-arbitrary-parameters),
+  - [EditForm events](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext.onfieldchanged?view=aspnetcore-5.0),
+  - [Disposing components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#component-disposal-with-idisposable),
+  - [Directive attributes](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#razor-syntax).
+- Demo 09:

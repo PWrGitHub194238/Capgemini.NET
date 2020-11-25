@@ -1,0 +1,493 @@
+=========================================================================================
+=========================================================================================
+Demo 08
+=========================================================================================
+=========================================================================================
+Demo goal: make impossible for the user to type in invalid values which would crash the app
+
+---------------------------------------------------------------------------------
+Demo 08 > 1 > Use validation attributes for the form inputs instead of custom logic in setters
+---------------------------------------------------------------------------------
+
+RateContext.cs
+ - replace class content:
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+private int maxRate = 6;
+private int avgRate = 3;
+private int iconIndex;
+
+public static readonly string[] Icons = {
+	"fa-star",
+	"fa-grin-stars",
+	"fa-angry",
+	"fa-sun"
+};
+
+public string Icon => Icons[iconIndex];
+
+public int MaxRate
+{
+	get => maxRate;
+	set => maxRate = Math.Max(2, value);
+}
+
+public int AvgRate
+{
+	get => avgRate;
+	set => avgRate = Math.Max(1, Math.Min(MaxRate, value));
+}
+
+public int IconIndex
+{
+	get => iconIndex;
+	set => iconIndex = value < 0
+		? Icons.Length - 1
+		: value >= Icons.Length
+		? 0
+		: value;
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+public static readonly string[] Icons = {
+	"fa-star",
+	"fa-grin-stars",
+	"fa-angry",
+	"fa-sun"
+};
+
+public int MaxRate { get; set; } = 6;
+
+public int AvgRate { get; set; } = 3;
+
+public string Icon { get; set; } = Icons[0];
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - simplify the CapSelect
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<CapSelect Label="Icon" @bind-Value="rateContext.IconIndex" ParseValue="@((option) => RateContext.Icons[option])">
+	@for (int i = 0; i < RateContext.Icons.Length; i += 1)
+	{
+		string icon = RateContext.Icons[i];
+		<CapOption Key="@i.ToString()" Value="@i">
+			<div class="fa-cap-option">
+				<i class="far @icon" /> - <strong>@icon</strong>
+			</div>
+		</CapOption>
+	}
+</CapSelect>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<CapSelect Label="Icon" @bind-Value="rateContext.Icon">
+	@foreach (string icon in RateContext.Icons)
+	{
+		<CapOption Key="@icon" Value="@icon">
+			<div class="fa-cap-option">
+				<i class="far @icon" /> - <strong>@icon</strong>
+			</div>
+		</CapOption>
+	}
+</CapSelect>
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+RateContext.cs
+ - add validation attributes
+ - for MaxRate
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[Required]
+[Range(2, int.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - for AvgRate 
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[Required]
+[Range(2, int.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
+[CompareTo(CompareToAttribute.CompareTo.LESS_THAN_OR_EQUAL, "MaxRate")]
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - add DataAnnotationsValidator after EditForm
+
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<DataAnnotationsValidator />
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - add validation message for MaxRate:
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<InputNumber @bind-Value="@rateContext.MaxRate" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<ChildContent>
+	<InputNumber @bind-Value="@rateContext.MaxRate" />
+</ChildContent>
+<ValidationContent>
+	<ValidationMessage For="@(() => @rateContext.MaxRate)" />
+</ValidationContent>
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - add validation message for AvgRate:
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<InputNumber @bind-Value="@rateContext.AvgRate" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<ChildContent>
+	<InputNumber @bind-Value="@rateContext.AvgRate" />
+</ChildContent>
+<ValidationContent>
+	<ValidationMessage For="@(() => @rateContext.AvgRate)" />
+</ValidationContent>
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+---------------------------------------------------------------------------------
+Demo 08 > 2 > Prevent invalid values to be used, provide custom input controls
+---------------------------------------------------------------------------------
+
+AvgRateInputNumber.razor
+ - create a new file:
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@typeparam TValue
+@inherits InputNumber<TValue>
+
+<input
+    @attributes="AdditionalAttributes"
+    class="@CssClass"
+    value="@CurrentValue"
+    @oninput="@((value) => CurrentValueAsString = value.Value?.ToString())" />
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - replace input component for Max rate:
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<InputNumber @bind-Value="@rateContext.MaxRate" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<AvgRateInputNumber @bind-Value="@rateContext.MaxRate" type="number" />
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - add min attribute for Max rate
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<AvgRateInputNumber @bind-Value="@rateContext.MaxRate" type="number" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<AvgRateInputNumber
+	@bind-Value="@rateContext.MaxRate"
+	type="number"
+	min="@rateContext.AvgRate" />
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - add min and max attributes for Avg rate, replace component
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<InputNumber @bind-Value="@rateContext.AvgRate" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<AvgRateInputNumber
+	@bind-Value="@rateContext.AvgRate"
+	type="number"
+	min="2"
+	max="@rateContext.MaxRate" />
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+---------------------------------------------------------------------------------
+Demo 08 > 3 > Use edit form context to provide cross-field value correctness
+---------------------------------------------------------------------------------
+
+MaxRateInputNumber.razor
+ - create a new file:
+
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@typeparam TValue
+@inherits RateInputNumberBase<TValue>
+@implements IDisposable
+
+<input @attributes="AdditionalAttributes"
+       class="@CssClass"
+       value="@CurrentValue"
+       @oninput="@((value) => CurrentValueAsString = value.Value?.ToString())" />
+
+@code {
+    protected override void OnInitialized()
+    {
+        EditContext.OnFieldChanged += HandleFieldChanged;
+        base.OnInitialized();
+    }
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
+        => OnSelectedFieldChanged<RateContext>(nameof(RateContext.AvgRate), e, UpdateField);
+
+    private void UpdateField(RateContext model, FieldIdentifier fieldIdentifier)
+    {
+        if (model.MaxRate < model.AvgRate)
+        {
+            CurrentValueAsString = model.AvgRate.ToString();
+            EditContext.Validate();
+        }
+    }
+
+    public void Dispose()
+    {
+        EditContext.OnFieldChanged -= HandleFieldChanged;
+    }
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+AvgRateInputNumber.razor
+ - add @code {} block:
+ 
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@code {
+    protected override void OnInitialized()
+    {
+        EditContext.OnFieldChanged += HandleFieldChanged;
+        base.OnInitialized();
+    }
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
+        => OnSelectedFieldChanged<RateContext>(nameof(RateContext.MaxRate), e, UpdateField);
+
+    private void UpdateField(RateContext model, FieldIdentifier fieldIdentifier)
+    {
+        if (model.MaxRate < model.AvgRate)
+        {
+            CurrentValueAsString = model.MaxRate.ToString();
+            EditContext.Validate();
+        }
+    }
+
+    public void Dispose()
+    {
+        EditContext.OnFieldChanged -= HandleFieldChanged;
+    }
+}
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+  - replace the base class:
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+@inherits InputNumber<TValue>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+@inherits RateInputNumberBase<TValue>
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - update Max rate input:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<AvgRateInputNumber 
+	@bind-Value="@rateContext.MaxRate"
+	type="number"
+	min="@rateContext.AvgRate" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+<MaxRateInputNumber
+	@bind-Value="@rateContext.MaxRate"
+	type="number"
+	min="2" />
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - update Avg rate input:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<AvgRateInputNumber 
+	@bind-Value="@rateContext.AvgRate"
+	type="number"
+	min="2"
+	max="@rateContext.MaxRate" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+<AvgRateInputNumber
+	@bind-Value="@rateContext.AvgRate"
+	type="number"
+	min="2" />
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+AvgRateInputNumber.razor
+ - simplify the component changing base class:
+ 
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@typeparam TValue
+@inherits RateInputNumberAbstractBase<TValue>
+@implements IDisposable
+
+<input @attributes="AdditionalAttributes"
+       class="@CssClass"
+       value="@CurrentValue"
+       @oninput="@((value) => CurrentValueAsString = value.Value?.ToString())" />
+
+@code {
+    protected override void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
+        => OnSelectedFieldChanged<RateContext>(nameof(RateContext.MaxRate), e, UpdateField);
+
+    private void UpdateField(RateContext model, FieldIdentifier fieldIdentifier)
+    {
+        if (model.MaxRate < model.AvgRate)
+        {
+            CurrentValueAsString = model.MaxRate.ToString();
+            EditContext.Validate();
+        }
+    }
+}
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+
+MaxRateInputNumber .razor
+ - simplify the component changing base class:
+ 
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+@typeparam TValue
+@inherits RateInputNumberAbstractBase<TValue>
+@implements IDisposable
+
+<input @attributes="AdditionalAttributes"
+       class="@CssClass"
+       value="@CurrentValue"
+       @oninput="@((value) => CurrentValueAsString = value.Value?.ToString())" />
+
+@code {
+    protected override void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
+        => OnSelectedFieldChanged<RateContext>(nameof(RateContext.AvgRate), e, UpdateField);
+
+    private void UpdateField(RateContext model, FieldIdentifier fieldIdentifier)
+    {
+        if (model.MaxRate < model.AvgRate)
+        {
+            CurrentValueAsString = model.AvgRate.ToString();
+            EditContext.Validate();
+        }
+    }
+}
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+
+---------------------------------------------------------------------------------
+Demo 08 > 4 > Change the behavior of the number inputs to forbids invalid values to be set
+---------------------------------------------------------------------------------
+
+RateInputMinMaxNumberAbstractBase.cs
+ - create new file:
+ 
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+using Capgemini.Net.Blazor.Components.Demo;
+using Microsoft.AspNetCore.Components;
+using System;
+using System.Diagnostics.CodeAnalysis;
+
+namespace Capgemini.Net.Blazor.Components.Demo08.Start
+{
+    public abstract class RateInputMinMaxNumberAbstractBase<TValue> : RateInputNumberAbstractBase<TValue>
+    {
+        [Parameter]
+        public TValue Min { get; set; } = default!;
+
+        [Parameter]
+        public TValue Max { get; set; } = default!;
+
+        protected override bool TryParseValueFromString(
+            string? value,
+            [MaybeNullWhen(false)] out TValue result,
+            [NotNullWhen(false)] out string? validationErrorMessage)
+        {
+            if (base.TryParseValueFromString(value, out result, out validationErrorMessage))
+            {
+                IComparable<TValue>? selfValueComparer = result as IComparable<TValue>;
+
+                if (selfValueComparer is not null)
+                {
+                    if (Min is not null && selfValueComparer.CompareTo(Min) < 0)
+                    {
+                        result = Min;
+                    }
+
+                    if (Max is not null && selfValueComparer.CompareTo(Max) > 0)
+                    {
+                        result = Max;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+    }
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+
+MaxRateInputNumber.razor
+ - replace base class:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+@inherits RateInputNumberAbstractBase<TValue>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@inherits RateInputMinMaxNumberAbstractBase<TValue>
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+AvgRateInputNumber.razor
+ - replace base class:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+@inherits RateInputNumberAbstractBase<TValue>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@inherits RateInputMinMaxNumberAbstractBase<TValue>
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - update markup to use custom Min ands Max for Max rate:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<MaxRateInputNumber 
+	@bind-Value="@rateContext.MaxRate"
+	type="number"
+	min="2" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<MaxRateInputNumber
+	@bind-Value="@rateContext.MaxRate"
+	Min="@rateContext.AvgRate"
+	Max="@int.MaxValue"
+	type="number" />
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - update markup to use custom Min ands Max for Avg  rate:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<AvgRateInputNumber 
+	@bind-Value="@rateContext.AvgRate"
+	type="number"
+	min="2" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<AvgRateInputNumber
+	@bind-Value="@rateContext.AvgRate"
+	Min="2"
+	Max="@rateContext.MaxRate"
+	type="number" />
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+MaxRateInputNumber.razor
+ - update binding and binding event
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+value="@CurrentValue"
+@oninput="@((value) => CurrentValueAsString = value.Value?.ToString())" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@bind-value="@CurrentValueAsString"
+@bind-value:event="oninput" />
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+AvgRateInputNumber.razor
+ - update binding and binding event
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+value="@CurrentValue"
+@oninput="@((value) => CurrentValueAsString = value.Value?.ToString())" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@bind-value="@CurrentValueAsString"
+@bind-value:event="oninput" />
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
