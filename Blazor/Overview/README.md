@@ -33,4 +33,8 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [EditForm component](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform?view=aspnetcore-5.0),
   - [Build-in input componrnts](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#built-in-forms-components),
   - [EditContext](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext?view=aspnetcore-5.0).
-- Demo 06:
+- Demo 06: in this example the context-providing cascading value will be replaced by the generic render fragment, to make parent component able to provide it to use in its child content markup to be written.
+  - [Generic RenderFragment](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment-1?view=aspnetcore-5.0),
+  - [Template parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-parameters),
+  - [Template context parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-context-parameters),
+- Demo 07:
