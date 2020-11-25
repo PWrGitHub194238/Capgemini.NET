@@ -1,0 +1,178 @@
+=========================================================================================
+=========================================================================================
+Demo 07
+=========================================================================================
+=========================================================================================
+Demo goal: extract Avg Rate part from RateComponent to container to be able to provide
+different parts for both
+
+---------------------------------------------------------------------------------
+Demo 07 > 1 > Separate the average counter from the rating component
+---------------------------------------------------------------------------------
+
+RateComponent.razor
+ - remove AvgRate
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<div class="average-rate-container">
+	@(RateContext.AvgRate)
+</div>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - add the same markup after @ChildContent(rateContext)
+
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<div class="average-rate-container">
+	@(rateContext.AvgRate)
+</div>
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+RateComponent.razor.scss
+ - remove styles for average-rate-container
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+.average-rate-container {
+	display: flex;
+	align-items: center;
+	font-family: 'Ubuntu';
+	font-weight: bold;
+	font-size: large;
+
+	&:before {
+		content: 'Average rate: ';
+		font-family: 'Ubuntu';
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: larger;
+		padding-right: 15px;
+	}
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor.scss
+ - add removed styles (after .demo__container class):
+
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+.average-rate-container {
+	display: flex;
+	align-items: center;
+	font-family: 'Ubuntu';
+	font-weight: bold;
+	font-size: large;
+
+	&:before {
+		content: 'Average rate: ';
+		font-family: 'Ubuntu';
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: larger;
+		padding-right: 15px;
+	}
+}
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Note: remember to recompile both scss files
+
+---------------------------------------------------------------------------------
+Demo 07 > 2 > Replace default average rate markup with replaceable render fragment
+---------------------------------------------------------------------------------
+
+Now as we have avg in container, it is super easy to add render fragment instead
+
+ContainerComponent.razor.cs
+ - add a parameter at the ond of the class
+ 
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[Parameter]
+public RenderFragment AvgRate { get; set; } = default!;
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+ContainerComponent.razor
+ - replace content for average-rate-container
+ 
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+@(rateContext.AvgRate)
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@AvgRate
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+WrapperComponent.razor
+ - add <AvgRate>
+
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<AvgRate>
+	<DefaultAverageRateComponent />
+</AvgRate>
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor.cs
+ - add generic parameter
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+public RenderFragment AvgRate { get; set; } = default!;
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+public RenderFragment<AverageRateContext> AvgRate { get; set; } = default!;
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+AverageRateContext.cs
+ - create a new class
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+namespace Capgemini.Net.Blazor.Components.Demo07.Start
+{
+    public class AverageRateContext
+    {
+        public int MinRate { get; set; }
+
+        public int AvgRate { get; set; }
+
+        public int MaxRate { get; set; }
+    }
+}
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor.cs
+ - provide default field to provide as context
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+private AverageRateContext AverageRateContext => new AverageRateContext()
+{
+	MinRate = 1,
+	AvgRate = rateContext.AvgRate,
+	MaxRate = rateContext.MaxRate,
+};
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - add a parameter for generic render fragment
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+@AvgRate
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@AvgRate(AverageRateContext)
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+WrapperComponent.razor
+ - replace <AvgRate >:
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<AvgRate>
+	<DefaultAverageRateComponent />
+</AvgRate>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<AvgRate Context="avgContext">
+	<DefaultAverageRateComponent
+		MinRate="@(avgContext.MinRate)"
+		AvgRate="@(avgContext.AvgRate)"
+		MaxRate="@(avgContext.MaxRate)" />
+</AvgRate>
+08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+Note: show the description for 2nd point ot show the possibilities how to combine both Rate and AvgRate

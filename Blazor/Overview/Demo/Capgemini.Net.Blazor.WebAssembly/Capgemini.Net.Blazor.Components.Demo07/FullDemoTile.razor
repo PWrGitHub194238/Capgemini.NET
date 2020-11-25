@@ -15,20 +15,20 @@
 @code {
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
-    <p>
-        Move the given markup from the <mark>RateComponent</mark> to the <mark>ContainerComponent.razor</mark> file:
-    </p>
+        <p>
+            Move the given markup from the <mark>RateComponent</mark> to the <mark>ContainerComponent.razor</mark> file:
+        </p>
 
-    <pre>
-    <code class="language-csharp line-numbers">
+        <pre data-label-file="file.php">
+            <code class="language-csharp line-numbers">
 &lt;div class="average-rate-container"&gt;
 	@@(RateContext.AvgRate)
 &lt;/div&gt;
-        </code>
+            </code>
         </pre>
 
-    <pre>
-    <code class="language-csharp line-numbers">
+        <pre>
+            <code class="language-csharp line-numbers">
 @@inherits RateComponentBase
 
 &lt;div class="rate-container"&gt;
@@ -48,11 +48,11 @@
     [Parameter]
     public RateContext RateContext { get; set; } = default!;
 }
-        </code>
+            </code>
         </pre>
 
-    <pre data-line="28-30">
-    <code class="language-csharp line-numbers">
+        <pre data-line="28-30">
+            <code class="language-csharp line-numbers">
 &lt;div class="demo__container_wrapper"&gt;
     &lt;EditForm Model="@@rateContext"&gt;
         &lt;CapInput Label="Max rate" InputName="@@nameof(rateContext.MaxRate)"&gt;
@@ -84,20 +84,24 @@
         @@(rateContext.AvgRate)
     &lt;/div&gt;
 &lt;/div&gt;
-        </code>
+            </code>
         </pre>
 
-    <p>
-        Note that the child content of the <mark>&lt;div class="average-rate-container"&gt;</mark> was changed from <mark>@@(RateContext.AvgRate)</mark> to <mark>@@(rateContext.AvgRate)</mark> (line <mark>29</mark>).
-    </p>
+        <p>
+            Note that the child content of the <mark>&lt;div class="average-rate-container"&gt;</mark> was changed 
+            from <mark>@@(RateContext.AvgRate)</mark> to <mark>@@(rateContext.AvgRate)</mark> (line <mark>29</mark>).
+        </p>
 
-    <p>
-        As the markup that was moved between components is using a <mark>average-rate-container</mark> <strong>CSS</strong> class it has to be moved as well (delete the <strong>CSS</strong> class
-        from the <mark>RateComponent.razor.scss</mark> file, leaving only <mark>rate-container</mark> and <mark>.con-rate-container</mark> class definitions and add deleted classes to the styles of the <mark>ContainerComponent</mark>):
-    </p>
+        <p>
+            As the markup that was moved between components is using a <mark>average-rate-container</mark> <strong>CSS</strong> class,
+            it has to be moved as well. Delete the <strong>CSS</strong> class
+            from the <mark>RateComponent.razor.scss</mark> file, leaving only <mark>rate-container</mark> 
+            and <mark>icon-rate-container</mark> class definitions and add deleted classes to the styles
+            of the <mark>ContainerComponent</mark>):
+        </p>
 
-    <pre>
-    <code class="language-css line-numbers">
+        <pre>
+            <code class="language-css line-numbers">
 .rate-container {
     display: flex;
     flex-direction: column;
@@ -107,11 +111,11 @@
         display: flex;
     }
 }
-        </code>
+            </code>
         </pre>
 
-    <pre data-line="8-23">
-    <code class="language-css line-numbers">
+        <pre data-line="8-23">
+            <code class="language-css line-numbers">
 .demo__container_wrapper {
 	/* ... */
 
@@ -136,18 +140,28 @@
         }
     }
 }
-        </code>
+            </code>
         </pre>
     };
 
+    private static readonly string BY_CONVENTION = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content";
+    private static readonly string MULTIPLE = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0#tabset-example";
+    private static readonly string READ_MORE_1 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-context-parameters";
+    private static readonly string READ_MORE_2 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#define-reusable-renderfragments-in-code";
+    private static readonly string READ_MORE_3 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/advanced-scenarios?view=aspnetcore-5.0#manual-rendertreebuilder-logic";
+    private static readonly string READ_MORE_4 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#avoid-unnecessary-rendering-of-component-subtrees";
+    private static readonly string READ_MORE_5 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#before-parameters-are-set";
+    private static readonly string READ_MORE_6 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#implement-setparametersasync-manually";
+    private static readonly string READ_MORE_7 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#dont-receive-too-many-parameters";
+
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
-    <p>
-        Add the second <mark>RenderFragment</mark> to the code-behind file for the <mark>ContainerComponent</mark>:
-    </p>
+        <p>
+            Add the second <mark>RenderFragment</mark> to the code-behind file for the <mark>ContainerComponent</mark>:
+        </p>
 
-    <pre data-line="12-13">
-    <code class="language-csharp line-numbers">
+        <pre data-line="12-13">
+            <code class="language-csharp line-numbers">
 using Microsoft.AspNetCore.Components;
 
 namespace Capgemini.Net.Blazor.Components.Demo07.Start
@@ -161,19 +175,19 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
 
         [Parameter]
         public RenderFragment AvgRate { get; set; } = default!;
-
-        // ...
     }
 }
             </code>
         </pre>
 
-    <p>
-        Replace the markup of the same component to reflect the code-behind changes to display a new <mark>RenderFragment</mark> instead of displaying a <mark>rateContext.AvgRate</mark> value:
-    </p>
+        <p>
+            Replace the markup of the Razor file for that component (<mark>ContainerComponent.razor</mark>) to reflect 
+            the code-behind changes to display a new <mark>RenderFragment</mark>, instead of displaying 
+            the <mark>rateContext.AvgRate</mark> value:
+        </p>
 
-    <pre data-line="11">
-    <code class="language-csharp line-numbers">
+        <pre data-line="11">
+            <code class="language-csharp line-numbers">
 &lt;div class="demo__container_wrapper"&gt;
     &lt;EditForm Model="@@rateContext"&gt;
 		&lt;!-- ... --&gt;
@@ -190,13 +204,16 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
             </code>
         </pre>
 
-    <p>
-        Additional <mark>RenderFragment</mark> enabled a user of the <mark>ContainerComponent</mark> to define a way to display the average rate of the <mark>RateComponent</mark>.
-        That enables the child content of the <mark>ContainerComponent</mark> to be defined like below. Change the content of the <mark>WrapperComponent.razor</mark> file:
-    </p>
+        <p>
+            Additional <mark>RenderFragment</mark> enables a user of the <mark>ContainerComponent</mark> to define a way 
+            to display the average rate independently of the <mark>RateComponent</mark> (or any other markup/component 
+            provided for <mark>ChildContent</mark>).
+            That enables the child content of the <mark>ContainerComponent</mark> to be defined in the 
+            <mark>WrapperComponent.razor</mark> file:
+        </p>
 
-    <pre data-line="5-7">
-    <code class="language-csharp line-numbers">
+        <pre data-line="5-7">
+            <code class="language-csharp line-numbers">
 &lt;ContainerComponent&gt;
     &lt;ChildContent Context="rateContext"&gt;
         &lt;RateComponent RateContext="@@rateContext" /&gt;
@@ -208,74 +225,74 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
             </code>
         </pre>
 
-    <p>
-        <strong>Note:</strong> <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content">by convention</a> a component's parameter
-        of type <mark>RenderFragment</mark>/<mark>RenderFragment&lt;TValue&gt;</mark> has to be named as <mark>ChildComponent</mark> to make the omitting
-        of the <mark>&lt;ChildComponent&gt;</mark> possible:
-    </p>
+        <p>
+            <strong>Note:</strong> if the component defines only one parameter of type
+            <mark>RenderFragment</mark>/<mark>RenderFragment&lt;TValue&gt;</mark>, the <mark>&lt;ChildContent&gt;</mark>
+            tag can be omitted as long as the property for <mark>RenderFragment</mark>/<mark>RenderFragment&lt;TValue&gt;</mark>
+            has a name of <mark>ChildComponent</mark> (<a href="@BY_CONVENTION">by convention</a>).
+        </p>
 
-    <pre data-line="2, 4">
-    <code class="language-csharp line-numbers">
+        <pre data-line="2, 4">
+            <code class="language-csharp line-numbers">
 &lt;ContainerComponent&gt;
     &lt;!-- &lt;ChildContent&gt; --&gt;
         &lt;RateComponent RateContext="@@context" /&gt;
     &lt;!-- &lt;/ChildContent&gt; --&gt;
 &lt;/ContainerComponent&gt;
-        </code>
+            </code>
         </pre>
 
-    <p>
-        In case of <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0#tabset-example">multiple</a> render fragment parameters are defined (or if
-        there is a need to rename the default <mark>@@context</mark> for <mark>RenderFragment&lt;TValue&gt; ChildContent</mark> parameter - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-context-parameters">read more</a>)
-        then for each render fragment the tag with the same name has to be specified as the child tags of the parent component for the following reasons:
-    </p>
+        <p>
+            In case of <a href="@MULTIPLE">multiple</a> render fragment parameters defined (or if
+            there is a need to rename the default <mark>@@context</mark> for <mark>RenderFragment&lt;TValue&gt; ChildContent</mark> 
+            parameter - <a href="@READ_MORE_1">read more</a>), 
+            for each render fragment the tag with the same name as render fragment it represents has to be defined explicitly (i.e. 
+            <mark>&lt;ChildContent&gt;</mark> for <mark>ChildContent</mark> parameter 
+            of type <mark>RenderFragment&lt;RateContext&gt;</mark> and <mark>&lt;AvgRate&gt;</mark> for <mark>AvgRate</mark> property):
+        </p>
 
-    <ul>
-        <li>
-            to provide a clear separation of multiple render fragments - each child markup of the <mark>&lt;X&gt;</mark> tag is treated as a content for the <mark>RenderFragment</mark> parameter named <mark>X</mark>,
-        </li>
-        <li>
-            to make the default <mark>@@context</mark> for each of the parameters of type <mark>RenderFragment&lt;TValue&gt;</mark> to be clearly distinguished by name.
-        </li>
-    </ul>
+        <ul>
+            <li>
+                to provide a clear separation of multiple render fragments - each child markup of the <mark>&lt;X&gt;</mark> tag
+                is treated as a content for the <mark>RenderFragment</mark>/<mark>RenderFragment&lt;TValue&gt;</mark> parameter 
+                named <mark>X</mark>,
+            </li>
+            <li>
+                to make the default <mark>@@context</mark> for each of the parameters of type <mark>RenderFragment&lt;TValue&gt;</mark> 
+                to be clearly distinguished by name.
+            </li>
+        </ul>
 
-    <p>
-        To provide a context for the <mark>AvgRate</mark> render fragment change the type of the property <mark>AvgRate</mark> to the generic version of <mark>RenderFragment</mark>:
-    </p>
+        <p>
+            To provide a context for the <mark>AvgRate</mark> render fragment, change the type of the
+            <mark>AvgRate</mark> property to the generic version of <mark>RenderFragment</mark>:
+        </p>
 
-    <pre data-line="11">
-    <code class="language-csharp line-numbers">
+        <pre data-line="10">
+            <code class="language-csharp line-numbers">
 using Microsoft.AspNetCore.Components;
 
 namespace Capgemini.Net.Blazor.Components.Demo07.Start
 {
     public partial class ContainerComponent
     {
-        [Parameter]
-        public RenderFragment&lt;RateContext&gt; ChildContent { get; set; } = default!;
+        // ...
 
         [Parameter]
         public <mark>RenderFragment&lt;AverageRateContext&gt;</mark> AvgRate { get; set; } = default!;
-
-        private readonly RateContext rateContext = new RateContext();
-
-        private AverageRateContext AverageRateContext =&gt; new AverageRateContext()
-        {
-            MinRate = 1,
-            AvgRate = rateContext.AvgRate,
-            MaxRate = rateContext.MaxRate,
-        };
     }
 }
             </code>
         </pre>
 
-    <p>
-        Create a new class named <mark>AverageRateContext</mark>. All components that are going to be defined within the <mark>&lt;AvgRate&gt;</mark> and <mark>&lt;/AvgRate&gt;</mark> will be able to use that class (for example to provide values for their parameters):
-    </p>
+        <p>
+            Create a new class named <mark>AverageRateContext</mark>. All components that are going to be defined 
+            within the <mark>&lt;AvgRate&gt;</mark> and <mark>&lt;/AvgRate&gt;</mark> tag pair will be able to use that class 
+            (for example to provide values for their parameters):
+        </p>
 
-    <pre>
-    <code class="language-csharp line-numbers">
+        <pre>
+            <code class="language-csharp line-numbers">
 namespace Capgemini.Net.Blazor.Components.Demo07.Start
 {
     public class AverageRateContext
@@ -290,45 +307,48 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
             </code>
         </pre>
 
-    <p>
-        Provide a default instance of that class inside the code-behind <mark>ContainerComponent.razor.cs</mark> file to serve as a context object
-        for the defined <mark>AvgRate</mark> render fragment parameter (one which accepts <mark>AverageRateContext</mark> as a generic parameter):
-    </p>
+        <p>
+            Provide a default instance of that class inside the code-behind <mark>ContainerComponent.razor.cs</mark> file 
+            to serve as a context object for the defined <mark>AvgRate</mark> render fragment parameter (one which accepts 
+            <mark>AverageRateContext</mark> type as a generic parameter):
+        </p>
 
-    <pre data-line="15-20">
-    <code class="language-csharp line-numbers">
+        <pre data-line="9-14">
+            <code class="language-csharp line-numbers">
 using Microsoft.AspNetCore.Components;
 
 namespace Capgemini.Net.Blazor.Components.Demo07.Start
 {
     public partial class ContainerComponent
     {
+        private readonly RateContext rateContext = new RateContext();
+
+        private AverageRateContext AverageRateContext =&gt; new AverageRateContext()
+        {
+	        MinRate = 1,
+	        AvgRate = rateContext.AvgRate,
+	        MaxRate = rateContext.MaxRate,
+        };
+
         [Parameter]
         public RenderFragment&lt;RateContext&gt; ChildContent { get; set; } = default!;
 
         [Parameter]
         public RenderFragment&lt;AverageRateContext&gt; AvgRate { get; set; } = default!;
-
-        private readonly RateContext rateContext = new RateContext();
-
-        private AverageRateContext AverageRateContext =&gt; new AverageRateContext()
-        {
-            MinRate = 1,
-            AvgRate = rateContext.AvgRate,
-            MaxRate = rateContext.MaxRate,
-        };
     }
 }
             </code>
         </pre>
 
-    <p>
-        Note that part of the <mark>AverageRateContext</mark> object can be received from the <mark>rateContext</mark> filed.
-        Add a parameter for the generic <mark>@@AvgRate</mark> render fragment invocation inside the <mark>ContainerComponent</mark>'s markup:
-    </p>
+        <p>
+            Note that both <mark>AvgRate</mark> and <mark>MaxRate</mark> properties of the <mark>AverageRateContext</mark> object 
+            can be received from the <mark>rateContext</mark> filed.
+            Add a parameter for the generic <mark>@@AvgRate</mark> render fragment invocation
+            inside the <mark>ContainerComponent</mark>'s markup:
+        </p>
 
-    <pre data-line="29">
-    <code class="language-csharp line-numbers">
+        <pre data-line="29">
+            <code class="language-csharp line-numbers">
 &lt;div class="demo__container_wrapper"&gt;
     &lt;EditForm Model="@@rateContext"&gt;
         &lt;CapInput Label="Max rate" InputName="@@nameof(rateContext.MaxRate)"&gt;
@@ -363,13 +383,14 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
             </code>
         </pre>
 
-    <p>
-        Change the markup of the <mark>WrapperComponent.razor</mark> file to use the new <mark>@@context</mark> variable for the <mark>&lt;AvgRate&gt;</mark> part
-        to make the child component receive its parameters from the <mark>ContainerComponent</mark> and react if one of those were changed by the parent:
-    </p>
+        <p>
+            Change the markup of the <mark>WrapperComponent.razor</mark> file to use the new <mark>@@context</mark> variable for 
+            the <mark>&lt;AvgRate&gt;</mark> part, to make the child component receive its parameters 
+            from the <mark>ContainerComponent</mark> and react if one of those were changed by the parent:
+        </p>
 
-    <pre data-line="5, 7-9">
-    <code class="language-csharp line-numbers">
+        <pre data-line="5, 7-9">
+            <code class="language-csharp line-numbers">
 &lt;ContainerComponent&gt;
     &lt;ChildContent Context="rateContext"&gt;
         &lt;RateComponent RateContext="@@rateContext" /&gt;
@@ -384,15 +405,17 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
             </code>
         </pre>
 
-    <p>
-        <strong>Note:</strong> it is also possible to not provide a custom name for either of the <mark>Context</mark> parameters - the distinction of the <mark>@@context</mark>'s will be handled implicitly:
-    </p>
+        <p>
+            <strong>Note:</strong> it is also possible to not provide a custom name for either of the <mark>Context</mark> parameters 
+            - the distinction of the <mark>ChildContent</mark>'s <mark>@@context</mark> variable 
+            and the <mark>@@context</mark> for <mark>AvgRate </mark> will be handled implicitly:
+        </p>
 
-    <div class="example-figure">
-        <figure>
-            <div>
-                <pre data-line="2, 6">
-                <code class="language-csharp no-line-numbers">
+        <div class="example-figure">
+            <figure>
+                <div>
+                    <pre data-line="2, 6">
+                        <code class="language-csharp no-line-numbers">
 &lt;ContainerComponent&gt;
     &lt;ChildContent <mark>Context="rateContext"</mark>&gt;
         &lt;RateComponent
@@ -405,17 +428,17 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
             MaxRate="@@(<mark>avgContext</mark>.MaxRate)" /&gt;
     &lt;/AvgRate&gt;
 &lt;/ContainerComponent&gt;
-                    </code>
-                </pre>
-            </div>
-            <figcaption>
-                <span>Using a <mark>Context</mark> attribute to rename <mark>context</mark> implicit parameter</span>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <pre data-line="2, 6">
-                <code class="language-csharp no-line-numbers">
+                        </code>
+                    </pre>
+                </div>
+                <figcaption>
+                    <span>Using a <mark>Context</mark> attribute to rename <mark>context</mark> parameter explicitly</span>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <pre data-line="2, 6">
+                        <code class="language-csharp no-line-numbers">
 &lt;ContainerComponent&gt;
     &lt;ChildContent&gt;
         &lt;RateComponent
@@ -428,45 +451,65 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
             MaxRate="@@(<mark>context</mark>.MaxRate)" /&gt;
     &lt;/AvgRate&gt;
 &lt;/ContainerComponent&gt;
-                    </code>
-                </pre>
-            </div>
-            <figcaption>
-                <span>Using implicit <mark>context</mark> parameter for both generic render fragments</span>
-            </figcaption>
-        </figure>
-    </div>
+                        </code>
+                    </pre>
+                </div>
+                <figcaption>
+                    <span>Using implicit <mark>context</mark> parameter for both generic render fragments</span>
+                </figcaption>
+            </figure>
+        </div>
 
-    <p>
-        <strong>Note:</strong> it is not possible to omit the wrapping tags for the <mark>ChildContent</mark> render fragments (that will cause the compilation-time exception to be thrown:
-        <mark>Unrecognized child content inside component 'ContainerComponent'. The component 'ContainerComponent' accepts child content through the following top-level items: 'ChildContent', 'AvgRate'</mark>).
-        If <mark>ContainerComponent</mark> defines multiple render fragments, only tags with names of its render fragments are allowed. It is possible to not define all of its render fragments
-        but for each that were not defined, a parent component has to handle it by either not displaying it (checking for its nullability) or by providing a default markup (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#define-reusable-renderfragments-in-code">read more</a>, <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/advanced-scenarios?view=aspnetcore-5.0#manual-rendertreebuilder-logic">read more</a>):
-    </p>
+        <p>
+            <strong>Note:</strong> it is not possible to omit the wrapping tags for the <mark>ChildContent</mark> render fragments
+            if multiple render fragments are defined bu the component.
+            Doing so will cause the compilation-time exception to be thrown:
+        </p>
 
-    <p>
-        <strong>Note:</strong> in oppose to the <mark>RateComponent</mark>, <mark>DefaultAverageRateComponent</mark> defines its types as primitives, not a complex object.
-        This is a performance tradeoff:
-    </p>
+        <ul>
+            <li>
+                <mark>Unrecognized child content inside component 'ContainerComponent'. The component 'ContainerComponent' accepts 
+                child content through the following top-level items: 'ChildContent', 'AvgRate'</mark>
+            </li>
+        </ul>
 
-    <ul>
-        <li>
-            by providing only the primitive types as parameters, framework can determinate on its own whenever it should skip the rendering process for the component and its sub-components
-            (by determinate if none of these parameter values have changed). This is not possible for mutable objects - in that case component rerenders if the parameter values may have changed (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#avoid-unnecessary-rendering-of-component-subtrees">read more</a>).
-        </li>
-        <li>
-            The more parameters the component receives (the more properties of the component is marked either with <mark>[Parameter]</mark> or <mark>[CascadingParameter]</mark> - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#before-parameters-are-set">read more</a>)
-            the more expensive it will be to handle that component (<mark>SetParametersAsync</mark> lifecycle method would need to look for values for all parameters which is done by the reflection - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#implement-setparametersasync-manually">read more</a>).
-            However changing the number of parameters will make a difference for performance only in extreme cases when the given component is being overused - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#dont-receive-too-many-parameters">read more</a>.
-        </li>
-    </ul>
+        <p>
+            If <mark>ContainerComponent</mark> defines multiple render fragments, only tags with names of its render fragments 
+            are allowed. It is possible to not define all of its render fragments but for each that were not defined, 
+            parent component has to handle it by either not displaying it (checking for its nullability) 
+            or by providing a default markup (<a href="@READ_MORE_2">read more</a>, <a href="@READ_MORE_3">read more</a>).
+        </p>
 
-    <p>
-        Now as the <mark>ContainerComponent</mark> is able to receive <mark>AvgRate</mark> in addition to the <mark>ChildContent</mark> render fragment, the number of combination for the below markup grown:
-    </p>
+        <p>
+            <strong>Note:</strong> in oppose to the <mark>RateComponent</mark>, <mark>DefaultAverageRateComponent</mark> defines 
+            its parameters as multiple primitives, not a complex object.
+            This is a performance tradeoff:
+        </p>
 
-    <pre>
-    <code class="language-csharp line-numbers">
+        <ul>
+            <li>
+                by providing only the primitive types as parameters, framework can determinate on its own whenever it should 
+                skip the rendering process for the component and its sub-components
+                (by determinate if none of these parameter values have changed). This is not possible for mutable objects - in that case 
+                component rerenders if the parameter complex object may have changed (<a href="@READ_MORE_4">read more</a>).
+            </li>
+            <li>
+                The more parameters the component receives (the more properties of the component is marked either 
+                with <mark>[Parameter]</mark> or <mark>[CascadingParameter]</mark> - <a href="@READ_MORE_5">read more</a>),
+                the more expensive it will be to handle that component (<mark>SetParametersAsync</mark> lifecycle method 
+                would need to look for values for all parameters which is done by the reflection - <a href="@READ_MORE_6">read more</a>).
+                However changing the number of parameters will make noticeable impact on performance only in extreme cases 
+                when the given component is being overused - <a href="@READ_MORE_7">read more</a>.
+            </li>
+        </ul>
+
+        <p>
+            Now as the <mark>ContainerComponent</mark> is able to receive <mark>AvgRate</mark> in addition
+            to the <mark>ChildContent</mark> render fragment, the number of combination for the below markup grown:
+        </p>
+
+        <pre data-line="3, 6">
+            <code class="language-csharp line-numbers">
 &lt;ContainerComponent&gt;
     &lt;ChildContent&gt;
         &lt;X/&gt;
@@ -475,94 +518,94 @@ namespace Capgemini.Net.Blazor.Components.Demo07.Start
         &lt;Y /&gt;
     &lt;/AvgRate&gt;
 &lt;/ContainerComponent&gt;
-        </code>
+            </code>
         </pre>
 
-    <div class="example-figure">
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.DefaultRateComponent MaxRate="1" />
-            </div>
-            <figcaption>
-                <mark>DefaultRateComponent</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.AlternativeRateComponent MaxRate="1" />
-            </div>
-            <figcaption>
-                <mark>AlternativeRateComponent</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Alternative2RateComponent MaxRate="1" />
-            </div>
-            <figcaption>
-                <mark>Alternative2RateComponent</mark>
-            </figcaption>
-        </figure>
-    </div>
+        <div class="example-figure">
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.DefaultRateComponent MaxRate="1" />
+                </div>
+                <figcaption>
+                    <mark>DefaultRateComponent</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.AlternativeRateComponent MaxRate="1" />
+                </div>
+                <figcaption>
+                    <mark>AlternativeRateComponent</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Alternative2RateComponent MaxRate="1" />
+                </div>
+                <figcaption>
+                    <mark>Alternative2RateComponent</mark>
+                </figcaption>
+            </figure>
+        </div>
 
-    <div class="example-figure">
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.DefaultAverageRateComponent MinRate="1" AvgRate="3" MaxRate="6" />
-            </div>
-            <figcaption>
-                <mark>DefaultAverageRateComponent</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.AlternativeAverageRateComponent MinRate="1" AvgRate="3" MaxRate="6" />
-            </div>
-            <figcaption>
-                <mark>AlternativeAverageRateComponent</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Alternative2AverageRateComponent MinRate="1" AvgRate="3" MaxRate="6" />
-            </div>
-            <figcaption>
-                <mark>Alternative2AverageRateComponent</mark>
-            </figcaption>
-        </figure>
-    </div>
+        <div class="example-figure">
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.DefaultAverageRateComponent MinRate="1" AvgRate="3" MaxRate="6" />
+                </div>
+                <figcaption>
+                    <mark>DefaultAverageRateComponent</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.AlternativeAverageRateComponent MinRate="1" AvgRate="3" MaxRate="6" />
+                </div>
+                <figcaption>
+                    <mark>AlternativeAverageRateComponent</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Alternative2AverageRateComponent MinRate="1" AvgRate="3" MaxRate="6" />
+                </div>
+                <figcaption>
+                    <mark>Alternative2AverageRateComponent</mark>
+                </figcaption>
+            </figure>
+        </div>
 
-    <div class="example-figure">
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo07.PointContext2 Example="1" />
-            </div>
-            <figcaption>
-                <mark>DefaultRateComponent</mark>
-                <div>&</div>
-                <mark>DefaultAverageRateComponent</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo07.PointContext2 Example="2" />
-            </div>
-            <figcaption>
-                <mark>AlternativeRateComponent</mark>
-                <div>&</div>
-                <mark>AlternativeAverageRateComponent</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo07.PointContext2 Example="3" />
-            </div>
-            <figcaption>
-                <mark>Alternative2RateComponent</mark>
-                <div>&</div>
-                <mark>Alternative2AverageRateComponent</mark>
-            </figcaption>
-        </figure>
-    </div>
+        <div class="example-figure">
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Examples.Demo07.PointContext2 Example="1" />
+                </div>
+                <figcaption>
+                    <mark>DefaultRateComponent</mark>
+                    <div>&</div>
+                    <mark>DefaultAverageRateComponent</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Examples.Demo07.PointContext2 Example="2" />
+                </div>
+                <figcaption>
+                    <mark>AlternativeRateComponent</mark>
+                    <div>&</div>
+                    <mark>AlternativeAverageRateComponent</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Examples.Demo07.PointContext2 Example="3" />
+                </div>
+                <figcaption>
+                    <mark>Alternative2RateComponent</mark>
+                    <div>&</div>
+                    <mark>Alternative2AverageRateComponent</mark>
+                </figcaption>
+            </figure>
+        </div>
     };
 }

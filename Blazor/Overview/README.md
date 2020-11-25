@@ -37,4 +37,7 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [Generic RenderFragment](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment-1?view=aspnetcore-5.0),
   - [Template parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-parameters),
   - [Template context parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-context-parameters),
-- Demo 07:
+- Demo 07: the UI fragment for displaying the average rate will be extracted from the RateComponent to be on the same level and provided as another render fragment.
+  - [Multiple generic RenderFragments](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment-1?view=aspnetcore-5.0),
+  - [Template parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-parameters),
+  - [Template context parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-context-parameters),
