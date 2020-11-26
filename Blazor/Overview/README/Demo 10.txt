@@ -1,0 +1,400 @@
+=========================================================================================
+=========================================================================================
+Demo 10
+=========================================================================================
+=========================================================================================
+Demo goal: post rates to the API, load valid product ID on the start, fix stars
+
+---------------------------------------------------------------------------------
+Demo 10 > 1 > Log information about default render fragment usage
+---------------------------------------------------------------------------------
+
+_Imports.razor
+ - add using:
+
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@using Microsoft.Extensions.Logging
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+RateComponent.razor
+ - inject logger:
+ 
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@inject ILogger<RateComponent> Logger
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - add lifecycle method:
+
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+public override async Task SetParametersAsync(ParameterView parameters)
+{
+	await base.SetParametersAsync(parameters);
+
+	if (parameters.GetValueOrDefault<RenderFragment<AverageRateContext>>(nameof(CurrentRate)) is null)
+	{
+		Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(CurrentRate));
+	}
+
+	if (parameters.GetValueOrDefault<RenderFragment<AverageRateContext>>(nameof(AvgRate)) is null)
+	{
+		Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(AvgRate));
+	}
+
+	if (parameters.GetValueOrDefault<RenderFragment<int>>(nameof(MaxRate)) is null)
+	{
+		Logger.LogInformation(Properties.Resources.LOG_INFO_DEFAULT_RENDER_FRAGMENT, nameof(MaxRate));
+	}
+}
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+---------------------------------------------------------------------------------
+Demo 10 > 2 > Set the current rate on rate click to update the context object
+---------------------------------------------------------------------------------
+
+RateComponent.razor
+ - override the SetRate of the product (context):
+ 
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+protected override void SetRate()
+{
+	base.SetRate();
+	Product.CurrentRate = Rate;
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+---------------------------------------------------------------------------------
+Demo 10 > 3 > Notify API about the change, fetch new set of data and refresh component
+---------------------------------------------------------------------------------
+
+ContainerComponent.razor.cs
+ - add empty method:
+ 
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+public async Task ChangeProductRate(int productRate)
+{
+	// API logic to be added
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+RateComponent.razor
+ - add Action [Parameter]
+
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[Parameter]
+public Action<int> ProductRated { get; set; } = default!;
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - and invoke it on SetRate
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Product.CurrentRate = Rate;
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ProductRated.Invoke(Rate);
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+WrapperComponent.razor
+ - replace the markup
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<ContainerComponent>
+    <ChildContent Context="product">
+        <RateComponent Product="@product">
+            <AvgRate Context="avgContext">
+                <DefaultAverageRateComponent 
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<ContainerComponent @ref="ContainerComponentRef">
+    <ChildContent Context="product">
+        <RateComponent Product="@product" ProductRated="@(async (rate) => await ChangeProductRate(rate))">
+            <AvgRate Context="avgContext">
+                <DefaultAverageRateComponent
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
+
+@code {
+    private ContainerComponent? ContainerComponentRef;
+
+    public async Task ChangeProductRate(int productRate)
+    {
+        if (ContainerComponentRef is not null)
+        {
+            await ContainerComponentRef.ChangeProductRate(productRate);
+        }
+    }
+}
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor.cs
+ - provide the implementation of the ChangeProductRate:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+// API logic to be added
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+HttpResponseMessage response = await HttpClient.PostAsJsonAsync(RateEndpoint, productRate);
+
+if (response.IsSuccessStatusCode)
+{
+	var rateableProductViewModel = await response.Content.ReadFromJsonAsync<RateableProductViewModel>();
+
+	if (rateableProductViewModel is not null)
+	{
+		product = new RateableProductAdapter(rateableProductViewModel);
+		StateHasChanged();
+	}
+}
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - add RateEndpoint:
+ 
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+public string RateEndpoint => $"{Endpoint}/rate";
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+RateComponent.razor
+ - change Action to EventCallback:
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+public Action<int> ProductRated { get; set; } = default!;
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+public EventCallback<int> ProductRated { get; set; } = default!;
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - update Invoke to InvokeAsync:
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ProductRated.Invoke(Rate)
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+await ProductRated.InvokeAsync(Rate);
+08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - then the method needs to be async:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+protected override void SetRate()
+{
+	base.SetRate();
+	await ProductRated.InvokeAsync(Rate);
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+09 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+protected override async Task SetRate()
+{
+	await base.SetRate();
+	await ProductRated.InvokeAsync(Rate);
+}
+09 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - then we need to change the base class:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+@inherits RateComponentBase
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+10 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@inherits RateComponentBaseWithTask
+10 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor.cs
+ - remove StateHasChanged();
+
+---------------------------------------------------------------------------------
+Demo 10 > 4 > Provide initial rate value for the rate component, redirect to random product on initialization
+---------------------------------------------------------------------------------
+
+ContainerComponent.razor.cs
+ - add private helper method to handle exceptions:
+
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+private async Task<TValue?> GetFromJsonAsync<TValue>(string endpoint)
+{
+	try
+	{
+		TValue? result = await HttpClient
+			.GetFromJsonAsync<TValue>(endpoint);
+		return result;
+	}
+	catch (HttpRequestException e1)
+	{
+		Logger.LogError(
+			e1,
+			Properties.Resources.LOG_ERROR_CANNOT_FETCH,
+			Endpoint);
+	}
+	catch (NotSupportedException e2)
+	{
+		Logger.LogError(
+			e2,
+			Properties.Resources.LOG_ERROR_RESPONSE_INVALID_FORMAT,
+			Endpoint);
+	}
+
+	return default;
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - update OnParametersSetAsync:
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+try
+{
+	var rateableProductViewModel = await HttpClient
+		.GetFromJsonAsync<RateableProductViewModel>(Endpoint);
+
+	if (rateableProductViewModel is not null)
+	{
+		product = new RateableProductAdapter(rateableProductViewModel);
+	}
+}
+catch (HttpRequestException e1)
+{
+	Logger.LogError(
+		e1,
+		Properties.Resources.LOG_ERROR_CANNOT_FETCH,
+		Endpoint);
+}
+catch (NotSupportedException e2)
+{
+	Logger.LogError(
+		e2,
+		Properties.Resources.LOG_ERROR_RESPONSE_INVALID_FORMAT,
+		Endpoint);
+}
+finally
+{
+	if (product is null)
+	{
+		loadingMessage = "Loading error";
+	}
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+var rateableProductViewModel = await GetFromJsonAsync<RateableProductViewModel>(Endpoint);
+
+if (rateableProductViewModel is not null)
+{
+	product = new RateableProductAdapter(rateableProductViewModel);
+}
+
+if (product is null)
+{
+	loadingMessage = "Loading error";
+}
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+ - add OnInitializedAsync to get random product ID
+
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+protected override async Task OnInitializedAsync()
+{
+	if (!HasProductIdParameterInRoute())
+	{
+		var numberOfProducts = await GetFromJsonAsync<int?>("products/count");
+
+		if (numberOfProducts.HasValue)
+		{
+			NavigationManager.NavigateTo(
+				GetRouteWithRandomProductId(numberOfProducts.Value));
+		}
+	}
+
+	bool HasProductIdParameterInRoute() => Regex.IsMatch(NavigationManager.Uri, @"/\d+$");
+
+	string GetRouteWithRandomProductId(int numberOfProducts)
+		=> $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
+}
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+ 
+ - inject NavigationManager:
+ 
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[Inject]
+public NavigationManager NavigationManager { get; set; } = default!;
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor.cs
+ - store numberOfProducts in field:
+
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+private int? numberOfProducts;
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+var numberOfProducts = await GetFromJsonAsync<int?>("products/count");
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+numberOfProducts = await GetFromJsonAsync<int?>("products/count");
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - update markup:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+@foreach (int productId in Enumerable.Range(1, 5))
+{
+	<ProductButton ProductId="@productId" />
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@if (numberOfProducts.HasValue)
+{
+	@foreach (int productId in Enumerable.Range(1, numberOfProducts.Value))
+	{
+		<ProductButton ProductId="@productId" />
+	}
+}
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor.cs
+ - replace line order:
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+if (!HasProductIdParameterInRoute())
+{
+	numberOfProducts = await GetFromJsonAsync<int?>("products/count");
+
+	if (numberOfProducts.HasValue)
+	{
+		NavigationManager.NavigateTo(
+			GetRouteWithRandomProductId(numberOfProducts.Value));
+	}
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+numberOfProducts = await GetFromJsonAsync<int?>("products/count");
+
+if (numberOfProducts.HasValue && !HasProductIdParameterInRoute())
+{
+	NavigationManager.NavigateTo(
+		GetRouteWithRandomProductId(numberOfProducts.Value));
+}
+08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+---------------------------------------------------------------------------------
+Demo 10 > 5 > Trigger displaying rate update on product change
+---------------------------------------------------------------------------------
+
+RateComponent.razor
+ - add OnParametersSet
+ 
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+protected override void OnParametersSet()
+{
+	Rate = CurrentRateInt;
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

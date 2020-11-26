@@ -42,16 +42,16 @@ namespace Capgemini.Net.Blazor.Components.Demo10.End
         {
             numberOfProducts = await GetFromJsonAsync<int?>("products/count");
 
-            if (numberOfProducts.HasValue && !HasProductIdParameterInRoute())
-            {
-                NavigationManager.NavigateTo(
-                    GetRouteWithRandomProductId(numberOfProducts.Value));
-            }
+            //if (numberOfProducts.HasValue && !HasProductIdParameterInRoute())
+            //{
+            //    NavigationManager.NavigateTo(
+            //        GetRouteWithRandomProductId(numberOfProducts.Value));
+            //}
 
-            bool HasProductIdParameterInRoute() => Regex.IsMatch(NavigationManager.Uri, @"/\d+$");
+            //bool HasProductIdParameterInRoute() => Regex.IsMatch(NavigationManager.Uri, @"/\d+$");
 
-            string GetRouteWithRandomProductId(int numberOfProducts) 
-                => $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
+            //string GetRouteWithRandomProductId(int numberOfProducts)
+            //    => $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
         }
 
         protected override async Task OnParametersSetAsync()

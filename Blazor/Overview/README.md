@@ -64,4 +64,9 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [Routing parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-parameters),
   - [Routing constraints](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-constraints),
   - [Reusable render fragments](https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#define-reusable-renderfragments-in-code)
-- Demo 10:
+- Demo 10: during this exercise the component will be updated to fetch a random product if no product ID was provided and to store rates that user selects by calling the API POST method.
+  - [Component events](https://blazor-university.com/components/component-events),
+  - [Capture references to components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#capture-references-to-components),
+  - [Posting data to API](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.json.httpclientjsonextensions.postasjsonasync?view=net-5.0),
+  - [StateHasChanged method](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#state-changes).
+- Demo 11:
