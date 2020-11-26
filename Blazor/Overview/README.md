@@ -51,4 +51,17 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [EditForm events](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext.onfieldchanged?view=aspnetcore-5.0),
   - [Disposing components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#component-disposal-with-idisposable),
   - [Directive attributes](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#razor-syntax).
-- Demo 09:
+- Demo 09: API to fetch the data for the component instead of the from will be added, default markup for render fragments will be introduced.
+  - [Dependency Injection](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0),
+  - [HttpClient](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-5.0),
+  - [Calling API](https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0),
+  - [JSON helpers](https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#httpclient-and-json-helpers),
+  - [Handling API exceptions](https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#handle-errors),
+  - [ILogger<TValue> service](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/logging?view=aspnetcore-5.0#log-in-razor-components),
+  - [Incomplete async actions handling](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#handle-incomplete-async-actions-at-render),
+  - [NavigationManager service](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.navigationmanager?view=aspnetcore-5.0),
+  - [NavLink component](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#navlink-component),
+  - [Routing parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-parameters),
+  - [Routing constraints](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-constraints),
+  - [Reusable render fragments](https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#define-reusable-renderfragments-in-code)
+- Demo 10:

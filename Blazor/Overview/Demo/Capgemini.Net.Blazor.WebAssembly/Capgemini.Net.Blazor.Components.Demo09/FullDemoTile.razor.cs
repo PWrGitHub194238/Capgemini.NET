@@ -42,7 +42,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09
                 new DemoChecklistPointContext
                 {
                     Name = "Use NavigationManager",
-                    Order = 3,
+                    Order = 4,
                     IsDone = false,
                     Label = "Use NavigationManager to fetch different products dynamically",
                     Content = PointContext4!
@@ -50,7 +50,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09
                 new DemoChecklistPointContext
                 {
                     Name = "RenderFragment default values",
-                    Order = 3,
+                    Order = 5,
                     IsDone = false,
                     Label = "Provide default content for unused render fragments",
                     Content = PointContext5!

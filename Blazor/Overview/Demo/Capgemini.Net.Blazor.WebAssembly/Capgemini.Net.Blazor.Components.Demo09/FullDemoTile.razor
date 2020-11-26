@@ -15,35 +15,46 @@
 }
 
 @code {
+    private static readonly string API_PRODUCTS_COUNT = "http://localhost:5002/api/products/count";
+    private static readonly string API_PRODUCTS_1 = "http://localhost:5002/api/products/1";
+    private static readonly string API_PRODUCTS_1_RATE = "http://localhost:5002/api/products/1/rate";
+    private static readonly string SEE_EXAMPLE = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content";
+
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
-    <p>
-        The flowing changes was done to <mark>./Start/*</mark> files in order to:
-    </p>
+        <p>
+            The flowing changes was done to <mark>./Start/*</mark> files in order to:
+        </p>
 
-    <ul>
-        <li>
-            add the data loading from the <strong>API</strong> with the following definition:
+        <ul>
+            <li>
+                prepare the solution to rely on the data not from the form but one that is provided by the <strong>API</strong> 
+                with the following definition:
 
-            <ul>
-                <li>
-                    <strong style="color: #249c47;">GET</strong>: <a href="http://localhost:5002/api/products/count">/products/count</a> - will return the number of products
-                    in the <mark>(localdb)\\MSSQLLocalDB\BlazorDemo</mark> <strong>data base</strong>:
+                <ul>
+                    <li>
+                        <strong style="color: #249c47;">GET</strong>: 
+                        <a href="@API_PRODUCTS_COUNT">/products/count</a> - will return the number of products
+                        in the <mark>(localdb)\\MSSQLLocalDB\BlazorDemo</mark> <strong>data base</strong>:
+                    
+                        <br /><strong>Response:</strong>
 
-                    <strong>Response:</strong>
-                    <pre>
-                    <code class="language-json">
+                        <pre>
+                            <code class="language-json">
 9
                             </code>
                         </pre>
-                </li>
-                <li>
-                    <strong style="color: #249c47;">GET</strong>: <a href="http://localhost:5002/api/products/1">/products/{productId}</a> - will return an object of the <mark>RateableProductViewModel</mark> type
-                    representing details about product with the ID of <mark>productId</mark>:
-                    <br />
-                    <strong>Response:</strong>
-                    <pre>
-                    <code class="language-json">
+                    </li>
+                    <li>
+                        <strong style="color: #249c47;">GET</strong>: 
+                        <a href="@API_PRODUCTS_1">/products/{productId}</a> - will return an object of the 
+                        <mark>RateableProductViewModel</mark> type,
+                        representing details about product with the ID of <mark>productId</mark>:
+                        
+                        <br /><strong>Response:</strong>
+
+                        <pre>
+                            <code class="language-json">
 {
    "name":"Soccer Ball",
    "description":"FIFA-approved size and weight",
@@ -58,20 +69,22 @@
 }
                             </code>
                         </pre>
-                </li>
-                <li>
-                    <strong style="color: #ffb400;">POST</strong>: <a href="http://localhost:5002/api/products/1/rate">/products/{productId}/rate</a> - will add a <mark>rate</mark> for the product with the ID of <mark>productId</mark>:
-                    <br />
-                    <strong>Body:</strong>
-                    <pre>
-                    <code class="language-json">
+                    </li>
+                    <li>
+                        <strong style="color: #ffb400;">POST</strong>: 
+                        <a href="@API_PRODUCTS_1_RATE">/products/{productId}/rate</a> - will add a <mark>rate</mark> for the product with the ID of <mark>productId</mark>:
+                        
+                        <br /><strong>Body:</strong>
+
+                        <pre>
+                            <code class="language-json">
 {rate}
                             </code>
                         </pre>
 
-                    <strong>Response:</strong>
-                    <pre>
-                    <code class="language-json">
+                        <strong>Response:</strong>
+                        <pre>
+                            <code class="language-json">
 {
    "name":"Soccer Ball",
    "description":"FIFA-approved size and weight",
@@ -86,13 +99,14 @@
 }
                             </code>
                         </pre>
-                </li>
-            </ul>
-        </li>
-        <li>
-            usage of the common <mark>IRateable</mark>, <mark>IRateRange</mark> and <mark>IRateableProduct</mark> interfaces:
-            <pre>
-            <code class="language-csharp line-numbers">
+                    </li>
+                </ul>
+            </li>
+            <li>
+                use the common <mark>IRateable</mark>, <mark>IRateRange</mark> and <mark>IRateableProduct</mark> interfaces:
+
+                <pre>
+                    <code class="language-csharp line-numbers">
 namespace Capgemini.Net.Blazor.Components.Demo.Interfaces
 {
     public interface IRateable
@@ -102,11 +116,11 @@ namespace Capgemini.Net.Blazor.Components.Demo.Interfaces
         decimal AverageRate { get; set; }
     }
 }
-                            </code>
-                        </pre>
+                    </code>
+                </pre>
 
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                    <code class="language-csharp line-numbers">
 namespace Capgemini.Net.Blazor.Components.Demo.Interfaces
 {
     public interface IRateRange
@@ -116,26 +130,25 @@ namespace Capgemini.Net.Blazor.Components.Demo.Interfaces
         int MaxRate { get; set; }
     }
 }
+                    </code>
+                </pre>
 
-                            </code>
-                        </pre>
-
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                    <code class="language-csharp line-numbers">
 namespace Capgemini.Net.Blazor.Components.Demo.Interfaces
 {
     public interface IRateableProduct : IRateable, IRateRange
     {
     }
 }
-                            </code>
-                        </pre>
-        </li>
-    </ul>
+                    </code>
+                </pre>
+            </li>
+        </ul>
 
-    <p>
-        The following changes was made:
-    </p>
+        <p>
+            Additional changes for the already existing files were made changes was made:
+        </p>
 
     <ul>
         <li>
@@ -143,42 +156,44 @@ namespace Capgemini.Net.Blazor.Components.Demo.Interfaces
 
             <ul>
                 <li>
-                    <mark>EditForm</mark> with its content was removed - all data would be provided from the <strong>API</strong>, not by the user from the form.
+                    <mark>EditForm</mark> with its content was removed - all data would be provided by the <strong>API</strong>, 
+                    not by the user from the form.
                 </li>
                 <li>
-                    <mark>@@AvgRate</mark> render fragment was moved from <mark>ContainerComponent</mark> to <mark>RateComponent</mark>.
+                    <mark>@@AvgRate</mark> render fragment was moved back 
+                    from <mark>ContainerComponent</mark> to <mark>RateComponent</mark>.
                 </li>
             </ul>
 
             <pre>
-            <code class="language-csharp line-numbers">
+                <code class="language-csharp line-numbers">
 &lt;div class="demo__container_wrapper"&gt;
 	@@ChildContent(product)
 &lt;/div&gt;
-                            </code>
-                        </pre>
+                </code>
+            </pre>
 
-        </li>
-        <li>
-            <mark>ContainerComponent.razor.cs</mark> was simplified to reflect markup changes:
+            </li>
+            <li>
+                <mark>ContainerComponent.razor.cs</mark> was simplified to reflect markup changes:
 
-            <ul>
-                <li>
-                    <mark>rateContext</mark> of the <mark>RateContext</mark> type was changed to <mark>IRateableProduct</mark>,
-                </li>
-                <li>
-                    generic type for the <mark>ChildContent</mark> render fragment was changed to <mark>IRateableProduct</mark>,
-                </li>
-                <li>
-                    <mark>@@AvgRate</mark> render fragment was removed,
-                </li>
-                <li>
-                    <mark>AverageRateContext</mark> context field for <mark>@@AvgRate</mark> was removed.
-                </li>
-            </ul>
+                <ul>
+                    <li>
+                        <mark>rateContext</mark> of the <mark>RateContext</mark> type was changed to <mark>IRateableProduct</mark>,
+                    </li>
+                    <li>
+                        generic type for the <mark>ChildContent</mark> render fragment was changed to <mark>IRateableProduct</mark>,
+                    </li>
+                    <li>
+                        <mark>@@AvgRate</mark> render fragment was removed,
+                    </li>
+                    <li>
+                        <mark>AverageRateContext</mark> context field for <mark>@@AvgRate</mark> was removed.
+                    </li>
+                </ul>
 
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                    <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Components.Demo.Interfaces;
 using Capgemini.Net.Blazor.Components.Demo.Models;
 using Microsoft.AspNetCore.Components;
@@ -199,31 +214,33 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         public RenderFragment&lt;IRateableProduct&gt; ChildContent { get; set; } = default!;
     }
 }
-                            </code>
-                        </pre>
+                    </code>
+                </pre>
 
-            <mark>ContainerComponent.razor.scss</mark> was also simplified, leaving only related <strong>CSS</strong> classes.
-        </li>
-        <li>
-            <mark>RateComponent.razor</mark> was changed to:
+                <mark>ContainerComponent.razor.scss</mark> was also simplified, leaving only related <strong>CSS</strong> classes.
+            </li>
+            <li>
+                <mark>RateComponent.razor</mark> was changed to:
 
-            <ul>
-                <li>
-                    support the <mark>@@AvgRate</mark> render fragment with a default <mark>AverageRateContext</mark> property to provide a context for the render fragment,
-                </li>
-                <li>
-                    support new context type - <mark>RateContext</mark> class was removed in favor of <mark>IRateableProduct</mark>.
-                </li>
-                <li>
-                    Markup of the component was updated to use the new context class,
-                </li>
-                <li>
-                    <mark>Icon</mark> parameter was added as the icon is no longer a part of the component's context class - <mark>IRateableProduct</mark>.
-                </li>
-            </ul>
+                <ul>
+                    <li>
+                        support the <mark>@@AvgRate</mark> render fragment with a default <mark>AverageRateContext</mark> property 
+                        to provide a context for the render fragment,
+                    </li>
+                    <li>
+                        support new context type - <mark>RateContext</mark> class was removed in favor of <mark>IRateableProduct</mark>.
+                    </li>
+                    <li>
+                        Markup of the component was updated to use the new context class,
+                    </li>
+                    <li>
+                        <mark>Icon</mark> parameter was added as the icon is no longer a part 
+                        of the component's context class - <mark>IRateableProduct</mark>.
+                    </li>
+                </ul>
 
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                    <code class="language-csharp line-numbers">
 @@inherits RateComponentBase
 
 &lt;div class="rate-container"&gt;
@@ -259,22 +276,26 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         MaxRate = Product.MaxRate,
     };
 }
-                            </code>
-                        </pre>
+                    </code>
+                </pre>
 
-            <mark>RateComponent.razor.cs</mark> code-behind class was removed, <mark>RateComponent.razor.scss</mark> simplified.
+                <mark>RateComponent.razor.cs</mark> code-behind class was removed, <mark>RateComponent.razor.scss</mark> simplified.
 
-            <p>
-                <strong>Note:</strong> by replacing a default <mark>@@for (int i = 0; i &lt; @@RateContext.MaxRate; i += 1)</mark> loop with the <mark>Enumerable</mark> range there is no longer need for storing the variable
-                locally inside the loop to handle lambda expressions usage of the <mark>i</mark> variable.
-            </p>
-        </li>
+                <p>
+                    <strong>Note:</strong> by replacing a default <mark>@@for (int i = 0; i &lt; @@RateContext.MaxRate; i += 1)</mark> 
+                    loop with the <mark>Enumerable</mark> range there is no longer need for storing the variable
+                    locally inside the loop to handle lambda expressions usage of the 
+                    <mark>i</mark> variable (<a href="@SEE_EXAMPLE">see example</a>).
+                </p>
+            </li>
 
-        <li>
-            <mark>WrapperComponent.razor</mark> file's markup was change to render components with their new markup:
+            <li>
+                <mark>WrapperComponent.razor</mark> file's markup was change to render component with its new markup and nested child content
+                for both <mark>ContainerComponent</mark> (<mark>&lt;ChildContent&gt;</mark> 
+                and <mark>RateComponent</mark> (<mark>&lt;AvgRate &gt;</mark>) components:
 
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                    <code class="language-csharp line-numbers">
 &lt;ContainerComponent&gt;
     &lt;ChildContent Context="product"&gt;
         &lt;RateComponent Product="@@product"&gt;
@@ -287,13 +308,13 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         &lt;/RateComponent&gt;
     &lt;/ChildContent&gt;
 &lt;/ContainerComponent&gt;
-                            </code>
-                        </pre>
-        </li>
-        <li>
-            <mark>_Imports.razor</mark> file was modified to use additional namespaces:
-            <pre data-line="11-12">
-            <code class="language-csharp line-numbers">
+                    </code>
+                </pre>
+            </li>
+            <li>
+                <mark>_Imports.razor</mark> file was modified to use additional namespaces:
+                <pre data-line="11-12">
+                    <code class="language-csharp line-numbers">
 @@namespace Capgemini.Net.Blazor.Components.Demo09
 
 @@using Microsoft.AspNetCore.Components.Web
@@ -306,33 +327,49 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 
 @@using Capgemini.Net.Blazor.Components.Demo.Interfaces
 @@using Capgemini.Net.Blazor.Components.Demo.Models
-                            </code>
-                        </pre>
-        </li>
-    </ul>
+                    </code>
+                </pre>
+            </li>
+        </ul>
 
-    <div class="example-figure">
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo09.PointContext1 Example="1" />
-            </div>
-            <figcaption>
-                <mark>WrapperComponent</mark>
-            </figcaption>
-        </figure>
-    </div>
+        <div class="example-figure">
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Examples.Demo09.PointContext1 Example="1" />
+                </div>
+                <figcaption>
+                    <mark>WrapperComponent</mark>
+                </figcaption>
+            </figure>
+        </div>
     };
+
+    private static readonly string DEPENDENCY_INJECTION = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0";
+    private static readonly string HTTP_CLIENT = "https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-5.0";
+    private static readonly string READ_MORE_1 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0#default-services";
+    private static readonly string READ_MORE_2 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0";
+    private static readonly string ON_INITIALIZED_ASYNC = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#component-initialization-methods";
+    private static readonly string EXTENSION_METHOD = "https://docs.microsoft.com/en-us/dotnet/api/system.net.http.json.httpclientjsonextensions.getfromjsonasync?view=net-5.0";
+    private static readonly string READ_MORE_3 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#httpclient-and-json-helpers";
+    private static readonly string READ_MORE_4 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#add-the-httpclient-service";
+    private static readonly string INJECTED = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0#request-a-service-in-a-component";
+    private static readonly string READ_MORE_5 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0#add-services-to-an-app";
+    private static readonly string READ_MORE_6 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#handle-errors";
+    private static readonly string READ_MORE_7 = "https://docs.microsoft.com/en-us/dotnet/api/system.notsupportedexception?view=net-5.0";
+    private static readonly string EXAMPLE = "https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-5.0#examples";
+    private static readonly string READ_MORE_8 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/logging?view=aspnetcore-5.0#log-in-razor-components";
 
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
-    <p>
-        Modify the content of the <mark>ContainerComponent.razor.cs</mark> to use the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0">Dependency Injection</a>
-        to provide the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-5.0">HttpClient</a> for the component
-        to enable it to use external resources (<mark>HttpClient</mark> is one of many services provided by the Blazor <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#httpclient-and-json-helpers">by default</a> - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0#default-services">read more</a>):
-    </p>
+        <p>
+            Modify the content of the <mark>ContainerComponent.razor.cs</mark> to use the 
+            <a href="@DEPENDENCY_INJECTION">Dependency Injection</a> to provide the <a href="@HTTP_CLIENT">HttpClient</a> for the component
+            to enable it to use external resources (<mark>HttpClient</mark> is one of many services provided 
+            by the Blazor by default - <a href="@READ_MORE_1">read more</a>):
+        </p>
 
-    <pre data-line="13-14, 19, 21-36">
-    <code class="language-csharp line-numbers">
+        <pre data-line="13-14, 19, 21-36">
+            <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Api.ViewModels;
 using Capgemini.Net.Blazor.Components.Demo.Interfaces;
 using Capgemini.Net.Blazor.Components.Demo.Models;
@@ -374,23 +411,30 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        Updated code will call the <mark>products/1</mark> <strong>API</strong> endpoint for the fixed <mark>productId</mark> (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0">read more</a>). The component will try to resolve the call ones after the component is initialized (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#component-initialization-methods">OnInitializedAsync</a> lifecycle method is used).
-        After data was successfully fetched, the <strong>API</strong> model is used to populate the context object for the <mark>ChildContent</mark> render fragment (lines <mark>28-34</mark>).
-    </p>
+        <p>
+            Updated code will call the <mark>products/1</mark> <strong>API</strong> endpoint for the fixed <mark>productId</mark> 
+            (<a href="@READ_MORE_2">read more</a>). The component will try to resolve the call after the component is initialized 
+            (<a href="@ON_INITIALIZED_ASYNC">OnInitializedAsync</a> lifecycle method is used).
+            After data was successfully fetched, the <strong>API</strong> model is used to populate 
+            the context object for the <mark>ChildContent</mark> render fragment (lines <mark>28-34</mark>).
+        </p>
 
-    <p>
-        To simplify the process of handling data conversion from the <strong>API</strong>, the <mark>GetFromJsonAsync&lt;TValue&gt;</mark> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.json.httpclientjsonextensions.getfromjsonasync?view=net-5.0">extension method</a>
-        can be used - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#httpclient-and-json-helpers">read more</a>.
-    </p>
+        <p>
+            To simplify the process of handling data conversion from the <strong>API</strong>, 
+            the <mark>GetFromJsonAsync&lt;TValue&gt;</mark> <a href="@EXTENSION_METHOD">extension method</a>
+            can be used - <a href="@READ_MORE_3">read more</a>.
+        </p>
 
-    <p>
-        <strong>Note:</strong> by default the provided <mark>HttpClient</mark> will use the application's <strong>URL</strong> as a <mark>BaseAddress</mark> (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#add-the-httpclient-service">read more</a>).
-        To enable the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0#request-a-service-in-a-component">injected</a> <mark>HttpClient</mark> to use a different <strong>base URL</strong>, the <mark>Program.cs</mark> in the main <mark>Capgemini.Net.Blazor.WebAssembly.Client</mark> project had to be modified (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0#add-services-to-an-app">read more</a>):
-    </p>
+        <p>
+            <strong>Note:</strong> by default, the provided <mark>HttpClient</mark> will use the application's <strong>URL</strong> 
+            as a <mark>BaseAddress</mark> (<a href="@READ_MORE_4">read more</a>).
+            To enable the <a href="@INJECTED">injected</a> <mark>HttpClient</mark> to use a different <strong>base URL</strong>, 
+            the <mark>Program.cs</mark> in the main <mark>Capgemini.Net.Blazor.WebAssembly.Client</mark> project 
+            had to be modified (<a href="@READ_MORE_5">read more</a>):
+        </p>
 
-    <pre data-line="18-19">
-    <code class="language-csharp line-numbers">
+        <pre data-line="18-19">
+            <code class="language-csharp line-numbers">
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -424,27 +468,30 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client
             </code>
         </pre>
 
-    <p>
-        The API project is configuration to use the <mark>5002</mark> port and the <mark>/api</mark> suffix. If the <mark>products/1</mark> is called by the injected <mark>HttpClient</mark>,
-        then the <mark>http://localhost:5002/api/products/1</mark> will be fetched.
-    </p>
+        <p>
+            The API project is configured to use the <mark>5002</mark> port and the <mark>/api</mark> suffix. 
+            If the <mark>products/1</mark> is called by the injected <mark>HttpClient</mark>,
+            then the request to the <mark>@API_PRODUCTS_1</mark> endpoint will be made.
+        </p>
 
-    <p>
-        Wrap the <strong>API</strong> call with a <mark>try-catch</mark> block to prevent runtime exceptions to be thrown - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0#handle-errors">read more</a>.
-        Handle at least two type of exceptions:
-    </p>
+        <p>
+            Wrap the <strong>API</strong> call with a <mark>try-catch</mark> block to prevent runtime exceptions to be thrown 
+            - <a href="@READ_MORE_6">read more</a>. Handle at least two type of exceptions:
+        </p>
 
-    <ul>
-        <li>
-            <mark>NotSupportedException</mark> that might be called if the <strong>API</strong> response with a non-JSON data type (<a href="https://docs.microsoft.com/en-us/dotnet/api/system.notsupportedexception?view=net-5.0">read more</a>),
-        </li>
-        <li>
-            <mark>HttpRequestException</mark> - a base class for exceptions thrown by the HttpClient (see an <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-5.0#examples">example</a>).
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <mark>NotSupportedException</mark> which might be called if the <strong>API</strong> response with 
+                a non-JSON data type (<a href="@READ_MORE_7">read more</a>),
+            </li>
+            <li>
+                <mark>HttpRequestException</mark> - a base class for exceptions thrown by the <mark>HttpClient</mark> 
+                (see an <a href="@EXAMPLE">example</a>).
+            </li>
+        </ul>
 
-    <pre data-line="18-19, 28-29, 43-57">
-    <code class="language-csharp line-numbers">
+        <pre data-line="18-19, 28-29, 43-57">
+            <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Api.ViewModels;
 using Capgemini.Net.Blazor.Components.Demo.Interfaces;
 using Capgemini.Net.Blazor.Components.Demo.Models;
@@ -508,20 +555,24 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        <mark>ILogger&lt;ContainerComponent&gt;</mark> was provided by the Dependency Injection Container to gracefully print messages (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/logging?view=aspnetcore-5.0#log-in-razor-components">read more</a>).
-    </p>
+        <p>
+            <mark>ILogger&lt;ContainerComponent&gt;</mark> was provided by the Dependency Injection Container 
+            to gracefully print messages (<a href="@READ_MORE_8">read more</a>).
+        </p>
     };
+
+    private static readonly string READ_MORE_9 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#handle-incomplete-async-actions-at-render";
 
     internal static readonly RenderFragment PointContext3 = __builder =>
     {
-    <p>
-        To prevent the application to start throwing runtime exception because of null reference before the <strong>API</strong> returns and assigns the value, the default instance implementing <mark>IRateableProduct</mark>
-        was provided:
-    </p>
+        <p>
+            To prevent the application to start throwing runtime exception because of null reference before the 
+            <strong>API</strong> returns and assigns the value, the default instance implementing <mark>IRateableProduct</mark>
+            was provided:
+        </p>
 
-    <pre data-line="15, 19-20, 24-30">
-    <code class="language-csharp line-numbers">
+        <pre data-line="15, 19-20, 24-30">
+            <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Api.ViewModels;
 using Capgemini.Net.Blazor.Components.Demo.Interfaces;
 using Capgemini.Net.Blazor.Components.Demo.Models;
@@ -559,24 +610,25 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        Until the <strong>API</strong> call is resolved, <mark>new RateableProduct()</mark> is passed to the <mark>RateComponent</mark>:
-    </p>
+        <p>
+            Until the <strong>API</strong> call is resolved, <mark>new RateableProduct()</mark> 
+            is passed to the <mark>RateComponent</mark>:
+        </p>
 
-    <pre data-line="2">
-    <code class="language-csharp line-numbers">
+        <pre data-line="2">
+            <code class="language-csharp line-numbers">
 &lt;div class="demo__container_wrapper"&gt;
     @@ChildContent(product)
 &lt;/div&gt;
             </code>
         </pre>
 
-    <p>
-        Change the type of the <mark>product</mark> field to be nullable type:
-    </p>
+        <p>
+            Change the type of the <mark>product</mark> field to be nullable type:
+        </p>
 
-    <pre data-line="24, 35">
-    <code class="language-csharp line-numbers">
+        <pre data-line="24, 35">
+        <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Api.ViewModels;
 using Capgemini.Net.Blazor.Components.Demo;
 using Capgemini.Net.Blazor.Components.Demo.Interfaces;
@@ -600,7 +652,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         [Parameter]
         public RenderFragment&lt;IRateableProduct&gt; ChildContent { get; set; } = default!;
 
-        private IRateableProduct? product;
+        private <mark>IRateableProduct?</mark> product;
 
         protected override async Task OnInitializedAsync()
         {
@@ -634,33 +686,35 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        Line <mark>35</mark> uses <mark>RateableProductAdapter</mark> class to implicitly cast <mark>RateableProductViewModel</mark> to <mark>IRateableProduct</mark> interface.
-    </p>
+        <p>
+            Line <mark>35</mark> uses <mark>RateableProductAdapter</mark> class to implicitly cast <mark>RateableProductViewModel</mark> 
+            to <mark>IRateableProduct</mark> interface.
+        </p>
 
-    <p>
-        Provide the additional markup for <mark>ContainerComponent</mark> to handle the nullability of the context object (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#handle-incomplete-async-actions-at-render">read more</a>):
-    </p>
+        <p>
+            Provide the additional markup for the <mark>ContainerComponent</mark> to handle the nullability 
+            of the context object (<a href="@READ_MORE_9">read more</a>):
+        </p>
 
-    <div class="example-figure">
-        <figure>
-            <div>
-                <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/9/3/nullability.png" />
-            </div>
-            <figcaption>
-                <span>Possible null reference</span>
-            </figcaption>
-        </figure>
-    </div>
+        <div class="example-figure">
+            <figure>
+                <div>
+                    <img style="margin-bottom: 5px;" src="/_content/Capgemini.Net.Blazor.Components/img/description-points/9/3/nullability.png" />
+                </div>
+                <figcaption>
+                    <span>Possible null reference</span>
+                </figcaption>
+            </figure>
+        </div>
 
-    <pre data-line="2-11, 15">
-    <code class="language-csharp line-numbers">
+        <pre data-line="2-15">
+            <code class="language-csharp line-numbers">
 &lt;div class="demo__container_wrapper"&gt;
     @@if (product is null)
     {
         &lt;LoadPlaceholder&gt;
             &lt;Message&gt;
-                &lt;p&gt;@@loadingMessage&lt;/p&gt;
+                &lt;p&gt;Loading product&lt;/p&gt;
             &lt;/Message&gt;
         &lt;/LoadPlaceholder&gt;
     }
@@ -674,14 +728,16 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        Before the API returns the <mark>product</mark> Blazor won't render its main content (<mark>RateComponent</mark>).
-        <mark>LoadPlaceholder</mark> is used instead. Once the <strong>API</strong> returns and the <mark>product</mark> is reassigned, the <mark>@@ChildContent(product)</mark> is rendered with the object returned from the <strong>API</strong>.
-        <mark>@@ChildContent(product)</mark> is defined as <mark>RateComponent</mark> in the markup of <mark>WrapperComponent</mark>:
-    </p>
+        <p>
+            Before the <strong>API</strong> returns the <mark>product</mark>, Blazor won't render 
+            its main content (<mark>RateComponent</mark>).
+            <mark>LoadPlaceholder</mark> (from the <mark>Capgemini.Net.Blazor.Components.LoadPlaceholder</mark> assembly) is used instead. Once the <strong>API</strong> returns and the <mark>product</mark> is reassigned, the <mark>@@ChildContent(product)</mark> is rendered with the object returned from the <strong>API</strong>.
+            <mark>@@ChildContent(product)</mark> is defined as <mark>RateComponent</mark> 
+            in the markup of the <mark>WrapperComponent.razor</mark> file:
+        </p>
 
-    <pre data-line="2-11">
-    <code class="language-csharp line-numbers">
+        <pre data-line="2-11">
+        <code class="language-csharp line-numbers">
 &lt;ContainerComponent&gt;
     &lt;ChildContent Context="<mark>product</mark>"&gt;
         &lt;RateComponent <mark>Product="@@product"</mark>&gt;
@@ -697,13 +753,14 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        Add the <mark>loadingMessage</mark> field to notify the user if an error occurred during the <strong>API</strong> call (by default if <strong>API</strong> call will throw an error it will be captured by the code, <mark>product</mark>
-        will preserve to be <mark>null</mark>, <mark>LoadPlaceholder</mark> will never be hidden):
-    </p>
+        <p>
+            Add the <mark>loadingMessage</mark> field to notify the user if an error occurred during the <strong>API</strong> call 
+            (by default if <strong>API</strong> throws an error in return it will be captured by the code, <mark>product</mark>
+            won't be updated and the <mark>LoadPlaceholder</mark> will never be hidden):
+        </p>
 
-    <pre data-line="6">
-    <code class="language-csharp line-numbers">
+        <pre data-line="6">
+            <code class="language-csharp line-numbers">
 &lt;div class="demo__container_wrapper"&gt;
     @@if (product is null)
     {
@@ -723,8 +780,8 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <pre data-line="26, 54-60">
-    <code class="language-csharp line-numbers">
+        <pre data-line="26, 54-60">
+            <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Api.ViewModels;
 using Capgemini.Net.Blazor.Components.Demo;
 using Capgemini.Net.Blazor.Components.Demo.Interfaces;
@@ -792,14 +849,29 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         </pre>
     };
 
+    private static readonly string ROUTE = "https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.routeattribute?view=aspnetcore-5.0";
+    private static readonly string READ_MORE_10 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-templates";
+    private static readonly string ROUTE_PARAMETER = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-parameters";
+    private static readonly string ROUTE_CONSTRAINT = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-constraints";
+    private static readonly string CASE_INSENSITIVE = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-3.1#route-parameters";
+    private static readonly string ATTRIBUTE_ROUTES = "https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-5.0#ar";
+    private static readonly string READ_MORE_11 = "https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#page";
+    private static readonly string NAVIGATION_MANAGER = "https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.navigationmanager?view=aspnetcore-5.0";
+    private static readonly string HTTP_CLIENT_1 = "https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-5.0";
+    private static readonly string DEFAULTS = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0#default-services";
+    private static readonly string READ_MORE_12 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#uri-and-navigation-state-helpers";
+    private static readonly string READ_MORE_13 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#navlink-component";
+    private static readonly string ATTRIBUTE_SPLATTING = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#attribute-splatting-and-arbitrary-parameters";
+
     internal static readonly RenderFragment PointContext4 = __builder =>
     {
-    <p>
-        Change the fixed <strong>API</strong> endpoint in <mark>ContainerComponent.razor.cs</mark> file to receive the <mark>id</mark> cascading parameter:
-    </p>
+        <p>
+            Change the fixed <strong>API</strong> endpoint in <mark>ContainerComponent.razor.cs</mark> file 
+            to receive the <mark>id</mark> cascading parameter:
+        </p>
 
-    <pre data-line="24-25, 27, 37-38, 48-51, 55-58">
-    <code class="language-csharp line-numbers">
+        <pre data-line="24-25, 27, 37-38, 50, 57">
+            <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Api.ViewModels;
 using Capgemini.Net.Blazor.Components.Demo;
 using Capgemini.Net.Blazor.Components.Demo.Interfaces;
@@ -871,12 +943,12 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        <mark>Id</mark> cascading parameter is provided by the parent component of the <mark>WrapperComponent</mark>:
-    </p>
+        <p>
+            <mark>Id</mark> cascading parameter is provided by the parent component of the <mark>WrapperComponent</mark>:
+        </p>
 
-    <pre data-line="5, 14">
-    <code class="language-csharp line-numbers">
+        <pre data-line="5, 11, 14">
+            <code class="language-csharp line-numbers">
 &lt;Title Value=".NET Community Blazor Introduction | Demo 9"&gt;&lt;/Title&gt;
 
 @@if (Context is not null)
@@ -899,24 +971,27 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        This parent component defines a <strong>route</strong> for the component to be displayed if the <strong>URL</strong> specified by the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.routeattribute?view=aspnetcore-5.0">Route</a> attribute is selected (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-templates">read more</a>):
-    </p>
+        <p>
+            This parent component defines a <strong>route</strong> for the component to be displayed 
+            if the <strong>URL</strong> specified by the <a href="@ROUTE">Route</a> attribute 
+            is selected (<a href="@READ_MORE_10">read more</a>):
+        </p>
 
-    <ul>
-        <li>
-            [Route(DemoTile.Href + "/{id:int?}")]
-        </li>
-    </ul>
+        <ul>
+            <li>
+                [Route(DemoTile.Href + "/{id:int?}")]
+            </li>
+        </ul>
 
-    <p>
-        The route is defining the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-parameters">route parameter</a> <mark>id</mark> with the
-        additional <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#route-constraints">route constraint</a>. The parameter can be bounded with the property
-        marked as a <mark>[Parameter]</mark> of the same name (route parameters are <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-3.1#route-parameters">case insensitive</a>) and type (lines <mark>11-12</mark>):
-    </p>
+        <p>
+            The route is defining the <a href="@ROUTE_PARAMETER">route parameter</a> <mark>id</mark> with the
+            additional <a href="@ROUTE_CONSTRAINT">route constraint</a>. The parameter can be binded with the property
+            marked as a <mark>[Parameter]</mark> of the same name (route parameters 
+            are <a href="@CASE_INSENSITIVE">case insensitive</a>) and type (lines <mark>10-11</mark>):
+        </p>
 
-    <pre data-line="7, 10-11">
-    <code class="language-csharp line-numbers">
+        <pre data-line="7, 10-11">
+            <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Shared.Interfaces.Context;
 using Microsoft.AspNetCore.Components;
 using System.Collections.ObjectModel;
@@ -935,42 +1010,44 @@ namespace Capgemini.Net.Blazor.Components.Demo09
             </code>
         </pre>
 
+        <p>
+            <strong>Note:</strong> Blazor has to explicitly define parameter type with the route constants. 
+            If the type of the <mark>parameter</mark> that was matched by its name won't match, 
+            the <mark>InvalidOperationException</mark> will be thrown.
+        </p>
 
-    <p>
-        <strong>Note:</strong> Blazor has to explicitly define parameter types with the route constants. If the type of the matching <mark>parameter</mark> won't match, the <mark>InvalidOperationException</mark> will be thrown.
-    </p>
+        <p>
+            <strong>Note:</strong> routes can be either defined by the usage of the <a href="@ATTRIBUTE_ROUTES">attribute routes</a>
+            or <mark>@@page</mark> directive (<a href="@READ_MORE_11">read more</a>).
+        </p>
 
-    <p>
-        <strong>Note:</strong> routes can be either defined by the usage of the <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-5.0#ar">attribute routes</a>
-        or <mark>@@page</mark> directive (<a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#page">read more</a>).
-    </p>
+        <p>
+            To show different components, the given <strong>URL</strong>s can be followed:
+        </p>
 
-    <p>
-        To show different components the given <strong>URL</strong>s can be followed:
-    </p>
+        <ul>
+            <li>
+                <a href="https://localhost:5001/demo09/1">/demo09/1</a>
+            </li>
+            <li>
+                <a href="https://localhost:5001/demo09/2">/demo09/2</a>
+            </li>
+            <li>
+                <a href="https://localhost:5001/demo09">/demo09/{productId}</a>
+            </li>
+        </ul>
 
-    <ul>
-        <li>
-            <a href="https://localhost:5001/demo09/1">/demo09/1</a>
-        </li>
-        <li>
-            <a href="https://localhost:5001/demo09/2">/demo09/2</a>
-        </li>
-        <li>
-            <a href="https://localhost:5001/demo09">/demo09/{productId}</a>
-        </li>
-    </ul>
+        <p>
+            Navigating to one of the above <strong>URL</strong>s will force all the components to be rendered 
+            with new parameter values, including the <mark>id</mark> from the route.
+        </p>
 
-    <p>
-        Navigating to one of the above <strong>URL</strong>s will force all the components to be rendered again with new parameter values, including the <mark>id</mark> from the route.
-    </p>
+        <p>
+            To make the <mark>ContainerComponent</mark> to dynamically update its content, add the following markup:
+        </p>
 
-    <p>
-        To make the <mark>ContainerComponent</mark> to dynamically update its content, add the following markup:
-    </p>
-
-    <pre data-line="1, 7-16">
-    <code class="language-csharp line-numbers">
+        <pre data-line="1, 7-17">
+            <code class="language-csharp line-numbers">
 @@inject NavigationManager NavigationManager
 
 &lt;div class="demo__container_wrapper"&gt;
@@ -980,33 +1057,50 @@ namespace Capgemini.Net.Blazor.Components.Demo09
 &lt;div class="navigation-bar"&gt;
     @@foreach (int productId in Enumerable.Range(1, 5))
     {
-        &lt;a href="#"
-            @@onclick="@@(() =&gt; NavigationManager.NavigateTo($"/demo09/{productId}"))"
-            @@onclick:preventDefault&gt;
-            @@productId
-        &lt;/a&gt;
+		&lt;a href="#"
+		   @@onclick="@@(() =&gt; NavigationManager.NavigateTo($"/demo09/{productId}"))"
+		   @@onclick:preventDefault
+		&gt;
+			@@productId
+		&lt;/a&gt;
     }
 &lt;/div&gt;
             </code>
         </pre>
 
-    <p>
-        <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.navigationmanager?view=aspnetcore-5.0">NavigationManager</a> can be injected in the same way as the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-5.0">HttpClient</a>.
-        This is <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0#default-services">the default</a> services provided by the Blazor.
-    </p>
+        <p>
+            Lines <mark>7-17</mark> define five links that will navigate to the given <strong>URL</strong>s when the 
+            <mark>@@onclick</mark> event is triggered (<a href="@READ_MORE_12">read more</a>).
+            <mark>@@onclick:preventDefault</mark> directive attribute is used to prevent a default click - it will cause the navigation 
+            to the <mark>#</mark> specified by the <mark>href</mark> attribute, canceling the custom navigation.
+        </p>
 
-    <p>
-        Lines <mark>7-16</mark> defines five links that will navigate to the give <strong>URL</strong>s <mark>@@onclick</mark> (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#uri-and-navigation-state-helpers">read more</a>).
-        <mark>@@onclick:preventDefault</mark> directive attribute is used to prevent a default click which will cause the navigation to the <mark>#</mark>, canceling the custom navigation.
-    </p>
+        <p>
+            <a href="@NAVIGATION_MANAGER">NavigationManager</a> can be injected in the same way 
+            as the <a href="@HTTP_CLIENT_1">HttpClient</a>.
+            This is one of the <a href="@DEFAULTS">defaults</a> services provided by Blazor:
+        </p>
+        
+        <pre>
+            <code class="language-csharp line-numbers">
+// ...
 
-    <p>
-        Add <mark>NavLink</mark> components from the <mark>Microsoft.AspNetCore.Components.Routing</mark> namespace (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#navlink-component">read more</a>)
-        and remove the injected <mark>NavigationManager</mark> to replace the raw <mark>anchor</mark> tag with the build-in Blazor component:
-    </p>
+[Inject]
+public NavigationManager NavigationManager { get; set; } = default!;
 
-    <pre data-line="1, 10-12">
-    <code class="language-csharp line-numbers">
+// ...
+            </code>
+        </pre>
+
+        <p>
+            Add <mark>NavLink</mark> components from the <mark>Microsoft.AspNetCore.Components.Routing</mark> 
+            namespace (<a href="@READ_MORE_13">read more</a>)
+            and remove the injected <mark>NavigationManager</mark> to replace the raw <mark>anchor</mark> tag with 
+            the build-in Blazor component:
+        </p>
+
+        <pre data-line="1, 10-12">
+            <code class="language-csharp line-numbers">
 @@using Microsoft.AspNetCore.Components.Routing
 
 &lt;div class="demo__container_wrapper"&gt;
@@ -1024,19 +1118,24 @@ namespace Capgemini.Net.Blazor.Components.Demo09
             </code>
         </pre>
 
-    <p>
-        <strong>Note:</strong> <mark>NavLink</mark> component wraps its content with a <mark>&lt;a&gt;&lt;/a&gt;</mark> tags which all unmatched parameters (like <mark>href</mark>)  with a usage of the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#attribute-splatting-and-arbitrary-parameters">attribute splatting</a>.
-        The component is using <mark>NavigationManager</mark> to provide same functionality as was removed from the markup.
-    </p>
+        <p>
+            <strong>Note:</strong> <mark>NavLink</mark> component wraps its content with a <mark>&lt;a&gt;&lt;/a&gt;</mark> tags 
+            and provide all unmatched parameters (like <mark>href</mark>) as its own with a usage of the 
+            <a href="@ATTRIBUTE_SPLATTING">attribute splatting</a>.
+            The component is using <mark>NavigationManager</mark> to provide same functionality as was removed from the markup 
+            (<mark>NavigationManager</mark> is injected inside the class for the <mark>NavLink</mark> component).
+        </p>
 
-    <p>
-        Blazor is trying to reuse components that are already rendered. That is why the <mark>OnInitializedAsync</mark> lifecycle method is not triggered each time the <strong>URL</strong> changes.
-        Change the lifecycle method that the <mark>ContainerComponent</mark> is using to the <mark>OnParametersSetAsync</mark>. It will be triggered after each parameters' value change,
-        including the <mark>ProductId</mark> cascading parameter:
-    </p>
+        <p>
+            Blazor is trying to reuse components that are already rendered. That is why the <mark>OnInitializedAsync</mark> 
+            lifecycle method is not triggered each time the <strong>URL</strong> changes.
+            Change the lifecycle method that the <mark>ContainerComponent</mark> is using to the <mark>OnParametersSetAsync</mark>. 
+            It will be triggered after each parameters' value change,
+            including the <mark>ProductId</mark> cascading parameter:
+        </p>
 
-    <pre data-line="33">
-    <code class="language-csharp line-numbers">
+        <pre data-line="33">
+            <code class="language-csharp line-numbers">
 using Capgemini.Net.Blazor.Api.ViewModels;
 using Capgemini.Net.Blazor.Components.Demo;
 using Capgemini.Net.Blazor.Components.Demo.Interfaces;
@@ -1108,12 +1207,13 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        Replace the <mark>ContainerComponent</mark> markup to use the customized <mark>NavLink</mark> component - <mark>ProductButton</mark>:
-    </p>
+        <p>
+            Lastly, replace the <mark>ContainerComponent</mark> markup to use the customized <mark>NavLink</mark> component 
+            - <mark>ProductButton</mark>:
+        </p>
 
-    <pre data-line="21">
-    <code class="language-csharp line-numbers">
+        <pre data-line="21">
+            <code class="language-csharp line-numbers">
 &lt;div class="demo__container_wrapper"&gt;
     @@if (product is null)
     {
@@ -1140,42 +1240,53 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <div class="example-figure">
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo09.PointContext4 Example="1" ProductId="1" />
-            </div>
-            <figcaption>
-                <mark>&lt;a&gt;&lt;/a&gt;</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo09.PointContext4 Example="2" ProductId="2" />
-            </div>
-            <figcaption>
-                <mark>&lt;NavLink&gt;&lt;/NavLink&gt;</mark>
-            </figcaption>
-        </figure>
-        <figure>
-            <div>
-                <Capgemini.Net.Blazor.Components.Demo.Examples.Demo09.PointContext4 Example="3" ProductId="3" />
-            </div>
-            <figcaption>
-                <mark>&lt;ProductButton /&gt;</mark>
-            </figcaption>
-        </figure>
-    </div>
+        <div class="example-figure">
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Examples.Demo09.PointContext4 Example="1" ProductId="1" />
+                </div>
+                <figcaption>
+                    <mark>&lt;a&gt;&lt;/a&gt;</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Examples.Demo09.PointContext4 Example="2" ProductId="2" />
+                </div>
+                <figcaption>
+                    <mark>&lt;NavLink&gt;&lt;/NavLink&gt;</mark>
+                </figcaption>
+            </figure>
+            <figure>
+                <div>
+                    <Capgemini.Net.Blazor.Components.Demo.Examples.Demo09.PointContext4 Example="3" ProductId="3" />
+                </div>
+                <figcaption>
+                    <mark>&lt;ProductButton /&gt;</mark>
+                </figcaption>
+            </figure>
+        </div>
     };
+
+    private static readonly string AUTO_PROPERTY_INITIALIZERS = "https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-6#auto-property-initializers";
+    private static readonly string STATEMENTS_LAMBDAS = "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#statement-lambdas";
+    private static readonly string READ_MORE_14 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#define-reusable-renderfragments-in-code";
+    private static readonly string CONDITION_BLOCKS = "https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#conditionals-if-else-if-else-and-switch";
+    private static readonly string READ_MORE_15= "https://docs.microsoft.com/en-us/aspnet/core/blazor/advanced-scenarios?view=aspnetcore-5.0#manual-rendertreebuilder-logic";
+    private static readonly string EXPLICIT_LINE_TRANSITION = "https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#explicit-line-transition";
+    private static readonly string CODE_BLOCK_CONTEXT = "https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#control-structures";
+    private static readonly string RAZOR_CODE_BLOCK = "https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#no-locrazor-code-blocks";
+    private static readonly string WIG_PIG = "https://blazor-university.com/templating-components-with-renderfragements/passing-placeholders-to-renderfragments";
 
     internal static readonly RenderFragment PointContext5 = __builder =>
     {
-    <p>
-        Update <mark>RateComponent</mark>'s markup to show additional parameters of the selected product - <mark>MaxRate</mark> and <mark>CurrentRate</mark>:
-    </p>
+        <p>
+            Update <mark>RateComponent</mark>'s markup to show additional parameters of the selected product 
+            - <mark>MaxRate</mark> and <mark>CurrentRate</mark>:
+        </p>
 
-    <pre data-line="15-17, 23-25">
-    <code class="language-csharp line-numbers">
+        <pre data-line="15-17, 23-25">
+            <code class="language-csharp line-numbers">
 @@inherits RateComponentBase
 
 &lt;div class="rate-container"&gt;
@@ -1208,12 +1319,12 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        Replace raw values for <mark>MaxRate</mark> and <mark>CurrentRate</mark> with <mark>RenderFragment</mark> parameters:
-    </p>
+        <p>
+            Replace raw values for <mark>MaxRate</mark> and <mark>CurrentRate</mark> with <mark>RenderFragment</mark> parameters:
+        </p>
 
-    <pre data-line="6-13, 21-28, 38-39, 44-56">
-    <code class="language-csharp line-numbers">
+        <pre data-line="6-13, 21-28, 38-39, 44-56">
+            <code class="language-csharp line-numbers">
 @@inherits RateComponentBase
 
 &lt;!-- ... --&gt;
@@ -1236,7 +1347,7 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 &lt;div class="max-rate-container"&gt;
     @@if (MaxRate is null)
     {
-        @@CurrentRateString
+        @@(Product.MaxRate)
     }
     else
     {
@@ -1281,26 +1392,28 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        Providing render fragments in place of fixed references allows the <mark>RateComponent</mark> to be more flexible and use same components both for <mark>CurrentRate</mark> and <mark>AvgRate</mark> (as
-        both render fragments are using same <mark>AverageRateContext</mark> class as generic parameter). Components that can be used are:
-    </p>
+        <p>
+            Providing render fragments in place of fixed references allows the <mark>RateComponent</mark> to be more flexible 
+            and use same components both for <mark>CurrentRate</mark> and <mark>AvgRate</mark> (as both render fragments 
+            are using same <mark>AverageRateContext</mark> class as generic parameter). Components that can be used are:
+        </p>
 
-    <ul>
-        <li>
-            <mark>DefaultAverageRateComponent</mark>,
-        </li>
-        <li>
-            <mark>AlternativeAverageRateComponent</mark>,
-        </li>
-        <li>
-            <mark>Alternative2AverageRateComponent</mark>.
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <mark>DefaultAverageRateComponent</mark>,
+            </li>
+            <li>
+                <mark>AlternativeAverageRateComponent</mark>,
+            </li>
+            <li>
+                <mark>Alternative2AverageRateComponent</mark>.
+            </li>
+        </ul>
 
-    <p>
-        <mark>AvgRate</mark> render fragment is defined by the <mark>WrapperComponent</mark> (lines <mark>4-9</mark>), so it wasn't wrapped with the <mark>@@if</mark> statement as two others <mark>RenderFragment</mark> parameters:
-    </p>
+        <p>
+            <mark>AvgRate</mark> render fragment is defined by the <mark>WrapperComponent</mark> (lines <mark>4-9</mark>), 
+            so it wasn't wrapped with the <mark>@@if</mark> statement as two others <mark>RenderFragment</mark> parameters:
+        </p>
 
         <pre data-line="4-9">
             <code class="language-csharp line-numbers">
@@ -1319,14 +1432,18 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
             </code>
         </pre>
 
-    <p>
-        If a render fragment is not provided, the replacement markup is used based on <mark>is null</mark> condition. <a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-6#auto-property-initializers">Auto-property initializer</a>
-        for <mark>RenderFragment</mark> or <mark>RenderFragment&lt;TValue&gt;</mark> can also be set to a <strong>HTML</strong> markup with a usage of <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#statement-lambdas">statement lambdas</a> (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#define-reusable-renderfragments-in-code">read more</a>).
-        Replace the default values for all <mark>RenderFragment&lt;TValue&gt;</mark> parameters and remove <mark>@@if</mark> statements (use markups from default <mnark>@@if</mnark> branches as default values for the parameters):
-    </p>
+        <p>
+            If a render fragment is not provided, the replacement markup is used based on <mark>is null</mark> condition. 
+            <a href="@AUTO_PROPERTY_INITIALIZERS">Auto-property initializer</a> for <mark>RenderFragment</mark> 
+            or <mark>RenderFragment&lt;TValue&gt;</mark> can also be set to a <strong>HTML</strong> markup 
+            with a usage of <a href="@STATEMENTS_LAMBDAS">statement lambdas</a> (<a href="@READ_MORE_14">read more</a>).
+            Replace the default values for all <mark>RenderFragment&lt;TValue&gt;</mark> parameters 
+            and remove <mark>@@if</mark> statements (use markups from default <mnark>@@if</mnark> branches as default values 
+            for the parameters):
+        </p>
 
-    <pre data-line="15-17, 23-25, 35-47, 50-56, 59-62">
-    <code class="language-csharp line-numbers">
+        <pre data-line="16, 24, 35-47, 50-56, 59-62">
+            <code class="language-csharp line-numbers">
 @@inherits RateComponentBase
 
 &lt;div class="rate-container"&gt;
@@ -1408,38 +1525,42 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
         MaxRate = Product.MaxRate,
     };
 }
-        </code>
-    </pre>
+            </code>
+        </pre>
 
-    <p>
-        Lambda statements allow to use any Razor syntax to define the default markup for render fragments and even provide the context objects for that markup. In result <mark>RenderFragment&lt;TValue&gt;</mark>
-        defines a lambda expression (providing <mark>context</mark> parameter of <mark>TValue</mark> type) which defines a lambda statement as its content (providing<mark>__builder</mark> parameter of <mark>RenderTreeBuilder</mark> type).
-        That way:
-    </p>
+        <p>
+            Lambda statements allow to use any Razor syntax to define the default markup for render fragments 
+            and even provide the context objects for that markup. In result <mark>RenderFragment&lt;TValue&gt;</mark>
+            defines a lambda expression (providing <mark>context</mark> parameter of <mark>TValue</mark> type) which defines 
+            a lambda statement as its content (which provides <mark>__builder</mark> parameter of <mark>RenderTreeBuilder</mark> type).
+            That way:
+        </p>
 
-    <ul>
-        <li>
-            <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#conditionals-if-else-if-else-and-switch">condition blocks</a> (like <mark>@@if</mark> can be used (lines <mark>35-47</mark>),
-        </li>
-        <li>
-            custom defined components can be used, receiving their parameters from the provided <mark>context</mark> parameter (both lines <mark>35-47</mark> and <mark>50-56</mark>),
-        </li>
-        <li>
-            simple razor syntax can be used (lines <mark>59-62</mark>).
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="@CONDITION_BLOCKS">condition blocks</a> (like <mark>@@if</mark> can be used (lines <mark>35-47</mark>),
+            </li>
+            <li>
+                custom components can be used, receiving their parameters from the provided <mark>context</mark> parameter 
+                (both lines <mark>35-47</mark> and <mark>50-56</mark>),
+            </li>
+            <li>
+                simple razor syntax can be used (lines <mark>59-62</mark>).
+            </li>
+        </ul>
 
-    <p>
+        <p>
 
-        <mark>CurrentRateString</mark> property was deleted in process.
-    </p>
+            <mark>CurrentRateString</mark> property was deleted in process.
+        </p>
 
-    <p>
-        <strong>Note:</strong> <mark>__builder</mark> parameter of type <mark>RenderTreeBuilder</mark> provided by the statement lambda can also be used to build a markup to be render (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/advanced-scenarios?view=aspnetcore-5.0#manual-rendertreebuilder-logic">read more</a>):
-    </p>
+        <p>
+            <strong>Note:</strong> <mark>__builder</mark> parameter of type <mark>RenderTreeBuilder</mark> provided by 
+            the statement lambda can also be used to build a markup to be render (<a href="@READ_MORE_15">read more</a>):
+        </p>
 
-    <pre data-line="5-12">
-    <code class="language-csharp line-numbers">
+        <pre data-line="7-11">
+            <code class="language-csharp line-numbers">
 @@code {
 	// ...
 	
@@ -1455,31 +1576,33 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 
     // ...
 }
-&lt;!-- ... --&gt;
-        </code>
-    </pre>
+            </code>
+        </pre>
 
-    <p>
-        <strong>Note:</strong> to define the inline markup the special combination of Razor syntax can be used together:
-    </p>
+        <p>
+            <strong>Note:</strong> to define the inline markup, special combination of Razor syntax can be used together:
+        </p>
 
-    <ul>
-        <li>
-            <mark>@@:</mark> - <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#explicit-line-transition">explicit line transition</a> enables Razor to render text as <strong>Razor mark-up</strong> inside the <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#control-structures">code block context</a>,
-        </li>
-        <li>
-            <mark>@@{ }</mark> - <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#no-locrazor-code-blocks">Razor code block</a> enables to define <strong>C#</strong> code block inside the <strong>*.razor</strong> files.
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <mark>@@:</mark> - <a href="@EXPLICIT_LINE_TRANSITION">explicit line transition</a> enables Razor 
+                to render text as <strong>Razor mark-up</strong> inside the <a href="@CODE_BLOCK_CONTEXT">code block context</a>,
+            </li>
+            <li>
+                <mark>@@{ }</mark> - <a href="@RAZOR_CODE_BLOCK">Razor code block</a> enables to define <strong>C#</strong> code 
+                inside the <strong>*.razor</strong> files.
+            </li>
+        </ul>
 
-    <p>
-        Together they form <mark>@@:@@{</mark> syntax (informally called <a href="https://blazor-university.com/templating-components-with-renderfragements/passing-placeholders-to-renderfragments/">Wig-pig</a>).
-        That combination allows to define Razor markup block to be interpreted by the Razor engine during the <strong>*.razor</strong> file compilation (and translate the given markup to <strong>HTML</strong>
-        markup which in turn will be transformed to the <mark>RenderTreeBuilder</mark> set of methods).
-    </p>
+        <p>
+            Together they form <mark>@@:@@{</mark> syntax (informally called <a href="@WIG_PIG">Wig-pig</a>).
+            That combination allows to define Razor markup block to be interpreted by the Razor engine 
+            during the <strong>*.razor</strong> file compilation (and translate the given markup to <strong>HTML</strong>
+            markup which in turn will be transformed to the <mark>RenderTreeBuilder</mark> set of methods).
+        </p>
 
-    <pre data-line="5-18, 21-27, 30-31">
-    <code class="language-csharp line-numbers">
+        <pre data-line="5-18, 21-27, 30-31">
+            <code class="language-csharp line-numbers">
 @@code {
 	// ...
 	
@@ -1514,12 +1637,14 @@ namespace Capgemini.Net.Blazor.Components.Demo09.Start
 	
 	// ...
 }
-        </code>
-    </pre>
+            </code>
+        </pre>
 
-    <p>
-        <strong>Note:</strong> that form of syntax require to the semicolon character (<mark>;</mark>) to be left over to the new line as a delimiter for the next line of code (<mark>@@:</mark> by definition
-        will treat every character in line after it as Razor syntax).
-    </p>
+        <p>
+            <strong>Note:</strong> that form of syntax require semicolon character (<mark>;</mark>) to be left over 
+            to the new line as a delimiter for the next line of code (<mark>@@:</mark> by definition
+            will treat every character in line after it as Razor syntax, so the <mark>;</mark> won't be recognize
+            as the terminal character for the line).
+        </p>
     };
 }
