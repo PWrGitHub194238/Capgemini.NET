@@ -69,4 +69,7 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [Capture references to components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#capture-references-to-components),
   - [Posting data to API](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.json.httpclientjsonextensions.postasjsonasync?view=net-5.0),
   - [StateHasChanged method](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle?view=aspnetcore-5.0#state-changes).
-- Demo 11:
+- Demo 11: HTML markup for each rate icon will be replaced by the Blazor component, replacing the common base class logic.
+  - [](),
+- Demo 12: last example will enable the user to provide rate icons as render fragment.
+  - []().

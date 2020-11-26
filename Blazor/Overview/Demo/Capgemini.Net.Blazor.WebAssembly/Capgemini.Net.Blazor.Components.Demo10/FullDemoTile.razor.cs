@@ -52,7 +52,7 @@ namespace Capgemini.Net.Blazor.Components.Demo10
                     Name = "Custom event callback",
                     Order = 5,
                     IsDone = false,
-                    Label = "Trigger displaying rate update on product change",
+                    Label = "Provide a proper rate of the product to be displayed on product change",
                     Content = PointContext5!
                 }
             }

@@ -125,10 +125,13 @@ Demo 02 > 5 > Add parameter properties to MinusIcon, PlusIcon components to make
 
 1. ./Start/ContainerComponent.razor
  - add @using SvgIcons.Base
+ 
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 @using SvgIcons.Base
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
  - add Theme="IconTheme.DARK" for each Icon component
+ 
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 Theme="IconTheme.DARK"
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

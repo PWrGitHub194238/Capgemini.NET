@@ -49,7 +49,7 @@ namespace Capgemini.Net.Blazor.Components.Demo02
                     Name = "Add parameters to child component to fix style",
                     Order = 5,
                     IsDone = false,
-                    Label = "Add parameter properties to MinusIcon, PlusIcon components to make their look and feel match the overall theme",
+                    Label = "Add parameter properties to MinusIcon and PlusIcon components to make their look and feel match the overall theme",
                     Content = PointContext5!
                 },
                 new DemoChecklistPointContext

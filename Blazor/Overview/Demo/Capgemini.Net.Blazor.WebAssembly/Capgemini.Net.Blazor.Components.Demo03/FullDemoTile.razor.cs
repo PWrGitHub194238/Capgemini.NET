@@ -17,7 +17,7 @@ namespace Capgemini.Net.Blazor.Components.Demo03
                     Name = "Create code-behind instead of code block",
                     Order = 1,
                     IsDone = false,
-                    Label = "Separate @code block from ContainerComponent component by creating code-behind files",
+                    Label = "Separate @code block from ContainerComponent component by creating code-behind file",
                     Content = PointContext1!
                 },
                 new DemoChecklistPointContext
@@ -33,7 +33,7 @@ namespace Capgemini.Net.Blazor.Components.Demo03
                     Name = "Create a base class for RateComponent",
                     Order = 3,
                     IsDone = false,
-                    Label = "Create a component base class, move the common logic out of the component RateComponent",
+                    Label = "Create a component base class, move the common logic out of the RateComponent",
                     Content = PointContext3!
                 },
                 new DemoChecklistPointContext

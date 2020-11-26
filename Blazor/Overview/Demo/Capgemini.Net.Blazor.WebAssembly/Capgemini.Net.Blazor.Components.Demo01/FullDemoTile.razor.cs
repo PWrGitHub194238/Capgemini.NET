@@ -49,7 +49,7 @@ namespace Capgemini.Net.Blazor.Components.Demo01
                     Name = "Fixing lambda value capturing",
                     Order = 5,
                     IsDone = false,
-                    Label = "Deal with lambda variable capturing causing each rate icon to represent max rate",
+                    Label = "Deal with lambda variable capturing, causing each rate icon to represent max rate",
                     Content = PointContext5!
                 }
             }

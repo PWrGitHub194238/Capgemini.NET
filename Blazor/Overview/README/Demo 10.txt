@@ -386,7 +386,7 @@ if (numberOfProducts.HasValue && !HasProductIdParameterInRoute())
 08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ---------------------------------------------------------------------------------
-Demo 10 > 5 > Trigger displaying rate update on product change
+Demo 10 > 5 > Provide a proper rate of the product to be displayed on product change
 ---------------------------------------------------------------------------------
 
 RateComponent.razor
