@@ -1,11 +1,11 @@
 ﻿@using Capgemini.Net.Blazor.Components.Demo.Interfaces
 
 <div class="rate-container">
-    <CascadingValue Value="this">
-        <CascadingRateContext>
+    <CascadingRateContext>
+        <CascadingValue Value="this">
             @ChildContent(Product)
-        </CascadingRateContext>
-    </CascadingValue>
+        </CascadingValue>
+    </CascadingRateContext>
 </div>
 
 <div class="current-rate-container">

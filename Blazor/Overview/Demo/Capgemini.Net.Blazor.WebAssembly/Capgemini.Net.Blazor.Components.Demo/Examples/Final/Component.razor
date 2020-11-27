@@ -15,6 +15,96 @@
                 }
             </ChildContent>
             <CurrentRate Context="rateContext">
+                <DefaultAverageRateComponent
+                    MinRate="@(rateContext.MinRate)"
+                    AvgRate="@(rateContext.AvgRate)"
+                    MaxRate="@(rateContext.MaxRate)"/>
+            </CurrentRate>
+            <AvgRate Context="avgContext">
+                <DefaultAverageRateComponent 
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
+        break;
+    case 2:
+<ContainerComponent @ref="ContainerComponentRef">
+    <ChildContent Context="product">
+        <RateComponent Product="@product" ProductRated="@((rate) => ChangeProductRate(rate))">
+            <ChildContent Context="Product">
+                @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate - Product.MinRate + 1))
+                {
+                    <AlternateRateIconComponent
+                        IconRate="@i"
+                        Icon="@GetRateIcon(@i, Product.MaxRate - Product.MinRate)" />
+                }
+            </ChildContent>
+            <CurrentRate Context="rateContext">
+                <AlternativeAverageRateComponent
+                    MinRate="@(rateContext.MinRate)"
+                    AvgRate="@(rateContext.AvgRate)"
+                    MaxRate="@(rateContext.MaxRate)"
+                    DisplayStyleType="AlternativeAverageRateComponent.DisplayStyle.DEFAULT"/>
+            </CurrentRate>
+            <AvgRate Context="avgContext">
+                <Alternative2AverageRateComponent 
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)"
+                    MinColor="Alternative2AverageRateComponent.Colors.RED"
+                    MaxColor="Alternative2AverageRateComponent.Colors.GREEN" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
+        break;
+    case 3:
+<ContainerComponent @ref="ContainerComponentRef">
+    <ChildContent Context="product">
+        <RateComponent Product="@product" ProductRated="@((rate) => ChangeProductRate(rate))">
+            <ChildContent Context="Product">
+                @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate - Product.MinRate + 1))
+                {
+                    <Alternate2RateIconComponent
+                        IconRate="@i"
+                        Icon="@GetRateIcon(@i, Product.MaxRate - Product.MinRate)" />
+                }
+            </ChildContent>
+            <CurrentRate Context="rateContext">
+                <Alternative2AverageRateComponent
+                    MinRate="@(rateContext.MinRate)"
+                    AvgRate="@(rateContext.AvgRate)"
+                    MaxRate="@(rateContext.MaxRate)"
+                    MinColor="Alternative2AverageRateComponent.Colors.RED"
+                    MaxColor="Alternative2AverageRateComponent.Colors.GREEN"/>
+            </CurrentRate>
+            <AvgRate Context="avgContext">
+                <AlternativeAverageRateComponent 
+                    MinRate="@(avgContext.MinRate)"
+                    AvgRate="@(avgContext.AvgRate)"
+                    MaxRate="@(avgContext.MaxRate)"
+                    DisplayStyleType="AlternativeAverageRateComponent.DisplayStyle.DEFAULT" />
+            </AvgRate>
+        </RateComponent>
+    </ChildContent>
+</ContainerComponent>
+        break;
+    case 4:
+<ContainerComponent @ref="ContainerComponentRef">
+    <ChildContent Context="product">
+        <RateComponent Product="@product" ProductRated="@((rate) => ChangeProductRate(rate))">
+            <ChildContent Context="Product">
+                @foreach (int i in Enumerable.Range(Product.MinRate, Product.MaxRate - Product.MinRate + 1))
+                {
+                    <Alternate3RateIconComponent
+                        IconRate="@i"
+                        Icon="@GetRateIcon(@i, Product.MaxRate - Product.MinRate)" />
+                }
+            </ChildContent>
+            <CurrentRate Context="rateContext">
                 <Alternative2AverageRateComponent
                     MinRate="@(rateContext.MinRate)"
                     AvgRate="@(rateContext.AvgRate)"

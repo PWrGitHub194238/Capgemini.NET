@@ -1,0 +1,40 @@
+﻿<i class="@(IsActive ? ActiveCss : InActiveCss) @(Icon) cursor-pointer"
+   alt="@IconRate"
+   style="@GetHoveredStyle(IconRate)"
+   @onclick="@(() => RateComponent.CurrentRateInt = IconRate)"
+   @onmouseover="@(() => OnMouseOver())"
+   @onmouseout="@(() => OnMouseOut())"></i>
+
+@code {
+
+    [CascadingParameter]
+    public RateComponent RateComponent { get; set; } = default!;
+
+    [CascadingParameter]
+    public RateContext Context { get; set; } = default!;
+
+    [Parameter]
+    public string Icon { get; set; } = "fa-star";
+
+    [Parameter]
+    public int IconRate { get; set; }
+
+    private int Value => RateComponent.CurrentRateInt;
+
+    [Parameter]
+    public string ActiveCss { get; set; } = "fas";
+
+    [Parameter]
+    public string InActiveCss { get; set; } = "far";
+
+    private bool IsActive => (Context.IsFocused && IconRate <= Context.FocusedRateValue)
+        || (!Context.IsFocused && IconRate <= Value);
+
+    private void OnMouseOver()
+    {
+        Context.IsFocused = true;
+        Context.FocusedRateValue = IconRate;
+    }
+
+    private void OnMouseOut() => Context.IsFocused = false;
+}

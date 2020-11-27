@@ -54,5 +54,17 @@
   {
     "outputFile": "Examples/Final/End/RateComponent.razor.css",
     "inputFile": "Examples/Final/End/RateComponent.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Final/End/AlternateRateIconComponent.razor.css",
+    "inputFile": "Examples/Final/End/AlternateRateIconComponent.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Final/End/Alternate2RateIconComponent.razor.css",
+    "inputFile": "Examples/Final/End/Alternate2RateIconComponent.razor.scss"
+  },
+  {
+    "outputFile": "Examples/Final/End/Alternate3RateIconComponent.razor.css",
+    "inputFile": "Examples/Final/End/Alternate3RateIconComponent.razor.scss"
   }
 ]

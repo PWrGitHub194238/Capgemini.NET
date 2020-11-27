@@ -32,4 +32,31 @@
     <None Include="compilerconfig.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Examples\Final\End\Alternate2RateIconComponent - Copy.razor.cs">
+      <DependentUpon>Alternate2RateIconComponent.razor.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Examples\Final\End\Alternate2RateIconComponent - Copy.razor.css">
+      <DependentUpon>Alternate2RateIconComponent.razor.css</DependentUpon>
+    </None>
+    <None Update="Examples\Final\End\Alternate2RateIconComponent - Copy.razor.min.css">
+      <DependentUpon>Alternate2RateIconComponent.razor.min.css</DependentUpon>
+    </None>
+    <None Update="Examples\Final\End\Alternate2RateIconComponent - Copy.razor.scss">
+      <DependentUpon>Alternate2RateIconComponent.razor.scss</DependentUpon>
+    </None>
+    <None Update="Examples\Final\End\AlternateRateIconComponent - Copy.razor.css">
+      <DependentUpon>AlternateRateIconComponent.razor.css</DependentUpon>
+    </None>
+    <None Update="Examples\Final\End\AlternateRateIconComponent - Copy.razor.min.css">
+      <DependentUpon>AlternateRateIconComponent.razor.min.css</DependentUpon>
+    </None>
+    <None Update="Examples\Final\End\AlternateRateIconComponent - Copy.razor.scss">
+      <DependentUpon>AlternateRateIconComponent.razor.scss</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>

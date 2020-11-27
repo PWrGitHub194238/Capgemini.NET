@@ -1,0 +1,7 @@
+﻿i.hovered {
+  transform: rotateY(0.5turn) scale(1.2);
+  transition-duration: 0.4s; }
+
+i:not(.hovered) {
+  transform: rotateY(0);
+  transition-duration: 0.4s; }

@@ -74,4 +74,4 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [Data binding](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0),
   - [Fixed cascading parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#ensure-cascading-parameters-are-fixed).
 - Demo 12: last example will enable the user to provide rate icons as render fragment.
-  - []().
+  - [Self-referencing cascading value](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0#tabset-example).
