@@ -17,12 +17,12 @@
 @code {
     internal static readonly RenderFragment PointContext1 = __builder =>
     {
-    <p>
-        Add new Razor component named <mark>RateIconComponent</mark>:
-    </p>
+        <p>
+            Add new Razor component named <mark>RateIconComponent</mark>:
+        </p>
 
-    <pre>
-    <code class="language-csharp line-numbers">
+        <pre>
+            <code class="language-csharp line-numbers">
 &lt;i class="@@(IsActive ? ActiveCss : InActiveCss) @@(Icon) cursor-pointer"
     alt="@@IconRate"
     @@onclick="@@(() =&gt; ValueChanged.InvokeAsync(IconRate))"
@@ -60,15 +60,16 @@
     private bool IsActive =&gt; (IsFocused && IconRate &lt;= FocusedValue)
         || (!IsFocused && IconRate &lt;= Value);
 }
-        </code>
-    </pre>
+            </code>
+        </pre>
 
-    <p>
-        The markup and Blazor event handlers used for the component are the same as for the original markup inside the <mark>RateComponent</mark>:
-    </p>
+        <p>
+            The markup and Blazor event handlers used for the component are the same 
+            as for the original markup inside the <mark>RateComponent</mark>:
+        </p>
 
-    <pre data-line="9-12">
-    <code class="language-csharp line-numbers">
+        <pre data-line="9-12">
+            <code class="language-csharp line-numbers">
 @@inherits RateComponentBaseWithTask
 
 @@inject ILogger&lt;RateComponent&gt; Logger
@@ -90,57 +91,65 @@
 @@code {
 	// ...
 }
-        </code>
-    </pre>
+            </code>
+        </pre>
 
-    <p>
-        <mark>RateIconComponent</mark> does not inherits from the <mark>RateComponentBaseWithTask</mark> class which holds the context variables for the above code to work:
-    </p>
+        <p>
+            <mark>RateIconComponent</mark> does not inherits from the <mark>RateComponentBaseWithTask</mark> class 
+            which holds the context variables for the above code to work:
+        </p>
 
-    <ul>
-        <li>
-            <mark>SetRate</mark> method sets the current rate of the product based on whatever icon was clicked while being focused,
-        </li>
-        <li>
-            <mark>ShowRate(i)</mark> sets the temporary rate (<mark>private int tempRate</mark>) based on the icon's index <mark>i</mark>. Once <mark>SetRate</mark>
-            is invoked, <mark>tempRate</mark> value is assigned to the selected rate (can be get by the public <mark>Rate</mark> property).
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <mark>SetRate</mark> method sets the current rate of the product based on whatever icon was clicked while being focused,
+            </li>
+            <li>
+                <mark>ShowRate(i)</mark> sets the temporary rate (<mark>private int tempRate</mark>) 
+                based on the icon's index <mark>i</mark>. Once <mark>SetRate</mark>
+                is invoked, <mark>tempRate</mark> value is assigned to the selected rate (can be get 
+                by the public <mark>Rate</mark> property).
+            </li>
+        </ul>
 
-    <p>
-        <mark>RateIconComponent</mark> needs to notify the <mark>RateComponent</mark> whenever it is focused to simulate the <mark>ShowRate(i)</mark>.
-        <mark>RateIconComponent</mark> use <mark>EventCallback&lt;bool&gt; OnFocusChanged</mark> parameter to provide that and it is called on both <mark>@@onmouseover</mark>
-        and <mark>@@onmouseout</mark> (to also notify other <mark>RateIconComponent</mark>s about focus state):
-    </p>
+        <p>
+            <mark>RateIconComponent</mark> needs to notify the <mark>RateComponent</mark> whenever it is focused 
+            to simulate the <mark>ShowRate(i)</mark>.
+            <mark>RateIconComponent</mark> uses <mark>EventCallback&lt;bool&gt; OnFocusChanged</mark> parameter 
+            to provide that and it is called on both <mark>@@onmouseover</mark>
+            and <mark>@@onmouseout</mark> (to also notify other <mark>RateIconComponent</mark>s about focus state
+            whenever the icon is not hovered anymore):
+        </p>
 
-    <ul>
-        <li>
-            <mark>@@onmouseover="@@(() =&gt; OnFocusChanged.InvokeAsync(true))"</mark>
-        </li>
-        <li>
-            <mark>@@onmouseout="@@(() =&gt; OnFocusChanged.InvokeAsync(false))"</mark>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <mark>@@onmouseover="@@(() =&gt; OnFocusChanged.InvokeAsync(true))"</mark>
+            </li>
+            <li>
+                <mark>@@onmouseout="@@(() =&gt; OnFocusChanged.InvokeAsync(false))"</mark>
+            </li>
+        </ul>
 
-    <p>
-        <strong>Note:</strong> <mark>RateIconComponent</mark>s needs to know the shared focus state as they either:
-    </p>
+        <p>
+            <strong>Note:</strong> <mark>RateIconComponent</mark>s needs to know the shared focus state as they either:
+        </p>
 
-    <ul>
-        <li>
-            mark their icons as active if any other icon with greater <mark>IconRate</mark> is focused (despite the actual rate selected),
-        </li>
-        <li>
-            mark their icon as active if their own <mark>IconRate</mark> are smaller or equal than the selected rate (if non of the rate icons are focused).
-        </li>
-    </ul>
+        <ul>
+            <li>
+                mark their icons as active if any other icon with greater <mark>IconRate</mark> is focused 
+                (despite the actual rate selected),
+            </li>
+            <li>
+                mark their icon as active if their own <mark>IconRate</mark> are smaller or equal than the selected rate 
+                (if non of the rate icons are focused).
+            </li>
+        </ul>
 
-    <p>
-        Use the component to replace the <mark>&lt;i&gt;</mark> tag used inside the <mark>RateComponent</mark>:
-    </p>
+        <p>
+            Use the component to replace the <mark>&lt;i&gt;</mark> tag used inside the <mark>RateComponent</mark>:
+        </p>
 
-    <pre data-line="7, 9-16, 76,77">
-    <code class="language-csharp line-numbers">
+        <pre data-line="7, 9-16, 76,77">
+            <code class="language-csharp line-numbers">
 @@inherits RateComponentBaseWithTask
 
 @@inject ILogger&lt;RateComponent&gt; Logger
@@ -264,40 +273,49 @@
         await ProductRated.InvokeAsync(Rate);
     }
 }
-        </code>
-    </pre>
+            </code>
+        </pre>
 
-    <p>
-        Each of the <mark>RateIconComponent</mark>s receives an <mark>Icon</mark> and <mark>IconRate</mark> (based on loop index).
-    </p>
+        <p>
+            Each of the <mark>RateIconComponent</mark>s receive an <mark>Icon</mark> and <mark>IconRate</mark> (based on loop index).
+        </p>
 
-    <p>
-        <mark>Value</mark> parameter and <mark>ValueChanged</mark> event callback is used to react on rate icon click. If clicked, <mark>ValueChanged</mark>
-        is called providing the selected rate, <mark>Rate</mark> (base class property) is updated and the method to notify the <mark>ContainerComponent</mark> about the change is called.
-    </p>
+        <p>
+            <mark>Value</mark> parameter and <mark>ValueChanged</mark> event callback is used to react on rate icon click. 
+            If clicked, <mark>ValueChanged</mark> is called, providing the selected rate, <mark>Rate</mark> (base class property) 
+            is updated and the method to notify the <mark>ContainerComponent</mark> about the change is called (<mark>ProductRated</mark>).
+        </p>
 
-    <p>
-        On any mouse in/out event each of the generated <mark>RateIconComponent</mark>s call <mark>OnFocusChanged</mark>. <mark>OnFocusChanged</mark> updates both shared <mark>focus</mark> (line <mark>76</mark>)
-        and <mark>tempRate</mark> (line <mark>77</mark>) fields to provide their updated values for <mark>IsFocused</mark> and <mark>FocusedValue</mark> parameters of each of the <mark>RateIconComponent</mark>s.
-    </p>
+        <p>
+            On any mouse in/out event each of the generated <mark>RateIconComponent</mark>s call <mark>OnFocusChanged</mark>. 
+            <mark>OnFocusChanged</mark> updates both shared <mark>focus</mark> (line <mark>76</mark>)
+            and <mark>tempRate</mark> (line <mark>77</mark>) fields to provide their updated values 
+            for <mark>IsFocused</mark> and <mark>FocusedValue</mark> parameters of each of the <mark>RateIconComponent</mark>s.
+        </p>
     };
 
+    private static readonly string READ_MORE_1 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0#bind-across-more-than-two-components";
+    
     internal static readonly RenderFragment PointContext2 = __builder =>
     {
-    <p>
-        Remove the <mark>RateComponentBaseWithTask</mark> inheritance from the <mark>RateComponent</mark>.
-    </p>
+        <p>
+            Remove the <mark>RateComponentBaseWithTask</mark> inheritance from the <mark>RateComponent</mark>.
+        </p>
 
-    <ul>
-        <li>
-            Remove the reference to the <mark>RateComponentBaseWithTask.Rate</mark> property. Use the <mark>CurrentRateInt</mark> of the <mark>RateComponent</mark> instead.
-        </li>
-        <li>
-            Add the setter for the <mark>CurrentRateInt</mark> as the <mark>ValueChanged</mark> even callback is setting the value of the replaced property (<mark>ValueChanged="@@(async (selectedRate) =&gt; { Rate = selectedRate; await SetRate(); })"</mark>) and currently it is read-only (<mark>private int CurrentRateInt =&gt; Product.CurrentRate ?? 0;</mark>).
-            The logic from the <mark>SetRate</mark> method can be used:
+        <ul>
+            <li>
+                Remove the reference to the <mark>RateComponentBaseWithTask.Rate</mark> property. 
+                Use the <mark>CurrentRateInt</mark> of the <mark>RateComponent</mark> instead.
+            </li>
+            <li>
+                Add the setter for the <mark>CurrentRateInt</mark> as the <mark>ValueChanged</mark> even callback 
+                is setting the value of the replaced property 
+                (<mark>ValueChanged="@@(async (selectedRate) =&gt; { CurrentRateInt = selectedRate; await SetRate(); })"</mark>) 
+                and currently it is read-only (<mark>private int CurrentRateInt =&gt; Product.CurrentRate ?? 0;</mark>).
+                The logic from the <mark>SetRate</mark> method can be used:
 
-            <pre data-line="4">
-            <code class="language-csharp line-numbers">
+                <pre data-line="4">
+                    <code class="language-csharp line-numbers">
 private int CurrentRateInt
 {
 	get =&gt; Product.CurrentRate ?? 0;
@@ -305,25 +323,25 @@ private int CurrentRateInt
 }
                     </code>
                 </pre>
-        </li>
-        <li>
-            Remove remaining methods that uses the removed <mark>base</mark> class:
-            <ul>
-                <li>
-                    <mark>OnParametersSet</mark>
-                </li>
-                <li>
-                    <mark>SetRate</mark>
-                </li>
-            </ul>
-        </li>
-        <li>
-            Remove the <mark>SetRate</mark> usage from the <mark>ValueChanged</mark> lambda expression.
-        </li>
-    </ul>
+            </li>
+            <li>
+                Remove remaining methods that uses the removed <mark>base</mark> class:
+                <ul>
+                    <li>
+                        <mark>OnParametersSet</mark>,
+                    </li>
+                    <li>
+                        <mark>SetRate</mark>.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Remove the <mark>SetRate</mark> usage from the <mark>ValueChanged</mark> lambda expression.
+            </li>
+        </ul>
 
-    <pre data-line="10, 11, 12, 13, 14, 72-76, 78, 79">
-    <code class="language-csharp line-numbers">
+        <pre data-line="10, 11, 12, 13, 14, 72-76, 78, 79">
+            <code class="language-csharp line-numbers">
 @@inject ILogger&lt;RateComponent&gt; Logger
 
 &lt;div class="rate-container"&gt;
@@ -441,22 +459,25 @@ private int CurrentRateInt
             </code>
         </pre>
 
-    <p>
-        <strong>Note:</strong> lambda expression for <mark>ValueChanged</mark> event is no longer asynchronous.
-    </p>
+        <p>
+            <strong>Note:</strong> lambda expression for <mark>ValueChanged</mark> event is no longer asynchronous.
+        </p>
 
-    <p>
-        <strong>Note:</strong> with <mark>CurrentRateInt</mark> setter calling <mark>EventCVallback&lt;int&gt;</mark> directly and passing the value to be set (<mark>ProductRated.InvokeAsync(value)</mark>)
-        the <mark>RateComponent</mark> is no longer used to set the rate of the product (as <mark>OnParametersSet</mark> did but is was removed) - it is just passing the value to its parent component to update the product with the <strong>API</strong> call - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0#bind-across-more-than-two-components">read more</a>.
-    </p>
+        <p>
+            <strong>Note:</strong> with the <mark>CurrentRateInt</mark> setter calling <mark>EventCVallback&lt;int&gt;</mark> directly 
+            and passing the value to be set (<mark>ProductRated.InvokeAsync(value)</mark>),
+            the <mark>RateComponent</mark> is no longer used to set the rate of the product (as <mark>OnParametersSet</mark> did 
+            but is was removed) - it is just passing the value to its parent component 
+            to update the product with the <strong>API</strong> call - <a href="@READ_MORE_1">read more</a>.
+        </p>
 
-    <p>
-        Replace the <mark>focus</mark> and <mark>tempRate</mark> fields with the <mark>RateContext</mark> class:
-    </p>
+        <p>
+            Replace the <mark>focus</mark> and <mark>tempRate</mark> fields with the <mark>RateContext</mark> class:
+        </p>
 
-    <pre>
-    <code class="language-csharp line-numbers">
-namespace Capgemini.Net.Blazor.Components.Demo11.End
+        <pre>
+            <code class="language-csharp line-numbers">
+namespace Capgemini.Net.Blazor.Components.Demo11.Start
 {
     public class RateContext
     {
@@ -468,8 +489,8 @@ namespace Capgemini.Net.Blazor.Components.Demo11.End
             </code>
         </pre>
 
-    <pre data-line="11, 14, 40">
-    <code class="language-csharp line-numbers">
+        <pre data-line="11, 13, 14, 40">
+            <code class="language-csharp line-numbers">
 @@inject ILogger&lt;RateComponent&gt; Logger
 
 &lt;div class="rate-container"&gt;
@@ -517,19 +538,26 @@ namespace Capgemini.Net.Blazor.Components.Demo11.End
         </pre>
     };
 
+    private static readonly string DATA_BINDING = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0";
+    private static readonly string READ_MORE_2 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0#binding-with-component-parameters";
+    private static readonly string READ_MORE_3 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0#bind-across-more-than-two-components";
+    private static readonly string FORMAT = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0#format-strings";
+    private static readonly string EVENT = "https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0";
+
     internal static readonly RenderFragment PointContext3 = __builder =>
     {
-    <p>
-        As the <mark>RateIconComponent</mark> is using its <mark>Value</mark> parameter and <mark>ValueChanged</mark> event callback both to get/set the same <mark>CurrentRateInt</mark> parameter, it can be simplified
-        - a <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0">data binding</a> Blazor mechanism can be used.
-    </p>
+        <p>
+            As the <mark>RateIconComponent</mark> is using its <mark>Value</mark> parameter and <mark>ValueChanged</mark> event callback 
+            both to get/set the same <mark>CurrentRateInt</mark> parameter, it can be simplified
+            - a <a href="@DATA_BINDING">data binding</a> Blazor mechanism can be used.
+        </p>
 
-    <p>
-        Replace the <mark>RateIconComponent</mark> markup in the <mark>RateComponent</mark>:
-    </p>
+        <p>
+            Replace the <mark>RateIconComponent</mark> markup in the <mark>RateComponent</mark>:
+        </p>
 
-    <pre data-line="10">
-    <code class="language-csharp line-numbers">
+        <pre data-line="10">
+            <code class="language-csharp line-numbers">
 @@inject ILogger&lt;RateComponent&gt; Logger
 
 &lt;div class="rate-container"&gt;
@@ -551,17 +579,19 @@ namespace Capgemini.Net.Blazor.Components.Demo11.End
             </code>
         </pre>
 
-    <p>
-        Data binding allows the binded value to be updated to the value that the component pushes by the <mark>ValueChanged</mark> parameter of the <mark>EventCallback</mark> type.
-        To be able to use a custom data binding syntax for a component, it has to:
-    </p>
+        <p>
+            Data binding allows the binded value to be updated to the value that the component pushes 
+            by the <mark>ValueChanged</mark> parameter of the <mark>EventCallback</mark> type.
+            To be able to use a custom data binding syntax for a component, it has to:
+        </p>
 
-    <ul>
-        <li>
-            define the parameter of a <mark>TValue</mark> type to enable the component to receive a value from the field or property (e.g. <mark>Value="@@CurrentRateInt"</mark>):
+        <ul>
+            <li>
+                define the parameter of a <mark>TValue</mark> type to enable the component to receive a value 
+                from the field or property (e.g. <mark>Value="@@CurrentRateInt"</mark>):
 
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                    <code class="language-csharp line-numbers">
 &lt;!-- ... --&gt;
 
 [Parameter]
@@ -570,33 +600,36 @@ public int Value { get; set; }
 &lt;!-- ... --&gt;
                     </code>
                 </pre>
-        </li>
-        <li>
-            define the parameter of the type <mark>EventCallback&lt;TValue&gt;</mark> named by the input parameter with a <mark>Changed</mark> suffix:
+            </li>
+            <li>
+                define the parameter of the <mark>EventCallback&lt;TValue&gt;</mark> type, named by the input parameter 
+                with a <mark>Changed</mark> suffix:
 
-            <pre>
-            <code class="language-csharp line-numbers">
+                <pre>
+                    <code class="language-csharp line-numbers">
 &lt;!-- ... --&gt;
 
     [Parameter]
-    public EventCallback&lt;int&gt; ValueChanged { get; set; }
+    public EventCallback&lt;int&gt; Value<mark>Changed</mark> { get; set; }
 
 &lt;!-- ... --&gt;
                     </code>
                 </pre>
-        </li>
-    </ul>
+            </li>
+        </ul>
 
-    <p>
-        <strong>Note:</strong> generic type for the <mark>ValueChanged</mark> parameter has to be the same as the <mark>Value</mark> parameter is - <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0#binding-with-component-parameters">read more</a>.
-    </p>
+        <p>
+            <strong>Note:</strong> generic type for the <mark>ValueChanged</mark> parameter has to be the same 
+            as the <mark>Value</mark> parameter is - <a href="@READ_MORE_2">read more</a>.
+        </p>
 
-    <p>
-        To bind across more than two components, components is chain can invoke another <mark>EventCallback</mark> with another binded property setter (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0#bind-across-more-than-two-components">read more</a>):
-    </p>
+        <p>
+            To bind across more than two components, components is chain can invoke another <mark>EventCallback</mark> 
+            with another binded property setter (<a href="@READ_MORE_3">read more</a>):
+        </p>
 
-    <pre data-line="6">
-    <code class="language-csharp line-numbers">
+        <pre data-line="6">
+            <code class="language-csharp line-numbers">
 &lt;!-- ... --&gt;
 
     &lt;RateIconComponent
@@ -608,11 +641,11 @@ public int Value { get; set; }
         OnFocusChanged="@@((isFocused) =&gt; { RateContext.IsFocused = isFocused; RateContext.FocusedRateValue = i; })" /&gt;
 
 &lt;!-- ... --&gt;
-                    </code>
-                </pre>
+            </code>
+        </pre>
 
-    <pre data-line="3, 6">
-    <code class="language-csharp line-numbers">
+        <pre data-line="3, 6">
+            <code class="language-csharp line-numbers">
 // ...
 
 private int CurrentRateInt
@@ -625,47 +658,58 @@ private int CurrentRateInt
             </code>
         </pre>
 
-    <p>
-        <strong>Note:</strong> binded value can be displayed with the custom format by using the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0#format-strings">format</a> directive attribute.
-    </p>
+        <p>
+            <strong>Note:</strong> binded value can be displayed with the custom format 
+            by using the <a href="@FORMAT">format</a> directive attribute.
+        </p>
 
-    <p>
-        <strong>Note:</strong> <mark>CascadingValue</mark> with a mutable object can be used to allow the component to work with the cascading object in both ways as well.
-    </p>
+        <p>
+            <strong>Note:</strong> <mark>CascadingValue</mark> with a mutable object can be used 
+            to allow the component to work with the cascading object in both ways as well.
+        </p>
 
-    <p>
-        In order to introduce data bindings for
-    </p>
+        <p>
+            In order to introduce data bindings for
+        </p>
 
-    <ul>
-        <li>
-            <mark>FocusedRateValue</mark> property of the <mark>RateContext</mark> object (<mark>FocusedValue="@@(RateContext.FocusedRateValue)"</mark>),
-        </li>
-        <li>
-            <mark>IsFocused</mark> property of the <mark>RateContext</mark> object (<mark>IsFocused="@@(RateContext.IsFocused)"</mark>)
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <mark>FocusedRateValue</mark> property of the <mark>RateContext</mark> object 
+                (<mark>FocusedValue="@@(RateContext.FocusedRateValue)"</mark>),
+            </li>
+            <li>
+                <mark>IsFocused</mark> property of the <mark>RateContext</mark> object 
+                (<mark>IsFocused="@@(RateContext.IsFocused)"</mark>),
+            </li>
+        </ul>
 
-    <p>
-        <mark>OnFocusChanged</mark> event callback has to be split as it is used to update both properties in a single call (<mark>OnFocusChanged="@@((isFocused) => { RateContext.IsFocused = isFocused; RateContext.FocusedRateValue = i; })"</mark>).
-        In fact the <mark>RateIconComponent</mark> is invoking that event callback for two different reasons and with different values to be returned:
-    </p>
+        <p>
+            <mark>OnFocusChanged</mark> event callback has to be split as it is used to update both properties in a single call 
+            (<mark>OnFocusChanged="@@((isFocused) => { RateContext.IsFocused = isFocused; RateContext.FocusedRateValue = i; })"</mark>).
+            In fact, the <mark>RateIconComponent</mark> is invoking that event callback for two different reasons 
+            and with different values to be returned:
+        </p>
 
-    <ul>
-        <li>
-            <mark>true</mark> if the <mark>@@onmouseover</mark> event for a rate icon is triggered to notify the parent component to change the shared <mark>RateContext.IsFocused</mark> to <mark>true</mark> (<mark>@@onmouseover="@@(() => OnFocusChanged.InvokeAsync(true))"</mark>),
-        </li>
-        <li>
-            <mark>false</mark> if the <mark>@@onmouseout</mark> event is triggered (<mark>@@onmouseout="@@(() => OnFocusChanged.InvokeAsync(false))"</mark>) which will set the <mark>RateContext.IsFocused</mark> to <mark>false</mark>.
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <mark>true</mark> if the <mark>@@onmouseover</mark> event for a rate icon is triggered 
+                to notify the parent component to change the shared <mark>RateContext.IsFocused</mark> 
+                to <mark>true</mark> (<mark>@@onmouseover="@@(() => OnFocusChanged.InvokeAsync(true))"</mark>),
+            </li>
+            <li>
+                <mark>false</mark> if the <mark>@@onmouseout</mark> event is triggered 
+                (<mark>@@onmouseout="@@(() => OnFocusChanged.InvokeAsync(false))"</mark>) which will set 
+                the <mark>RateContext.IsFocused</mark> to <mark>false</mark>.
+            </li>
+        </ul>
 
-    <p>
-        Update the <mark>RateIconComponent</mark> markup to invoke different event callbacks on those events and the way the <mark>RateComponent</mark> is using them:
-    </p>
+        <p>
+            Update the <mark>RateIconComponent</mark> markup to invoke different event callbacks on those events 
+            and the way the <mark>RateComponent</mark> is using them:
+        </p>
 
-    <pre data-line="4, 5, 26-27, 29-30, 41-45, 47-50">
-    <code class="language-csharp line-numbers">
+        <pre data-line="4, 5, 26-27, 29-30, 41-45, 47-50">
+            <code class="language-csharp line-numbers">
 &lt;i class="@@(IsActive ? ActiveCss : InActiveCss) @@(Icon) cursor-pointer"
     alt="@@IconRate"
     @@onclick="@@(() =&gt; ValueChanged.InvokeAsync(IconRate))"
@@ -720,8 +764,8 @@ private int CurrentRateInt
             </code>
         </pre>
 
-    <pre data-line="9-10">
-    <code class="language-csharp line-numbers">
+        <pre data-line="9-10">
+            <code class="language-csharp line-numbers">
 &lt;!-- ... --&gt;
 
 &lt;RateIconComponent
@@ -737,25 +781,29 @@ private int CurrentRateInt
             </code>
         </pre>
 
-    <p>
-        Now both pairs of parameters can be simplified with the data binding:
-    </p>
+        <p>
+            Now both pairs of parameters can be simplified with the data binding:
+        </p>
 
-    <ul>
-        <li>
-            <mark>FocusedValue</mark> parameter which is receiving a value from the <mark>@@(RateContext.FocusedRateValue)</mark> and <mark>OnRateIconFocused</mark> event callback which is setting it,
-        </li>
-        <li>
-            <mark>IsFocused</mark> parameter which is receiving a value from the <mark>@@(RateContext.IsFocused)</mark> and <mark>OnRateIconFocusChanged</mark> event callback which is setting it.
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <mark>FocusedValue</mark> parameter which is receiving a value 
+                from the <mark>@@(RateContext.FocusedRateValue)</mark> and <mark>OnRateIconFocused</mark> event callback 
+                which is setting it,
+            </li>
+            <li>
+                <mark>IsFocused</mark> parameter which is receiving a value 
+                from the <mark>@@(RateContext.IsFocused)</mark> and <mark>OnRateIconFocusChanged</mark> event callback 
+                which is setting it.
+            </li>
+        </ul>
 
-    <p>
-        Replace the content of the <mark>RateComponent.razor</mark> file as follows:
-    </p>
+        <p>
+            Replace the content of the <mark>RateComponent.razor</mark> file as follows:
+        </p>
 
-    <pre data-line="11-14">
-    <code class="language-csharp line-numbers">
+        <pre data-line="11-14">
+            <code class="language-csharp line-numbers">
 @@inject ILogger&lt;RateComponent&gt; Logger
 
 &lt;div class="rate-container"&gt;
@@ -872,43 +920,53 @@ private int CurrentRateInt
             </code>
         </pre>
 
-    <p>
-        <strong>Note:</strong> by convention, to use the custom data binding syntax in a form of <mark>@@bind-{PROPERTY OR FIELD}</mark> by default the parameter of type <mark>EventCallback&lt;TValue&gt;</mark>
-        has to have the name of <mark>{PROPERTY OR FIELD}Changed</mark>. In order to use a differently named event callback an <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0">event</a>
-        directive attribute can be used with a name of the event callback to be used as a value.
-    </p>
+        <p>
+            <strong>Note:</strong> by convention, to use the custom data binding syntax in a form 
+            of <mark>@@bind-{PROPERTY OR FIELD}</mark>, the parameter of type <mark>EventCallback&lt;TValue&gt;</mark>
+            has to have the name of <mark>{PROPERTY OR FIELD}Changed</mark>. 
+            In order to use a differently named event callback, an <a href="@EVENT">event</a>
+            directive attribute can be used with a name of the event callback to be used as a value.
+        </p>
     };
+
+    private static readonly string READ_MORE_4 = "https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#ensure-cascading-parameters-are-fixed";
 
     internal static readonly RenderFragment PointContext4 = __builder =>
     {
-    <p>
-        Managing the state of the <mark>RateContext</mark> object never was a responsibility of the <mark>RateIconComponent</mark>.
-        Introduction of the <mark>RateIconComponent</mark> makes it possible to take the advantage of the fact that each component is able to hold its own state (like the rate
-        each of the given icons represent without a need to share that data within a base class of the <mark>ContainerComponent</mark>) but also force each of those components
-        to be involved in such a tasks as:
-    </p>
+        <p>
+            Managing the state of the <mark>RateContext</mark> object never was a responsibility of the <mark>RateIconComponent</mark>.
+            Introduction of the <mark>RateIconComponent</mark> makes it possible to take the advantage of the fact, that each component 
+            is able to hold its own state (like the rate each of the given icons represent, without a need to share that data 
+            within a base class of the <mark>ContainerComponent</mark>) but also force each of those components
+            to be involved in such tasks as:
+        </p>
 
-    <ul>
-        <li>
-            notifying the parent component that the user hover/blue the icon to make the parent component to notify all other icons about it (in order to make them change the way they are calculating their inner state - should the icons they are displaying be active or not),
-        </li>
-        <li>
-            notifying the parent component that the user clicks on an icon to make the parent component do the same with the <mark>RateContext.FocusedRateValue</mark> property as with <mark>RateContext.IsFocused</mark>.
-        </li>
-    </ul>
+        <ul>
+            <li>
+                notifying the parent component that the user hovered/blurred the icon, to make the parent component 
+                to notify all other icons about it (in order to make them change the way they are calculating their inner state 
+                - should the icons they are displaying be active or not),
+            </li>
+            <li>
+                notifying the parent component that the user clicked on an icon, to make the parent component
+                do the same with the <mark>RateContext.FocusedRateValue</mark> as with <mark>RateContext.IsFocused</mark> property.
+            </li>
+        </ul>
 
-    <p>
-        Both properties should be related to the <mark>RateComponent</mark> and be only shared with all the <mark>RateIconComponent</mark>s. <mark>CascadingValue</mark> component
-        can be used to provide that kind of behavior.
-    </p>
+        <p>
+            Both properties should be related to the <mark>RateComponent</mark> and be only shared 
+            with all the <mark>RateIconComponent</mark>s. <mark>CascadingValue</mark> component
+            can be used to provide that kind of behavior.
+        </p>
 
-    <p>
-        Change the markup of the <mark>RateComponent.razor</mark> file to remove data bindings, wrap all the icons with a custom <mark>@@onmouseover</mark> and <mark>@@onmouseout</mark> events
-        and provide a <mark>RateContext</mark> object for the icons:
-    </p>
+        <p>
+            Change the markup of the <mark>RateComponent.razor</mark> file to remove data bindings, 
+            wrap all the icons with a custom <mark>@@onmouseover</mark> and <mark>@@onmouseout</mark> events
+            and provide a <mark>RateContext</mark> object for the icons:
+        </p>
 
-    <pre data-line="4-5, 8, 10-11">
-    <code class="language-csharp line-numbers">
+        <pre data-line="4-5, 8, 10-11">
+            <code class="language-csharp line-numbers">
 @@inject ILogger&lt;RateComponent&gt; Logger
 
 &lt;div class="rate-container"&gt;
@@ -926,12 +984,13 @@ private int CurrentRateInt
             </code>
         </pre>
 
-    <p>
-        That way most of the settings for the <mark>RateIconComponent</mark> can be simplified and much less interaction introduced:
-    </p>
+        <p>
+            That way, most of the settings for the <mark>RateIconComponent</mark> can be simplified 
+            and much less interaction is needed:
+        </p>
 
-    <pre data-line="8-9, 29-30, 34-35, 38">
-    <code class="language-csharp line-numbers">
+        <pre data-line="8-9, 29-30, 34-35, 38">
+            <code class="language-csharp line-numbers">
 &lt;i class="@@(IsActive ? ActiveCss : InActiveCss) @@(Icon) cursor-pointer"
     alt="@@IconRate"
     @@onclick="@@(() =&gt; ValueChanged.InvokeAsync(IconRate))"
@@ -974,10 +1033,12 @@ private int CurrentRateInt
             </code>
         </pre>
 
-    <p>
-        <strong>Note: </strong> <mark>IsFixed="true"</mark> is used for the <mark>CascadingValue</mark> providing the <mark>RateContext</mark> object which renders the <mark>CascadingValue</mark>
-        performance the same as the ordinary <mark>Parameter</mark> (<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#ensure-cascading-parameters-are-fixed">read more</a>).
-        <mark>IsFixed="true"</mark> can be used for both primitive and complex types but fixed primitive types cannot be changed (as they are passed as values, not a reference).
-    </p>
+        <p>
+            <strong>Note:</strong> <mark>IsFixed="true"</mark> is used for the <mark>CascadingValue</mark> 
+            that is providing the <mark>RateContext</mark> object, which renders the <mark>CascadingValue</mark>
+            performance the same as the ordinary <mark>Parameter</mark> (<a href="@READ_MORE_4">read more</a>).
+            <mark>IsFixed="true"</mark> can be used for both primitive and complex types 
+            but fixed primitive types cannot be changed (as they are passed as values, not reference).
+        </p>
     };
 }
