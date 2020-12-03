@@ -4,13 +4,13 @@ Demo 04
 =========================================================================================
 =========================================================================================
 Demo goal: separate the component furthure, letting the user to define it by render fragment,
-make the receiver component ot provide some values whatever the component is given
+make the receiver component to provide some values whatever the component is given
 
 ---------------------------------------------------------------------------------
 Demo 04 > 1 > Allow Container Razor component to receive any markup as a child
 ---------------------------------------------------------------------------------
 
-ContainerComponent.razor.cs
+1. ContainerComponent.razor.cs
  - add:
  
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -35,6 +35,8 @@ WrapperComponent.razor
 </ContainerComponent>
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+2. In that way anyone can use ContainerComponent and modify its inner markup by providing a child content.
+
 PROBLEM ON RUN: parameters for RateComponent no longer given as ContainerComponent 
 does not longer know anything about it and cannot set its parameters
 
@@ -42,7 +44,9 @@ does not longer know anything about it and cannot set its parameters
 Demo 04 > 2 > Make custom child markup to receive loosely coupled parameters from the context of the container component
 ---------------------------------------------------------------------------------
 
-Adding of CascadingValue 
+1. We will use CascadingValue component which lets us to define a variable that will be avaliable for all inner markup of that component.
+
+2. We will ad two, one for each parameter we want to have available in context for our @ChildContent
 
 ContainerComponent.razor
  - add cascading value aroud @ChildContent:
@@ -77,3 +81,7 @@ RateComponent.razor
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 [CascadingParameter]
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+3. In the other end we have to mark parameters for the component in a special way to mark them to retrive a value from CascadingValues.
+
+4. It works on a subscription base, so it doesn't mater how many of them we will define to listen to 1 variable.

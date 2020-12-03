@@ -3,11 +3,18 @@
 Demo 08
 =========================================================================================
 =========================================================================================
+
+- As we provided DefaultAverageRateComponent as renderfragment, we started to see exceptions if AvgRate > MaxRate, so we need to finaly do something with it. 
+
 Demo goal: make impossible for the user to type in invalid values which would crash the app
 
 ---------------------------------------------------------------------------------
 Demo 08 > 1 > Use validation attributes for the form inputs instead of custom logic in setters
 ---------------------------------------------------------------------------------
+
+1. This is a solution know sience early days of ASP.NET MVC,
+
+2. We can remove custom setters for properties
 
 RateContext.cs
  - replace class content:
@@ -62,6 +69,8 @@ public int AvgRate { get; set; } = 3;
 public string Icon { get; set; } = Icons[0];
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+2. We can simplify some markup as now we are getting icons directly, and we can set them directly, not by index.
+
 ContainerComponent.razor
  - simplify the CapSelect
 
@@ -91,6 +100,8 @@ ContainerComponent.razor
 </CapSelect>
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+3. Add validation attributes
+
 RateContext.cs
  - add validation attributes
  - for MaxRate
@@ -105,6 +116,11 @@ RateContext.cs
 [Range(2, int.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
 [CompareTo(CompareToAttribute.CompareTo.LESS_THAN_OR_EQUAL, "MaxRate")]
 04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+4. To be able to use them, EditForm need to:
+ - specify the DataAnnotationsValidator component inside,
+ - use either ValidationMessage or ValidationSummary to show error messages
+
 
 ContainerComponent.razor
  - add DataAnnotationsValidator after EditForm
@@ -139,9 +155,16 @@ ContainerComponent.razor
 </ValidationContent>
 07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+
+5. Of course showing validation message don't prevent anyone from providing invalid values and as we have deleted the setters, then we can put any value we like.
+
+6. We will deal with that next.
+
 ---------------------------------------------------------------------------------
 Demo 08 > 2 > Prevent invalid values to be used, provide custom input controls
 ---------------------------------------------------------------------------------
+
+1. we will provide our custom Input component with a build-in logic for keeping AvgRate valid.
 
 AvgRateInputNumber.razor
  - create a new file:
@@ -155,6 +178,18 @@ AvgRateInputNumber.razor
     value="@CurrentValue"
     @oninput="@((value) => CurrentValueAsString = value.Value?.ToString())" />
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+2. @attributes="AdditionalAttributes"
+
+3. CssClass
+
+4. CurrentValue, CurrentValueAsString
+ - also note that the default build-in inputs reacts on input's onchange (focus change), not oninput (key type)
+
+5. We will use AdditionalAttributes to provide some specific DOM attributes for Max rate and AvgRate inputs like:
+ - type="number"
+ - min,
+ - max
 
 ContainerComponent.razor
  - replace input component for Max rate:
@@ -190,9 +225,19 @@ ContainerComponent.razor
 	max="@rateContext.MaxRate" />
 04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+6. Those attributes are standard input's attributes and they will be catched by the AdditionalAttributes and add ass input's parameters by @attributes (attribute splatting).
+
+PROBLEM ON RUN: Thanks to that we would no longer be able to provide invalid values by arrows but we can still type them as in normal type="text" field.
+
 ---------------------------------------------------------------------------------
 Demo 08 > 3 > Use edit form context to provide cross-field value correctness
 ---------------------------------------------------------------------------------
+
+1. Restricting both inputs Max to each other's values limits values we can use. We can do better and make inputs update their max value to make other value valid. We want to:
+ - remove both Max attributes, leave both Min=2,
+ - make MaxRate to increase if AvgRate is increased and MaxRate = AvgRate,
+  - make AvgRate to increase if MaxRate is increased and AvgRate = MaxRate,
+
 
 MaxRateInputNumber.razor
  - create a new file:
@@ -232,6 +277,12 @@ MaxRateInputNumber.razor
     }
 }
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+2. EditContext.OnFieldChanged
+
+3. Dispose
+
+4. EditContext.Validate
 
 AvgRateInputNumber.razor
  - add @code {} block:
@@ -304,6 +355,11 @@ ContainerComponent.razor
 	min="2" />
 05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+
+
+3. We can simplify both AvgRateInputNumber and MaxRateInputNumber
+
+
 AvgRateInputNumber.razor
  - simplify the component changing base class:
  
@@ -360,6 +416,17 @@ MaxRateInputNumber .razor
 }
 07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
 
+
+4. We can take a look at RateInputNumberAbstractBase<TValue> if we have time. It basicaly:
+ - take responsibility for disposing event subscriptions,
+ - handles subscribing to OnFieldChanged on OnInitialized,
+ - providing OnSelectedFieldChanged as previous base class
+ 
+ 
+5. Noe we can change freely both inputs by arrows, without worrying for max values.
+
+6. But we still can type invalid values. To deal with tha we will prevent input for even accepting the invalid value, before it is stored as input value.
+
 ---------------------------------------------------------------------------------
 Demo 08 > 4 > Change the behavior of the number inputs to forbids invalid values to be set
 ---------------------------------------------------------------------------------
@@ -413,6 +480,8 @@ namespace Capgemini.Net.Blazor.Components.Demo08.Start
     }
 }
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+
+1. TryParseValueFromString is run before the value is set to the CurrentValue, after a user changes the input's value (but before it made its way to the Value)
 
 MaxRateInputNumber.razor
  - replace base class:
@@ -468,6 +537,9 @@ ContainerComponent.razor
 05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
+2. In order it to work we have to change the value of the input from value="@CurrentValue" to CurrentValueAsString in both MaxRateInputNumber and AvgRateInputNumber (to make the value go through the whole process and our overwriten method).
+
+
 MaxRateInputNumber.razor
  - update binding and binding event
  
@@ -491,3 +563,8 @@ value="@CurrentValue"
 @bind-value="@CurrentValueAsString"
 @bind-value:event="oninput" />
 07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+3. After that edits:
+ - we are no longer to even type the invalid value,
+ - we cannot use arrows to set values beyond {min,...,max}
+ - so basicaly we cannot force inputs to show validation errors, problem solved.

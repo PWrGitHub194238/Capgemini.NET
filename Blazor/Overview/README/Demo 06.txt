@@ -3,11 +3,19 @@
 Demo 06
 =========================================================================================
 =========================================================================================
+
+- remember how IntSelect introduces @context value? We will implement this by using another type related to RenderFragment - generic one.
+
+
 Demo goal: replace the cascading values with generic render fragment
 
 ---------------------------------------------------------------------------------
 Demo 06 > 1 > Add a payload to the render fragment to pass a context object
 ---------------------------------------------------------------------------------
+
+1. It will alow us to make the parent component to pass some value as a context for render fragment.
+
+2. It will also allow us to remove CascadingValue and provide a needed object in a more coherent and direct way.
 
 ContainerComponent.razor.cs
  - add a generic paramt to render fragment
@@ -47,7 +55,9 @@ RateComponent.razor
 }
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-For now it is not working as we do not provide RateContext to RateComponent
+3. RateComponent wil be receiving a RateContext from the parent in the markup, whenever it is used.
+
+4. For now it is not working as we do not provide RateContext to RateComponent. We need to actually pass the context from the parent in the markup that is using both components (WrapperComponent).
 
 ---------------------------------------------------------------------------------
 Demo 06 > 2 > Pass context object to the child component
@@ -89,3 +99,5 @@ WrapperComponent.razor
     </ChildContent>
 </ContainerComponent>
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+1. From now on, ContainerComponent's ChildContent will be providing a RateContext to whatever child content is provided. We can even just pprint the object as a string without any Razor Component at all.

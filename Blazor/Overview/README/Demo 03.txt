@@ -3,6 +3,11 @@
 Demo 03
 =========================================================================================
 =========================================================================================
+
+- as we mentioned, MinusIcon and PlusIcon has their own styles but we never add any import or link or whatever.
+- in this demo we will decompose component, define styles for it, stop providing demo02, 03... CSS classes to avoid colision with other CSS classes.
+- but first we will separate the C# code from the markup as well
+
 Demo goal: separate component to Razor file, c# class, css style, style encapsulation
 
 ---------------------------------------------------------------------------------
@@ -26,9 +31,14 @@ namespace Capgemini.Net.Blazor.Components.Demo03.Start
 }
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
- - VS provide some refactorings
- - we also want to move logic from the markup to let the properties to handle it:
- - replace all in ContainerComponent.razor.cs
+- remove @code {} from ontainerComponent.razor
+
+2. VS provide some refactorings
+
+3. We also want to move logic from the markup to let the properties to handle it:
+
+ContainerComponent.razor.cs
+ - replace all
  
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 using System;
@@ -110,15 +120,16 @@ namespace Capgemini.Net.Blazor.Components.Demo03.Start
 <PlusIcon Theme="IconTheme.DARK" OnClick="@(() => IconIndex += 1)" />
 06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+- much cleaner code for those delegates
 
 ---------------------------------------------------------------------------------
 Demo 03 > 2 > Move duplicated CSS styles from general purpose static file to CSS-behind file for the ContainerComponent Razor component
 ---------------------------------------------------------------------------------
 
-we want to add a css classes only for this component, not having to worry about
+1. we want to add a css classes only for this component, not having to worry about
 name conflicts.
 
-Create ContainerComponent.razor.scss
+2. Create ContainerComponent.razor.scss
 
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 .demo__container_wrapper {
@@ -149,15 +160,23 @@ Create ContainerComponent.razor.scss
 }
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-replace CSS classes in ContainerComponent.razor
+3. replace CSS classes in ContainerComponent.razor
 
 demo03__ -> demo__
+
+4. as we have created SCSS file it has to be compiled, I'm using Web Essentials to do that.
+
+5. On compilation a comipler will bundle all such css files for us and provide it within a single css file.
+
+PROBLEM ON RUN: Chrome and other browsers doesn't like to forget about old css files or load new ones, so Crtl + F5 to force reload (or incognito).
 
 ---------------------------------------------------------------------------------
 Demo 03 > 3 > Create a component base class, move the common logic out of the component RateComponent
 ---------------------------------------------------------------------------------
 
-We'll use already defined base class: RateComponentBase for RateComponent
+1. As we know we would use the RateComponent over and over through the demos, let us create a base class for its code. Lucky for us such class was already defined
+
+2. We'll use already defined base class: RateComponentBase for RateComponent
 
 RateComponent.razor
  - add on top:
@@ -187,9 +206,11 @@ Demo 03 > 4 > Validate and update inner state of the RateComponent on parameter 
 ---------------------------------------------------------------------------------
 
 PROBLEM ON RUN: select max rate, lower max rate, increase max rate - max rate should
-decrease on max rate decrease
+decrease on max rate decrease. In other case we can have selected rate greater then the max rate
 
-Create RateComponent.razor.cs:
+1. Let us create a code-behind for it.
+
+2. Create RateComponent.razor.cs:
 
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 using Capgemini.Net.Blazor.Components.Demo;
@@ -208,3 +229,5 @@ namespace Capgemini.Net.Blazor.Components.Demo03.Start
     }
 }
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+3. OnParametersSet is a one of lifecycle methods for Razor Components, this one will run on each parameter change, like MaxRate.

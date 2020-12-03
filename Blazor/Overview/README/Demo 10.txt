@@ -3,11 +3,17 @@
 Demo 10
 =========================================================================================
 =========================================================================================
+
+- now lets deal with some issues we encountered like not updating data
+
+
 Demo goal: post rates to the API, load valid product ID on the start, fix stars
 
 ---------------------------------------------------------------------------------
 Demo 10 > 1 > Log information about default render fragment usage
 ---------------------------------------------------------------------------------
+
+1. Optionaly for the previous demo we can add some logging to log data based on what parameters were given to the component.
 
 _Imports.razor
  - add using:
@@ -52,6 +58,10 @@ public override async Task SetParametersAsync(ParameterView parameters)
 Demo 10 > 2 > Set the current rate on rate click to update the context object
 ---------------------------------------------------------------------------------
 
+1. Next we want to make our click upon icons to update the rate.
+
+2. we can simply set the CurrentRate by overwriting SetRate...
+
 RateComponent.razor
  - override the SetRate of the product (context):
  
@@ -63,9 +73,15 @@ protected override void SetRate()
 }
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+3. ... or by sending a request ot the API. We want to use API as
+PROBLEM ON RUN: as soon as we change the product/restart, selected rate is ogne
+
 ---------------------------------------------------------------------------------
 Demo 10 > 3 > Notify API about the change, fetch new set of data and refresh component
 ---------------------------------------------------------------------------------
+
+1. We want to notify the parent component that we have clicked the rate icon, so we need to:
+ - provide an action
 
 ContainerComponent.razor.cs
  - add empty method:
@@ -138,6 +154,14 @@ WrapperComponent.razor
 }
 04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+2. We have added:
+ - ProductRated parameter and delegate to call upon Sction is invoked from RateComponent,
+ - @ref to have a ref to the component that contains a method to run upon action.
+ 
+3. As We are triggering a event from RenderFragment, it has no way to know its parent, so we cannot just call the method directtly.
+
+4. Now as we are calling the method of ContainerComponent, let us implement it, as we left it with a comment.
+
 ContainerComponent.razor.cs
  - provide the implementation of the ChangeProductRate:
  
@@ -164,6 +188,18 @@ if (response.IsSuccessStatusCode)
 06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 public string RateEndpoint => $"{Endpoint}/rate";
 06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+5. Nowe as we click rate icon:
+ - action is invoked, 
+ - WraperComponent executes ProductRated="@(async (rate) => await ChangeProductRate(rate))"
+ - from @ref the ContainerComponentRef.ChangeProductRate(productRate) is called,
+ - API is called, product is updated
+ 
+6. Note: we have used a method called StateHasChanged. It is needed because we invoke a method outside Blazor scope (Action). We can replace it with Blazor build-in delegate type to call it for us. We would need to:
+ - replace a parameter type,
+ - replace Invoke with InvokeAsync,
+ - replace methods signature,
+ -replase base class
 
 RateComponent.razor
  - change Action to EventCallback:
@@ -212,10 +248,20 @@ protected override async Task SetRate()
 
 ContainerComponent.razor.cs
  - remove StateHasChanged();
+ 
+PROBLEM ON RUN: each time we run the solution, we initialy won't load any product and API throws an error, UI will handle it but let us do better.
 
 ---------------------------------------------------------------------------------
 Demo 10 > 4 > Provide initial rate value for the rate component, redirect to random product on initialization
 ---------------------------------------------------------------------------------
+
+1. If not provided by URL, we will randomize the product ID on start.
+
+2. As we are going to use ReadFromJsonAsync again, let us make a helper method.
+
+3. We are going to:
+ - fetch the number of products OnInit,
+ - if no ID in route is provided, then we will redirect our URL to one with random ID, so in the end the random product wil be loaded on OnParametersSetAsync
 
 ContainerComponent.razor.cs
  - add private helper method to handle exceptions:
@@ -327,6 +373,9 @@ protected override async Task OnInitializedAsync()
 public NavigationManager NavigationManager { get; set; } = default!;
 04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+4. As we are fetching the number of products, let us use that value in our loop for product buttons. We will:
+ - store the result in variable, make API to download that value every time OnInit
+
 ContainerComponent.razor.cs
  - store numberOfProducts in field:
 
@@ -385,12 +434,18 @@ if (numberOfProducts.HasValue && !HasProductIdParameterInRoute())
 }
 08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+PROBLEM ON RUN: We have all data updated but we don't update the selected icons if we switch the product - they will stay the same
+
 ---------------------------------------------------------------------------------
 Demo 10 > 5 > Provide a proper rate of the product to be displayed on product change
 ---------------------------------------------------------------------------------
 
+1. It's very wasy to fix, just update the proper value on parameter change.
+
+2. We will use 
+
 RateComponent.razor
- - add OnParametersSet
+ - add OnParametersSet Rate property of the base class RateComponentBaseWithTask and it will handle the rest as in all previous demos
  
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 protected override void OnParametersSet()

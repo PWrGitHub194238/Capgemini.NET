@@ -82,10 +82,15 @@ Note: remember to recompile both scss files
 Demo 07 > 2 > Replace default average rate markup with replaceable render fragment
 ---------------------------------------------------------------------------------
 
-Now as we have avg in container, it is super easy to add render fragment instead
+1. Now as we have avg in container, it is super easy to add render fragment instead
+
+2. We would like to be able to define that part the same as @ChildContent(rateContext) so we have to:
+ - add RenderFragment Parameter,
+ - add it to the markup,
+ - provide child content WrapperComponent
 
 ContainerComponent.razor.cs
- - add a parameter at the ond of the class
+ - add a parameter at the end of the class
  
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 [Parameter]
@@ -111,6 +116,16 @@ WrapperComponent.razor
 	<DefaultAverageRateComponent />
 </AvgRate>
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+3. To make it generic, we need to:
+ - add generic to RenderFragment param,
+ - provide a class to be the generic param,
+ - provide some defaults for it to pass to the @AvgRate() in ContainerComponent,
+ - update WrapperComponent to pass the context
+
+
+
 
 ContainerComponent.razor.cs
  - add generic parameter
@@ -160,7 +175,7 @@ ContainerComponent.razor
 
 
 WrapperComponent.razor
- - replace <AvgRate >:
+ - replace <AvgRate> to pass the context:
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 <AvgRate>
 	<DefaultAverageRateComponent />
@@ -176,3 +191,23 @@ WrapperComponent.razor
 08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  
 Note: show the description for 2nd point ot show the possibilities how to combine both Rate and AvgRate
+
+
+
+<ContainerComponent>
+	<ChildContent>
+		<Alternative2RateComponent
+			MaxRate="@(context.MaxRate)"
+			Icon="@(context.Icon)" />
+	</ChildContent>
+	<AvgRate>
+		<Alternative2AverageRateComponent 
+			MinRate="@(context.MinRate)"
+			AvgRate="@(context.AvgRate)"
+			MaxRate="@(context.MaxRate)" />
+	</AvgRate>
+</ContainerComponent>
+
+
+
+We still didn't resolve the validation issue and field corectness. We will in next demo.

@@ -148,17 +148,17 @@ private isActive(index: number): boolean {
 
         <ul>
             <li>
-                copy entire content of the <mark>Capgemini.Net.Blazor.Components.Demo01</mark> 
+                copy entire content of the <mark>Capgemini.Net.Blazor.Components.Demo01</mark>
                 <strong>TypeScript</strong> class,
             </li>
             <li>
-                paste it into <mark>./Start/RateComponent.razor</mark> file, wrapping it with the <mark>@@code {</mark> 
+                paste it into <mark>./Start/RateComponent.razor</mark> file, wrapping it with the <mark>@@code {</mark>
                 and <mark>}</mark> syntax which will mark a given code as a <a href="@RAZOR_CODE_BLOCK">Razor code block</a>
-                (in <a href="@RAZOR_COMPONENTS">Razor components</a> use <mark>@@mark</mark> over <mark>@@functions</mark> to add 
+                (in <a href="@RAZOR_COMPONENTS">Razor components</a> use <mark>@@mark</mark> over <mark>@@functions</mark> to add
                 <strong>C#</strong> members - <a href="@READ_MORE_1">read more</a>),
             </li>
             <li>
-                remove class constructor. Razor components don't allow to define custom constructors - it 
+                remove class constructor. Razor components don't allow to define custom constructors - it
                 will be <a href="@AUTO_GENERATED">auto-generated</a>,
             </li>
             <li>
@@ -171,10 +171,13 @@ private isActive(index: number): boolean {
                 replace <strong>TypeScript</strong> function return types syntax with <strong>C#</strong> syntax,
             </li>
             <li>
+                rename <strong>TypeScript</strong> functions from <strong>kamelCase</strong> to <strong>PascalCase</strong> <strong>C#</strong> syntax,
+            </li>
+            <li>
                 <strong><i>(optionally)</i></strong> remove <mark>this.</mark> qualification,
             </li>
             <li>
-                <strong><i>(optionally)</i></strong> replace <mark>block body</mark> with <mark>expression body</mark> 
+                <strong><i>(optionally)</i></strong> replace <mark>block body</mark> with <mark>expression body</mark>
                 for one-liner methods (<a href="@READ_MORE_2">read more</a>).
             </li>
         </ul>
@@ -192,13 +195,13 @@ private isActive(index: number): boolean {
     public int rate = 0;
     public int tempRate = 0;
 
-    public void setRate() =&gt; rate = tempRate;
+    public void SetRate() =&gt; rate = tempRate;
 
-    public void showRate(int index) =&gt; tempRate = index;
+    public void ShowRate(int index) =&gt; tempRate = index;
 
-    public void revertRate() =&gt; tempRate = rate;
+    public void RevertRate() =&gt; tempRate = rate;
 
-    private bool isActive(int index) =&gt; index &lt;= tempRate;
+    private bool IsActive(int index) =&gt; index &lt;= tempRate;
 }
             </code>
         </pre>
@@ -255,21 +258,6 @@ private isActive(index: number): boolean {
                 can be given - <mark>@@onmouseout=RevertRate</mark>.
             </li>
         </ul>
-
-        <p>
-            To get rid of errors that IDE generated all methods have to be defined, 
-            so update the <mark>@@code { }</mark> block by renaming already defined methods:
-        </p>
-
-        <pre>
-            <code class="language-csharp line-numbers">
-public void SetRate() =&gt; rate = tempRate;
-
-public void ShowRate(int index) =&gt; tempRate = index;
-
-public void RevertRate() =&gt; tempRate = rate;
-            </code>
-        </pre>
     };
 
     private static readonly string FONT_AWESOME = "https://fontawesome.com/";
@@ -349,16 +337,6 @@ public updateRateIconActiveState() {
             That one line of code conditionally applies to the <mark>class</mark> attribute's value either 
             <mark>fas</mark> or <mark>far</mark> class.
         </p>
-
-        <p>
-            The method name has to be updated to make the above example working:
-        </p>
-
-        <pre>
-            <code class="language-csharp line-numbers">
-private bool IsActive(int index) =&gt; index &lt;= tempRate;
-            </code>
-        </pre>
     };
 
     private static readonly string CAPTURED = "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#capture-of-outer-variables-and-variable-scope-in-lambda-expressions";

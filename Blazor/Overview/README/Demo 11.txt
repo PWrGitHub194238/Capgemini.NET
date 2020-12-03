@@ -3,11 +3,20 @@
 Demo 11
 =========================================================================================
 =========================================================================================
+
+- last thing that we will do is to separate the icons from the RateComponent and in the next demo we will make that part to be a RenderFragment as well.
+
 Demo goal: provide a component for rateable icon, remove base class logic for RateComponent
 
 ---------------------------------------------------------------------------------
 Demo 11 > 1 > Replace HTML markup for the icons with a component, use event callbacks to use base class logic
 ---------------------------------------------------------------------------------
+
+1. We will begin by adding a new component. It will:
+ - use multiple EventCallback to notify the common parent about its state,
+ - we will use 2 private fields that has to store that shared state
+ 
+2. Generating components instead of raw markup gives us an opportunity to store some values inside those components. For <i> we have to use a base class to manage state for all rendered <i>'s.
 
 RateIconComponent.razor
  - add new file:
@@ -85,9 +94,15 @@ private bool focus;
 private int tempRate = 0;
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+3. With that done, we can actualy start removing the dependency for the base class, as we are going to handle all the logic here.
+
 ---------------------------------------------------------------------------------
 Demo 11 > 2 > Replace the base class logic with context class
 ---------------------------------------------------------------------------------
+
+1. We are going to remove base class and use properties defined within RateComponent.
+
+2. We will remove SetRate method, so we will make CurrentRateInt to invoke EventCallback directly on set.
 
 RateComponent.razor
  - remove @inherits RateComponentBaseWithTask
@@ -115,7 +130,9 @@ ValueChanged="@(async (selectedRate) => { CurrentRateInt = selectedRate; await S
 ValueChanged="@((selectedRate) => CurrentRateInt = selectedRate)"
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-RateContext
+2. Let us clean the code and wrap both private focus and tempRate fields into contex class.
+
+RateContext.cs
  - create a new class:
  
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -160,11 +177,15 @@ OnFocusChanged="@((isFocused) => { focus = isFocused; tempRate = i; })" />
 IsFocused="@(RateContext.IsFocused)"
 OnFocusChanged="@((isFocused) => { RateContext.IsFocused = isFocused; RateContext.FocusedRateValue = i; })" />
 06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				
+		
+3. As we can notice we end up with preety long list of parameters for RateIconComponent. We can reduce that.		
 				
 ---------------------------------------------------------------------------------
 Demo 11 > 3 > Simplify the logic for RateIconComponent handled by its parameters and event callbacks
 ---------------------------------------------------------------------------------
+
+1. Note that Value and ValueChanged is refering to the same variable. We can use binding here
+
 
 RateComponent.razor
  - replace:
@@ -177,6 +198,16 @@ ValueChanged="@((selectedRate) => CurrentRateInt = selectedRate)"
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 @bind-Value="@CurrentRateInt"
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+2. Apply same changes to IsFocused,FocusedValue i OnFocusChanged.
+
+3. In order to do that we have to split OnFocusChanged.
+
+4. onmouseover and onmouseout can use different event callbacks. We will:
+ - replace the event callback with 2,
+ - create methods for each nmouseover and onmouseout before changing the markup,
+ - change the markup
+
 
 RateIconComponent.razor
  - replace EventCallback:
@@ -230,6 +261,8 @@ OnRateIconFocused="@((rateOnFocus) => RateContext.FocusedRateValue = rateOnFocus
 OnRateIconFocusChanged="@((isFocused) => RateContext.IsFocused = isFocused)"/>
 05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+5. Now it should be easy to spot which pairs of parameters we can glue together and use data bindings
+
 RateComponent.razor
  - again replace RateIconComponent markup:
 
@@ -248,9 +281,21 @@ OnRateIconFocusChanged="@((isFocused) => RateContext.IsFocused = isFocused)"/>
 @bind-FocusedValue:event="OnRateIconFocused"/>
 06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+6. Note that we used bindings with :event
+ - by convention event has to be named {PROP}Changed
+ - but we can override it
+ 
+7. Now on any of these values change, given property of the RateContext class will be updated and keep in sync.
+ 
+8. But it is still somewhat complicated.
+
 ---------------------------------------------------------------------------------
 Demo 11 > 4 > Reduce the complexity of the callbacks, wrap all rate icons with a tag to handle on focus events
 ---------------------------------------------------------------------------------
+
+1. We will simplify the parameters and bindings by:
+ - extract on focus behaviour, as it should be common anyway,
+ - provide a cascading value for CascadingValue as all of its properties are binded anyway.
 
 RateComponent.razor
  - replace markup:
@@ -280,6 +325,10 @@ RateComponent.razor
 	</CascadingValue>
 </div>
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+2. Why fixed? This is a reference, so the properties wil be updated anyway. And the component would be redraw on each @onmouseover and @onmouseout + @bind-Value="@CurrentRateInt" on click, so we don't need to redraw on those properties change to redraw even more.
+ - we have to add CascadingParameter,
+ - in rewturn we can remove all bindings for both IsFocused and FocusedRateValue parameters and event callbacks as we can set those properties directly.
 
 RateIconComponent.razor
  - add CascadingParameter:
@@ -323,4 +372,3 @@ private void OnMouseOver()
 
 private void OnMouseOut() => Context.IsFocused = false;
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-

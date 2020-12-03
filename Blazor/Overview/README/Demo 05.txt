@@ -3,13 +3,20 @@
 Demo 05
 =========================================================================================
 =========================================================================================
+
+- we will throw away our custom markup with buttons form some more standarised solution like form. We would be able to implement some basic validation in the process, show it to the user.
+- But first we will add yet another parameter to play around with - avg rate. We will use it mainly to show some validation options.
+
 Demo goal: replace the custom buttons with a form, which is build-in.
 
 ---------------------------------------------------------------------------------
 Demo 05 > 1 > Add additional parameter for component representing average rate
 ---------------------------------------------------------------------------------
 
-Add AvgRate
+1. Add AvgRate. We will need to:
+ - add a parameter for RateComponent,
+ - add it to the component's markup,
+ - provide some css for that markup,
 
 RateComponent.razor.cs
  - add 3ed cascading parameter:
@@ -71,8 +78,13 @@ Add RateComponent.razor.scss
 
 Note: don't forget to compile scss file
 
+We would need to also:
+ - add a field with starting value and property to handle logic for ContainerComponent,
+ - add a markup for icon-value-icon,
+ - wrap @ChildContent with yet another CascadingValue
+
 Modify ContainerComponent.razor.cs
- - add AvgRate
+ - add avgRate fields and AvgRate property
  
 04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 private int avgRate = 3;
@@ -108,11 +120,30 @@ Update the ContainerComponent.razor markup:
 </CascadingValue>
 08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+2. After all of that we can:
+ - chose a value for AvgRate in ContainerComponent,
+ - pass it to its ChildContent via CascadingValue,
+ - subscribe for that inside RateComponent,
+ - display a value inside it.
+ 
+3. We would need to replace those 3 CascadingValue with one object.
+
+PROBLEM ON RUN: although we are providing properties with a valid logic upon set, changing other parameter won't update other's value i.e. lowering MaxRate wil not update AvgRate.
+
 ---------------------------------------------------------------------------------
 Demo 05 > 2 > Group rate parameters to form context model for the component
 ---------------------------------------------------------------------------------
 
-We want to reduce the numbber of cascading values + not rely on primitive types
+1. We want to reduce the numbber of cascading values + not rely on primitive types.
+
+2. We would:
+- create a context class with 3 params,
+- use it as a single CascadingValue,
+ - move related logic from ContainerComponent.razor.cs to that class,
+ - update ContainerComponent markup,
+ - replace 3 params inside RateComponent with 1,
+ - update RateComponent's markup,
+ - update it's code behind
 
 ContainerComponent.razor
  - replace markup
@@ -227,7 +258,7 @@ AvgRate  -> rateContext.AvgRate
 IconIndex -> rateContext.IconIndex
 @this[iconIndex] -> @(rateContext.Icon)
 
-Update RateComponent.razor:
+Update RateComponent.razor to provide valid CascadingParameter:
  - replace @code {}:
  
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -256,11 +287,13 @@ RateComponent.razor.cs
  
 MaxRate -> RateContext.MaxRate
 
+3. There are several ways to shorten the markup for value selection as we have it now duplicated 3 times. Let us replace it with other component.
+
 ---------------------------------------------------------------------------------
 Demo 05 > 3 > Replace raw HTML markup for context model properties modification with custom components
 ---------------------------------------------------------------------------------
 
-We want to replace the repeated markup for each editable property with a component
+1. We want to replace the repeated markup for each editable property with a component.
 
 ContainerComponent.razor
  - replace:
@@ -307,11 +340,20 @@ ContainerComponent.razor
 </IntSelector>
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+2. Apart from already knows parameter for theme, this one is using 2 way data binding.
+
+3. They are also using @context which is just a value provided by the parent component IntSelector, we'll talk about this later, in next demo. This is a kind of a other feature for RenderFragments.
+
+4. 3ed one is also accepting delegate to use it to convert selected value to a display value.
+
+5. As name suggest, IntSelector is only good for selecting ints. We would replace that with regular form inputs with much greater flexibility.
+
+
 ---------------------------------------------------------------------------------
 Demo 05 > 4 > Replace custom parameter value selectors with build-in form component
 ---------------------------------------------------------------------------------
 
-Introduce build-in EditForm
+1. Introduce build-in EditForm
 
 ContainerComponent.razor
  - replace:
@@ -351,35 +393,37 @@ ContainerComponent.razor
 
 Remember to add @using Microsoft.AspNetCore.Components.Forms to _Imports.razor
 
+PROBLEM ON RUN: even if we would provide icons for options, the markup from the options will be removed. Only raw test is allowed there. See below.
+
+2. Now, same as before with buttons be replaced with Minus/PlucIcon, we will replace the markup with component to keep the code but provide some stylings.
+
 ---------------------------------------------------------------------------------
 Demo 05 > 5 > Replace build-in input components with custom wrap components to add styles for inputs and custom <option> tag markup
 ---------------------------------------------------------------------------------
 
-Use custom components that add styles for input controls
-One reason - default <option> doesn't allow any markup (icons)
+1. Use custom components that add styles for input controls
+2. One reason - default <option> doesn't allow any markup (icons)
 
 ContainerComponent.razor
  - could be replaced but do not:
  
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-@for (int i = 0; i < RateContext.Icons.Length; i += 1)
-{
-	<option value="@i">
-		@(RateContext.Icons[i])
-	</option>
-}
+<option value="@i">
+	@(RateContext.Icons[i])
+</option>
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-@for(int i = 0; i < RateContext.Icons.Length; i += 1)
-{
-    string icon = RateContext.Icons[i];
-    <option value="@i">
-        <div class="fa-cap-option">
-	        <i class="far @icon" /> - <strong>@icon</strong>
-        </div>
-    </option>
-}
+string icon = RateContext.Icons[i];
+<option value="@i">
+	<div class="fa-cap-option">
+		<i class="far @icon" /> - <strong>@icon</strong>
+	</div>
+</option>
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - will result in:
+ Severity	Code	Description	Project	File	Line	Suppression State
+Warning		Element 'div' cannot be nested inside element 'option'.	Capgemini.Net.Blazor.Components.Demo05	C:\Users\strza\Desktop\Capgemini.Net.Blazor.WebAssembly\Capgemini.Net.Blazor.Components.Demo05\Start\ContainerComponent.razor	18	
 
  - instead replace:
  
@@ -427,3 +471,8 @@ ContainerComponent.razor
 	}
 </CapSelect>
 04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+3. We replaced all inputs with components to:
+ - remove label tags, label is set within the CapInput/CapSelect markup for us (for="InputName")
+ - components accepts render fragments, so we keep the default build-in input components
+ - we provide richer formatting for options by using CapOption

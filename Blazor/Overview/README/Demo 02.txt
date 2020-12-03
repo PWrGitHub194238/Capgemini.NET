@@ -5,12 +5,16 @@ Demo 02
 =========================================================================================
 Demo goal: add buttons to control the max rate and icon style, wrap the rate component with a container
 
+- in later demos we will replace those buttons with the data from API but for now it have to do
+- we have a new file ContainerComponent that will wrap our current work, so it will only provide the inupts for us to select from, but the rate component itselft will take no part in that
+- we would like ot control the number of icons - max rate - and the shaper of the icon itself so lets get to it
+
 ---------------------------------------------------------------------------------
 Demo 02 > 1 > Edit a container component's @code block to handle parameter value changes
 ---------------------------------------------------------------------------------
 
 1. ./Start/ContainerComponent.razor
- - replace entire content:
+ - add a code block content:
  
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 @code {
@@ -21,17 +25,23 @@ Demo 02 > 1 > Edit a container component's @code block to handle parameter value
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 also add an array of icon styles after iconIndex
+
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun" };
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+2. next we will add some markup to add simple inputs with left/right buttons to modify maxRate and iconIndex
 
 ---------------------------------------------------------------------------------
 Demo 02 > 2 > Write a basic HTML markup with in-line lambda expressions to control values for max rate and currently selected icon parameters
 ---------------------------------------------------------------------------------
 
 1. ./Start/ContainerComponent.razor
- - add at the top:
+ - replace at the top:
  
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<RateComponent />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 <div class="demo02__container_wrapper">
     <span class="demo02__label">Max rate</span>
@@ -54,12 +64,20 @@ Demo 02 > 2 > Write a basic HTML markup with in-line lambda expressions to contr
 </div>
 01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-PROBLEM ON RUN: how to bind selected values to the component
-but before that replace default buttons.
+2. On line 17 we still have our component
+ - very simple set of markup with some inline delegates
+
+3. Now if we RUN it, we will see something like this.
+
+4. 2 problems - it looks bad, our changes to those values have no effect, how to bind selected values to the component
+
+- but before that replace default buttons.
 
 ---------------------------------------------------------------------------------
 Demo 02 > 3 > Omit a usage of fully qualified names for Razor component tags
 ---------------------------------------------------------------------------------
+
+- we can use @using if we want ti simplify namespace
 
 1. ./Start/ContainerComponent.razor
  - add at the top:
@@ -76,10 +94,13 @@ simplify the namespace:
 <RateComponent />
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+2. But as You can see it is not needed since by default, the default namespace to be used for a component is the same as where it is defined. In this case both compnoents are in the same dir, so not need to add using.
+
 ---------------------------------------------------------------------------------
 Demo 02 > 4 > Use a custom components in place of basic HTML <button> tag for decreasing/increasing parameters' values
 ---------------------------------------------------------------------------------
-We want to replace the default tag with custom buttons
+
+- We want to replace the default tag with custom buttons
 
 1. ./Start/ContainerComponent.razor
  - add namespace on top,
@@ -117,11 +138,17 @@ We want to replace the default tag with custom buttons
 <PlusIcon OnClick="@(() => iconIndex = (iconIndex + 1) % icons.Length)" />
 05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+2. As You can see markup is the same, only diff is that those components are styled and not need to provide inner markup for -/+.
+
 PROBLEM ON RUN: different theme of the icons
+
+3. We want to change the theme, MinusIcon and PlusIcon provides a parameter for it.
 
 ---------------------------------------------------------------------------------
 Demo 02 > 5 > Add parameter properties to MinusIcon, PlusIcon components to make their look and feel match the overall theme
 ---------------------------------------------------------------------------------
+
+- we have to add another using for the enum with styles
 
 1. ./Start/ContainerComponent.razor
  - add @using SvgIcons.Base
@@ -135,6 +162,8 @@ Demo 02 > 5 > Add parameter properties to MinusIcon, PlusIcon components to make
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 Theme="IconTheme.DARK"
 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+- next we will add parameters for our own RateComponent to pass maxRate and an icon.
 
 ---------------------------------------------------------------------------------
 Demo 02 > 6 > Add parameter properties to Rate component, pass the selected values form parent component
@@ -177,3 +206,5 @@ public string Icon { get; set; } = "fa-star";
 04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 <i class="@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @Icon cursor-pointer"
 04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+4. Now we should be able to change parameters on RUN.

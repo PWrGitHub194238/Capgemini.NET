@@ -3,11 +3,18 @@
 Demo 12
 =========================================================================================
 =========================================================================================
+
+- last thing that we want to do is to wrap the mouseover/out logic with the CascadingValue to avoid having the user to type all of those in a right order just to make RateIconComponent working.
+- we will also replace RateIconComponent with a RenderFragment
+
 Demo goal: use render fragment for rate icons, use custom CascadingValue component
 
 ---------------------------------------------------------------------------------
 Demo 12 > 1 > Create custom cascading component to provide the context for the rate icons
 ---------------------------------------------------------------------------------
+
+1. We will create a component that wraps the logic we want
+ - amd provide a scss file
 
 CascadingRateContext.razor
  - create new file:
@@ -64,6 +71,15 @@ Note: remember to compile
 ---------------------------------------------------------------------------------
 Demo 12 > 2 > Enable to use any type of icons for rate component
 ---------------------------------------------------------------------------------
+
+1. As You can see on the Final example, we would like to have different icons based on the rate it represents.
+
+2. To do that we willL
+ - replace RateIconComponent with RenderFragment,
+ - provide additional CascadingValue to this (to enable new RenderFragment to still communicate),
+ - simplify the RateIconComponent, remove bindings as it will be replaced by the THIS ref from CascadingValue.
+ 
+3. We will also provide a default markup for RenderFragment as before.
 
 RateComponent.razor
  - replace markup with render fragment:
@@ -154,6 +170,11 @@ public RenderFragment<IRateableProduct> ChildContent { get; set; } = context => 
 };
 07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+
+PROBLEM ON RUN: something is wrong with redrawing the stars, but we wil handle that as a last  step.
+
+4. We can still run it as before, but now we can even customise that in WrapperComponent.
+
 WrapperComponent.razor
  - add custom markup as a node for the RateComponent:
 
@@ -189,6 +210,8 @@ private static string GetRateIcon(int productRate, int rateRange) => productRate
 ---------------------------------------------------------------------------------
 Demo 12 > 3 > Fix change state detection to render icons on any icon focus/blur
 ---------------------------------------------------------------------------------
+
+1. As our icons are no longer updating their state, we can force the hosting view to update by provinidng a single method to call StateHasChanged:
 
 RateIconComponent.razor:
  - modify methods:
@@ -226,3 +249,10 @@ RateComponent.razor
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 public void RateIconComponentFocusHasChanged() => StateHasChanged();
 03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+2. It is interesting that we can just replace places for <CascadingValue Value="this"> and  <CascadingRateContext> to make it run.
+
+3. public void RateIconComponentFocusHasChanged() { } // => StateHasChanged();
+
+Anybody knows why?
