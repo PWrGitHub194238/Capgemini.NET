@@ -14,7 +14,7 @@ namespace Capgemini.Net.Blazor.Components.Demo08
             {
                 new DemoChecklistPointContext
                 {
-                    Name = "Build-in validation attributes",
+                    Name = "Built-in validation attributes",
                     Order = 1,
                     IsDone = false,
                     Label = "Use validation attributes for the form inputs instead of custom logic in setters",

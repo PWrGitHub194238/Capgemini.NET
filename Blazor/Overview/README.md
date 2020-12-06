@@ -28,10 +28,10 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [Child content](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#child-content),
   - [Render fragments](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment?view=aspnetcore-5.0),
   - [Cascading values](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0).
-- Demo 05: this exercise will introduce a usage of the basic Blazor build-in components, replacing buttons from **Demo 02**. Custom components that inherits from build-in input components will be used to provide custom styling and behaviour.
+- Demo 05: this exercise will introduce a usage of the basic Blazor built-in components, replacing buttons from **Demo 02**. Custom components that inherits from built-in input components will be used to provide custom styling and behaviour.
   - [Fixed cascading values](https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#ensure-cascading-parameters-are-fixed),
   - [EditForm component](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform?view=aspnetcore-5.0),
-  - [Build-in input componrnts](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#built-in-forms-components),
+  - [Built-in input componrnts](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#built-in-forms-components),
   - [EditContext](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext?view=aspnetcore-5.0).
 - Demo 06: in this example the context-providing cascading value will be replaced by the generic render fragment, to make parent component able to provide it to use in its child content markup to be written.
   - [Generic RenderFragment](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.renderfragment-1?view=aspnetcore-5.0),
@@ -42,10 +42,10 @@ This is a short description of each of the examples from 1 to 12 that this proje
   - [Template parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-parameters),
   - [Template context parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-context-parameters).
 - Demo 08: during this exercise the validation for the inputs will be enhanced to not allow invalid inputs based on a cross-field validation.
-  - [Build-in validation attributes](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-5.0#validation-attributes),
+  - [Built-in validation attributes](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-5.0#validation-attributes),
   - [Custom validation attributes](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#custom-validation-attributes),
-  - [ValidationSummary and ValidationMessage build-in components](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#validation-summary-and-validation-message-components),
-  - [Extending buil-in components](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#inputtext-based-on-the-input-even),
+  - [ValidationSummary and ValidationMessage built-in components](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#validation-summary-and-validation-message-components),
+  - [Extending built-in components](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#inputtext-based-on-the-input-even),
   - [Generic components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-5.0#template-parameters),
   - [Attribute splatting](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#attribute-splatting-and-arbitrary-parameters),
   - [EditForm events](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext.onfieldchanged?view=aspnetcore-5.0),

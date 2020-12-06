@@ -41,15 +41,15 @@ namespace Capgemini.Net.Blazor.Components.Demo05
                     Name = "Introduce EditForm component",
                     Order = 4,
                     IsDone = false,
-                    Label = "Replace custom parameter value selectors with build-in form component",
+                    Label = "Replace custom parameter value selectors with built-in form component",
                     Content = PointContext4!
                 },
                 new DemoChecklistPointContext
                 {
-                    Name = "Style build-in inputs",
+                    Name = "Style built-in inputs",
                     Order = 5,
                     IsDone = false,
-                    Label = "Replace build-in input components with custom wrap components to add styles for inputs and custom <option> tag markup",
+                    Label = "Replace built-in input components with custom wrap components to add styles for inputs and custom <option> tag markup",
                     Content = PointContext5!
                 }
             }
