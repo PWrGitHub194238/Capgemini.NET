@@ -1,0 +1,148 @@
+@import '';
+
+/* _content/Capgemini.Net.Blazor.Components.Demo09/End/ContainerComponent.razor.rz.scp.css */
+.demo__container_wrapper[b-idtwr94xll] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.demo__container[b-idtwr94xll] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.navigation-bar[b-idtwr94xll] {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo09/End/RateComponent.razor.rz.scp.css */
+.rate-container[b-svxsiwcd9r] {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .rate-container .icon-rate-container[b-svxsiwcd9r] {
+    display: flex; }
+
+.current-rate-container[b-svxsiwcd9r] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .current-rate-container[b-svxsiwcd9r]:before {
+    content: 'Current rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.average-rate-container[b-svxsiwcd9r] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .average-rate-container[b-svxsiwcd9r]:before {
+    content: 'Average rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.max-rate-container[b-svxsiwcd9r] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .max-rate-container[b-svxsiwcd9r]:before {
+    content: 'Max rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo09/Start/ContainerComponent.razor.rz.scp.css */
+.demo__container_wrapper[b-f9dk65zdol] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.demo__container[b-f9dk65zdol] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.navigation-bar[b-f9dk65zdol] {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo09/Start/RateComponent.razor.rz.scp.css */
+.rate-container[b-lzhzi190tk] {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .rate-container .icon-rate-container[b-lzhzi190tk] {
+    display: flex; }
+
+.current-rate-container[b-lzhzi190tk] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .current-rate-container[b-lzhzi190tk]:before {
+    content: 'Current rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.average-rate-container[b-lzhzi190tk] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .average-rate-container[b-lzhzi190tk]:before {
+    content: 'Average rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.max-rate-container[b-lzhzi190tk] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .max-rate-container[b-lzhzi190tk]:before {
+    content: 'Max rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }

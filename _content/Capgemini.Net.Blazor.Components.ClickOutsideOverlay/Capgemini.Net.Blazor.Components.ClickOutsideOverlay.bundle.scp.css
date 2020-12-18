@@ -1,0 +1,11 @@
+@import '';
+
+/* _content/Capgemini.Net.Blazor.Components.ClickOutsideOverlay/ClickOutsideOverlay.razor.rz.scp.css */
+.click-outside-overlay[b-vbqf2d4ugg] {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }

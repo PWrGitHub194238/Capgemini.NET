@@ -1,0 +1,389 @@
+@import '';
+
+/* _content/Capgemini.Net.Blazor.Components.Demo/Alternative2RateComponent.razor.rz.scp.css */
+i[b-je80dglmpb] {
+  transition-duration: 0.2s; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/AlternativeRateComponent.razor.rz.scp.css */
+i.hovered[b-kou4mnsfgs] {
+  transform: rotateY(0.5turn) scale(1.2);
+  transition-duration: 0.4s; }
+
+i:not(.hovered)[b-kou4mnsfgs] {
+  transform: rotateY(0);
+  transition-duration: 0.4s; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Demo07/End/ContainerComponent.razor.rz.scp.css */
+.demo__container_wrapper[b-8cz6wt13hg] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 200px; }
+  .demo__container_wrapper .demo__container[b-8cz6wt13hg] {
+    display: flex; }
+    .demo__container_wrapper .demo__container[b-8cz6wt13hg]  .far {
+      font-size: 42px !important;
+      color: #95e616;
+      padding-top: 10px;
+      padding-bottom: 10px; }
+      .demo__container_wrapper .demo__container[b-8cz6wt13hg]  .far.fa-grin-stars {
+        padding-left: 5px;
+        padding-right: 5px; }
+      .demo__container_wrapper .demo__container[b-8cz6wt13hg]  .far.fa-angry {
+        padding-left: 5px;
+        padding-right: 5px; }
+      .demo__container_wrapper .demo__container[b-8cz6wt13hg]  .far.fa-star {
+        padding-left: 5px;
+        padding-right: 5px; }
+      .demo__container_wrapper .demo__container[b-8cz6wt13hg]  .far.fa-sun {
+        padding-left: 5px;
+        padding-right: 5px; }
+    .demo__container_wrapper .demo__container[b-8cz6wt13hg]  .fas {
+      font-size: 42px !important;
+      color: #95e616;
+      padding-top: 10px;
+      padding-bottom: 10px; }
+  .demo__container_wrapper .average-rate-container[b-8cz6wt13hg] {
+    display: flex;
+    align-items: center;
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    font-size: small; }
+    .demo__container_wrapper .average-rate-container[b-8cz6wt13hg]:before {
+      content: 'Average rate: ';
+      font-family: 'Ubuntu';
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: small;
+      padding-right: 15px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Demo07/End/RateComponent.razor.rz.scp.css */
+.rate-container[b-h6ffgxaf6k] {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .rate-container .icon-rate-container[b-h6ffgxaf6k] {
+    display: flex; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Demo08/End/CapInput.razor.rz.scp.css */
+.field-wrapper[b-hcii8d2k3b] {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative; }
+  .field-wrapper .field-container[b-hcii8d2k3b] {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%; }
+
+.field-label[b-hcii8d2k3b] {
+  margin-bottom: 32px;
+  flex: 1 0 auto;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: larger; }
+
+[b-hcii8d2k3b] .field {
+  display: flex;
+  flex-direction: column;
+  flex-flow: wrap;
+  margin-bottom: 32px;
+  position: relative;
+  flex: 1 1 auto;
+  /* Spin Buttons modified */ }
+  [b-hcii8d2k3b] .field label {
+    margin: 0 0 5px;
+    top: -8px;
+    font: 0.75rem/1.33 "ubuntu", Verdana, Arial, sans-serif;
+    letter-spacing: 0.2px;
+    position: absolute;
+    z-index: 1;
+    left: 8px;
+    color: #666666;
+    padding: 0 8px;
+    background-color: white; }
+  [b-hcii8d2k3b] .field input[type=number]::-webkit-inner-spin-button,
+  [b-hcii8d2k3b] .field input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  [b-hcii8d2k3b] .field input {
+    box-shadow: 5px 5px 0 0 rgba(102, 102, 102, 0.5);
+    min-height: 36px;
+    height: 100%;
+    font: 1rem/1.3 "ubuntu", Verdana, Arial, sans-serif;
+    padding: 8px 24px 8px 16px;
+    background: 0 0;
+    min-width: 4vw;
+    width: 100%;
+    outline: none;
+    transition: all 0.5s ease; }
+    [b-hcii8d2k3b] .field input:disabled {
+      border: 1px solid rgba(243, 243, 243, 0.5);
+      color: rgba(243, 243, 243, 0.5); }
+      [b-hcii8d2k3b] .field input:disabled + label {
+        color: rgba(243, 243, 243, 0.5); }
+    [b-hcii8d2k3b] .field input:not(:disabled) {
+      border: 1px solid #666666;
+      color: #666666;
+      /* change border color on hover */
+      /* Make bottom border bigger on focus... */
+      /* for invalid state of the input... */ }
+      [b-hcii8d2k3b] .field input:not(:disabled):hover {
+        border: 1px solid #0070ad;
+        transition: all 0.5s ease; }
+      [b-hcii8d2k3b] .field input:not(:disabled):focus {
+        min-height: 35px;
+        height: calc(100% - 1px);
+        color: black;
+        border-bottom-color: #0070ad;
+        border-bottom-width: 2px;
+        transition: all 0.5s ease, border-bottom-width 0s ease, height 0s ease;
+        /* ... and on hover while focused */ }
+        [b-hcii8d2k3b] .field input:not(:disabled):focus:hover {
+          min-height: 35px;
+          height: calc(100% - 1px);
+          border: 1px solid #0070ad;
+          border-bottom-color: #0070ad;
+          border-bottom-width: 2px;
+          transition: all 0.5s ease;
+          transition: all 0.5s ease, border-bottom-width 0s ease, height 0s ease; }
+        [b-hcii8d2k3b] .field input:not(:disabled):focus + label {
+          color: black; }
+      [b-hcii8d2k3b] .field input:not(:disabled).invalid {
+        /* ...change border color on hover */
+        /* Make bottom border bigger in focus... */ }
+        [b-hcii8d2k3b] .field input:not(:disabled).invalid:hover {
+          border: 1px solid #ff304d;
+          transition: all 0.5s ease; }
+        [b-hcii8d2k3b] .field input:not(:disabled).invalid:focus {
+          min-height: 35px;
+          height: calc(100% - 1px);
+          color: black;
+          border-bottom-color: #ff304d;
+          border-bottom-width: 2px;
+          transition: all 0.5s ease, border-bottom-width 0s ease, height 0s ease;
+          /* ... and on hover while focused */ }
+          [b-hcii8d2k3b] .field input:not(:disabled).invalid:focus:hover {
+            min-height: 35px;
+            height: calc(100% - 1px);
+            border: 1px solid #ff304d;
+            border-bottom-color: #ff304d;
+            border-bottom-width: 2px;
+            transition: all 0.5s ease, border-bottom-width 0s ease, height 0s ease; }
+          [b-hcii8d2k3b] .field input:not(:disabled).invalid:focus + label {
+            color: #ff304d; }
+
+[b-hcii8d2k3b] .field-validation {
+  margin: 0 0 5px;
+  font: 0.75rem/1.33 "ubuntu", Verdana, Arial, sans-serif;
+  letter-spacing: 0.2px;
+  position: absolute;
+  z-index: 1;
+  bottom: 6px;
+  right: 0; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Demo09/Start/ContainerComponent.razor.rz.scp.css */
+.demo__container_wrapper[b-agmvii1tpi] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Demo09/Start/RateComponent.razor.rz.scp.css */
+.rate-container[b-lj2bxdq4rc] {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .rate-container .icon-rate-container[b-lj2bxdq4rc] {
+    display: flex; }
+
+.average-rate-container[b-lj2bxdq4rc] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .average-rate-container[b-lj2bxdq4rc]:before {
+    content: 'Average rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Demo12/End/CascadingRateContext.razor.rz.scp.css */
+.icon-rate-container[b-z49jlcoxml] {
+  display: flex; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Demo12/End/ContainerComponent.razor.rz.scp.css */
+.demo__container_wrapper[b-kecbq9yfo6] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.demo__container[b-kecbq9yfo6] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.navigation-bar[b-kecbq9yfo6] {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Demo12/End/RateComponent.razor.rz.scp.css */
+.rate-container[b-hog33nhym8] {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.current-rate-container[b-hog33nhym8] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .current-rate-container[b-hog33nhym8]:before {
+    content: 'Current rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.average-rate-container[b-hog33nhym8] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .average-rate-container[b-hog33nhym8]:before {
+    content: 'Average rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.max-rate-container[b-hog33nhym8] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .max-rate-container[b-hog33nhym8]:before {
+    content: 'Max rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Final/End/Alternate2RateIconComponent.razor.rz.scp.css */
+i[b-nka00a8rj5] {
+  transition-duration: 0.2s; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Final/End/Alternate3RateIconComponent.razor.rz.scp.css */
+i[b-jpajkb2wmj] {
+  transition-duration: 0.2s; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Final/End/AlternateRateIconComponent.razor.rz.scp.css */
+i.hovered[b-www9f6btwq] {
+  transform: rotateY(0.5turn) scale(1.2);
+  transition-duration: 0.4s; }
+
+i:not(.hovered)[b-www9f6btwq] {
+  transform: rotateY(0);
+  transition-duration: 0.4s; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Final/End/CascadingRateContext.razor.rz.scp.css */
+.icon-rate-container[b-yqz37tju09] {
+  display: flex; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Final/End/ContainerComponent.razor.rz.scp.css */
+.demo__container_wrapper[b-n0ckj85lo6] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.demo__container[b-n0ckj85lo6] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.navigation-bar[b-n0ckj85lo6] {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/Examples/Final/End/RateComponent.razor.rz.scp.css */
+.rate-container[b-8avbiok8iu] {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.current-rate-container[b-8avbiok8iu] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .current-rate-container[b-8avbiok8iu]:before {
+    content: 'Current rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.average-rate-container[b-8avbiok8iu] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .average-rate-container[b-8avbiok8iu]:before {
+    content: 'Average rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.max-rate-container[b-8avbiok8iu] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .max-rate-container[b-8avbiok8iu]:before {
+    content: 'Max rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo/IntSelector.razor.rz.scp.css */
+.demo__label[b-c9o4a7m9t1] {
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: larger;
+  text-align: center; }
+
+.demo__selector[b-c9o4a7m9t1] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 25px; }

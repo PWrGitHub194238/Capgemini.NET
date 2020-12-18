@@ -1,0 +1,45 @@
+﻿a.active .light-background g {
+  cursor: pointer;
+  fill: #0070ad;
+  fill-rule: evenodd;
+  stroke: #ffffff;
+  stroke-width: 2; }
+
+a.active .dark-background g {
+  cursor: pointer;
+  fill: #95e616;
+  fill-rule: evenodd;
+  stroke: #2b0a3d;
+  stroke-width: 2; }
+
+.light-background g {
+  fill: none;
+  fill-rule: evenodd;
+  stroke: #0070ad;
+  stroke-width: 2; }
+
+.light-background g:hover {
+  cursor: pointer;
+  fill: #0070ad;
+  fill-rule: evenodd;
+  stroke: #ffffff;
+  stroke-width: 2; }
+
+.dark-background g {
+  fill: none;
+  fill-rule: evenodd;
+  stroke: #95e616;
+  stroke-width: 2; }
+
+.dark-background g:hover {
+  cursor: pointer;
+  fill: #95e616;
+  fill-rule: evenodd;
+  stroke: #2b0a3d;
+  stroke-width: 2; }
+
+.disabled g {
+  fill: none;
+  fill-rule: evenodd;
+  stroke: #ececec;
+  stroke-width: 2; }

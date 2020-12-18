@@ -1,0 +1,82 @@
+﻿.splitter__container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+
+    .splitter-side-container {
+        overflow: hidden;
+    }
+
+    .splitter-bar {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        min-width: 1px;
+        z-index: 15;
+
+        &::after {
+            content: '';
+            cursor: col-resize;
+            display: block;
+            height: 100%;
+            position: absolute;
+            width: 16px;
+            z-index: 10;
+        }
+
+        &.splitter-bar-on-over {
+            cursor: col-resize;
+            transition: all 0.5s ease;
+
+            .splitter-bar__before-arrow, .splitter-bar__after-arrow {
+                g {
+                    fill: none;
+                    fill-rule: evenodd;
+                    stroke: #95e616;
+                    stroke-width: 2;
+                }
+
+                g:hover {
+                    cursor: pointer;
+                    fill: #95e616;
+                    fill-rule: evenodd;
+                    stroke: #2b0a3d;
+                    stroke-width: 2;
+                }
+            }
+        }
+
+        .splitter-bar__before-arrow {
+            position: relative;
+            right: 10px;
+
+            g {
+                position: relative;
+                right: 10px;
+                stroke: transparent;
+                z-index: -1;
+                transition: all 0.5s ease;
+            }
+        }
+
+        .splitter-bar__dots {
+            &::after {
+                content: '\22ee';
+            }
+        }
+
+        .splitter-bar__after-arrow {
+            position: relative;
+            left: 10px;
+
+            g {
+                stroke: transparent;
+                z-index: -1;
+                transition: all 0.5s ease;
+            }
+        }
+    }
+}

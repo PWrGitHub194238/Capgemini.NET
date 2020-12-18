@@ -1,0 +1,132 @@
+﻿.loading-overlay + .background-overlay {
+  opacity: 0.7; }
+
+.loading-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  /* Sit on top of the page content */
+  width: 100%;
+  /* Full width (cover the whole page) */
+  height: 100%;
+  /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  /* Specify a stack order in case you're using a different order for other elements */ }
+
+.fas {
+  font-size: 80px !important;
+  color: #95e616;
+  padding-top: 5px;
+  padding-bottom: 5px; }
+  .fas.fa-grin-stars, .fas.fa-angry, .fas.fa-smile-beam, .fas.fa-meh-blank, .fas.fa-sad-tear {
+    padding-left: 5px;
+    padding-right: 5px; }
+  .fas.fa-star {
+    padding-left: 5px;
+    padding-right: 5px; }
+  .fas.fa-sun {
+    padding-left: 5px;
+    padding-right: 5px; }
+
+.far {
+  font-size: 70px !important;
+  color: #95e616;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+  .far.fa-grin-stars, .far.fa-angry, .far.fa-smile-beam, .far.fa-meh-blank, .far.fa-sad-tear {
+    padding-left: calc(5px + (77.500px - 67.813px) / 2);
+    padding-right: calc(5px + (77.500px - 67.813px) / 2); }
+  .far.fa-star {
+    padding-left: calc(5px + (90px - 78.750px) / 2);
+    padding-right: calc(5px + (90px - 78.750px) / 2); }
+  .far.fa-sun {
+    padding-left: calc(5px + (80px - 70px) / 2);
+    padding-right: calc(5px + (80px - 70px) / 2); }
+
+.cap-tile-container .demo-tile {
+  position: absolute;
+  display: flex; }
+
+.cap-tile-container .demo-tile-opened {
+  top: calc((100% - 80vh)/2);
+  right: calc((100% - 80vw)/2);
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-1-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 0 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 0 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-2-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 0 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 1 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-3-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 0 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 2 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-4-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 0 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 3 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-5-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 0 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 4 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-6-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 1 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 0 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-7-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 1 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 1 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-8-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 1 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 2 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-9-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 1 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 3 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-10-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 1 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 4 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-11-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 2 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 1.5 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+.cap-tile-container .demo-tile-12-closed {
+  top: calc((100% - (12vw + 2 * 10px) * 3)/2 + 2 * (12vw + 2 * 10px));
+  right: calc(100% - (15vw + 2.5 * (12vw + 2 * 10px) + (12vw + 2 * 10px)));
+  transition: all 0.5s ease; }
+
+::-webkit-scrollbar {
+  height: 5px;
+  width: 5px; }
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(18, 171, 219, 0.75);
+  /* color of scroll thumb */
+  border-radius: 5px; }
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #12abdb;
+  /* color of scroll thumb */
+  border-radius: 5px; }

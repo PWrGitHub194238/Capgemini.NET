@@ -1,0 +1,25 @@
+﻿.checkbox__container_wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+
+    .checkbox__container_element {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .checkbox-read-more {
+            padding-top: 8px;
+
+            &.checkbox-read-more-opened svg {
+                transform: rotate(180deg);
+                transition: all 0.5s ease;
+            }
+
+            &.checkbox-read-more-closed svg {
+                transform: rotate(0deg);
+                transition: all 0.5s ease;
+            }
+        }
+    }
+}

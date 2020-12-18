@@ -1,0 +1,150 @@
+﻿.field-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .field-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+
+.field-label {
+    margin-bottom: 32px;
+    flex: 1 0 auto;
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    flex-flow: wrap;
+    margin-bottom: 32px;
+    position: relative;
+    flex: 1 1 auto;
+
+    label {
+        margin: 0 0 5px;
+        top: -8px;
+        font: 0.75rem/1.33 "ubuntu", Verdana, Arial, sans-serif;
+        letter-spacing: 0.2px;
+        position: absolute;
+        z-index: 1;
+        left: 8px;
+        color: #666666;
+        padding: 0 8px;
+        background: #2b0a3d;
+    }
+    /* Spin Buttons modified */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input {
+        box-shadow: 5px 5px 0 0 rgba(125, 56, 186, 0.5);
+        min-height: 36px;
+        height: 100%;
+        font: 1rem/1.3 "ubuntu", Verdana, Arial, sans-serif;
+        padding: 8px 24px 8px 16px;
+        background: 0 0;
+        min-width: 4vw;
+        width: 100%;
+        outline: none;
+        transition: all 0.5s ease;
+
+        &:disabled {
+            border: 1px solid rgba(102, 102, 102, 0.5);
+            color: rgba(102, 102, 102, 0.5);
+
+            & + label {
+                color: rgba(102, 102, 102, 0.5);
+            }
+        }
+
+        &:not(:disabled) {
+            border: 1px solid #666666;
+            color: #666666;
+            /* change border color on hover */
+            &:hover {
+                border: 1px solid #95e616;
+                transition: all 0.5s ease;
+            }
+            /* Make bottom border bigger on focus... */
+            &:focus {
+                min-height: 35px;
+                height: calc(100% - 1px);
+                color: white;
+                border-bottom-color: #95e616;
+                border-bottom-width: 2px;
+                transition: all 0.5s ease, border-bottom-width 0s ease, height 0s ease;
+                /* ... and on hover while focused */
+                &:hover {
+                    min-height: 35px;
+                    height: calc(100% - 1px);
+                    border: 1px solid #95e616;
+                    border-bottom-color: #95e616;
+                    border-bottom-width: 2px;
+                    transition: all 0.5s ease;
+                    transition: all 0.5s ease, border-bottom-width 0s ease, height 0s ease;
+                }
+
+                & + label {
+                    color: white;
+                }
+            }
+            /* for invalid state of the input... */
+            &.invalid {
+                /* ...change border color on hover */
+                &:hover {
+                    border: 1px solid #ff304d;
+                    transition: all 0.5s ease;
+                }
+                /* Make bottom border bigger in focus... */
+                &:focus {
+                    min-height: 35px;
+                    height: calc(100% - 1px);
+                    color: white;
+                    border-bottom-color: #ff304d;
+                    border-bottom-width: 2px;
+                    transition: all 0.5s ease, border-bottom-width 0s ease, height 0s ease;
+                    /* ... and on hover while focused */
+                    &:hover {
+                        min-height: 35px;
+                        height: calc(100% - 1px);
+                        border: 1px solid #ff304d;
+                        border-bottom-color: #ff304d;
+                        border-bottom-width: 2px;
+                        transition: all 0.5s ease, border-bottom-width 0s ease, height 0s ease;
+                    }
+
+                    & + label {
+                        color: #ff304d;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.field-validation {
+    margin: 0 0 5px;
+    font: 0.75rem/1.33 "ubuntu", Verdana, Arial, sans-serif;
+    letter-spacing: 0.2px;
+    position: absolute;
+    z-index: 1;
+    bottom: 6px;
+    right: 0;
+}

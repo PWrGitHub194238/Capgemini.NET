@@ -1,0 +1,149 @@
+@import '';
+
+/* _content/Capgemini.Net.Blazor.Components.Demo12/End/CascadingRateContext.razor.rz.scp.css */
+.icon-rate-container[b-roy9smzg2h] {
+  display: flex; }
+/* _content/Capgemini.Net.Blazor.Components.Demo12/End/ContainerComponent.razor.rz.scp.css */
+.demo__container_wrapper[b-yw7id2a0gv] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.demo__container[b-yw7id2a0gv] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.navigation-bar[b-yw7id2a0gv] {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo12/End/RateComponent.razor.rz.scp.css */
+.rate-container[b-m357v4sj3b] {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.current-rate-container[b-m357v4sj3b] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .current-rate-container[b-m357v4sj3b]:before {
+    content: 'Current rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.average-rate-container[b-m357v4sj3b] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .average-rate-container[b-m357v4sj3b]:before {
+    content: 'Average rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.max-rate-container[b-m357v4sj3b] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .max-rate-container[b-m357v4sj3b]:before {
+    content: 'Max rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo12/Start/ContainerComponent.razor.rz.scp.css */
+.demo__container_wrapper[b-nqm5jz71fo] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.demo__container[b-nqm5jz71fo] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+
+.navigation-bar[b-nqm5jz71fo] {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px; }
+/* _content/Capgemini.Net.Blazor.Components.Demo12/Start/RateComponent.razor.rz.scp.css */
+.rate-container[b-div7ejxmgq] {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .rate-container .icon-rate-container[b-div7ejxmgq] {
+    display: flex; }
+
+.current-rate-container[b-div7ejxmgq] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .current-rate-container[b-div7ejxmgq]:before {
+    content: 'Current rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.average-rate-container[b-div7ejxmgq] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .average-rate-container[b-div7ejxmgq]:before {
+    content: 'Average rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }
+
+.max-rate-container[b-div7ejxmgq] {
+  display: flex;
+  align-items: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: large; }
+  .max-rate-container[b-div7ejxmgq]:before {
+    content: 'Max rate: ';
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    padding-right: 15px; }

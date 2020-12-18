@@ -1,0 +1,172 @@
+﻿html, body, app {
+    display: flex;
+    flex-flow: row;
+    width: 100vw;
+    margin: 0px;
+    font-family: Ubuntu;
+}
+
+.main-container {
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 12vw;
+    margin-top: 2vh;
+    margin-left: 1vw;
+
+    #blazor-icon {
+        width: 3vw;
+        margin-right: 1vw;
+    }
+
+    #blazor-icon-text {
+        font-weight: bold;
+        font-size: x-large;
+    }
+}
+
+.content {
+    display: flex;
+    flex: 1 0 auto;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+
+    #copyright {
+        color: white;
+        font-family: Ubuntu;
+    }
+}
+
+// Left sidebar which contains checklist for demo steps
+// If it 'slides' from left border to the right it causes the width of #right-sidenav to shrink
+#left-sidenav {
+    width: 0vw; /* hide by default */
+    overflow: hidden; /* make content not appear beyond setting width */
+    z-index: 1000; /* top container that serves as sidenav - only loader overlay has greater z-index */
+    color: white;
+    background-color: #2b0a3d;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.75);
+    transition-duration: 400ms;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    // Fixed div which position is calculated to be hidden
+    // by moving content of left-sidenav outside of the browser's window
+    #left-sidenav__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* show checklist on top and back button on bottom */
+        height: 100%;
+        position: fixed;
+        left: -20vw; /* content's margin-left */
+        width: 20vw;
+        transition-duration: 400ms;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+
+        .checkbox__container_wrapper {
+            padding: 15px;
+        }
+
+        svg {
+            padding: 15px;
+        }
+    }
+    // class will be added by JS XXXXXXXXXXXXXXX, triggering a sidenav to show up
+    &.left-sidenav-opened {
+        width: 20vw;
+        transition-duration: 400ms;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+        // Transform the container for the left-sidenav
+        // to be slided from the left (outside browser's window) to the right to make it visible.
+        #left-sidenav__container {
+            transform: translateX(20vw);
+            transition-duration: 400ms;
+            transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+    }
+}
+
+// Additional navbar to only be showed once the user clicks one of the expanded buttons inside left-sidenav (.checkbox-read-more)
+// By default it is invisible. Unlike #left-sidenav, #left-sub-sidenav won't shrink the width of #right-sidenav
+#left-sub-sidenav {
+    position: fixed; /* it doesn't affect any other elements' position */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0; /* hide by default */
+    overflow: hidden; /* make content not appear beyond setting width */
+    z-index: 900; /* show under the #left-sub */
+    color: #2b0a3d;
+    background-color: white;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.75);
+    transition-duration: 400ms;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    #left-sub-sidenav__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* show checklist on top and back button on bottom */
+        padding: 15px;
+        height: calc(100% - 2 * 15px);
+    }
+}
+
+// if the left-sidenav is opened...
+#left-sidenav.left-sidenav-opened {
+    // and a user triggers #left-sub-sidenav to open (by calling .checkbox-read-more's JS XXXXXXXX)...
+    ~ #left-sub-sidenav.left-sub-sidenav-opened {
+        position: fixed; /* it doesn't affect any other elements' position */
+        top: 0;
+        left: 20vw;
+        bottom: 0;
+        width: 50vw; /*  slide it from left up to 20vw of #left-sidenav + left-sub-sidenav width  */
+        overflow: hidden; /* make content not appear beyond setting width */
+        transition-duration: 400ms;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+}
+
+#right-sidenav {
+    flex: 1 0 auto; /* couse right sidenav to fill the remaining space */
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.blazor__main_color {
+    color: #5c2c90;
+}
+
+// Container for demo tiles in center of the page
+.cap-tile-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+}
+
+// If .left-sidenav is opened shrink the size of an opened .cap-tile from 80vw to 60 (20 for .left-sidenav)
+.left-sidenav-opened
+.cap-tile-container
+.cap-tile.cap-tile-opened
+.cap-tile__size {
+    width: 60vw;
+    transition: all 0.5s ease;
+}

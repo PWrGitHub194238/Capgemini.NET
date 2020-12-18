@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "font-awesome@5.14.0",
+      "destination": "wwwroot/font-awesome/",
+      "files": [
+        "css/all.min.css",
+        "webfonts/fa-regular-400.woff2",
+        "webfonts/fa-solid-900.woff2"
+      ]
+    }
+  ]
+}

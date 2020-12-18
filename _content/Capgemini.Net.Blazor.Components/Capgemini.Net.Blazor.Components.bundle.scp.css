@@ -1,0 +1,145 @@
+@import '';
+
+/* _content/Capgemini.Net.Blazor.Components/CapBackground.razor.rz.scp.css */
+.background-overlay[b-of7yuaaao8] {
+  position: fixed;
+  /* Sit on top of the page content */
+  width: 100%;
+  /* Full width (cover the whole page) */
+  height: 100%;
+  /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -2;
+  /* Specify a stack order in case you're using a different order for other elements */
+  background-image: url("/_content/Capgemini.Net.Blazor.Components/img/background-image.jpg");
+  background-size: cover; }
+  .background-overlay .top-left-image[b-of7yuaaao8] {
+    width: 12vw;
+    position: fixed;
+    top: 0;
+    left: 0; }
+  .background-overlay .bottom-left-image[b-of7yuaaao8] {
+    width: 12vw;
+    position: fixed;
+    bottom: 0;
+    left: 0; }
+  .background-overlay .bottom-right-image[b-of7yuaaao8] {
+    width: 12vw;
+    transform: rotate(90deg) scaleY(-1.5);
+    position: fixed;
+    bottom: -46px;
+    right: 5vw; }
+/* _content/Capgemini.Net.Blazor.Components/CapCheckbox.razor.rz.scp.css */
+/* The container */
+.checkbox__container[b-1zcqt27jtl] {
+  font-family: "Ubuntu";
+  font-weight: bold;
+  display: block;
+  position: relative;
+  padding-left: 37px;
+  cursor: pointer;
+  font-size: 13px;
+  user-select: none; }
+
+.checkbox__container:not(:hover)
+input:checked + .checkbox-checkmark + .checkbox-label[b-1zcqt27jtl] {
+  text-decoration: line-through; }
+
+.checkbox__container .checkbox-label[b-1zcqt27jtl] {
+  position: relative;
+  top: 8px; }
+
+/* Hide the browser's default checkbox */
+.checkbox__container input[b-1zcqt27jtl] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0; }
+
+/* Create a custom checkbox */
+.checkbox-checkmark[b-1zcqt27jtl] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #2b0a3d;
+  border: 1px solid grey;
+  box-shadow: 5px 5px #7d38ba; }
+
+/* On mouse-over */
+.checkbox__container:hover input ~ .checkbox-checkmark[b-1zcqt27jtl] {
+  border: 1px solid #95e616; }
+
+/* When the checkbox is checked */
+.checkbox__container:hover input:checked ~ .checkbox-checkmark[b-1zcqt27jtl] {
+  border: 1px solid #95e616; }
+
+.checkbox__container input:checked ~ .checkbox-checkmark[b-1zcqt27jtl] {
+  background-color: #2b0a3d;
+  border: 1px solid #95e616; }
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox-checkmark[b-1zcqt27jtl]:after {
+  content: "";
+  position: absolute;
+  display: none; }
+
+/* Show the checkmark when checked */
+.checkbox__container input:checked ~ .checkbox-checkmark[b-1zcqt27jtl]:after {
+  display: block; }
+
+/* Style the checkmark/indicator */
+.checkbox__container .checkbox-checkmark[b-1zcqt27jtl]:after {
+  left: 5px;
+  top: 5px;
+  right: 5px;
+  bottom: 5px;
+  background-color: #95e616; }
+/* _content/Capgemini.Net.Blazor.Components/ChecklistDescriptionSubSidenav.razor.rz.scp.css */
+.description-point[b-wk50irbl90] {
+  padding-right: 10px;
+  margin-bottom: 15px;
+  font-family: monospace,monospace;
+  overflow-y: auto;
+  height: 100%; }
+  .description-point[b-wk50irbl90]  mark {
+    color: #6b25c7;
+    background-color: #f5f2f9;
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 1em; }
+  .description-point[b-wk50irbl90]  p {
+    font-weight: normal;
+    font-size: 12pt; }
+  .description-point[b-wk50irbl90]  ul {
+    list-style-image: url("/_content/Capgemini.Net.Blazor.Components.Tile/img/ul.png"); }
+  .description-point[b-wk50irbl90]  .example-figure {
+    display: flex;
+    justify-content: space-around;
+    flex: 1 1 auto; }
+    .description-point[b-wk50irbl90]  .example-figure figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%; }
+      .description-point[b-wk50irbl90]  .example-figure figure > div {
+        margin-bottom: 5px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center; }
+      .description-point[b-wk50irbl90]  .example-figure figure figcaption {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: x-small;
+        width: 80%;
+        text-align: center; }

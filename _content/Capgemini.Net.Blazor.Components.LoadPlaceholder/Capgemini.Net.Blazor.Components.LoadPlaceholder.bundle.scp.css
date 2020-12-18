@@ -1,0 +1,19 @@
+@import '';
+
+/* _content/Capgemini.Net.Blazor.Components.LoadPlaceholder/LoadPlaceholder.razor.rz.scp.css */
+.content_loading[b-ttb0j2br0q] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .content_loading[b-ttb0j2br0q]  p {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center; }
+  .content_loading img[b-ttb0j2br0q] {
+    opacity: 0.15; }

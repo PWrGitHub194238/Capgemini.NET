@@ -1,0 +1,14 @@
+﻿@font-face {
+  font-family: Ubuntu;
+  src: url("/_content/Capgemini.Net.Blazor.Components/font/ubuntu/Ubuntu-Medium.ttf");
+  font-weight: normal; }
+
+@font-face {
+  font-family: Ubuntu;
+  src: url("/_content/Capgemini.Net.Blazor.Components/font/ubuntu/Ubuntu-Bold.ttf");
+  font-weight: bold; }
+
+@font-face {
+  font-family: Ubuntu;
+  src: url("/_content/Capgemini.Net.Blazor.Components/font/ubuntu/Ubuntu-Light.ttf");
+  font-weight: lighter; }
