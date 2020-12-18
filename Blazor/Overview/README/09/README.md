@@ -3,13 +3,13 @@
 The flowing changes was done to `./Start/*` files in order to:
 
 - prepare the solution to rely on the data not from the form but one that is provided by the **API** with the following definition:
-  - <strong style="color: #249c47;">GET</strong>: [/products/count](http://localhost:5002/api/products/count) - will return the number of products in the `(localdb)\\MSSQLLocalDB\BlazorDemo` **data base**:
+- <strong style="color: #249c47;">GET</strong>: [/products/count](http://localhost:5002/api/products/count) - will return the number of products in the `(localdb)\\MSSQLLocalDB\BlazorDemo` **data base**:
 <br />**Response:**
 
 ```
 9
 ```
-  - <strong style="color: #249c47;">GET</strong>: [/products/{productId}](http://localhost:5002/api/products/1) - will return an object of the `RateableProductViewModel` type, representing details about product with the ID of `productId`:
+- <strong style="color: #249c47;">GET</strong>: [/products/{productId}](http://localhost:5002/api/products/1) - will return an object of the `RateableProductViewModel` type, representing details about product with the ID of `productId`:
 <br />**Response:**
 
 ```
@@ -26,7 +26,7 @@ The flowing changes was done to `./Start/*` files in order to:
    "maxRate":5
 }
 ```
-  - <strong style="color: #ffb400;">POST</strong>: [/products/{productId}/rate](http://localhost:5002/api/products/1/rate) - will add a `rate` for the product with the ID of `productId`:
+- <strong style="color: #ffb400;">POST</strong>: [/products/{productId}/rate](http://localhost:5002/api/products/1/rate) - will add a `rate` for the product with the ID of `productId`:
 <br />**Body:**
 
 ```
