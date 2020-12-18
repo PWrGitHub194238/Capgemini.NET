@@ -10,7 +10,7 @@ Edit a file `./Start/ContainerComponent.razor` by adding `maxRate` and `iconInde
  }
 ```
 
-`RateComponent` utilizes the free set of [Font Awesome](@https://fontawesome.com)'s classes to display different icons like [fa-star](@https://fontawesome.com/icons/star?style=regular). For instance we can use the given set of icons associated with given classes:
+`RateComponent` utilizes the free set of [Font Awesome](https://fontawesome.com)'s classes to display different icons like [fa-star](https://fontawesome.com/icons/star?style=regular). For instance we can use the given set of icons associated with given classes:
 
 ![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/02/img/1.jpg)
 
@@ -59,11 +59,11 @@ Besides the standard **HTML** markup with a custom styles that are already defin
 - `@(() => iconIndex = iconIndex == 0 ? icons.Length - 1 : iconIndex - 1)` (line `11`) delegate decreases the index to be used in conjunction with `icons` array not allowing the value of `iconIndex` to be out of bound of that array,
 - `@(() => iconIndex = (iconIndex + 1) % icons.Length)` (line `13`) delegate increases the index each time the `+` button is clicked.
 
-In addition to those delegates, the other Razor component specific syntax is a usage of `RateComponent` as a [nested component](@https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#use-components) of `ContainerComponent` with a fully qualified name (`Capgemini.Net.Blazor.Components.Demo02.Start.RateComponent`) which can be simplified.
+In addition to those delegates, the other Razor component specific syntax is a usage of `RateComponent` as a [nested component](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#use-components) of `ContainerComponent` with a fully qualified name (`Capgemini.Net.Blazor.Components.Demo02.Start.RateComponent`) which can be simplified.
 
 ### Omit a usage of fully qualified names for Razor component tags
 
-By default, to add the nested component to other component, the full qualify name has to be given. This behavior is exactly the same as for other **.NET** types. In fact all Razor components are compiled and represented as partial classes ([read more](@https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#partial-class-support)). By adding a `@using` [directive](@https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#using) with the namespace of the component's class, it is possible to use only component's name as **HTML** tag ([read more](@https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#namespaces)):
+By default, to add the nested component to other component, the full qualify name has to be given. This behavior is exactly the same as for other **.NET** types. In fact all Razor components are compiled and represented as partial classes ([read more](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#partial-class-support)). By adding a `@using` [directive](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#using) with the namespace of the component's class, it is possible to use only component's name as **HTML** tag ([read more](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#namespaces)):
 
 ```
 @using Capgemini.Net.Blazor.Components.Demo02.Start
@@ -75,7 +75,7 @@ By default, to add the nested component to other component, the full qualify nam
 </div>
 ```
 
-It is also possible to move all namespaces to a separate file to not have to define them for each ***.razor** file. Blazor defines the `_Imports.razor` file by [convention](@https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#namespace) which content (i.e. using statements) will be added by the framework to the top of each ***.razor** file within the directory of the `_Imports.razor`. Each directory can have its own `_Imports.razor` file. Add the `@using` statement to the `./_Imports.razor` file:
+It is also possible to move all namespaces to a separate file to not have to define them for each ***.razor** file. Blazor defines the `_Imports.razor` file by [convention](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#namespace) which content (i.e. using statements) will be added by the framework to the top of each ***.razor** file within the directory of the `_Imports.razor`. Each directory can have its own `_Imports.razor` file. Add the `@using` statement to the `./_Imports.razor` file:
 
 ```
 @namespace Capgemini.Net.Blazor.Components.Demo02
@@ -96,7 +96,7 @@ It is also possible to move all namespaces to a separate file to not have to def
 
 ### Use a custom components in place of basic HTML <button> tag for decreasing/increasing parameters' values
 
-Add `Capgemini.Net.Blazor.Components.SvgIcons` dependency ([read more](@https://docs.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-5.0&tabs=visual-studio#consume-a-library-component)) to the `Capgemini.Net.Blazor.Components.Demo02` project in order to be able to use two custom components:
+Add `Capgemini.Net.Blazor.Components.SvgIcons` dependency ([read more](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/class-libraries?view=aspnetcore-5.0&tabs=visual-studio#consume-a-library-component)) to the `Capgemini.Net.Blazor.Components.Demo02` project in order to be able to use two custom components:
 
 ![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/02/img/2.jpg)
 
@@ -186,7 +186,7 @@ By using the `Theme` parameter, set its value to `IconTheme.DARK` for all `Minus
 
 ### Add parameter properties to Rate component, pass the selected values form parent component
 
-To make use of the `maxRate` and `iconIndex` and make `RateComponent` to react on any of those fields' value change, `RateComponent` has to define [parameters](@https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#component-parameters) for both entries. Open the `./Start/RateComponent.razor` file and add `MaxRate` and `Icon` properties to the `@code { }` block:
+To make use of the `maxRate` and `iconIndex` and make `RateComponent` to react on any of those fields' value change, `RateComponent` has to define [parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#component-parameters) for both entries. Open the `./Start/RateComponent.razor` file and add `MaxRate` and `Icon` properties to the `@code { }` block:
 
 ```
 @code {

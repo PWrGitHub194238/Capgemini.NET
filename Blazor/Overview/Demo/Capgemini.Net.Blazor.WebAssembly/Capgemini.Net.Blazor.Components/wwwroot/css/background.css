@@ -11,7 +11,7 @@
   bottom: 0;
   z-index: -2;
   /* Specify a stack order in case you're using a different order for other elements */
-  background-image: url("_content/Capgemini.Net.Blazor.Components/img/background-image.jpg");
+  background-image: url("../img/background-image.jpg");
   background-size: cover; }
   .background-overlay .top-left-image {
     width: 12vw;

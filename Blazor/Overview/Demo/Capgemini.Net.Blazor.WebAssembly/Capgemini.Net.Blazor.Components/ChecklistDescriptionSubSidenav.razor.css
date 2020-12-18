@@ -14,7 +14,7 @@
     font-weight: normal;
     font-size: 12pt; }
   .description-point ::deep ul {
-    list-style-image: url("_content/Capgemini.Net.Blazor.Components.Tile/img/ul.png"); }
+    list-style-image: url("img/ul.png"); }
   .description-point ::deep .example-figure {
     display: flex;
     justify-content: space-around;
