@@ -1,8 +1,8 @@
-![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/02/summary.jpg)
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/02/Summary.jpg)
 
-## Rate range & icon customization: component parameters
+# Rate range & icon customization: component parameters
 
-The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/). You can directly go to that descriptions by navigating to any of those links:
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
  - [edit a container component's @code block to handle parameter value changes](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo02/checklist/1),
  - [write a basic HTML markup with in-line lambda expressions to control values for max rate and currently selected icon parameters](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo02/checklist/2),
  - [omit a usage of fully qualified names for Razor component tags](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo02/checklist/3),

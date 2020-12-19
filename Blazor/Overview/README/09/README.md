@@ -1,3 +1,14 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/09/Summary.jpg)
+
+# Use HttpClient in Blazor: fetching data for the API
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [review changes in initial component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo09/checklist/1),
+ - [call the API to fetch rate data for a product, handle HttpClient's exceptions](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo09/checklist/2),
+ - [handle incomplete asynchronous actions at render](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo09/checklist/3),
+ - [use NavigationManager to fetch different products dynamically](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo09/checklist/4),
+ - [provide default content for unused render fragments](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo09/checklist/5).
+
 ### Review changes in initial component
 
 The flowing changes was done to `./Start/*` files in order to:

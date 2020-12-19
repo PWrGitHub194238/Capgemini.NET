@@ -1,8 +1,8 @@
-![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/01/summary.jpg)
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/01/Summary.jpg)
 
-## Rate component: from JavaScript through TypeScript to Blazor
+# Rate component: from JavaScript through TypeScript to Blazor
 
-The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/). You can directly go to that descriptions by navigating to any of those links:
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
  - [copy HTML markup with already provided JavaScript calls](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo01/checklist/1),
  - [migrate TypeScript code directly into Razor Component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo01/checklist/2),
  - [change DOM event handlers to Blazor event handlers](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo01/checklist/3),

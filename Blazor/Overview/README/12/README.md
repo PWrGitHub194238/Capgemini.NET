@@ -1,3 +1,12 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/12/Summary.jpg)
+
+# Cascading components: generate child content for rate icons as render fragments on runtime
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [create custom cascading component to provide the context for the rate icons](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo12/checklist/1),
+ - [enable to use any type of icons for rate component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo12/checklist/2),
+ - [fix change state detection to render icons on any icon focus/blur](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo12/checklist/3).
+
 ### Create custom cascading component to provide the context for the rate icons
 
 `CascadingValue` provides a `ChildContent` parameter of type `RenderFragment`. To wrap the logic related to the `RateContext` class and remove it from the `RateComponent`, create a `CascadingRateContext.razor` file:

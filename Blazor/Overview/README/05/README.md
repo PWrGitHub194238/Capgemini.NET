@@ -1,3 +1,14 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/05/Summary.jpg)
+
+# Built-in components: using Blazor forms to modify custom model for a component
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [add additional parameter for component representing average rate](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo05/checklist/1),
+ - [group rate parameters to form context model for the component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo05/checklist/2),
+ - [replace raw HTML markup for context model properties modification with custom components](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo05/checklist/3),
+ - [replace custom parameter value selectors with built-in form component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo05/checklist/4),
+ - [replace built-in input components with custom wrap components to add styles for inputs and custom <option> tag markup](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo05/checklist/5).
+
 ### Add additional parameter for component representing average rate
 
 Open `./Start/RateComponent.razor` and introduce a new property `AvgRate` decorated with the `Parameter` attribute (with `Name = "AvgRate"` which will be used as `Name` value for `CascadingValue` component):

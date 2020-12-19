@@ -5,10 +5,11 @@ using System.Collections.ObjectModel;
 namespace Capgemini.Net.Blazor.Components.Demo09
 {
     [Route(DemoTile.Href)]
+    [Route(DemoTile.Href + "/checklist")]
+    [Route(DemoTile.Href + "/checklist/{*pageRoute}")]
     [Route(DemoTile.Href + "/{id:int}")]
-    [Route(DemoTile.Href + "/{*pageRoute}")]
-    [Route(DemoTile.Href + "/{id:int}" + "/{*pageRoute}")]
-    public partial class FullDemoTile
+    [Route(DemoTile.Href + "/{id:int}/{*pageRoute}")]
+    public partial class FullDemoTile : ComponentBase
     {
         [Parameter]
         public int Id { get; set; }

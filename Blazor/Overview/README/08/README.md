@@ -1,3 +1,13 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/08/Summary.jpg)
+
+# Blazor form validation: controlling user inputs
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [use validation attributes for the form inputs instead of custom logic in setters](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo08/checklist/1),
+ - [prevent invalid values to be used, provide custom input controls](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo08/checklist/2),
+ - [use edit form context to provide cross-field value correctness](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo08/checklist/3),
+ - [change the behavior of the number inputs to forbids invalid values to be set](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo08/checklist/4).
+
 ### Use validation attributes for the form inputs instead of custom logic in setters
 
 Replace all custom properties of the `./Start/RateContext.cs` file with auto-generated properties. Preserve default values from private fields (`maxRate = 6` and `avgRate = 3`):

@@ -1,3 +1,14 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/10/Summary.jpg)
+
+# Custom event callbacks: reacting on user interaction
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [log information about default render fragment usage](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo10/checklist/1),
+ - [set the current rate on rate click to update the context object](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo10/checklist/2),
+ - [Notify API about the change, fetch new set of data and refresh component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo10/checklist/3),
+ - [provide initial rate value for the rate component, redirect to random product on initialization](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo10/checklist/4),
+ - [provide a proper rate of the product to be displayed on product change](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo10/checklist/5).
+
 ### Log information about default render fragment usage
 
 Update the `_Imports.razor` file and add a additional import for the `ILogger<TValue>` type:

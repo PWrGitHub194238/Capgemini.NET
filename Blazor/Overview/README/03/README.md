@@ -1,3 +1,13 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/03/Summary.jpg)
+
+# Basic example refactoring: code-behind and CSS isolation
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [separate @code block from ContainerComponent component by creating code-behind file](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo03/checklist/1),
+ - [move duplicated CSS styles from general purpose static file to CSS-behind file for the ContainerComponent Razor component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo03/checklist/2),
+ - [create a component base class, move the common logic out of the RateComponent](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo03/checklist/3),
+ - [validate and update inner state of the RateComponent on parameter value change](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo03/checklist/4).
+
 ### Separate @code block from ContainerComponent component by creating code-behind file
 
 While any **C#** logic can be placed inside a `@code { }` block of a Razor component to be mixed up with **HTML** markup of the component, **C#** code can be also defined in separate file as long as:

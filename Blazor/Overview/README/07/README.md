@@ -1,3 +1,11 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/07/Summary.jpg)
+
+# Multiple component fragments: customization of the component by replacing child content elements
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [separate the average counter from the rating component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo07/checklist/1),
+ - [Replace default average rate markup with replaceable render fragment](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo07/checklist/2).
+
 ### Separate the average counter from the rating component
 
 Move the given markup from the `RateComponent` to the `ContainerComponent.razor` file:

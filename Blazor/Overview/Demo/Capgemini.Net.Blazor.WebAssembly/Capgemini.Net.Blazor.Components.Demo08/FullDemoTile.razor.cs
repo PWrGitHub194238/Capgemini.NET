@@ -6,7 +6,7 @@ namespace Capgemini.Net.Blazor.Components.Demo08
 {
     [Route(DemoTile.Href)]
     [Route(DemoTile.Href + "/{*pageRoute}")]
-    public partial class FullDemoTile
+    public partial class FullDemoTile : ComponentBase
     {
         [Parameter]
         public string PageRoute { get; set; } = default!;

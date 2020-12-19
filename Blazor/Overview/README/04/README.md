@@ -1,3 +1,11 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/04/Summary.jpg)
+
+# Improving components' re-usability: cascading values and render fragment
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [allow Container Razor component to receive any markup as a child](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo04/checklist/1),
+ - [make custom child markup to receive loosely coupled parameters from the context of the container component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo04/checklist/2).
+
 ### Allow Container Razor component to receive any markup as a child
 
 Add a parameter of the `RenderFragment` type to the `ContainerComponent.razor.cs` file (code-behind file for the Razor component):

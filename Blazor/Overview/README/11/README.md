@@ -1,3 +1,13 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/11/Summary.jpg)
+
+# Custom value binding: encapsulating logic for the rate selection icons
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [replace HTML markup for the icons with a component, use event callbacks to use base class logic](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo11/checklist/1),
+ - [replace the base class logic with context class](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo11/checklist/2),
+ - [Simplify the logic for RateIconComponent handled by its parameters and event callbacks](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo11/checklist/3),
+ - [reduce the complexity of the callbacks, wrap all rate icons with a tag to handle on focus events](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo11/checklist/4).
+
 ### Replace HTML markup for the icons with a component, use event callbacks to use base class logic
 
 Add new Razor component named `RateIconComponent`:

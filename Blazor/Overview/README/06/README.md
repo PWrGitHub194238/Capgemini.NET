@@ -1,3 +1,11 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/06/Summary.jpg)
+
+# Generic render fragment: give a child content a context of the parent
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/)). You can directly go to that descriptions by navigating to any of those links:
+ - [add a payload to the render fragment to pass a context object](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo06/checklist/1),
+ - [pass context object to the child component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo06/checklist/2).
+
 ### Add a payload to the render fragment to pass a context object
 
 As stated in **./demo04**, a usage of `CascadingValue<TValue>` component wraps a subtree of the component hierarchy and supplies a single value to all components within that subtree ([read more](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0)). Even if this is a simple way to provide any kind of primitive values or complex objects of a type `TValue` to any descendant component as it provides great deal of flexibility, it also makes it very easy to be overused. As mentioned [here](https://docs.microsoft.com/en-us/aspnet/core/blazor/webassembly-performance-best-practices?view=aspnetcore-5.0#ensure-cascading-parameters-are-fixed), it can easily lead to poor performance of the application as dealing with `[CascadingParameter]` is more expensive that using a standard `[Parameter]`.
