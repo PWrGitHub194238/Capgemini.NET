@@ -48,10 +48,10 @@ namespace Capgemini.Net.Blazor.Components.Demo12.Start
                     GetRouteWithRandomProductId(numberOfProducts.Value));
             }
 
-            bool HasProductIdParameterInRoute() => Regex.IsMatch(NavigationManager.Uri, @"/\d+$");
+            bool HasProductIdParameterInRoute() => Regex.IsMatch(NavigationManager.ToBaseRelativePath(NavigationManager.Uri), @"^demo\d+/\d+");
 
             string GetRouteWithRandomProductId(int numberOfProducts) 
-                => $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
+                => Regex.Replace(NavigationManager.ToBaseRelativePath(NavigationManager.Uri), @"demo(\d+)(.*)", $"demo$1/{new Random().Next(1, numberOfProducts)}$2");
         }
 
         protected override async Task OnParametersSetAsync()

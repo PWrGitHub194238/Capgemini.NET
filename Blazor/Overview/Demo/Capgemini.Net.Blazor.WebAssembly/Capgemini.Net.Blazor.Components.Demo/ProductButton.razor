@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing
 
-<NavLink href="@Href">
+<NavLink href="@BaseHref" @onclick:preventDefault="true" Match="NavLinkMatch.Prefix">
     <CharIcon Icon="@CharId"
-              Theme="IconTheme.DARK" />
+              Theme="IconTheme.DARK"
+              OnClick="@(() => Navigate())" />
 </NavLink>

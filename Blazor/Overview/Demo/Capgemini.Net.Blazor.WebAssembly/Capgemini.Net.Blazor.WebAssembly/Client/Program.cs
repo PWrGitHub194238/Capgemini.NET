@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Capgemini.Net.Blazor.Components.Services;
 using Capgemini.Net.Blazor.Shared.Interfaces;
+using Capgemini.Net.Blazor.WebAssembly.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +22,7 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client
             builder.Services.AddSingleton<Components.Services.Interfaces.IJSInteropService, JSInteropService>();
             builder.Services.AddSingleton<Components.Splitter.Services.Interfaces.IJSInteropService, Components.Splitter.Services.JSInteropService>();
             builder.Services.AddSingleton<Components.Tile.Services.Interfaces.IJSInteropService, Components.Tile.Services.JSInteropService>();
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
 
             builder.Services.AddScoped<ICheckboxSideNavService, CheckboxSideNavService>();
 

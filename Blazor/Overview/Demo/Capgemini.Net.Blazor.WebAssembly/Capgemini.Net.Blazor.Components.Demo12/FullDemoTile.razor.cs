@@ -4,11 +4,22 @@ using System.Collections.ObjectModel;
 
 namespace Capgemini.Net.Blazor.Components.Demo12
 {
-    [Route(DemoTile.Href + "/{id:int?}")]
+    [Route(DemoTile.Href)]
+    [Route(DemoTile.Href + "/{id:int}")]
+    [Route(DemoTile.Href + "/{id:int}" + "/{*pageRoute}")]
+    [Route(DemoTile.Href + "/{*pageRoute}")]
     public partial class FullDemoTile
     {
+        private int i;
+
         [Parameter]
-        public int Id { get; set; }
+        public int Id { get { return i; } set {
+                i = value;
+                System.Console.WriteLine(i);
+            } }
+
+        [Parameter]
+        public string PageRoute { get; set; } = default!;
 
         internal static DemoChecklistContext Context => new DemoChecklistContext
         {

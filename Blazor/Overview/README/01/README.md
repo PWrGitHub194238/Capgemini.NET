@@ -1,3 +1,14 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/01/summary.jpg)
+
+## Rate component: from JavaScript through TypeScript to Blazor
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/). You can directly go to that descriptions by navigating to any of those links:
+ - [copy HTML markup with already provided JavaScript calls](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo01/checklist/1),
+ - [migrate TypeScript code directly into Razor Component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo01/checklist/2),
+ - [change DOM event handlers to Blazor event handlers](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo01/checklist/3),
+ - [use one-way binding to dynamically update class attribute value](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo01/checklist/4),
+ - [deal with lambda variable capturing, causing each rate icon to represent max rate](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo01/checklist/5).
+
 ### Copy HTML markup with already provided JavaScript calls
 
 Open a file `./Start/RateComponent.razor` Razor component. Its content should resemble snippet that is shown below - this is a default markup provided to the newly created Razor component:

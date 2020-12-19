@@ -1,3 +1,15 @@
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/02/summary.jpg)
+
+## Rate range & icon customization: component parameters
+
+The below **README.md** file contains a transcript of the descriptions that can be found in the checklist for each of the exercise\`s points built into the Blazor WebAssembly application on-line ([link](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/). You can directly go to that descriptions by navigating to any of those links:
+ - [edit a container component's @code block to handle parameter value changes](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo02/checklist/1),
+ - [write a basic HTML markup with in-line lambda expressions to control values for max rate and currently selected icon parameters](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo02/checklist/2),
+ - [omit a usage of fully qualified names for Razor component tags](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo02/checklist/3),
+ - [use a custom components in place of basic HTML <button> tag for decreasing/increasing parameters' values](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo02/checklist/4),
+ - [add parameter properties to MinusIcon and PlusIcon components to make their look and feel match the overall theme](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo02/checklist/5),
+ - [add parameter properties to Rate component, pass the selected values form parent component](https://pwrgithub194238.github.io/Capgemini.NET.Blazor/demo02/checklist/6).
+
 ### Edit a container component's @code block to handle parameter value changes
 
 Edit a file `./Start/ContainerComponent.razor` by adding `maxRate` and `iconIndex` fields to the `@code { }` section. Those variables will be used to store the selection of both max rate and icon class for the `RateComponent` that was created in **demo01**.

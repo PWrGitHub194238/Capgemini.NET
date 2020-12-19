@@ -848,10 +848,10 @@ namespace Capgemini.Net.Blazor.Components.Demo10.Start
                 }
             }
 
-            bool HasProductIdParameterInRoute() =&gt; Regex.IsMatch(NavigationManager.Uri, @@"/\d+$");
+            bool HasProductIdParameterInRoute() =&gt; Regex.IsMatch(NavigationManager.ToBaseRelativePath(NavigationManager.Uri), @@"^demo\d+/\d+");
 
             string GetRouteWithRandomProductId(int numberOfProducts) 
-                =&gt; $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
+                =&gt; Regex.Replace(NavigationManager.ToBaseRelativePath(NavigationManager.Uri), @@"demo(\d+)(.*)", $"demo$1/{new Random().Next(1, numberOfProducts)}$2");
         }
 
         protected override async Task OnParametersSetAsync()
@@ -1006,10 +1006,10 @@ namespace Capgemini.Net.Blazor.Components.Demo10.Start
                 }
             }
 
-            bool HasProductIdParameterInRoute() =&gt; Regex.IsMatch(NavigationManager.Uri, @@"/\d+$");
+            bool HasProductIdParameterInRoute() =&gt; Regex.IsMatch(NavigationManager.ToBaseRelativePath(NavigationManager.Uri), @@"^demo\d+/\d+");
 
             string GetRouteWithRandomProductId(int numberOfProducts) 
-                =&gt; $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
+                =&gt; Regex.Replace(NavigationManager.ToBaseRelativePath(NavigationManager.Uri), @@"demo(\d+)(.*)", $"demo$1/{new Random().Next(1, numberOfProducts)}$2");
         }
 
 		// ...
@@ -1106,10 +1106,10 @@ namespace Capgemini.Net.Blazor.Components.Demo10.Start
                     GetRouteWithRandomProductId(numberOfProducts.Value));
             }
 
-            bool HasProductIdParameterInRoute() =&gt; Regex.IsMatch(NavigationManager.Uri, @@"/\d+$");
+            bool HasProductIdParameterInRoute() =&gt; Regex.IsMatch(NavigationManager.ToBaseRelativePath(NavigationManager.Uri), @@"^demo\d+/\d+");
 
             string GetRouteWithRandomProductId(int numberOfProducts) 
-                =&gt; $"{NavigationManager.Uri}/{new Random().Next(1, numberOfProducts)}";
+                =&gt; Regex.Replace(NavigationManager.ToBaseRelativePath(NavigationManager.Uri), @@"demo(\d+)(.*)", $"demo$1/{new Random().Next(1, numberOfProducts)}$2");
         }
 
         protected override async Task OnParametersSetAsync()

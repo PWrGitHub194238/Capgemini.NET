@@ -1,4 +1,5 @@
-﻿using Capgemini.Net.Blazor.Shared.Interfaces.Context;
+﻿using Capgemini.Net.Blazor.Shared.Interfaces;
+using Capgemini.Net.Blazor.Shared.Interfaces.Context;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
@@ -6,6 +7,9 @@ namespace Capgemini.Net.Blazor.Components
 {
     public partial class ChecklistSidenavPoint
     {
+        [Inject]
+        public INavigationService NavigationService { get; set; } = default!;
+
         [Parameter]
         public DemoChecklistPointContext Context { get; set; } = default!;
 
@@ -23,14 +27,24 @@ namespace Capgemini.Net.Blazor.Components
 
         internal bool IsPointSelected => Selected is not null && Selected.Equals(Context);
 
-        internal void OnPointSelected()
+        protected override async Task OnInitializedAsync()
+        {
+            if (Context is not null && NavigationService.ShouldOpenSubSideNav(Context.Order))
+            {
+                await OnPointSelected();
+            }
+
+            await base.OnInitializedAsync();
+        }
+
+        internal Task OnPointSelected()
         {
             if (IsPointSelected)
             {
-                PointDeSelected.InvokeAsync();
+                return PointDeSelected.InvokeAsync();
             } else
             {
-                PointSelected.InvokeAsync(Context);
+                return PointSelected.InvokeAsync(Context);
             }
         }
 

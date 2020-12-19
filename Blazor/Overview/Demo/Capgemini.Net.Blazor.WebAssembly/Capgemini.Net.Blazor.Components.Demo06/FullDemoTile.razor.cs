@@ -5,8 +5,12 @@ using System.Collections.ObjectModel;
 namespace Capgemini.Net.Blazor.Components.Demo06
 {
     [Route(DemoTile.Href)]
+    [Route(DemoTile.Href + "/{*pageRoute}")]
     public partial class FullDemoTile
     {
+        [Parameter]
+        public string PageRoute { get; set; } = default!;
+
         internal static DemoChecklistContext Context => new DemoChecklistContext
         {
             Name = typeof(FullDemoTile).FullName!,

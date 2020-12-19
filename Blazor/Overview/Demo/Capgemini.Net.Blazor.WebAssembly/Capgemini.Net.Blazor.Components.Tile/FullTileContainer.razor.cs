@@ -14,6 +14,9 @@ namespace Capgemini.Net.Blazor.Components.Tile
         [Inject]
         public ICheckboxSideNavService CheckboxSideNavService { get; set; } = default!;
 
+        [Inject]
+        public INavigationService NavigationService { get; set; } = default!;
+
         [Parameter]
         public RenderFragment DemoEndPoint { get; set; } = default!;
 
@@ -29,6 +32,12 @@ namespace Capgemini.Net.Blazor.Components.Tile
             {
                 (leftPercentWidthDefault, rightPercentWidthDefault) = await JSInteropService.GetSplitterPosition(ChecklistContext);
             }
+
+            if (ChecklistContext is not null && NavigationService.ShouldOpenSideNav())
+            {
+                CheckboxSideNavService.OpenSideNav(ChecklistContext);
+            }
+
             await base.OnInitializedAsync();
         }
 

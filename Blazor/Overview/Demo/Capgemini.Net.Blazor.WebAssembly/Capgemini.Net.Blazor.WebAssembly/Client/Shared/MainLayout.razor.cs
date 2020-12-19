@@ -14,6 +14,9 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Shared
         [Inject]
         public ICheckboxSideNavService CheckboxSideNavService { get; set; } = default!;
 
+        [Inject]
+        public INavigationService NavigationService { get; set; } = default!;
+
         internal string OpenClosedSideNavCssState => demoChecklist is null ? "closed" : "opened";
 
         internal string OpenClosedSubSideNavCssState => pointContext is null ? "closed" : "opened";
@@ -27,12 +30,14 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Shared
         public void OpenSideNav(DemoChecklistContext context) => InvokeAsync(() =>
         {
             demoChecklist = context;
+            NavigationService.OpenSideNav();
             StateHasChanged();
         });
 
         public void CloseSideNav() => InvokeAsync(() =>
         {
             demoChecklist = null;
+            NavigationService.CloseSideNav();
             StateHasChanged();
         });
 
@@ -45,22 +50,32 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Shared
         internal void OnPointDeSelected() => InvokeAsync(() =>
         {
             pointContext = null;
+            NavigationService.CloseSubSideNav();
             StateHasChanged();
         });
 
         internal void OnPointSelected(DemoChecklistPointContext selectedContext) => InvokeAsync(() =>
         {
             pointContext = selectedContext;
+            NavigationService.OpenSubSideNav(selectedContext.Order);
             StateHasChanged();
         });
 
         internal void OnSideNavClosed()
         {
-            OnSubSideNavClosed();
+            if (pointContext is not null)
+            {
+                OnSubSideNavClosed();
+            }
             demoChecklist = null;
+            NavigationService.CloseSideNav();
         }
 
-        internal void OnSubSideNavClosed() => pointContext = null;
+        internal void OnSubSideNavClosed()
+        {
+            pointContext = null;
+            NavigationService.CloseSubSideNav();
+        }
 
         internal static string GetTileCssClass(int tileIndex) {
             return isExpanded[tileIndex - 1] ? "demo-tile demo-tile-opened" : $"demo-tile demo-tile-{tileIndex}-closed";

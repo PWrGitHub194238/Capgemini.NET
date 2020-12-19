@@ -15,6 +15,12 @@ namespace Capgemini.Net.Blazor.Components.Demo
 
         public string CurrentUrl => NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
 
-        public string Href => Regex.IsMatch(CurrentUrl, @".*\/\d+$") ? Regex.Replace(CurrentUrl, @"/\d+$", $"/{ProductId}") : $"{CurrentUrl}/{ProductId}";
+        public string BaseHref => Regex.Replace(CurrentUrl, @"demo(\d+)(.*)", $"demo$1/{ProductId}");
+
+        public string Href => Regex.IsMatch(CurrentUrl, @"^demo\d+/\d+")
+            ? Regex.Replace(CurrentUrl, @"demo(\d+)/\d+", $"demo$1/{ProductId}")
+            : Regex.Replace(CurrentUrl, @"demo(\d+)(.*)", $"demo$1/{ProductId}$2");
+
+        private void Navigate() => NavigationManager.NavigateTo(Href);
     }
 }
