@@ -4,7 +4,7 @@
 
 Agenda for this project and presentation:
 
-- **[Introduction to Blazor - part 1]](https://github.com/PWrGitHub194238/Capgemini.NET/tree/master/Blazor/Overview)** (Blazor WebAssembly live demo):
+- **[Introduction to Blazor - part 1](https://github.com/PWrGitHub194238/Capgemini.NET/tree/master/Blazor/Overview)** (Blazor WebAssembly live demo):
   - 12 excercises to folow step by step,
   - introducing Blazor-specific elements like:
     - Razor [components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0) & [parameters](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-5.0#component-parameters),
@@ -14,7 +14,7 @@ Agenda for this project and presentation:
 	- built-in components: [cascading values](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters?view=aspnetcore-5.0), [form](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-5.0#built-in-forms-components) & [navigation](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0#navlink-component) components,
 	- [Blazor services](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0&pivots=webassembly) & [API handling](https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-5.0),
 	- [CSS](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-5.0) isolation.
-- **[Introduction to Blazor - part 2]((https://github.com/PWrGitHub194238/Capgemini.NET/tree/master/Blazor/Presentation))** (presentation):
+- **[Introduction to Blazor - part 2](https://github.com/PWrGitHub194238/Capgemini.NET/tree/master/Blazor/Presentation)** (presentation):
   - What is Blazor?
   - Blazor Server & Blazor WebAssembly templates,
   - how Blazor renders content?,
