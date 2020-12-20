@@ -1,4 +1,4 @@
-![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/05/Summary.jpg)
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/05/summary.jpg)
 
 # Built-in components: using Blazor forms to modify custom model for a component
 

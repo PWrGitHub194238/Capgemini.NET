@@ -1,4 +1,4 @@
-![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/02/Summary.jpg)
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/02/summary.jpg)
 
 # Rate range & icon customization: component parameters
 

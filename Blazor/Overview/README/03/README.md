@@ -1,4 +1,4 @@
-![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/03/Summary.jpg)
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/03/summary.jpg)
 
 # Basic example refactoring: code-behind and CSS isolation
 

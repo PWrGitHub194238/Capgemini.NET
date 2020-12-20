@@ -1,4 +1,4 @@
-![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/01/Summary.jpg)
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/01/summary.jpg)
 
 # Rate component: from JavaScript through TypeScript to Blazor
 

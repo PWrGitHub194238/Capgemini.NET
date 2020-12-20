@@ -60,7 +60,7 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Services
         {
             if (navigationDictionary.ContainsKey(DEMO))
             {
-                string url = $"/{navigationDictionary[DEMO]}/{productId}";
+                string url = $"{navigationDictionary[DEMO]}/{productId}";
 
                 if (navigationDictionary.ContainsKey(CHECKLIST) && navigationDictionary.ContainsKey(CHECKLIST_POINT_DESCRIPTION_INDEX))
                 {
@@ -79,7 +79,7 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Services
         {
             if (navigationDictionary.ContainsKey(DEMO))
             {
-                string url = $"/{navigationDictionary[DEMO]}";
+                string url = $"{navigationDictionary[DEMO]}";
 
                 if (navigationDictionary.ContainsKey(PRODUCT_ID))
                 {
@@ -94,7 +94,7 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Services
         {
             if (navigationDictionary.ContainsKey(DEMO))
             {
-                string url = $"/{navigationDictionary[DEMO]}";
+                string url = $"{navigationDictionary[DEMO]}";
 
                 if (navigationDictionary.ContainsKey(PRODUCT_ID) && navigationDictionary.ContainsKey(CHECKLIST))
                 {
@@ -117,7 +117,7 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Services
             }
             else if (navigationDictionary.ContainsKey(DEMO))
             {
-                string url = $"/{navigationDictionary[DEMO]}";
+                string url = $"{navigationDictionary[DEMO]}";
 
                 if (navigationDictionary.ContainsKey(PRODUCT_ID))
                 {
@@ -134,7 +134,7 @@ namespace Capgemini.Net.Blazor.WebAssembly.Client.Services
         {
             if (navigationDictionary.ContainsKey(DEMO))
             {
-                string url = $"/{navigationDictionary[DEMO]}";
+                string url = $"{navigationDictionary[DEMO]}";
 
                 if (navigationDictionary.ContainsKey(PRODUCT_ID))
                 {

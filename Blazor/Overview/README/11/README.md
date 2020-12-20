@@ -1,4 +1,4 @@
-![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/11/Summary.jpg)
+![](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/Blazor/Overview/README/11/summary.jpg)
 
 # Custom value binding: encapsulating logic for the rate selection icons
 
