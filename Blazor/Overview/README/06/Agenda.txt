@@ -1,0 +1,103 @@
+=========================================================================================
+=========================================================================================
+Demo 06
+=========================================================================================
+=========================================================================================
+
+- remember how IntSelect introduces @context value? We will implement this by using another type related to RenderFragment - generic one.
+
+
+Demo goal: replace the cascading values with generic render fragment
+
+---------------------------------------------------------------------------------
+Demo 06 > 1 > Add a payload to the render fragment to pass a context object
+---------------------------------------------------------------------------------
+
+1. It will alow us to make the parent component to pass some value as a context for render fragment.
+
+2. It will also allow us to remove CascadingValue and provide a needed object in a more coherent and direct way.
+
+ContainerComponent.razor.cs
+ - add a generic paramt to render fragment
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+RenderFragment
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+RenderFragment<RateContext>
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor
+ - add a parameter for ChildContent, remove CascadingValue
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<CascadingValue Value="@rateContext">
+	<div class="demo__container">
+		@ChildContent
+	</div>
+</CascadingValue>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<div class="demo__container">
+	@ChildContent(rateContext)
+</div>
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+RateComponent.razor
+ - remove [CascadingParameter]
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+@code {
+    [CascadingParameter]
+    public RateContext RateContext { get; set; } = default!;
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@code {
+    public RateContext RateContext { get; set; } = default!;
+}
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+3. RateComponent wil be receiving a RateContext from the parent in the markup, whenever it is used.
+
+4. For now it is not working as we do not provide RateContext to RateComponent. We need to actually pass the context from the parent in the markup that is using both components (WrapperComponent).
+
+---------------------------------------------------------------------------------
+Demo 06 > 2 > Pass context object to the child component
+---------------------------------------------------------------------------------
+
+RateComponent.razor
+ - mark as [Parameter]:
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+@code {
+    public RateContext RateContext { get; set; } = default!;
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@code {
+    [Parameter]
+    public RateContext RateContext { get; set; } = default!;
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+WrapperComponent.razor
+ - supply the @context for added parameter
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<RateComponent />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<RateComponent RateContext="@context" />
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - we can rename it explicitly:
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<ContainerComponent>
+    <RateComponent RateContext="@context" />
+</ContainerComponent>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<ContainerComponent>
+    <ChildContent Context="rateContext">
+        <RateComponent RateContext="@rateContext" />
+    </ChildContent>
+</ContainerComponent>
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+1. From now on, ContainerComponent's ChildContent will be providing a RateContext to whatever child content is provided. We can even just pprint the object as a string without any Razor Component at all.

@@ -1,0 +1,233 @@
+=========================================================================================
+=========================================================================================
+Demo 03
+=========================================================================================
+=========================================================================================
+
+- as we mentioned, MinusIcon and PlusIcon has their own styles but we never add any import or link or whatever.
+- in this demo we will decompose component, define styles for it, stop providing demo02, 03... CSS classes to avoid colision with other CSS classes.
+- but first we will separate the C# code from the markup as well
+
+Demo goal: separate component to Razor file, c# class, css style, style encapsulation
+
+---------------------------------------------------------------------------------
+Demo 03 > 1 > Separate @code block from ContainerComponent component by creating code-behind files
+---------------------------------------------------------------------------------
+
+1. Create ContainerComponent.razor.cs
+  - add content:
+  
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+namespace Capgemini.Net.Blazor.Components.Demo03.Start
+{
+    public partial class ContainerComponent
+    {
+        private int maxRate = 6;
+
+        private string[] icons = new[] { "fa-star", "fa-grin-stars", "fa-angry", "fa-sun" };
+
+        private int iconIndex = 0;
+    }
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+- remove @code {} from ontainerComponent.razor
+
+2. VS provide some refactorings
+
+3. We also want to move logic from the markup to let the properties to handle it:
+
+ContainerComponent.razor.cs
+ - replace all
+ 
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+using System;
+
+namespace Capgemini.Net.Blazor.Components.Demo03.Start
+{
+    public partial class ContainerComponent
+    {
+        private int maxRate = 6;
+        private int iconIndex;
+
+        private readonly string[] icons = {
+            "fa-star",
+            "fa-grin-stars",
+            "fa-angry",
+            "fa-sun"
+        };
+
+        public string this[int i]
+        {
+            get => icons[i];
+            set => icons[i] = value;
+        }
+
+        public int MaxRate
+        {
+            get => maxRate;
+            set => maxRate = Math.Max(2, value);
+        }
+
+        public int IconIndex
+        {
+            get => iconIndex;
+            set => iconIndex = value < 0
+                ? icons.Length - 1
+                : value >= icons.Length
+                    ? 0
+                    : value;
+        }
+    }
+}
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - we can remove the OnClick delegates.
+ - replace in ContainerComponent.razor
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ <MinusIcon
+	Theme="IconTheme.DARK" 
+	OnClick="@(() => maxRate = Math.Max(2, maxRate - 1))" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<MinusIcon Theme="IconTheme.DARK" OnClick="@(() => MaxRate -= 1)" />
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<PlusIcon
+	Theme="IconTheme.DARK"
+	OnClick="@(() => maxRate += 1)" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<PlusIcon Theme="IconTheme.DARK" OnClick="@(() => MaxRate += 1)" />
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<MinusIcon
+	Theme="IconTheme.DARK"
+	OnClick="@(() => iconIndex = iconIndex == 0 ? icons.Length - 1 : iconIndex - 1)" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<MinusIcon Theme="IconTheme.DARK" OnClick="@(() => IconIndex -= 1)" />
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<PlusIcon
+	Theme="IconTheme.DARK"
+	OnClick="@(() => iconIndex = (iconIndex + 1) % icons.Length)" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<PlusIcon Theme="IconTheme.DARK" OnClick="@(() => IconIndex += 1)" />
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+- much cleaner code for those delegates
+
+---------------------------------------------------------------------------------
+Demo 03 > 2 > Move duplicated CSS styles from general purpose static file to CSS-behind file for the ContainerComponent Razor component
+---------------------------------------------------------------------------------
+
+1. we want to add a css classes only for this component, not having to worry about
+name conflicts.
+
+2. Create ContainerComponent.razor.scss
+
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+.demo__container_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 200px;
+
+    .demo__label {
+        font-family: 'Ubuntu';
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: larger;
+    }
+
+    .demo__selector {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .demo__container {
+        display: flex;
+    }
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+3. replace CSS classes in ContainerComponent.razor
+
+demo03__ -> demo__
+
+4. as we have created SCSS file it has to be compiled, I'm using Web Essentials to do that.
+
+5. On compilation a comipler will bundle all such css files for us and provide it within a single css file.
+
+PROBLEM ON RUN: Chrome and other browsers doesn't like to forget about old css files or load new ones, so Crtl + F5 to force reload (or incognito).
+
+---------------------------------------------------------------------------------
+Demo 03 > 3 > Create a component base class, move the common logic out of the component RateComponent
+---------------------------------------------------------------------------------
+
+1. As we know we would use the RateComponent over and over through the demos, let us create a base class for its code. Lucky for us such class was already defined
+
+2. We'll use already defined base class: RateComponentBase for RateComponent
+
+RateComponent.razor
+ - add on top:
+ 
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@inherits RateComponentBase
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+note: its from Capgemini.Net.Blazor.Components.Demo, so
+- it has to be added as reference,
+- using added to _Imports
+
+Remove all duplicated code, logic is handled by the base class:
+ - replace entire @code {}
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@code {
+    [Parameter]
+    public int MaxRate { get; set; } = 5;
+
+    [Parameter]
+    public string Icon { get; set; } = "fa-star";
+}
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+---------------------------------------------------------------------------------
+Demo 03 > 4 > Validate and update inner state of the RateComponent on parameter value change
+---------------------------------------------------------------------------------
+
+PROBLEM ON RUN: select max rate, lower max rate, increase max rate - max rate should
+decrease on max rate decrease. In other case we can have selected rate greater then the max rate
+
+1. Let us create a code-behind for it.
+
+2. Create RateComponent.razor.cs:
+
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+using Capgemini.Net.Blazor.Components.Demo;
+
+namespace Capgemini.Net.Blazor.Components.Demo03.Start
+{
+    public partial class RateComponent : RateComponentBase
+    {
+        protected override void OnParametersSet()
+        {
+            if (Rate >= MaxRate)
+            {
+                Rate = MaxRate;
+            }
+        }
+    }
+}
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+3. OnParametersSet is a one of lifecycle methods for Razor Components, this one will run on each parameter change, like MaxRate.

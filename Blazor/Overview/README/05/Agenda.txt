@@ -1,0 +1,478 @@
+=========================================================================================
+=========================================================================================
+Demo 05
+=========================================================================================
+=========================================================================================
+
+- we will throw away our custom markup with buttons form some more standarised solution like form. We would be able to implement some basic validation in the process, show it to the user.
+- But first we will add yet another parameter to play around with - avg rate. We will use it mainly to show some validation options.
+
+Demo goal: replace the custom buttons with a form, which is build-in.
+
+---------------------------------------------------------------------------------
+Demo 05 > 1 > Add additional parameter for component representing average rate
+---------------------------------------------------------------------------------
+
+1. Add AvgRate. We will need to:
+ - add a parameter for RateComponent,
+ - add it to the component's markup,
+ - provide some css for that markup,
+
+RateComponent.razor.cs
+ - add 3ed cascading parameter:
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[CascadingParameter(Name = "AvgRate")]
+public int AvgRate { get; set; } = 3;
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - replace the whole HTML markup:
+ - news are div with classes and @AvgRate (int)
+ 
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<div class="rate-container">
+    <div class="icon-rate-container">
+        @for (int i = 0; i < @MaxRate; i += 1)
+        {
+            int index = i;
+            <i class="@(IsActive(i) ? ACTIVE_STYLE : INACTIVE_STYLE) @Icon cursor-pointer"
+               @onclick="SetRate"
+               @onmouseover="@(() => ShowRate(index))"
+               @onmouseout=RevertRate></i>
+        }
+    </div>
+    <div class="average-rate-container">
+        @AvgRate
+    </div>
+</div>
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Add RateComponent.razor.scss
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+.rate-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .icon-rate-container {
+        display: flex;
+    }
+
+    .average-rate-container {
+        display: flex;
+        align-items: center;
+        font-family: 'Ubuntu';
+        font-weight: bold;
+        font-size: large;
+
+        &:before {
+            content: 'Average rate: ';
+            font-family: 'Ubuntu';
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: larger;
+            padding-right: 15px;
+        }
+    }
+}
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Note: don't forget to compile scss file
+
+We would need to also:
+ - add a field with starting value and property to handle logic for ContainerComponent,
+ - add a markup for icon-value-icon,
+ - wrap @ChildContent with yet another CascadingValue
+
+Modify ContainerComponent.razor.cs
+ - add avgRate fields and AvgRate property
+ 
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+private int avgRate = 3;
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+public int AvgRate
+{
+    get => avgRate;
+    set => avgRate = Math.Max(1, Math.Min(MaxRate, value));
+}
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+Update the ContainerComponent.razor markup:
+ - add Avg rate custom input
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<span class="demo__label">Avg rate</span>
+<div class="demo__selector">
+	<MinusIcon Theme="IconTheme.DARK" OnClick="@(() => AvgRate -= 1)" />
+	<strong>@AvgRate</strong>
+	<PlusIcon Theme="IconTheme.DARK" OnClick="@(() => AvgRate += 1)" />
+</div>
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - wrap @ChildContent with another CascadingValue
+
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<CascadingValue Name="AvgRate" Value="@AvgRate">
+07 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+</CascadingValue>
+08 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+2. After all of that we can:
+ - chose a value for AvgRate in ContainerComponent,
+ - pass it to its ChildContent via CascadingValue,
+ - subscribe for that inside RateComponent,
+ - display a value inside it.
+ 
+3. We would need to replace those 3 CascadingValue with one object.
+
+PROBLEM ON RUN: although we are providing properties with a valid logic upon set, changing other parameter won't update other's value i.e. lowering MaxRate wil not update AvgRate.
+
+---------------------------------------------------------------------------------
+Demo 05 > 2 > Group rate parameters to form context model for the component
+---------------------------------------------------------------------------------
+
+1. We want to reduce the numbber of cascading values + not rely on primitive types.
+
+2. We would:
+- create a context class with 3 params,
+- use it as a single CascadingValue,
+ - move related logic from ContainerComponent.razor.cs to that class,
+ - update ContainerComponent markup,
+ - replace 3 params inside RateComponent with 1,
+ - update RateComponent's markup,
+ - update it's code behind
+
+ContainerComponent.razor
+ - replace markup
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<CascadingValue Name="MaxRate" Value="@MaxRate">
+	<CascadingValue Name="AvgRate" Value="@AvgRate">
+		<CascadingValue Value="@this[iconIndex]">
+			<div class="demo__container">
+				@ChildContent
+			</div>
+		</CascadingValue>
+	</CascadingValue>
+</CascadingValue>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<CascadingValue Value="@rateContext">
+	<div class="demo__container">
+		@ChildContent
+	</div>
+</CascadingValue>
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Create RateContext.cs class:
+
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+namespace Capgemini.Net.Blazor.Components.Demo05.Start
+{
+    public class RateContext
+    {
+    }
+}
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor.cs
+ - Add readonly field at the beginning:
+ 
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+private readonly RateContext rateContext = new RateContext();
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+RateContext.cs
+ - replace all with:
+ 
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+using System;
+
+namespace Capgemini.Net.Blazor.Components.Demo05.Start
+{
+    public class RateContext
+    {
+        private int maxRate = 6;
+        private int avgRate = 3;
+        private int iconIndex;
+
+        public static readonly string[] Icons = {
+            "fa-star",
+            "fa-grin-stars",
+            "fa-angry",
+            "fa-sun"
+        };
+
+        public string Icon => Icons[IconIndex];
+
+        public int MaxRate
+        {
+            get => maxRate;
+            set => maxRate = Math.Max(2, value);
+        }
+
+        public int AvgRate
+        {
+            get => avgRate;
+            set => avgRate = Math.Max(1, Math.Min(MaxRate, value));
+        }
+
+        public int IconIndex
+        {
+            get => iconIndex;
+            set => iconIndex = value < 0
+                ? Icons.Length - 1
+                : value >= Icons.Length
+                ? 0
+                : value;
+        }
+    }
+}
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ContainerComponent.razor.cs
+ - remove all but:
+
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+using Microsoft.AspNetCore.Components;
+
+namespace Capgemini.Net.Blazor.Components.Demo05.Start
+{
+    public partial class ContainerComponent
+    {
+        private readonly RateContext rateContext = new RateContext();
+
+        [Parameter]
+        public RenderFragment ChildContent { get; set; } = default!;
+    }
+}
+05 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Update ContainerComponent 
+ - replace all fields with object properties:
+ 
+MaxRate -> rateContext.MaxRate
+AvgRate  -> rateContext.AvgRate 
+IconIndex -> rateContext.IconIndex
+@this[iconIndex] -> @(rateContext.Icon)
+
+Update RateComponent.razor to provide valid CascadingParameter:
+ - replace @code {}:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[CascadingParameter(Name = "MaxRate")]
+public int MaxRate { get; set; } = 5;
+
+[CascadingParameter(Name = "AvgRate")]
+public int AvgRate { get; set; } = 3;
+
+[CascadingParameter]
+public string Icon { get; set; } = "fa-star";
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[CascadingParameter]
+public RateContext RateContext { get; set; } = default!;
+06 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - update markup:
+ 
+@MaxRate -> @RateContext.MaxRate
+@Icon -> @(RateContext.Icon)
+@AvgRate -> @(RateContext.AvgRate)
+
+RateComponent.razor.cs
+ - replace 
+ 
+MaxRate -> RateContext.MaxRate
+
+3. There are several ways to shorten the markup for value selection as we have it now duplicated 3 times. Let us replace it with other component.
+
+---------------------------------------------------------------------------------
+Demo 05 > 3 > Replace raw HTML markup for context model properties modification with custom components
+---------------------------------------------------------------------------------
+
+1. We want to replace the repeated markup for each editable property with a component.
+
+ContainerComponent.razor
+ - replace:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<span class="demo__label">Max rate</span>
+<div class="demo__selector">
+	<MinusIcon Theme="IconTheme.DARK" OnClick="@(() => rateContext.MaxRate -= 1)" />
+	<strong>@rateContext.MaxRate</strong>
+	<PlusIcon Theme="IconTheme.DARK" OnClick="@(() => rateContext.MaxRate += 1)" />
+</div>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<IntSelector Label="Max rate" @bind-Value="@(rateContext.MaxRate)" Theme="IconTheme.DARK">
+	<strong>@context</strong>
+</IntSelector>
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<span class="demo__label">Avg rate</span>
+<div class="demo__selector">
+	<MinusIcon Theme="IconTheme.DARK" OnClick="@(() => rateContext.AvgRate -= 1)" />
+	<strong>@rateContext.AvgRate</strong>
+	<PlusIcon Theme="IconTheme.DARK" OnClick="@(() => rateContext.AvgRate += 1)" />
+</div>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<IntSelector Label="Avg rate" @bind-Value="@(rateContext.AvgRate)" Theme="IconTheme.DARK">
+	<strong>@context</strong>
+</IntSelector>
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<span class="demo__label">Icon</span>
+<div class="demo__selector">
+	<MinusIcon Theme="IconTheme.DARK" OnClick="@(() => rateContext.IconIndex -= 1)" />
+	<i class="far @(rateContext.Icon)"></i>
+	<PlusIcon Theme="IconTheme.DARK" OnClick="@(() => rateContext.IconIndex += 1)" />
+</div>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<IntSelector Label="Icon" @bind-Value="@(rateContext.IconIndex)" Theme="IconTheme.DARK" StringValue="@((_) => rateContext.Icon)">
+	<i class="far @context"></i>
+</IntSelector>
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+2. Apart from already knows parameter for theme, this one is using 2 way data binding.
+
+3. They are also using @context which is just a value provided by the parent component IntSelector, we'll talk about this later, in next demo. This is a kind of a other feature for RenderFragments.
+
+4. 3ed one is also accepting delegate to use it to convert selected value to a display value.
+
+5. As name suggest, IntSelector is only good for selecting ints. We would replace that with regular form inputs with much greater flexibility.
+
+
+---------------------------------------------------------------------------------
+Demo 05 > 4 > Replace custom parameter value selectors with build-in form component
+---------------------------------------------------------------------------------
+
+1. Introduce build-in EditForm
+
+ContainerComponent.razor
+ - replace:
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<IntSelector Label="Max rate" @bind-Value="@(rateContext.MaxRate)" Theme="IconTheme.DARK">
+	<strong>@context</strong>
+</IntSelector>
+
+<IntSelector Label="Avg rate" @bind-Value="@(rateContext.AvgRate)" Theme="IconTheme.DARK">
+	<strong>@context</strong>
+</IntSelector>
+
+<IntSelector Label="Icon" @bind-Value="@(rateContext.IconIndex)" Theme="IconTheme.DARK" StringValue="@((_) => rateContext.Icon)">
+	<i class="far @context"></i>
+</IntSelector>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<EditForm Model="@rateContext">
+	<span class="demo__label">Max rate</span>
+	<InputNumber class="demo__selector" @bind-Value="@rateContext.MaxRate" />
+
+	<span class="demo__label">Avg rate</span>
+	<InputNumber class="demo__selector" @bind-Value="@rateContext.AvgRate" />
+
+	<span class="demo__label">Icon</span>
+	<InputSelect class="demo__selector" @bind-Value="rateContext.IconIndex">
+		@for(int i = 0; i < RateContext.Icons.Length; i += 1)
+		{
+			<option value="@i">
+				@(RateContext.Icons[i])
+			</option>
+		}
+	</InputSelect>
+</EditForm>
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Remember to add @using Microsoft.AspNetCore.Components.Forms to _Imports.razor
+
+PROBLEM ON RUN: even if we would provide icons for options, the markup from the options will be removed. Only raw test is allowed there. See below.
+
+2. Now, same as before with buttons be replaced with Minus/PlucIcon, we will replace the markup with component to keep the code but provide some stylings.
+
+---------------------------------------------------------------------------------
+Demo 05 > 5 > Replace build-in input components with custom wrap components to add styles for inputs and custom <option> tag markup
+---------------------------------------------------------------------------------
+
+1. Use custom components that add styles for input controls
+2. One reason - default <option> doesn't allow any markup (icons)
+
+ContainerComponent.razor
+ - could be replaced but do not:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<option value="@i">
+	@(RateContext.Icons[i])
+</option>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+string icon = RateContext.Icons[i];
+<option value="@i">
+	<div class="fa-cap-option">
+		<i class="far @icon" /> - <strong>@icon</strong>
+	</div>
+</option>
+01 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ - will result in:
+ Severity	Code	Description	Project	File	Line	Suppression State
+Warning		Element 'div' cannot be nested inside element 'option'.	Capgemini.Net.Blazor.Components.Demo05	C:\Users\strza\Desktop\Capgemini.Net.Blazor.WebAssembly\Capgemini.Net.Blazor.Components.Demo05\Start\ContainerComponent.razor	18	
+
+ - instead replace:
+ 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<span class="demo__label">Max rate</span>
+<InputNumber class="demo__selector" @bind-Value="@rateContext.MaxRate" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<CapInput Label="Max rate" InputName="@nameof(rateContext.MaxRate)">
+	<InputNumber @bind-Value="@rateContext.MaxRate" />
+</CapInput>
+02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<span class="demo__label">Avg rate</span>
+<InputNumber class="demo__selector" @bind-Value="@rateContext.AvgRate" />
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<CapInput Label="Avg rate" InputName="@nameof(rateContext.AvgRate)">
+	<InputNumber @bind-Value="@rateContext.AvgRate" />
+</CapInput>
+03 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<span class="demo__label">Icon</span>
+<InputSelect class="demo__selector" @bind-Value="rateContext.IconIndex">
+	@for (int i = 0; i < RateContext.Icons.Length; i += 1)
+	{
+		<option value="@i">
+			@(RateContext.Icons[i])
+		</option>
+	}
+</InputSelect>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<CapSelect Label="Icon" @bind-Value="rateContext.IconIndex" ParseValue="@((option) => RateContext.Icons[option])">
+	@for (int i = 0; i < RateContext.Icons.Length; i += 1)
+	{
+		string icon = RateContext.Icons[i];
+		<CapOption Key="@i.ToString()" Value="@i">
+			<div class="fa-cap-option">
+				<i class="far @icon" /> - <strong>@icon</strong>
+			</div>
+		</CapOption>
+	}
+</CapSelect>
+04 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+3. We replaced all inputs with components to:
+ - remove label tags, label is set within the CapInput/CapSelect markup for us (for="InputName")
+ - components accepts render fragments, so we keep the default build-in input components
+ - we provide richer formatting for options by using CapOption
