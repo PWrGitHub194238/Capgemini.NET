@@ -97,7 +97,7 @@ namespace Capgemini.Net.Blazor.Components.Tile
                 IsCollapsed = true;
                 await TileClosed.InvokeAsync();
                 await Task.Delay(500);
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("");
             }
         }
 
