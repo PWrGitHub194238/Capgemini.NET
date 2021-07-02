@@ -29,7 +29,7 @@ To be able to run through each example You have to have an active Azure Subscrip
 
 ---
 
-After obtaining the ![Azure Subscriuption Icon](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/AzureFunctions/README/azure-subscription-icon.png "Azure Subscriuption Icon")[Pay-As-You-Go Dev/Test](https://azure.microsoft.com/en-us/offers/ms-azr-0023p/) subscription and cloning this repository head towards: <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_folder_black_24px.svg" width="12" /> **AzureFunctions** > <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_folder_black_24px.svg" width="12" /> **Scripts** directory and run all scripts there:
+After obtaining the ![Azure Subscriuption Icon](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/AzureFunctions/README/azure-subscription-icon.png "Azure Subscriuption Icon")[Pay-As-You-Go Dev/Test](https://azure.microsoft.com/en-us/offers/ms-azr-0023p/) subscription and cloning this repository head towards: <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_folder_black_24px.svg" width="12" /> **AzureFunctions** > <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_folder_black_24px.svg" width="12" /> **Scripts** directory and run all scripts there. Remember that to run those scripts, You have to have [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest) installed:
 
 - <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_description_black_24px.svg" width="12" /> **Http-Trigger-Resource-Group.ps1**
 - <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_description_black_24px.svg" width="12" /> **Http-Db-Trigger-Resource-Group.ps1**
@@ -38,6 +38,10 @@ After obtaining the ![Azure Subscriuption Icon](https://github.com/PWrGitHub1942
 After they are executed we should have a final set of Azure resources:
 
 ![Azure Resources](https://github.com/PWrGitHub194238/Capgemini.NET/blob/master/AzureFunctions/README/all-resources.png "Azure Resources")
+
+---
+
+To be able to run Azure Functions locally, You also have to have [Azure Functions Core Tools](https://docs.microsoft.com/pl-pl/azure/azure-functions/functions-run-local?tabs=windows%2Ccsharp%2Cbash) installed.
 
 ---
 
@@ -189,7 +193,7 @@ In addition to those auto-generated settings we have to manually replaced values
 
 Both **SendGrid** and **Twilio** are external services so we cannot get required **API keys** from our Azure account. How to create and get required credentials we can read [here](https://www.twilio.com/azure) (for **Twilio**) and [here](https://docs.microsoft.com/en-us/azure/sendgrid-dotnet-how-to-send-email) (for **SendGrid**).
 
-Both end filesd should look like those:
+Both end files should look like those:
 
 - [x] <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_description_black_24px.svg" width="12" /> **.\InitData\appsettings.json**
 
@@ -230,7 +234,10 @@ There is also one more thing we need to setup. The target phone number for **Twi
 }
 ```
 
-After all is set we have to run the <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_description_black_24px.svg" width="12" /> **InitData.bat** script to populate both **AzureComsos DB** and **Azure Blob Storage**.
+After all is set we have to run the <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_description_black_24px.svg" width="12" /> **InitData.bat** script to populate both **AzureComsos DB** and **Azure Blob Storage**. 
+
+
+In order the application to work, update in the same application the **Twilio** generated number (the `From` parameter from the `TwilioSms` attribute in `SendInvoiceToCustomer.cs` file). Run <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_description_black_24px.svg" width="12" /> **HttpProcess.bat** to test the prepared configuration.
 
 ### Example
 

@@ -37,6 +37,6 @@ az functionapp create `
 	--resource-group $resourceGroupName `
 	--storage-account $functionAppStorageName `
 	--consumption-plan-location $location `
+	--functions-version 3 `
 	--os-type 'Windows' `
-	--runtime 'dotnet' `
-	--runtime-version 2
+	--runtime 'dotnet'

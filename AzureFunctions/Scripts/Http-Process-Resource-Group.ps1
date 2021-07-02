@@ -31,18 +31,27 @@ az storage account create `
 	--location $location `
 	--sku Standard_LRS
 
+$accountKeys = az storage account keys list `
+	--resource-group $resourceGroupName `
+	--account-name $functionAppStorageName `
+	--query [0].value
+
 $functionAppBlobContainerName = "invoices"
 
 az storage container create `
 	--name $functionAppBlobContainerName `
 	--account-name $functionAppStorageName `
-	--public-access off
+	--public-access off `
+    --account-key $accountKeys `
+    --auth-mode key
 
 $functionAppQueueName = "invoices-queue"
 
 az storage queue create `
 	--name $functionAppQueueName `
 	--account-name $functionAppStorageName `
+    --account-key $accountKeys `
+    --auth-mode key
 
 $functionAppName = "capgemini-azure-shorts-func-http-process"
 
@@ -51,10 +60,10 @@ az functionapp create `
 	--resource-group $resourceGroupName `
 	--storage-account $functionAppStorageName `
 	--consumption-plan-location $location `
+	--functions-version 3 `
 	--os-type 'Windows' `
-	--runtime 'dotnet' `
-	--runtime-version 2
-
+	--runtime 'dotnet'
+	
 $functionAppCosmosDbName = "shortsfunchttpprocesscosmosdb"
 $functionAppCosmosDbDatabaseName = "invoice-db"
 $functionAppCosmosDbCollectionName = "invoices"
