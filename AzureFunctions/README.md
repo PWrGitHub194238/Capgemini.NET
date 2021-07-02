@@ -237,7 +237,7 @@ There is also one more thing we need to setup. The target phone number for **Twi
 After all is set we have to run the <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_description_black_24px.svg" width="12" /> **InitData.bat** script to populate both **AzureComsos DB** and **Azure Blob Storage**. 
 
 
-In order the application to work, update in the same application the **Twilio** generated number (the **From** parameter from the **TwilioSms**** attribute in **SendInvoiceToCustomer.cs** file). Run <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_description_black_24px.svg" width="12" /> **HttpProcess.bat** to test the prepared configuration.
+In order the application to work, update in the same application the **Twilio** generated number (the **From** parameter from the **TwilioSms** attribute in **SendInvoiceToCustomer.cs** file). Run <img src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_description_black_24px.svg" width="12" /> **HttpProcess.bat** to test the prepared configuration.
 
 ### Example
 
